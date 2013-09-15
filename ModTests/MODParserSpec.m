@@ -11,7 +11,7 @@
 SpecBegin(MODParser)
 
 it(@"should have tests", ^{
-    expect(1).to.equal(2);
+    expect(MODParser.new).notTo.beNil();
 });
 
 SpecEnd
