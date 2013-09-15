@@ -16,3 +16,4 @@ profile
 Podfile.lock
 /Pods/
 /script/env.sh
+/Mod.xcodeproj/project.xcworkspace/xcshareddata/Mod.xccheckout
