@@ -47,4 +47,7 @@ NSInteger const MODParserErrorFileContents = 2;
     return self;
 }
 
+- (void)parse {
+}
+
 @end

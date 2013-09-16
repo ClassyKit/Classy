@@ -7,11 +7,6 @@
 //
 
 #import "MODParser.h"
-#import "MODLexer.h"
-
-@interface MODParser ()
-@property (nonatomic, strong) MODLexer *lexer;
-@end
 
 SpecBegin(MODParser)
 

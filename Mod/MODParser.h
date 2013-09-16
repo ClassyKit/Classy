@@ -14,5 +14,6 @@ extern NSInteger const MODParserErrorFileContents;
 @interface MODParser : NSObject
 
 - (id)initWithFilePath:(NSString *)filePath error:(NSError **)error;
+- (void)parse;
 
 @end

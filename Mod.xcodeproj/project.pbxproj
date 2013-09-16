@@ -10,6 +10,9 @@
 		68F011DBD64A4843B4FDBD35 /* libPods-ModTests.a in Frameworks */ = {isa = PBXBuildFile; fileRef = A8118E4244BB4C60AA546E0D /* libPods-ModTests.a */; };
 		DD05C3F817E68181009AEAFE /* libMod.a in Frameworks */ = {isa = PBXBuildFile; fileRef = DDA2FCC217E6453B00237125 /* libMod.a */; };
 		DD05C40317E69A44009AEAFE /* UIView-Basic.mod in Resources */ = {isa = PBXBuildFile; fileRef = DD05C40217E69A44009AEAFE /* UIView-Basic.mod */; };
+		DD58C42817E6BEE900B3173C /* MODStyler.m in Sources */ = {isa = PBXBuildFile; fileRef = DD58C42717E6BEE900B3173C /* MODStyler.m */; };
+		DD58C42A17E6BF5B00B3173C /* MODStylerSpec.m in Sources */ = {isa = PBXBuildFile; fileRef = DD58C42917E6BF5B00B3173C /* MODStylerSpec.m */; };
+		DD58C42D17E6C22E00B3173C /* UIColor+MODAdditions.m in Sources */ = {isa = PBXBuildFile; fileRef = DD58C42C17E6C22E00B3173C /* UIColor+MODAdditions.m */; };
 		DDA2FCC617E6453B00237125 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DDA2FCC517E6453B00237125 /* Foundation.framework */; };
 		DDA2FCCB17E6453B00237125 /* Mod.h in CopyFiles */ = {isa = PBXBuildFile; fileRef = DDA2FCCA17E6453B00237125 /* Mod.h */; };
 		DDA2FCCD17E6453B00237125 /* Mod.m in Sources */ = {isa = PBXBuildFile; fileRef = DDA2FCCC17E6453B00237125 /* Mod.m */; };
@@ -49,6 +52,11 @@
 		7E07F99CDCA64122B2E37628 /* Pods-ModTests.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-ModTests.xcconfig"; path = "Pods/Pods-ModTests.xcconfig"; sourceTree = "<group>"; };
 		A8118E4244BB4C60AA546E0D /* libPods-ModTests.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-ModTests.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		DD05C40217E69A44009AEAFE /* UIView-Basic.mod */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = "UIView-Basic.mod"; sourceTree = "<group>"; };
+		DD58C42617E6BEE900B3173C /* MODStyler.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MODStyler.h; sourceTree = "<group>"; };
+		DD58C42717E6BEE900B3173C /* MODStyler.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MODStyler.m; sourceTree = "<group>"; };
+		DD58C42917E6BF5B00B3173C /* MODStylerSpec.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MODStylerSpec.m; sourceTree = "<group>"; };
+		DD58C42B17E6C22E00B3173C /* UIColor+MODAdditions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIColor+MODAdditions.h"; sourceTree = "<group>"; };
+		DD58C42C17E6C22E00B3173C /* UIColor+MODAdditions.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIColor+MODAdditions.m"; sourceTree = "<group>"; };
 		DDA2FCC217E6453B00237125 /* libMod.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libMod.a; sourceTree = BUILT_PRODUCTS_DIR; };
 		DDA2FCC517E6453B00237125 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
 		DDA2FCC917E6453B00237125 /* Mod-Prefix.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "Mod-Prefix.pch"; sourceTree = "<group>"; };
@@ -141,6 +149,10 @@
 				DDA2FD0617E645C700237125 /* MODLexer.m */,
 				DDA2FD0717E645C700237125 /* MODParser.h */,
 				DDA2FD0817E645C700237125 /* MODParser.m */,
+				DD58C42617E6BEE900B3173C /* MODStyler.h */,
+				DD58C42717E6BEE900B3173C /* MODStyler.m */,
+				DD58C42B17E6C22E00B3173C /* UIColor+MODAdditions.h */,
+				DD58C42C17E6C22E00B3173C /* UIColor+MODAdditions.m */,
 				DDA2FCC817E6453B00237125 /* Supporting Files */,
 			);
 			path = Mod;
@@ -178,6 +190,7 @@
 			isa = PBXGroup;
 			children = (
 				DDA2FD0317E6458E00237125 /* MODParserSpec.m */,
+				DD58C42917E6BF5B00B3173C /* MODStylerSpec.m */,
 			);
 			name = Specs;
 			sourceTree = "<group>";
@@ -320,7 +333,9 @@
 			files = (
 				DDA2FCCD17E6453B00237125 /* Mod.m in Sources */,
 				DDA2FD0917E645C700237125 /* MODLexer.m in Sources */,
+				DD58C42D17E6C22E00B3173C /* UIColor+MODAdditions.m in Sources */,
 				DDA2FD0A17E645C700237125 /* MODParser.m in Sources */,
+				DD58C42817E6BEE900B3173C /* MODStyler.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -328,6 +343,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				DD58C42A17E6BF5B00B3173C /* MODStylerSpec.m in Sources */,
 				DDA2FD0417E6458E00237125 /* MODParserSpec.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
