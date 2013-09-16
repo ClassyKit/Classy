@@ -15,6 +15,7 @@
 @property (nonatomic, strong) NSMutableArray *stash;
 @property (nonatomic, strong) NSMutableArray *indentStack;
 @property (nonatomic, strong) MODToken *previous;
+@property (nonatomic, strong) NSRegularExpression *seperatorRegex;
 
 @end
 
@@ -28,7 +29,13 @@
     self.stash = NSMutableArray.new;
     self.indentStack = NSMutableArray.new;
 
+    // replace carriage returns (\r\n | \r) with newlines
     [MODRegex(@"\\r\\n?") mod_replaceMatchesInString:self.str withTemplate:@"\n"];
+    // trim whitespace & newlines from end of string
+    [MODRegex(@"\\s+$") mod_replaceMatchesInString:self.str withTemplate:@"\n"];
+
+    // cache regex's
+    self.seperatorRegex = MODRegex(@"^;[ \\t]*");
 
     return self;
 }
@@ -64,7 +71,7 @@
 }
 
 - (MODToken *)stashed {
-    //Return the next stashed token and remove it from stash.
+    // Return the next stashed token and remove it from stash.
     if (self.stash.count) {
         MODToken *token = self.stash[0];
         [self.stash removeObjectAtIndex:0];
@@ -75,10 +82,8 @@
 
 #pragma mark - tokens
 
-/**
- * EOS | trailing outdents.
- */
 - (MODToken *)eos {
+    // EOS | trailing outdents.
     if (self.str.length) return nil;
     if (self.indentStack.count) {
         [self.indentStack removeObjectAtIndex:0];
@@ -88,15 +93,14 @@
     }
 }
 
-/**
- * semicolon followed by any number of tabs or spaces
- */
 - (MODToken *)seperator {
-//    var captures;
-//    if (captures = /^;[ \t]*/.exec(this.str)) {
-//        this.skip(captures);
+    // semicolon followed by any number of tabs or spaces
+    NSTextCheckingResult *match = [self.seperatorRegex firstMatchInString:self.str options:0 range:NSMakeRange(0, self.str.length)];
+    if (match.range.location != NSNotFound) {
+        [self skip:match.range.length];
         return [[MODToken alloc] initWithType:MODTokenTypeSemiColon];
-//    }
+    }
+    return nil;
 }
 
 @end

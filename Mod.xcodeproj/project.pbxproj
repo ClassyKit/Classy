@@ -17,7 +17,6 @@
 		DD60E0C217E7C5FC004A171E /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DD60E0C017E7C5CD004A171E /* CoreGraphics.framework */; };
 		DDA2FCC617E6453B00237125 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DDA2FCC517E6453B00237125 /* Foundation.framework */; };
 		DDA2FCCB17E6453B00237125 /* Mod.h in CopyFiles */ = {isa = PBXBuildFile; fileRef = DDA2FCCA17E6453B00237125 /* Mod.h */; };
-		DDA2FCCD17E6453B00237125 /* Mod.m in Sources */ = {isa = PBXBuildFile; fileRef = DDA2FCCC17E6453B00237125 /* Mod.m */; };
 		DDA2FCF117E6455700237125 /* SenTestingKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DDA2FCF017E6455700237125 /* SenTestingKit.framework */; };
 		DDA2FCF217E6455700237125 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DDA2FCC517E6453B00237125 /* Foundation.framework */; };
 		DDA2FCF917E6455700237125 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = DDA2FCF717E6455700237125 /* InfoPlist.strings */; };
@@ -70,7 +69,6 @@
 		DDA2FCC517E6453B00237125 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
 		DDA2FCC917E6453B00237125 /* Mod-Prefix.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "Mod-Prefix.pch"; sourceTree = "<group>"; };
 		DDA2FCCA17E6453B00237125 /* Mod.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Mod.h; sourceTree = "<group>"; };
-		DDA2FCCC17E6453B00237125 /* Mod.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = Mod.m; sourceTree = "<group>"; };
 		DDA2FCEF17E6455700237125 /* ModTests.octest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = ModTests.octest; sourceTree = BUILT_PRODUCTS_DIR; };
 		DDA2FCF017E6455700237125 /* SenTestingKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SenTestingKit.framework; path = Library/Frameworks/SenTestingKit.framework; sourceTree = DEVELOPER_DIR; };
 		DDA2FCF617E6455700237125 /* ModTests-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "ModTests-Info.plist"; sourceTree = "<group>"; };
@@ -163,7 +161,6 @@
 			isa = PBXGroup;
 			children = (
 				DDA2FCCA17E6453B00237125 /* Mod.h */,
-				DDA2FCCC17E6453B00237125 /* Mod.m */,
 				DDB9204117E70BDA00280D47 /* MODNode.h */,
 				DDB9204217E70BDA00280D47 /* MODNode.m */,
 				DDB9204417E70E4A00280D47 /* MODToken.h */,
@@ -357,7 +354,6 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				DDA2FCCD17E6453B00237125 /* Mod.m in Sources */,
 				DDA2FD0917E645C700237125 /* MODLexer.m in Sources */,
 				DDB9204B17E78B5B00280D47 /* NSRegularExpression+MODAdditions.m in Sources */,
 				DD58C42D17E6C22E00B3173C /* UIColor+MODAdditions.m in Sources */,

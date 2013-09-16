@@ -14,9 +14,20 @@
 
 SpecBegin(MODLexer)
 
-it(@"should clean up newlines", ^{
+it(@"should clean up carriage returns", ^{
     MODLexer *lexer = [[MODLexer alloc] initWithString:@"hello \r\n world \r"];
-    expect(lexer.str).to.equal(@"hello \n world \n");
+    expect(lexer.str).to.equal(@"hello \n world\n");
+});
+
+it(@"should clean up end of string", ^{
+    MODLexer *lexer = [[MODLexer alloc] initWithString:@"hello \r\n  \r  \n   "];
+    expect(lexer.str).to.equal(@"hello\n");
+});
+
+it(@"should return seperator", ^{
+    MODLexer *lexer = [[MODLexer alloc] initWithString:@";  \t    hello"];
+    expect(lexer.next.type).to.equal(MODTokenTypeSemiColon);
+    expect(lexer.str).to.equal(@"hello");
 });
 
 SpecEnd

@@ -12,6 +12,7 @@ extern NSRegularExpression *MODRegex(NSString *pattern);
 
 @interface NSRegularExpression (MODAdditions)
 
+- (NSString *)mod_firstMatchInString:(NSString *)string;
 - (NSUInteger)mod_replaceMatchesInString:(NSMutableString *)string withTemplate:(NSString *)templ;
 
 @end

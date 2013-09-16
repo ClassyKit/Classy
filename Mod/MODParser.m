@@ -75,12 +75,9 @@ NSInteger const MODParserErrorFileContents = 2;
     return nil;
 }
 
-/**
- * Accept the given token `type`, and return it,
- * otherwise return `undefined`.
- */
 - (MODToken *)acceptTokenOfType:(MODTokenType)type {
     if (type == self.peek.type) {
+        //return token and remove from stack
         return self.next;
     }
     return nil;
