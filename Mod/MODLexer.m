@@ -8,6 +8,21 @@
 
 #import "MODLexer.h"
 
+@interface MODLexer ()
+
+@property (nonatomic, strong) NSMutableString *str;
+
+@end
+
 @implementation MODLexer
+
+- (id)initWithString:(NSString *)str {
+    self = [super init];
+    if (!self) return nil;
+
+    self.str = [str mutableCopy];
+
+    return self;
+}
 
 @end

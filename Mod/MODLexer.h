@@ -10,4 +10,6 @@
 
 @interface MODLexer : NSObject
 
+- (id)initWithString:(NSString *)str;
+
 @end

@@ -9,6 +9,7 @@
 /* Begin PBXBuildFile section */
 		68F011DBD64A4843B4FDBD35 /* libPods-ModTests.a in Frameworks */ = {isa = PBXBuildFile; fileRef = A8118E4244BB4C60AA546E0D /* libPods-ModTests.a */; };
 		DD05C3F817E68181009AEAFE /* libMod.a in Frameworks */ = {isa = PBXBuildFile; fileRef = DDA2FCC217E6453B00237125 /* libMod.a */; };
+		DD05C40317E69A44009AEAFE /* UIView-Basic.mod in Resources */ = {isa = PBXBuildFile; fileRef = DD05C40217E69A44009AEAFE /* UIView-Basic.mod */; };
 		DDA2FCC617E6453B00237125 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DDA2FCC517E6453B00237125 /* Foundation.framework */; };
 		DDA2FCCB17E6453B00237125 /* Mod.h in CopyFiles */ = {isa = PBXBuildFile; fileRef = DDA2FCCA17E6453B00237125 /* Mod.h */; };
 		DDA2FCCD17E6453B00237125 /* Mod.m in Sources */ = {isa = PBXBuildFile; fileRef = DDA2FCCC17E6453B00237125 /* Mod.m */; };
@@ -47,6 +48,7 @@
 /* Begin PBXFileReference section */
 		7E07F99CDCA64122B2E37628 /* Pods-ModTests.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-ModTests.xcconfig"; path = "Pods/Pods-ModTests.xcconfig"; sourceTree = "<group>"; };
 		A8118E4244BB4C60AA546E0D /* libPods-ModTests.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-ModTests.a"; sourceTree = BUILT_PRODUCTS_DIR; };
+		DD05C40217E69A44009AEAFE /* UIView-Basic.mod */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = "UIView-Basic.mod"; sourceTree = "<group>"; };
 		DDA2FCC217E6453B00237125 /* libMod.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libMod.a; sourceTree = BUILT_PRODUCTS_DIR; };
 		DDA2FCC517E6453B00237125 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
 		DDA2FCC917E6453B00237125 /* Mod-Prefix.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "Mod-Prefix.pch"; sourceTree = "<group>"; };
@@ -90,6 +92,14 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		DD05C40117E69A44009AEAFE /* Stylesheets */ = {
+			isa = PBXGroup;
+			children = (
+				DD05C40217E69A44009AEAFE /* UIView-Basic.mod */,
+			);
+			path = Stylesheets;
+			sourceTree = "<group>";
+		};
 		DDA2FCB917E6453B00237125 = {
 			isa = PBXGroup;
 			children = (
@@ -147,6 +157,7 @@
 		DDA2FCF417E6455700237125 /* ModTests */ = {
 			isa = PBXGroup;
 			children = (
+				DD05C40117E69A44009AEAFE /* Stylesheets */,
 				DDA2FD0217E6457200237125 /* Specs */,
 				DDA2FCF517E6455700237125 /* Supporting Files */,
 			);
@@ -249,6 +260,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				DD05C40317E69A44009AEAFE /* UIView-Basic.mod in Resources */,
 				DDA2FCF917E6455700237125 /* InfoPlist.strings in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

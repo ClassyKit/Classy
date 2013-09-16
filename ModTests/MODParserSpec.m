@@ -7,11 +7,33 @@
 //
 
 #import "MODParser.h"
+#import "MODLexer.h"
+
+@interface MODParser ()
+@property (nonatomic, strong) MODLexer *lexer;
+@end
 
 SpecBegin(MODParser)
 
-it(@"should have tests", ^{
-    expect(MODParser.new).notTo.beNil();
+it(@"should return error if file doesn't exist", ^{
+    NSError *error = nil;
+
+    MODParser *parser = [[MODParser alloc] initWithFilePath:@"dummy.txt" error:&error];
+    expect(error.domain).to.equal(MODParserErrorDomain);
+    expect(error.code).to.equal(MODParserErrorFileContents);
+
+    NSError *underlyingError = error.userInfo[NSUnderlyingErrorKey];
+    expect(underlyingError.domain).to.equal(NSCocoaErrorDomain);
+    expect(underlyingError.code).to.equal(NSFileReadNoSuchFileError);
+    expect(parser).to.beNil();
+});
+
+it(@"should load file", ^{
+    NSString *filePath = [[NSBundle bundleForClass:self.class] pathForResource:@"UIView-Basic.mod" ofType:nil];
+    NSError *error = nil;
+    MODParser *parser = [[MODParser alloc] initWithFilePath:filePath error:&error];
+    expect(parser).notTo.beNil();
+    expect(error).to.beNil();
 });
 
 SpecEnd

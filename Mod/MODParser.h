@@ -8,6 +8,11 @@
 
 #import <Foundation/Foundation.h>
 
+extern NSString * const MODParserErrorDomain;
+extern NSInteger const MODParserErrorFileContents;
+
 @interface MODParser : NSObject
+
+- (id)initWithFilePath:(NSString *)filePath error:(NSError **)error;
 
 @end
