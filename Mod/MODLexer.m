@@ -65,11 +65,12 @@
 
 - (MODToken *)stashed {
     //Return the next stashed token and remove it from stash.
-    MODToken *token = [self.stash firstObject];
     if (self.stash.count) {
+        MODToken *token = self.stash[0];
         [self.stash removeObjectAtIndex:0];
+        return token;
     }
-    return token;
+    return nil;
 }
 
 #pragma mark - tokens
