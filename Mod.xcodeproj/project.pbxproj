@@ -18,11 +18,13 @@
 		DDA2FCCD17E6453B00237125 /* Mod.m in Sources */ = {isa = PBXBuildFile; fileRef = DDA2FCCC17E6453B00237125 /* Mod.m */; };
 		DDA2FCF117E6455700237125 /* SenTestingKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DDA2FCF017E6455700237125 /* SenTestingKit.framework */; };
 		DDA2FCF217E6455700237125 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DDA2FCC517E6453B00237125 /* Foundation.framework */; };
-		DDA2FCF317E6455700237125 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DDA2FCD617E6453B00237125 /* UIKit.framework */; };
 		DDA2FCF917E6455700237125 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = DDA2FCF717E6455700237125 /* InfoPlist.strings */; };
 		DDA2FD0417E6458E00237125 /* MODParserSpec.m in Sources */ = {isa = PBXBuildFile; fileRef = DDA2FD0317E6458E00237125 /* MODParserSpec.m */; };
 		DDA2FD0917E645C700237125 /* MODLexer.m in Sources */ = {isa = PBXBuildFile; fileRef = DDA2FD0617E645C700237125 /* MODLexer.m */; };
 		DDA2FD0A17E645C700237125 /* MODParser.m in Sources */ = {isa = PBXBuildFile; fileRef = DDA2FD0817E645C700237125 /* MODParser.m */; };
+		DDB9204317E70BDA00280D47 /* MODNode.m in Sources */ = {isa = PBXBuildFile; fileRef = DDB9204217E70BDA00280D47 /* MODNode.m */; };
+		DDB9204617E70E4A00280D47 /* MODToken.m in Sources */ = {isa = PBXBuildFile; fileRef = DDB9204517E70E4A00280D47 /* MODToken.m */; };
+		DDE391B917E7079F00C8BBD1 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DDE391B817E7079F00C8BBD1 /* UIKit.framework */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -62,8 +64,6 @@
 		DDA2FCC917E6453B00237125 /* Mod-Prefix.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "Mod-Prefix.pch"; sourceTree = "<group>"; };
 		DDA2FCCA17E6453B00237125 /* Mod.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Mod.h; sourceTree = "<group>"; };
 		DDA2FCCC17E6453B00237125 /* Mod.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = Mod.m; sourceTree = "<group>"; };
-		DDA2FCD317E6453B00237125 /* XCTest.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = XCTest.framework; path = Library/Frameworks/XCTest.framework; sourceTree = DEVELOPER_DIR; };
-		DDA2FCD617E6453B00237125 /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = Library/Frameworks/UIKit.framework; sourceTree = DEVELOPER_DIR; };
 		DDA2FCEF17E6455700237125 /* ModTests.octest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = ModTests.octest; sourceTree = BUILT_PRODUCTS_DIR; };
 		DDA2FCF017E6455700237125 /* SenTestingKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SenTestingKit.framework; path = Library/Frameworks/SenTestingKit.framework; sourceTree = DEVELOPER_DIR; };
 		DDA2FCF617E6455700237125 /* ModTests-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "ModTests-Info.plist"; sourceTree = "<group>"; };
@@ -74,6 +74,11 @@
 		DDA2FD0617E645C700237125 /* MODLexer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MODLexer.m; sourceTree = "<group>"; };
 		DDA2FD0717E645C700237125 /* MODParser.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MODParser.h; sourceTree = "<group>"; };
 		DDA2FD0817E645C700237125 /* MODParser.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MODParser.m; sourceTree = "<group>"; };
+		DDB9204117E70BDA00280D47 /* MODNode.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MODNode.h; sourceTree = "<group>"; };
+		DDB9204217E70BDA00280D47 /* MODNode.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MODNode.m; sourceTree = "<group>"; };
+		DDB9204417E70E4A00280D47 /* MODToken.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MODToken.h; sourceTree = "<group>"; };
+		DDB9204517E70E4A00280D47 /* MODToken.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MODToken.m; sourceTree = "<group>"; };
+		DDE391B817E7079F00C8BBD1 /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -81,6 +86,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				DDE391B917E7079F00C8BBD1 /* UIKit.framework in Frameworks */,
 				DDA2FCC617E6453B00237125 /* Foundation.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -91,7 +97,6 @@
 			files = (
 				DD05C3F817E68181009AEAFE /* libMod.a in Frameworks */,
 				DDA2FCF117E6455700237125 /* SenTestingKit.framework in Frameworks */,
-				DDA2FCF317E6455700237125 /* UIKit.framework in Frameworks */,
 				DDA2FCF217E6455700237125 /* Foundation.framework in Frameworks */,
 				68F011DBD64A4843B4FDBD35 /* libPods-ModTests.a in Frameworks */,
 			);
@@ -131,9 +136,8 @@
 		DDA2FCC417E6453B00237125 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				DDE391B817E7079F00C8BBD1 /* UIKit.framework */,
 				DDA2FCC517E6453B00237125 /* Foundation.framework */,
-				DDA2FCD317E6453B00237125 /* XCTest.framework */,
-				DDA2FCD617E6453B00237125 /* UIKit.framework */,
 				DDA2FCF017E6455700237125 /* SenTestingKit.framework */,
 				A8118E4244BB4C60AA546E0D /* libPods-ModTests.a */,
 			);
@@ -145,6 +149,10 @@
 			children = (
 				DDA2FCCA17E6453B00237125 /* Mod.h */,
 				DDA2FCCC17E6453B00237125 /* Mod.m */,
+				DDB9204117E70BDA00280D47 /* MODNode.h */,
+				DDB9204217E70BDA00280D47 /* MODNode.m */,
+				DDB9204417E70E4A00280D47 /* MODToken.h */,
+				DDB9204517E70E4A00280D47 /* MODToken.m */,
 				DDA2FD0517E645C700237125 /* MODLexer.h */,
 				DDA2FD0617E645C700237125 /* MODLexer.m */,
 				DDA2FD0717E645C700237125 /* MODParser.h */,
@@ -335,7 +343,9 @@
 				DDA2FD0917E645C700237125 /* MODLexer.m in Sources */,
 				DD58C42D17E6C22E00B3173C /* UIColor+MODAdditions.m in Sources */,
 				DDA2FD0A17E645C700237125 /* MODParser.m in Sources */,
+				DDB9204317E70BDA00280D47 /* MODNode.m in Sources */,
 				DD58C42817E6BEE900B3173C /* MODStyler.m in Sources */,
+				DDB9204617E70E4A00280D47 /* MODToken.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

@@ -8,6 +8,8 @@
 
 #import "MODParser.h"
 #import "MODLexer.h"
+#import "MODNode.h"
+#import "MODToken.h"
 
 NSString * const MODParserErrorDomain = @"MODParserErrorDomain";
 NSInteger const MODParserErrorFileContents = 2;
@@ -15,10 +17,12 @@ NSInteger const MODParserErrorFileContents = 2;
 @interface MODParser ()
 
 @property (nonatomic, strong) MODLexer *lexer;
+@property (nonatomic, strong) MODNode *root;
 
 @end
 
 @implementation MODParser
+
 
 - (id)initWithFilePath:(NSString *)filePath error:(NSError **)error {
     self = [super init];
@@ -44,10 +48,43 @@ NSInteger const MODParserErrorFileContents = 2;
     }
 
     self.lexer = [[MODLexer alloc] initWithString:contents];
+    self.root = MODNode.new;
     return self;
 }
 
 - (void)parse {
+    MODNode *root = self.root;
+    while (self.peek.type != MODTokenTypeEOS) {
+        if ([self acceptTokenOfType:MODTokenTypeNewline]) continue;
+        MODNode *stmt = self.statement;
+        [self acceptTokenOfType:MODTokenTypeSemiColon];
+        NSAssert(stmt, @"unexpected token %@, not allowed at the root level", self.peek.value);
+        [root addChildNode:stmt];
+    }
 }
+
+- (MODToken *)peek {
+    return self.lexer.peek;
+}
+
+- (MODToken *)next {
+    return self.lexer.next;
+}
+
+- (MODNode *)statement {
+    return nil;
+}
+
+/**
+ * Accept the given token `type`, and return it,
+ * otherwise return `undefined`.
+ */
+- (MODToken *)acceptTokenOfType:(MODTokenType)type {
+    if (type == self.peek.type) {
+        return self.next;
+    }
+    return nil;
+}
+
 
 @end

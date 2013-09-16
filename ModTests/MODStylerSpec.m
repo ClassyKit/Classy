@@ -17,6 +17,8 @@ it(@"should set basic properties", ^{
     UIView *view = UIView.new;
     [styler styleView:view];
 
+
+    //expect(view.class.superclass).to.equal(@"");
     //expect(view.backgroundColor.mod_hexValue).to.equal(@"#A2A2A2");
 });
 
