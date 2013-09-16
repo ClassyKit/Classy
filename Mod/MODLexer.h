@@ -17,14 +17,14 @@
 /**
  *  Token from stash or by advancing.
  *
- *  @return Token returned is guaranteed to be in stash
+ *  @return Token returned will be in in stash
  */
 - (MODToken *)peek;
 
 /**
  *  Token from stash or by advancing.
  *
- *  @return Token returned is guaranteed not to be in stash
+ *  @return Token returned will not to be in stash
  */
 - (MODToken *)next;
 

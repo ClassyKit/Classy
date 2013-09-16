@@ -7,6 +7,7 @@
 //
 
 #import "MODLexer.h"
+#import "NSRegularExpression+MODAdditions.h"
 
 @interface MODLexer ()
 
@@ -26,6 +27,8 @@
     self.str = [str mutableCopy];
     self.stash = NSMutableArray.new;
     self.indentStack = NSMutableArray.new;
+
+    [MODRegex(@"\\r\\n?") mod_replaceMatchesInString:self.str withTemplate:@"\n"];
 
     return self;
 }

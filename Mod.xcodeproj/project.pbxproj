@@ -24,7 +24,10 @@
 		DDA2FD0A17E645C700237125 /* MODParser.m in Sources */ = {isa = PBXBuildFile; fileRef = DDA2FD0817E645C700237125 /* MODParser.m */; };
 		DDB9204317E70BDA00280D47 /* MODNode.m in Sources */ = {isa = PBXBuildFile; fileRef = DDB9204217E70BDA00280D47 /* MODNode.m */; };
 		DDB9204617E70E4A00280D47 /* MODToken.m in Sources */ = {isa = PBXBuildFile; fileRef = DDB9204517E70E4A00280D47 /* MODToken.m */; };
+		DDB9204817E78A4000280D47 /* MODLexerSpec.m in Sources */ = {isa = PBXBuildFile; fileRef = DDB9204717E78A4000280D47 /* MODLexerSpec.m */; };
+		DDB9204B17E78B5B00280D47 /* NSRegularExpression+MODAdditions.m in Sources */ = {isa = PBXBuildFile; fileRef = DDB9204A17E78B5B00280D47 /* NSRegularExpression+MODAdditions.m */; };
 		DDE391B917E7079F00C8BBD1 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DDE391B817E7079F00C8BBD1 /* UIKit.framework */; };
+		DDF8E9DB17E797F400E2DE34 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DDE391B817E7079F00C8BBD1 /* UIKit.framework */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -59,6 +62,7 @@
 		DD58C42917E6BF5B00B3173C /* MODStylerSpec.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MODStylerSpec.m; sourceTree = "<group>"; };
 		DD58C42B17E6C22E00B3173C /* UIColor+MODAdditions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIColor+MODAdditions.h"; sourceTree = "<group>"; };
 		DD58C42C17E6C22E00B3173C /* UIColor+MODAdditions.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIColor+MODAdditions.m"; sourceTree = "<group>"; };
+		DD82B9B917E79771000CD9DD /* QuartzCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = QuartzCore.framework; path = System/Library/Frameworks/QuartzCore.framework; sourceTree = SDKROOT; };
 		DDA2FCC217E6453B00237125 /* libMod.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libMod.a; sourceTree = BUILT_PRODUCTS_DIR; };
 		DDA2FCC517E6453B00237125 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
 		DDA2FCC917E6453B00237125 /* Mod-Prefix.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "Mod-Prefix.pch"; sourceTree = "<group>"; };
@@ -78,6 +82,9 @@
 		DDB9204217E70BDA00280D47 /* MODNode.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MODNode.m; sourceTree = "<group>"; };
 		DDB9204417E70E4A00280D47 /* MODToken.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MODToken.h; sourceTree = "<group>"; };
 		DDB9204517E70E4A00280D47 /* MODToken.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MODToken.m; sourceTree = "<group>"; };
+		DDB9204717E78A4000280D47 /* MODLexerSpec.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MODLexerSpec.m; sourceTree = "<group>"; };
+		DDB9204917E78B5B00280D47 /* NSRegularExpression+MODAdditions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSRegularExpression+MODAdditions.h"; sourceTree = "<group>"; };
+		DDB9204A17E78B5B00280D47 /* NSRegularExpression+MODAdditions.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSRegularExpression+MODAdditions.m"; sourceTree = "<group>"; };
 		DDE391B817E7079F00C8BBD1 /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
 /* End PBXFileReference section */
 
@@ -95,9 +102,10 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				DD05C3F817E68181009AEAFE /* libMod.a in Frameworks */,
-				DDA2FCF117E6455700237125 /* SenTestingKit.framework in Frameworks */,
 				DDA2FCF217E6455700237125 /* Foundation.framework in Frameworks */,
+				DDF8E9DB17E797F400E2DE34 /* UIKit.framework in Frameworks */,
+				DDA2FCF117E6455700237125 /* SenTestingKit.framework in Frameworks */,
+				DD05C3F817E68181009AEAFE /* libMod.a in Frameworks */,
 				68F011DBD64A4843B4FDBD35 /* libPods-ModTests.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -136,6 +144,7 @@
 		DDA2FCC417E6453B00237125 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				DD82B9B917E79771000CD9DD /* QuartzCore.framework */,
 				DDE391B817E7079F00C8BBD1 /* UIKit.framework */,
 				DDA2FCC517E6453B00237125 /* Foundation.framework */,
 				DDA2FCF017E6455700237125 /* SenTestingKit.framework */,
@@ -161,6 +170,8 @@
 				DD58C42717E6BEE900B3173C /* MODStyler.m */,
 				DD58C42B17E6C22E00B3173C /* UIColor+MODAdditions.h */,
 				DD58C42C17E6C22E00B3173C /* UIColor+MODAdditions.m */,
+				DDB9204917E78B5B00280D47 /* NSRegularExpression+MODAdditions.h */,
+				DDB9204A17E78B5B00280D47 /* NSRegularExpression+MODAdditions.m */,
 				DDA2FCC817E6453B00237125 /* Supporting Files */,
 			);
 			path = Mod;
@@ -199,6 +210,7 @@
 			children = (
 				DDA2FD0317E6458E00237125 /* MODParserSpec.m */,
 				DD58C42917E6BF5B00B3173C /* MODStylerSpec.m */,
+				DDB9204717E78A4000280D47 /* MODLexerSpec.m */,
 			);
 			name = Specs;
 			sourceTree = "<group>";
@@ -341,6 +353,7 @@
 			files = (
 				DDA2FCCD17E6453B00237125 /* Mod.m in Sources */,
 				DDA2FD0917E645C700237125 /* MODLexer.m in Sources */,
+				DDB9204B17E78B5B00280D47 /* NSRegularExpression+MODAdditions.m in Sources */,
 				DD58C42D17E6C22E00B3173C /* UIColor+MODAdditions.m in Sources */,
 				DDA2FD0A17E645C700237125 /* MODParser.m in Sources */,
 				DDB9204317E70BDA00280D47 /* MODNode.m in Sources */,
@@ -354,6 +367,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				DD58C42A17E6BF5B00B3173C /* MODStylerSpec.m in Sources */,
+				DDB9204817E78A4000280D47 /* MODLexerSpec.m in Sources */,
 				DDA2FD0417E6458E00237125 /* MODParserSpec.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
