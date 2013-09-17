@@ -15,7 +15,7 @@
 @property (nonatomic, strong) NSMutableArray *stash;
 @property (nonatomic, strong) NSMutableArray *indentStack;
 @property (nonatomic, strong) MODToken *previous;
-@property (nonatomic, strong) NSRegularExpression *seperatorRegex;
+@property (nonatomic, strong) NSDictionary *regexCache;
 
 @end
 
@@ -35,7 +35,11 @@
     [MODRegex(@"\\s+$") mod_replaceMatchesInString:self.str withTemplate:@"\n"];
 
     // cache regex's
-    self.seperatorRegex = MODRegex(@"^;[ \\t]*");
+    self.regexCache = @{
+        @(MODTokenTypeSpace) : MODRegex(@"^([ \\t]+)"),
+        @(MODTokenTypeSemiColon) : MODRegex(@"^;[ \\t]*"),
+        @(MODTokenTypeBrace) : MODRegex(@"^([{}])"),
+    };
 
     return self;
 }
@@ -67,7 +71,9 @@
 
 - (MODToken *)advance {
     return self.eos
-        ?: self.seperator;
+        ?: self.seperator
+        ?: self.space
+        ?: self.brace;
 }
 
 - (MODToken *)stashed {
@@ -93,14 +99,35 @@
     }
 }
 
-- (MODToken *)seperator {
-    // semicolon followed by any number of tabs or spaces
-    NSTextCheckingResult *match = [self.seperatorRegex firstMatchInString:self.str options:0 range:NSMakeRange(0, self.str.length)];
-    if (match.range.location != NSNotFound) {
+- (MODToken *)testForTokenType:(MODTokenType)tokenType includeValue:(BOOL)includeValue {
+    NSRegularExpression *regex = self.regexCache[@(tokenType)];
+    NSAssert(regex, @"No cached regex for MODTokenType: %d", tokenType);
+    NSTextCheckingResult *match = [regex firstMatchInString:self.str options:0 range:NSMakeRange(0, self.str.length)];
+    if (match) {
+        MODToken *token = MODToken.new;
+        token.type = tokenType;
+        if (includeValue) {
+            token.value = [self.str substringWithRange:match.range];
+        }
         [self skip:match.range.length];
-        return [[MODToken alloc] initWithType:MODTokenTypeSemiColon];
+        return token;
     }
     return nil;
+}
+
+- (MODToken *)seperator {
+    // 1 `;` followed by 0-* ` `
+    return [self testForTokenType:MODTokenTypeSemiColon includeValue:NO];
+}
+
+- (MODToken *)space {
+    // 1-* number of ` `
+    return [self testForTokenType:MODTokenTypeSpace includeValue:NO];
+}
+
+- (MODToken *)brace {
+    // 1 `{` or `}`
+    return [self testForTokenType:MODTokenTypeBrace includeValue:YES];
 }
 
 @end

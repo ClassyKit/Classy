@@ -15,6 +15,8 @@ typedef NS_ENUM(NSInteger, MODTokenType) {
     MODTokenTypeColon,
     MODTokenTypeIndent,
     MODTokenTypeOutdent,
+    MODTokenTypeSpace,
+    MODTokenTypeBrace
 };
 
 @interface MODToken : NSObject

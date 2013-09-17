@@ -26,7 +26,7 @@ extern NSRegularExpression *MODRegex(NSString *pattern) {
 
 - (NSString *)mod_firstMatchInString:(NSString *)string {
     NSTextCheckingResult *result = [self firstMatchInString:string options:0 range:NSMakeRange(0, string.length)];
-    if (result.range.location != NSNotFound) {
+    if (result) {
         return [string substringWithRange:result.range];
     }
     return nil;
