@@ -8,6 +8,7 @@
 
 #import "MODLexer.h"
 #import "NSRegularExpression+MODAdditions.h"
+#import "UIColor+MODAdditions.h"
 
 @interface MODLexer ()
 
@@ -31,14 +32,20 @@
 
     // replace carriage returns (\r\n | \r) with newlines
     [MODRegex(@"\\r\\n?") mod_replaceMatchesInString:self.str withTemplate:@"\n"];
+    
     // trim whitespace & newlines from end of string
     [MODRegex(@"\\s+$") mod_replaceMatchesInString:self.str withTemplate:@"\n"];
 
     // cache regex's
     self.regexCache = @{
-        @(MODTokenTypeSpace) : MODRegex(@"^([ \\t]+)"),
-        @(MODTokenTypeSemiColon) : MODRegex(@"^;[ \\t]*"),
-        @(MODTokenTypeBrace) : MODRegex(@"^([{}])"),
+        @(MODTokenTypeSpace)     : @[ MODRegex(@"^([ \\t]+)") ],
+        @(MODTokenTypeSemiColon) : @[ MODRegex(@"^;[ \\t]*") ],
+        @(MODTokenTypeBrace)     : @[ MODRegex(@"^([{}])") ],
+        @(MODTokenTypeColor)     : @[
+            MODRegex(@"^#([a-fA-F0-9]{8})[ \\t]*"),
+            MODRegex(@"^#([a-fA-F0-9]{6})[ \\t]*"),
+            MODRegex(@"^#([a-fA-F0-9]{3})[ \\t]*")
+        ]
     };
 
     return self;
@@ -70,10 +77,17 @@
 }
 
 - (MODToken *)advance {
+    //TODO this could possibly be faster using simple string scanning, instead of regex
     return self.eos
         ?: self.seperator
-        ?: self.space
-        ?: self.brace;
+        ?: self.brace
+        ?: self.color
+        //?: self.string
+        //?: self.unit
+        //?: self.boolean
+        //?: self.ident
+        ?: self.space;
+        //?: self.selector;
 }
 
 - (MODToken *)stashed {
@@ -99,35 +113,46 @@
     }
 }
 
-- (MODToken *)testForTokenType:(MODTokenType)tokenType includeValue:(BOOL)includeValue {
-    NSRegularExpression *regex = self.regexCache[@(tokenType)];
-    NSAssert(regex, @"No cached regex for MODTokenType: %d", tokenType);
-    NSTextCheckingResult *match = [regex firstMatchInString:self.str options:0 range:NSMakeRange(0, self.str.length)];
-    if (match) {
-        MODToken *token = MODToken.new;
-        token.type = tokenType;
-        if (includeValue) {
-            token.value = [self.str substringWithRange:match.range];
+- (MODToken *)testForTokenType:(MODTokenType)tokenType transformValueBlock:(id(^)(NSString *value))transformValueBlock {
+    NSArray *regexes = self.regexCache[@(tokenType)];
+    NSAssert(regexes, @"No cached regex for MODTokenType: %d", tokenType);
+    for (NSRegularExpression *regex in regexes) {
+        NSTextCheckingResult *match = [regex firstMatchInString:self.str options:0 range:NSMakeRange(0, self.str.length)];
+        if (match) {
+            MODToken *token = MODToken.new;
+            token.type = tokenType;
+            if (transformValueBlock) {
+                token.value = transformValueBlock([self.str substringWithRange:match.range]);
+            }
+            [self skip:match.range.length];
+            return token;
         }
-        [self skip:match.range.length];
-        return token;
     }
     return nil;
 }
 
+- (MODToken *)color {
+    //#rrggbbaa | #rrggbb | #rgb
+    return [self testForTokenType:MODTokenTypeColor transformValueBlock:^id(NSString *value) {
+        return [UIColor mod_colorWithHex:[value stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceCharacterSet]]];
+    }];
+}
+
 - (MODToken *)seperator {
     // 1 `;` followed by 0-* ` `
-    return [self testForTokenType:MODTokenTypeSemiColon includeValue:NO];
+    return [self testForTokenType:MODTokenTypeSemiColon transformValueBlock:nil];
 }
 
 - (MODToken *)space {
     // 1-* number of ` `
-    return [self testForTokenType:MODTokenTypeSpace includeValue:NO];
+    return [self testForTokenType:MODTokenTypeSpace transformValueBlock:nil];
 }
 
 - (MODToken *)brace {
     // 1 `{` or `}`
-    return [self testForTokenType:MODTokenTypeBrace includeValue:YES];
+    return [self testForTokenType:MODTokenTypeBrace transformValueBlock:^id(NSString *value){
+        return value;
+    }];
 }
 
 @end

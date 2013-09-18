@@ -7,6 +7,7 @@
 //
 
 #import "MODLexer.h"
+#import "UIColor+MODAdditions.h"
 
 @interface MODLexer ()
 @property (nonatomic, strong) NSMutableString *str;
@@ -52,4 +53,24 @@ it(@"should return brace", ^{
     expect(lexer.str).to.equal(@"{  world hello");
 });
 
+it(@"should return rgb UIColor", ^{
+    MODLexer *lexer = [[MODLexer alloc] initWithString:@"#fff   \t   hello"];
+    expect(lexer.peek.type).to.equal(MODTokenTypeColor);
+    expect([lexer.peek.value mod_hexValue]).to.equal(@"ffffff");
+    expect(lexer.str).to.equal(@"hello");
+});
+
+it(@"should return rrggbb UIColor", ^{
+    MODLexer *lexer = [[MODLexer alloc] initWithString:@"#ffffff   \t   hello"];
+    expect(lexer.peek.type).to.equal(MODTokenTypeColor);
+    expect([lexer.peek.value mod_hexValue]).to.equal(@"ffffff");
+    expect(lexer.str).to.equal(@"hello");
+});
+
+it(@"should return rrggbbaa UIColor", ^{
+    MODLexer *lexer = [[MODLexer alloc] initWithString:@"#ffffffff   \t   hello"];
+    expect(lexer.peek.type).to.equal(MODTokenTypeColor);
+    expect([lexer.peek.value mod_hexValue]).to.equal(@"ffffff");
+    expect(lexer.str).to.equal(@"hello");
+});
 SpecEnd

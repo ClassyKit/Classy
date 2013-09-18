@@ -16,15 +16,18 @@ typedef NS_ENUM(NSInteger, MODTokenType) {
     MODTokenTypeIndent,
     MODTokenTypeOutdent,
     MODTokenTypeSpace,
-    MODTokenTypeBrace
+    MODTokenTypeBrace,
+    MODTokenTypeColor,
 };
 
 @interface MODToken : NSObject
 
 @property (nonatomic, assign) MODTokenType type;
-@property (nonatomic, strong) NSString *value;
+@property (nonatomic, strong) id value;
+
++ (NSString *)stringForType:(MODTokenType)type;
 
 - (id)initWithType:(MODTokenType)type;
-- (id)initWithType:(MODTokenType)type value:(NSString *)value;
+- (id)initWithType:(MODTokenType)type value:(id)value;
 
 @end

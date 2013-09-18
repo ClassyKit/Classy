@@ -58,7 +58,7 @@ NSInteger const MODParserErrorFileContents = 2;
         if ([self acceptTokenOfType:MODTokenTypeNewline]) continue;
         MODNode *stmt = self.statement;
         [self acceptTokenOfType:MODTokenTypeSemiColon];
-        NSAssert(stmt, @"unexpected token %@, not allowed at the root level", self.peek.value);
+        NSAssert(stmt, @"unexpected token %@, not allowed at the root level", self.peek);
         [root addChildNode:stmt];
     }
 }

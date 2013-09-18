@@ -10,7 +10,30 @@
 
 @implementation MODToken
 
-- (id)initWithType:(MODTokenType)type value:(NSString *)value {
++ (NSString *)stringForType:(MODTokenType)type {
+    switch (type) {
+        case MODTokenTypeEOS:
+            return @"EOS";
+        case MODTokenTypeNewline:
+            return @"newline";
+        case MODTokenTypeSemiColon:
+            return @"semicolon";
+        case MODTokenTypeColon:
+            return @"colon";
+        case MODTokenTypeIndent:
+            return @"ident";
+        case MODTokenTypeOutdent:
+            return @"outdent";
+        case MODTokenTypeSpace:
+            return @"space";
+        case MODTokenTypeBrace:
+            return @"brace";
+        case MODTokenTypeColor:
+            return @"color";
+    }
+}
+
+- (id)initWithType:(MODTokenType)type value:(id)value {
     self = [super init];
     if (!self) return nil;
 
@@ -27,6 +50,13 @@
     self.type = type;
 
     return self;
+}
+
+- (NSString *)description {
+    if (self.value) {
+        return [NSString stringWithFormat:@"%@:%@", [self.class stringForType:self.type], self.value];
+    }
+    return [self.class stringForType:self.type];
 }
 
 @end
