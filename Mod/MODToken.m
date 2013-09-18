@@ -30,6 +30,8 @@
             return @"brace";
         case MODTokenTypeColor:
             return @"color";
+        case MODTokenTypeString:
+            return @"string";
     }
 }
 

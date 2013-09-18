@@ -19,13 +19,13 @@
  *
  *  @return Token returned will be in in stash
  */
-- (MODToken *)peek;
+- (MODToken *)peekToken;
 
 /**
  *  Token from stash or by advancing.
  *
  *  @return Token returned will not to be in stash
  */
-- (MODToken *)next;
+- (MODToken *)nextToken;
 
 @end

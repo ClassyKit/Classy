@@ -27,50 +27,68 @@ it(@"should clean up end of string", ^{
 
 it(@"should return seperator", ^{
     MODLexer *lexer = [[MODLexer alloc] initWithString:@";  \t    hello"];
-    expect(lexer.next.type).to.equal(MODTokenTypeSemiColon);
+    expect(lexer.peekToken.type).to.equal(MODTokenTypeSemiColon);
     expect(lexer.str).to.equal(@"hello");
 
     lexer = [[MODLexer alloc] initWithString:@";;  world hello"];
-    expect(lexer.next.type).to.equal(MODTokenTypeSemiColon);
+    expect(lexer.peekToken.type).to.equal(MODTokenTypeSemiColon);
     expect(lexer.str).to.equal(@";  world hello");
 });
 
 it(@"should return space", ^{
     MODLexer *lexer = [[MODLexer alloc] initWithString:@"    \t   hello"];
-    expect(lexer.next.type).to.equal(MODTokenTypeSpace);
+    expect(lexer.peekToken.type).to.equal(MODTokenTypeSpace);
     expect(lexer.str).to.equal(@"hello");
 });
 
 it(@"should return brace", ^{
     MODLexer *lexer = [[MODLexer alloc] initWithString:@"{  \t    hello"];
-    expect(lexer.peek.type).to.equal(MODTokenTypeBrace);
-    expect(lexer.peek.value).to.equal(@"{");
+    expect(lexer.peekToken.type).to.equal(MODTokenTypeBrace);
+    expect(lexer.peekToken.value).to.equal(@"{");
     expect(lexer.str).to.equal(@"  \t    hello");
 
     lexer = [[MODLexer alloc] initWithString:@"}{  world hello"];
-    expect(lexer.peek.type).to.equal(MODTokenTypeBrace);
-    expect(lexer.peek.value).to.equal(@"}");
+    expect(lexer.peekToken.type).to.equal(MODTokenTypeBrace);
+    expect(lexer.peekToken.value).to.equal(@"}");
     expect(lexer.str).to.equal(@"{  world hello");
 });
 
 it(@"should return rgb UIColor", ^{
     MODLexer *lexer = [[MODLexer alloc] initWithString:@"#fff   \t   hello"];
-    expect(lexer.peek.type).to.equal(MODTokenTypeColor);
-    expect([lexer.peek.value mod_hexValue]).to.equal(@"ffffff");
+    expect(lexer.peekToken.type).to.equal(MODTokenTypeColor);
+    expect([lexer.peekToken.value mod_hexValue]).to.equal(@"ffffff");
     expect(lexer.str).to.equal(@"hello");
 });
 
 it(@"should return rrggbb UIColor", ^{
     MODLexer *lexer = [[MODLexer alloc] initWithString:@"#ffffff   \t   hello"];
-    expect(lexer.peek.type).to.equal(MODTokenTypeColor);
-    expect([lexer.peek.value mod_hexValue]).to.equal(@"ffffff");
+    expect(lexer.peekToken.type).to.equal(MODTokenTypeColor);
+    expect([lexer.peekToken.value mod_hexValue]).to.equal(@"ffffff");
     expect(lexer.str).to.equal(@"hello");
 });
 
 it(@"should return rrggbbaa UIColor", ^{
     MODLexer *lexer = [[MODLexer alloc] initWithString:@"#ffffffff   \t   hello"];
-    expect(lexer.peek.type).to.equal(MODTokenTypeColor);
-    expect([lexer.peek.value mod_hexValue]).to.equal(@"ffffff");
+    expect(lexer.peekToken.type).to.equal(MODTokenTypeColor);
+    expect([lexer.peekToken.value mod_hexValue]).to.equal(@"ffffff");
     expect(lexer.str).to.equal(@"hello");
 });
+
+it(@"should return string", ^{
+    MODLexer *lexer = [[MODLexer alloc] initWithString:@"\"    blah\"   '\"hello"];
+    expect(lexer.peekToken.type).to.equal(MODTokenTypeString);
+    expect(lexer.peekToken.value).to.equal(@"    blah");
+    expect(lexer.str).to.equal(@"'\"hello");
+
+    lexer = [[MODLexer alloc] initWithString:@"'  \"  blah''   hello"];
+    expect(lexer.peekToken.type).to.equal(MODTokenTypeString);
+    expect(lexer.peekToken.value).to.equal(@"  \"  blah");
+    expect(lexer.str).to.equal(@"'   hello");
+
+    lexer = [[MODLexer alloc] initWithString:@"\"\"  a hello"];
+    expect(lexer.peekToken.type).to.equal(MODTokenTypeString);
+    expect(lexer.peekToken.value).to.equal(@"");
+    expect(lexer.str).to.equal(@"a hello");
+});
+
 SpecEnd

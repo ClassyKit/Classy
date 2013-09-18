@@ -54,31 +54,31 @@ NSInteger const MODParserErrorFileContents = 2;
 
 - (void)parse {
     MODNode *root = self.root;
-    while (self.peek.type != MODTokenTypeEOS) {
-        if ([self acceptTokenOfType:MODTokenTypeNewline]) continue;
+    while (self.peekToken.type != MODTokenTypeEOS) {
+        if ([self consumeTokenOfType:MODTokenTypeNewline]) continue;
         MODNode *stmt = self.statement;
-        [self acceptTokenOfType:MODTokenTypeSemiColon];
-        NSAssert(stmt, @"unexpected token %@, not allowed at the root level", self.peek);
+        [self consumeTokenOfType:MODTokenTypeSemiColon];
+        NSAssert(stmt, @"unexpected token %@, not allowed at the root level", self.peekToken);
         [root addChildNode:stmt];
     }
 }
 
-- (MODToken *)peek {
-    return self.lexer.peek;
+- (MODToken *)peekToken {
+    return self.lexer.peekToken;
 }
 
-- (MODToken *)next {
-    return self.lexer.next;
+- (MODToken *)nextToken {
+    return self.lexer.nextToken;
 }
 
 - (MODNode *)statement {
     return nil;
 }
 
-- (MODToken *)acceptTokenOfType:(MODTokenType)type {
-    if (type == self.peek.type) {
+- (MODToken *)consumeTokenOfType:(MODTokenType)type {
+    if (type == self.peekToken.type) {
         //return token and remove from stack
-        return self.next;
+        return self.nextToken;
     }
     return nil;
 }

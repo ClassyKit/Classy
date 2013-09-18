@@ -45,19 +45,20 @@
             MODRegex(@"^#([a-fA-F0-9]{8})[ \\t]*"),
             MODRegex(@"^#([a-fA-F0-9]{6})[ \\t]*"),
             MODRegex(@"^#([a-fA-F0-9]{3})[ \\t]*")
-        ]
+        ],
+        @(MODTokenTypeString)    : @[ MODRegex(@"^(\"[^\"]*\"|'[^']*')[ \t]*") ],
     };
 
     return self;
 }
 
 
-- (MODToken *)peek {
+- (MODToken *)peekToken {
     return [self lookahead:1];
 }
 
-- (MODToken *)next {
-    MODToken *token = self.stashed ?: self.advance;
+- (MODToken *)nextToken {
+    MODToken *token = self.popToken ?: self.advanceToken;
     self.previous = token;
     return token;
 }
@@ -67,7 +68,9 @@
 - (MODToken *)lookahead:(NSUInteger)n {
     NSInteger fetch = n - self.stash.count;
     while (fetch-- > 0) {
-        [self.stash addObject:self.advance];
+        MODToken *token = self.advanceToken;
+        NSAssert(token, @"Could not parse token for string %@", self.str);
+        [self.stash addObject:token];
     }
     return self.stash[--n];
 }
@@ -76,13 +79,14 @@
     [self.str deleteCharactersInRange:NSMakeRange(0, n)];
 }
 
-- (MODToken *)advance {
-    //TODO this could possibly be faster using simple string scanning, instead of regex
+- (MODToken *)advanceToken {
+    // TODO optimise
+    // this could possibly be faster using simple string scanning (NSScanner), instead of regex
     return self.eos
         ?: self.seperator
         ?: self.brace
         ?: self.color
-        //?: self.string
+        ?: self.string
         //?: self.unit
         //?: self.boolean
         //?: self.ident
@@ -90,7 +94,7 @@
         //?: self.selector;
 }
 
-- (MODToken *)stashed {
+- (MODToken *)popToken {
     // Return the next stashed token and remove it from stash.
     if (self.stash.count) {
         MODToken *token = self.stash[0];
@@ -113,22 +117,12 @@
     }
 }
 
-- (MODToken *)testForTokenType:(MODTokenType)tokenType transformValueBlock:(id(^)(NSString *value))transformValueBlock {
-    NSArray *regexes = self.regexCache[@(tokenType)];
-    NSAssert(regexes, @"No cached regex for MODTokenType: %d", tokenType);
-    for (NSRegularExpression *regex in regexes) {
-        NSTextCheckingResult *match = [regex firstMatchInString:self.str options:0 range:NSMakeRange(0, self.str.length)];
-        if (match) {
-            MODToken *token = MODToken.new;
-            token.type = tokenType;
-            if (transformValueBlock) {
-                token.value = transformValueBlock([self.str substringWithRange:match.range]);
-            }
-            [self skip:match.range.length];
-            return token;
-        }
-    }
-    return nil;
+- (MODToken *)string {
+    // string enclosed in single or double quotes
+    return [self testForTokenType:MODTokenTypeString transformValueBlock:^id(NSString *value) {
+        NSString *string = [value stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceCharacterSet]];
+        return [string substringWithRange:NSMakeRange(1, string.length-2)];
+    }];
 }
 
 - (MODToken *)color {
@@ -153,6 +147,26 @@
     return [self testForTokenType:MODTokenTypeBrace transformValueBlock:^id(NSString *value){
         return value;
     }];
+}
+
+#pragma mark - helpers
+
+- (MODToken *)testForTokenType:(MODTokenType)tokenType transformValueBlock:(id(^)(NSString *value))transformValueBlock {
+    NSArray *regexes = self.regexCache[@(tokenType)];
+    NSAssert(regexes, @"No cached regex for MODTokenType: %d", tokenType);
+    for (NSRegularExpression *regex in regexes) {
+        NSTextCheckingResult *match = [regex firstMatchInString:self.str options:0 range:NSMakeRange(0, self.str.length)];
+        if (match) {
+            MODToken *token = MODToken.new;
+            token.type = tokenType;
+            if (transformValueBlock) {
+                token.value = transformValueBlock([self.str substringWithRange:match.range]);
+            }
+            [self skip:match.range.length];
+            return token;
+        }
+    }
+    return nil;
 }
 
 @end
