@@ -8,7 +8,7 @@
 
 #import <Foundation/Foundation.h>
 
-extern NSRegularExpression *MODRegex(NSString *pattern);
+extern NSRegularExpression *MODRegex(NSString *patternFormat, ...) NS_FORMAT_FUNCTION(1,2);
 
 @interface NSRegularExpression (MODAdditions)
 

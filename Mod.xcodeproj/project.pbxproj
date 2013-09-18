@@ -124,6 +124,34 @@
 			path = Stylesheets;
 			sourceTree = "<group>";
 		};
+		DD57497617E981B000E2945E /* Modules */ = {
+			isa = PBXGroup;
+			children = (
+				DDB9204117E70BDA00280D47 /* MODNode.h */,
+				DDB9204217E70BDA00280D47 /* MODNode.m */,
+				DDB9204417E70E4A00280D47 /* MODToken.h */,
+				DDB9204517E70E4A00280D47 /* MODToken.m */,
+				DDA2FD0517E645C700237125 /* MODLexer.h */,
+				DDA2FD0617E645C700237125 /* MODLexer.m */,
+				DDA2FD0717E645C700237125 /* MODParser.h */,
+				DDA2FD0817E645C700237125 /* MODParser.m */,
+				DD58C42617E6BEE900B3173C /* MODStyler.h */,
+				DD58C42717E6BEE900B3173C /* MODStyler.m */,
+			);
+			name = Modules;
+			sourceTree = "<group>";
+		};
+		DD57497717E9828D00E2945E /* Additions */ = {
+			isa = PBXGroup;
+			children = (
+				DD58C42B17E6C22E00B3173C /* UIColor+MODAdditions.h */,
+				DD58C42C17E6C22E00B3173C /* UIColor+MODAdditions.m */,
+				DDB9204917E78B5B00280D47 /* NSRegularExpression+MODAdditions.h */,
+				DDB9204A17E78B5B00280D47 /* NSRegularExpression+MODAdditions.m */,
+			);
+			name = Additions;
+			sourceTree = "<group>";
+		};
 		DDA2FCB917E6453B00237125 = {
 			isa = PBXGroup;
 			children = (
@@ -161,20 +189,8 @@
 			isa = PBXGroup;
 			children = (
 				DDA2FCCA17E6453B00237125 /* Mod.h */,
-				DDB9204117E70BDA00280D47 /* MODNode.h */,
-				DDB9204217E70BDA00280D47 /* MODNode.m */,
-				DDB9204417E70E4A00280D47 /* MODToken.h */,
-				DDB9204517E70E4A00280D47 /* MODToken.m */,
-				DDA2FD0517E645C700237125 /* MODLexer.h */,
-				DDA2FD0617E645C700237125 /* MODLexer.m */,
-				DDA2FD0717E645C700237125 /* MODParser.h */,
-				DDA2FD0817E645C700237125 /* MODParser.m */,
-				DD58C42617E6BEE900B3173C /* MODStyler.h */,
-				DD58C42717E6BEE900B3173C /* MODStyler.m */,
-				DD58C42B17E6C22E00B3173C /* UIColor+MODAdditions.h */,
-				DD58C42C17E6C22E00B3173C /* UIColor+MODAdditions.m */,
-				DDB9204917E78B5B00280D47 /* NSRegularExpression+MODAdditions.h */,
-				DDB9204A17E78B5B00280D47 /* NSRegularExpression+MODAdditions.m */,
+				DD57497617E981B000E2945E /* Modules */,
+				DD57497717E9828D00E2945E /* Additions */,
 				DDA2FCC817E6453B00237125 /* Supporting Files */,
 			);
 			path = Mod;

@@ -36,6 +36,7 @@
     // trim whitespace & newlines from end of string
     [MODRegex(@"\\s+$") mod_replaceMatchesInString:self.str withTemplate:@"\n"];
 
+    NSString *units = [@[@"pt", @"px", @"%"] componentsJoinedByString:@"|"];
     // cache regex's
     self.regexCache = @{
         @(MODTokenTypeSpace)     : @[ MODRegex(@"^([ \\t]+)") ],
@@ -47,6 +48,7 @@
             MODRegex(@"^#([a-fA-F0-9]{3})[ \\t]*")
         ],
         @(MODTokenTypeString)    : @[ MODRegex(@"^(\"[^\"]*\"|'[^']*')[ \t]*") ],
+        @(MODTokenTypeUnit)      : @[ MODRegex(@"^(-)?(\\d+\\.\\d+|\\d+|\\.\\d+)(%@)?[ \\t]*", units) ]
     };
 
     return self;
@@ -87,7 +89,7 @@
         ?: self.brace
         ?: self.color
         ?: self.string
-        //?: self.unit
+        ?: self.unit
         //?: self.boolean
         //?: self.ident
         ?: self.space;
@@ -119,7 +121,7 @@
 
 - (MODToken *)string {
     // string enclosed in single or double quotes
-    return [self testForTokenType:MODTokenTypeString transformValueBlock:^id(NSString *value) {
+    return [self testForTokenType:MODTokenTypeString transformValueBlock:^id(NSString *value, NSTextCheckingResult *match) {
         NSString *string = [value stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceCharacterSet]];
         return [string substringWithRange:NSMakeRange(1, string.length-2)];
     }];
@@ -127,7 +129,7 @@
 
 - (MODToken *)color {
     //#rrggbbaa | #rrggbb | #rgb
-    return [self testForTokenType:MODTokenTypeColor transformValueBlock:^id(NSString *value) {
+    return [self testForTokenType:MODTokenTypeColor transformValueBlock:^id(NSString *value, NSTextCheckingResult *match) {
         return [UIColor mod_colorWithHex:[value stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceCharacterSet]]];
     }];
 }
@@ -144,14 +146,22 @@
 
 - (MODToken *)brace {
     // 1 `{` or `}`
-    return [self testForTokenType:MODTokenTypeBrace transformValueBlock:^id(NSString *value){
+    return [self testForTokenType:MODTokenTypeBrace transformValueBlock:^id(NSString *value, NSTextCheckingResult *match){
         return value;
+    }];
+}
+
+- (MODToken *)unit {
+    return [self testForTokenType:MODTokenTypeUnit transformValueBlock:^id(NSString *value, NSTextCheckingResult *match){
+        //px,pt,% etc NSString *type = [self.str substringWithRange:[match rangeAtIndex:match.numberOfRanges-1]];
+        NSString *string = [value stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceCharacterSet]];
+        return @([string doubleValue]);
     }];
 }
 
 #pragma mark - helpers
 
-- (MODToken *)testForTokenType:(MODTokenType)tokenType transformValueBlock:(id(^)(NSString *value))transformValueBlock {
+- (MODToken *)testForTokenType:(MODTokenType)tokenType transformValueBlock:(id(^)(NSString *value, NSTextCheckingResult *match))transformValueBlock {
     NSArray *regexes = self.regexCache[@(tokenType)];
     NSAssert(regexes, @"No cached regex for MODTokenType: %d", tokenType);
     for (NSRegularExpression *regex in regexes) {
@@ -160,7 +170,7 @@
             MODToken *token = MODToken.new;
             token.type = tokenType;
             if (transformValueBlock) {
-                token.value = transformValueBlock([self.str substringWithRange:match.range]);
+                token.value = transformValueBlock([self.str substringWithRange:match.range], match);
             }
             [self skip:match.range.length];
             return token;

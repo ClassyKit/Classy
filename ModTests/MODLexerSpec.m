@@ -91,4 +91,21 @@ it(@"should return string", ^{
     expect(lexer.str).to.equal(@"a hello");
 });
 
+it(@"should return unit", ^{
+    MODLexer *lexer = [[MODLexer alloc] initWithString:@"50%   hello"];
+    expect(lexer.peekToken.type).to.equal(MODTokenTypeUnit);
+    expect(lexer.peekToken.value).to.equal(@50);
+    expect(lexer.str).to.equal(@"hello");
+
+    lexer = [[MODLexer alloc] initWithString:@"1.5px   hello"];
+    expect(lexer.peekToken.type).to.equal(MODTokenTypeUnit);
+    expect(lexer.peekToken.value).to.equal(@1.5);
+    expect(lexer.str).to.equal(@"hello");
+
+    lexer = [[MODLexer alloc] initWithString:@"-10.5pt   hello"];
+    expect(lexer.peekToken.type).to.equal(MODTokenTypeUnit);
+    expect(lexer.peekToken.value).to.equal(@-10.5);
+    expect(lexer.str).to.equal(@"hello");
+});
+
 SpecEnd

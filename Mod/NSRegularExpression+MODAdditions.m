@@ -8,7 +8,12 @@
 
 #import "NSRegularExpression+MODAdditions.h"
 
-extern NSRegularExpression *MODRegex(NSString *pattern) {
+extern NSRegularExpression *MODRegex(NSString *patternFormat, ...) {
+    va_list args;
+    va_start(args, patternFormat);
+    NSString *pattern = [[NSString alloc] initWithFormat:patternFormat arguments:args];
+    va_end(args);
+
     NSError *error = nil;
     NSRegularExpression *regex = [NSRegularExpression regularExpressionWithPattern:pattern options:0 error:&error];
     NSCAssert(error == nil, @"Could not create regex from pattern: %@", pattern);

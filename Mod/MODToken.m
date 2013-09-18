@@ -32,6 +32,8 @@
             return @"color";
         case MODTokenTypeString:
             return @"string";
+        case MODTokenTypeUnit:
+            return @"unit";
     }
 }
 
