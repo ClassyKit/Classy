@@ -48,6 +48,7 @@
         @(MODTokenTypeString)    : @[ MODRegex(@"^(\"[^\"]*\"|'[^']*')[ \t]*") ],
         @(MODTokenTypeUnit)      : @[ MODRegex(@"^(-)?(\\d+\\.\\d+|\\d+|\\.\\d+)(%@)?[ \\t]*", units) ],
         @(MODTokenTypeBoolean)   : @[ MODRegex(@"^(true|false|YES|NO)\\b([ \\t]*)") ],
+        @(MODTokenTypeSelector)  : @[ MODRegex(@"^.*?(?=\\/\\/(?![^\\[]*\\])|[,\\n{])") ]
     };
 
     return self;
@@ -91,8 +92,8 @@
         ?: self.unit
         ?: self.boolean
         //?: self.ident
-        ?: self.space;
-        //?: self.selector;
+        ?: self.space
+        ?: self.selector;
 }
 
 - (MODToken *)popToken {
@@ -134,17 +135,17 @@
 }
 
 - (MODToken *)seperator {
-    // 1 `;` followed by 0-* ` `
+    // 1 of `;` followed by 0-* of whitespace
     return [self testForTokenType:MODTokenTypeSemiColon transformValueBlock:nil];
 }
 
 - (MODToken *)space {
-    // 1-* number of ` `
+    // 1-* of whitespace
     return [self testForTokenType:MODTokenTypeSpace transformValueBlock:nil];
 }
 
 - (MODToken *)brace {
-    // 1 `{` or `}`
+    // 1 of `{` or `}`
     return [self testForTokenType:MODTokenTypeBrace transformValueBlock:^id(NSString *value, NSTextCheckingResult *match){
         return value;
     }];
@@ -163,6 +164,13 @@
     // true | false | YES | NO
     return [self testForTokenType:MODTokenTypeBoolean transformValueBlock:^id(NSString *value, NSTextCheckingResult *match) {
         return @([value hasPrefix:@"true"] || [value hasPrefix:@"YES"]);
+    }];
+}
+
+- (MODToken *)selector {
+    // any character except `\n` | `{` | `,` and stop if encounter `//` unless its inbetween `[ ]`
+    return [self testForTokenType:MODTokenTypeSelector transformValueBlock:^id(NSString *value, NSTextCheckingResult *match) {
+        return value;
     }];
 }
 

@@ -135,4 +135,23 @@ it(@"should return boolean", ^{
     expect(lexer.str).to.equal(@"hello");
 });
 
+it(@"should return selector", ^{
+    // any character except `\n` | `{` | `,` and stop if encounter `//` unless its inbetween `[ ]`
+
+    MODLexer *lexer = [[MODLexer alloc] initWithString:@"hello    world     {"];
+    expect(lexer.peekToken.type).to.equal(MODTokenTypeSelector);
+    expect(lexer.peekToken.value).to.equal(@"hello    world     ");
+    expect(lexer.str).to.equal(@"{");
+
+    lexer = [[MODLexer alloc] initWithString:@"^&*@#$_+!hello    world[asd//aa]     ,"];
+    expect(lexer.peekToken.type).to.equal(MODTokenTypeSelector);
+    expect(lexer.peekToken.value).to.equal(@"^&*@#$_+!hello    world[asd//aa]     ");
+    expect(lexer.str).to.equal(@",");
+
+    lexer = [[MODLexer alloc] initWithString:@"hello ><?:'*   world//comment     ,"];
+    expect(lexer.peekToken.type).to.equal(MODTokenTypeSelector);
+    expect(lexer.peekToken.value).to.equal(@"hello ><?:'*   world");
+    expect(lexer.str).to.equal(@"//comment     ,");
+});
+
 SpecEnd

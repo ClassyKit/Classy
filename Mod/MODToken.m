@@ -36,6 +36,8 @@
             return @"unit";
         case MODTokenTypeBoolean:
             return @"boolean";
+        case MODTokenTypeSelector:
+            return @"selector";
     }
 }
 
