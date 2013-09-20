@@ -12,20 +12,16 @@
 
 + (NSString *)stringForType:(MODTokenType)type {
     switch (type) {
-        case MODTokenTypeEOS:
-            return @"EOS";
-        case MODTokenTypeNewline:
-            return @"newline";
-        case MODTokenTypeSemiColon:
-            return @"semicolon";
-        case MODTokenTypeColon:
-            return @"colon";
         case MODTokenTypeIndent:
-            return @"ident";
+            return @"indent";
         case MODTokenTypeOutdent:
             return @"outdent";
-        case MODTokenTypeSpace:
-            return @"space";
+        case MODTokenTypeEOS:
+            return @"EOS";
+        case MODTokenTypeSemiColon:
+            return @"semicolon";
+        case MODTokenTypeNewline:
+            return @"newline";
         case MODTokenTypeBrace:
             return @"brace";
         case MODTokenTypeColor:
@@ -36,6 +32,10 @@
             return @"unit";
         case MODTokenTypeBoolean:
             return @"boolean";
+        case MODTokenTypeRef:
+            return @"ident";
+        case MODTokenTypeSpace:
+            return @"space";
         case MODTokenTypeSelector:
             return @"selector";
     }

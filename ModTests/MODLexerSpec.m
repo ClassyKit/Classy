@@ -92,12 +92,7 @@ it(@"should return string", ^{
 });
 
 it(@"should return unit", ^{
-    MODLexer *lexer = [[MODLexer alloc] initWithString:@"50%   hello"];
-    expect(lexer.peekToken.type).to.equal(MODTokenTypeUnit);
-    expect(lexer.peekToken.value).to.equal(@50);
-    expect(lexer.str).to.equal(@"hello");
-
-    lexer = [[MODLexer alloc] initWithString:@"1.5px   hello"];
+    MODLexer *lexer = [[MODLexer alloc] initWithString:@"1.5px   hello"];
     expect(lexer.peekToken.type).to.equal(MODTokenTypeUnit);
     expect(lexer.peekToken.value).to.equal(@1.5);
     expect(lexer.str).to.equal(@"hello");
@@ -138,9 +133,9 @@ it(@"should return boolean", ^{
 it(@"should return selector", ^{
     // any character except `\n` | `{` | `,` and stop if encounter `//` unless its inbetween `[ ]`
 
-    MODLexer *lexer = [[MODLexer alloc] initWithString:@"hello    world     {"];
+    MODLexer *lexer = [[MODLexer alloc] initWithString:@".hello    world     {"];
     expect(lexer.peekToken.type).to.equal(MODTokenTypeSelector);
-    expect(lexer.peekToken.value).to.equal(@"hello    world     ");
+    expect(lexer.peekToken.value).to.equal(@".hello    world     ");
     expect(lexer.str).to.equal(@"{");
 
     lexer = [[MODLexer alloc] initWithString:@"^&*@#$_+!hello    world[asd//aa]     ,"];
@@ -148,10 +143,44 @@ it(@"should return selector", ^{
     expect(lexer.peekToken.value).to.equal(@"^&*@#$_+!hello    world[asd//aa]     ");
     expect(lexer.str).to.equal(@",");
 
-    lexer = [[MODLexer alloc] initWithString:@"hello ><?:'*   world//comment     ,"];
+    lexer = [[MODLexer alloc] initWithString:@"*hello ><?:'*   world//comment     ,"];
     expect(lexer.peekToken.type).to.equal(MODTokenTypeSelector);
-    expect(lexer.peekToken.value).to.equal(@"hello ><?:'*   world");
+    expect(lexer.peekToken.value).to.equal(@"*hello ><?:'*   world");
     expect(lexer.str).to.equal(@"//comment     ,");
+});
+
+it(@"should return ref", ^{
+    MODLexer *lexer = [[MODLexer alloc] initWithString:@"@background-color   hello"];
+    expect(lexer.peekToken.type).to.equal(MODTokenTypeRef);
+    expect(lexer.peekToken.value).to.equal(@"@background-color");
+    expect(lexer.str).to.equal(@"   hello");
+
+    lexer = [[MODLexer alloc] initWithString:@"-----true;hello"];
+    expect(lexer.peekToken.type).to.equal(MODTokenTypeRef);
+    expect(lexer.peekToken.value).to.equal(@"-----true");
+    expect(lexer.str).to.equal(@";hello");
+
+    lexer = [[MODLexer alloc] initWithString:@"nicer_than-it--3454_(*^&;hello"];
+    expect(lexer.peekToken.type).to.equal(MODTokenTypeRef);
+    expect(lexer.peekToken.value).to.equal(@"nicer_than-it--3454_");
+    expect(lexer.str).to.equal(@"(*^&;hello");
+
+    lexer = [[MODLexer alloc] initWithString:@"@_background-_color   hello"];
+    expect(lexer.peekToken.type).to.equal(MODTokenTypeRef);
+    expect(lexer.peekToken.value).to.equal(@"@_background-_color");
+    expect(lexer.str).to.equal(@"   hello");
+});
+
+it(@"should skip comments", ^{
+    MODLexer *lexer = [[MODLexer alloc] initWithString:@"//hello world   \n   \n stuff"];
+    expect(lexer.peekToken.type).to.equal(MODTokenTypeSelector);
+    expect(lexer.peekToken.value).to.equal(@"");
+    expect(lexer.str).to.equal(@"\n   \n stuff");
+
+    lexer = [[MODLexer alloc] initWithString:@"/* hello \n \n world \n */  \n   \n stuff"];
+    expect(lexer.peekToken.type).to.equal(MODTokenTypeSpace);
+    expect(lexer.peekToken.value).to.equal(nil);
+    expect(lexer.str).to.equal(@"\n   \n stuff");
 });
 
 SpecEnd

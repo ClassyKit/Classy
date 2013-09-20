@@ -9,18 +9,18 @@
 #import <Foundation/Foundation.h>
 
 typedef NS_ENUM(NSInteger, MODTokenType) {
-    MODTokenTypeEOS,
-    MODTokenTypeNewline,
-    MODTokenTypeSemiColon,
-    MODTokenTypeColon,
     MODTokenTypeIndent,
     MODTokenTypeOutdent,
-    MODTokenTypeSpace,
+    MODTokenTypeEOS,
+    MODTokenTypeSemiColon,
+    MODTokenTypeNewline,
     MODTokenTypeBrace,
     MODTokenTypeColor,
     MODTokenTypeString,
     MODTokenTypeUnit,
     MODTokenTypeBoolean,
+    MODTokenTypeRef,
+    MODTokenTypeSpace,
     MODTokenTypeSelector,
 };
 
