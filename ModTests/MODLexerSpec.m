@@ -106,6 +106,33 @@ it(@"should return unit", ^{
     expect(lexer.peekToken.type).to.equal(MODTokenTypeUnit);
     expect(lexer.peekToken.value).to.equal(@-10.5);
     expect(lexer.str).to.equal(@"hello");
+
+    lexer = [[MODLexer alloc] initWithString:@"-20.5   hello"];
+    expect(lexer.peekToken.type).to.equal(MODTokenTypeUnit);
+    expect(lexer.peekToken.value).to.equal(@-20.5);
+    expect(lexer.str).to.equal(@"hello");
+});
+
+it(@"should return boolean", ^{
+    MODLexer *lexer = [[MODLexer alloc] initWithString:@"YES   hello"];
+    expect(lexer.peekToken.type).to.equal(MODTokenTypeBoolean);
+    expect(lexer.peekToken.value).to.equal(@YES);
+    expect(lexer.str).to.equal(@"hello");
+
+    lexer = [[MODLexer alloc] initWithString:@"true   hello"];
+    expect(lexer.peekToken.type).to.equal(MODTokenTypeBoolean);
+    expect(lexer.peekToken.value).to.equal(@YES);
+    expect(lexer.str).to.equal(@"hello");
+
+    lexer = [[MODLexer alloc] initWithString:@"NO   hello"];
+    expect(lexer.peekToken.type).to.equal(MODTokenTypeBoolean);
+    expect(lexer.peekToken.value).to.equal(@NO);
+    expect(lexer.str).to.equal(@"hello");
+
+    lexer = [[MODLexer alloc] initWithString:@"false   hello"];
+    expect(lexer.peekToken.type).to.equal(MODTokenTypeBoolean);
+    expect(lexer.peekToken.value).to.equal(@NO);
+    expect(lexer.str).to.equal(@"hello");
 });
 
 SpecEnd

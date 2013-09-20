@@ -42,13 +42,12 @@
         @(MODTokenTypeSpace)     : @[ MODRegex(@"^([ \\t]+)") ],
         @(MODTokenTypeSemiColon) : @[ MODRegex(@"^;[ \\t]*") ],
         @(MODTokenTypeBrace)     : @[ MODRegex(@"^([{}])") ],
-        @(MODTokenTypeColor)     : @[
-            MODRegex(@"^#([a-fA-F0-9]{8})[ \\t]*"),
-            MODRegex(@"^#([a-fA-F0-9]{6})[ \\t]*"),
-            MODRegex(@"^#([a-fA-F0-9]{3})[ \\t]*")
-        ],
+        @(MODTokenTypeColor)     : @[ MODRegex(@"^#([a-fA-F0-9]{8})[ \\t]*"),
+                                      MODRegex(@"^#([a-fA-F0-9]{6})[ \\t]*"),
+                                      MODRegex(@"^#([a-fA-F0-9]{3})[ \\t]*") ],
         @(MODTokenTypeString)    : @[ MODRegex(@"^(\"[^\"]*\"|'[^']*')[ \t]*") ],
-        @(MODTokenTypeUnit)      : @[ MODRegex(@"^(-)?(\\d+\\.\\d+|\\d+|\\.\\d+)(%@)?[ \\t]*", units) ]
+        @(MODTokenTypeUnit)      : @[ MODRegex(@"^(-)?(\\d+\\.\\d+|\\d+|\\.\\d+)(%@)?[ \\t]*", units) ],
+        @(MODTokenTypeBoolean)   : @[ MODRegex(@"^(true|false|YES|NO)\\b([ \\t]*)") ],
     };
 
     return self;
@@ -90,7 +89,7 @@
         ?: self.color
         ?: self.string
         ?: self.unit
-        //?: self.boolean
+        ?: self.boolean
         //?: self.ident
         ?: self.space;
         //?: self.selector;
@@ -152,10 +151,18 @@
 }
 
 - (MODToken *)unit {
+    // decimal/integer number with optional (px, pt, %) suffix
     return [self testForTokenType:MODTokenTypeUnit transformValueBlock:^id(NSString *value, NSTextCheckingResult *match){
         //px,pt,% etc NSString *type = [self.str substringWithRange:[match rangeAtIndex:match.numberOfRanges-1]];
         NSString *string = [value stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceCharacterSet]];
         return @([string doubleValue]);
+    }];
+}
+
+- (MODToken *)boolean {
+    // true | false | YES | NO
+    return [self testForTokenType:MODTokenTypeBoolean transformValueBlock:^id(NSString *value, NSTextCheckingResult *match) {
+        return @([value hasPrefix:@"true"] || [value hasPrefix:@"YES"]);
     }];
 }
 

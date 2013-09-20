@@ -20,6 +20,7 @@ typedef NS_ENUM(NSInteger, MODTokenType) {
     MODTokenTypeColor,
     MODTokenTypeString,
     MODTokenTypeUnit,
+    MODTokenTypeBoolean,
 };
 
 @interface MODToken : NSObject

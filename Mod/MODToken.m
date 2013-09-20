@@ -34,6 +34,8 @@
             return @"string";
         case MODTokenTypeUnit:
             return @"unit";
+        case MODTokenTypeBoolean:
+            return @"boolean";
     }
 }
 
