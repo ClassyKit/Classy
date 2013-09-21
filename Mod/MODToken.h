@@ -26,12 +26,12 @@ typedef NS_ENUM(NSInteger, MODTokenType) {
 
 @interface MODToken : NSObject
 
-@property (nonatomic, assign) MODTokenType type;
+@property (nonatomic, assign, readonly) MODTokenType type;
 @property (nonatomic, strong) id value;
+@property (nonatomic, assign) NSInteger lineNumber;
 
 + (NSString *)stringForType:(MODTokenType)type;
 
-- (id)initWithType:(MODTokenType)type;
-- (id)initWithType:(MODTokenType)type value:(id)value;
++ (instancetype)tokenOfType:(MODTokenType)type;
 
 @end

@@ -15,8 +15,10 @@
 @property (nonatomic, strong) NSMutableString *str;
 @property (nonatomic, strong) NSMutableArray *stash;
 @property (nonatomic, strong) NSMutableArray *indentStack;
-@property (nonatomic, strong) MODToken *previous;
+@property (nonatomic, strong) MODToken *previousToken;
 @property (nonatomic, strong) NSDictionary *regexCache;
+@property (nonatomic, strong) NSRegularExpression *indentRegex;
+@property (nonatomic, assign) NSInteger lineNumber;
 
 @end
 
@@ -29,6 +31,7 @@
     self.str = [str mutableCopy];
     self.stash = NSMutableArray.new;
     self.indentStack = NSMutableArray.new;
+    self.lineNumber = 1;
 
     // replace carriage returns (\r\n | \r) with newlines
     [MODRegex(@"\\r\\n?") mod_replaceMatchesInString:self.str withTemplate:@"\n"];
@@ -43,6 +46,10 @@
 
         // 1 of `;` followed by 0-* of whitespace
         @(MODTokenTypeSemiColon) : @[ MODRegex(@"^;[ \\t]*") ],
+
+        // new line followed by tabs or spaces
+        @(MODTokenTypeIndent)   : @[ MODRegex(@"^\\n([\\t]*)[ \\t]*"),
+                                     MODRegex(@"^\\n([ \\t]*)") ],
 
         // 1 of `{` or `}`
         @(MODTokenTypeBrace)     : @[ MODRegex(@"^([{}])") ],
@@ -81,7 +88,7 @@
 
 - (MODToken *)nextToken {
     MODToken *token = self.popToken ?: self.advanceToken;
-    self.previous = token;
+    self.previousToken = token;
     return token;
 }
 
@@ -91,7 +98,7 @@
     NSInteger fetch = n - self.stash.count;
     while (fetch-- > 0) {
         MODToken *token = self.advanceToken;
-        NSAssert(token, @"Could not parse token for string %@", self.str);
+        NSAssert(token, @"Could not parse token at line number %d for string '%@'", self.lineNumber, [self.str substringWithRange:NSMakeRange(0, MIN(self.str.length, 20))]);
         [self.stash addObject:token];
     }
     return self.stash[--n];
@@ -105,7 +112,7 @@
     // TODO optimise
     // this could possibly be faster using simple string scanning (NSScanner), instead of regex
     // however all these regexs are anchored to start of string so should be fairly quick
-    return self.eos
+    MODToken *token = self.eos
         ?: self.seperator
         ?: self.comment
         ?: self.newline
@@ -117,6 +124,20 @@
         ?: self.ref
         ?: self.space
         ?: self.selector;
+
+    switch (token.type) {
+        case MODTokenTypeNewline:
+        case MODTokenTypeIndent:
+            ++self.lineNumber;
+            break;
+        case MODTokenTypeOutdent:
+            if (MODTokenTypeOutdent != self.previousToken.type) ++self.lineNumber;
+            break;
+        default:
+            break;
+    }
+    token.lineNumber = self.lineNumber;
+    return token;
 }
 
 - (MODToken *)popToken {
@@ -136,9 +157,9 @@
     if (self.str.length) return nil;
     if (self.indentStack.count) {
         [self.indentStack removeObjectAtIndex:0];
-        return [[MODToken alloc] initWithType:MODTokenTypeOutdent];
+        return [MODToken tokenOfType:MODTokenTypeOutdent];
     } else {
-        return [[MODToken alloc] initWithType:MODTokenTypeEOS];
+        return [MODToken tokenOfType:MODTokenTypeEOS];
     }
 }
 
@@ -162,8 +183,13 @@
         NSInteger closeComment = [self.str rangeOfString:@"*/"].location;
         if (closeComment == NSNotFound) {
             closeComment = self.str.length;
+        } else {
+            closeComment += 2;
         }
-        [self skip:closeComment + 2];
+        NSInteger lines = [[self.str substringWithRange:NSMakeRange(0, closeComment)] componentsSeparatedByCharactersInSet:[NSCharacterSet newlineCharacterSet]].count;
+
+        self.lineNumber += lines - 1;
+        [self skip:closeComment];
         return self.advanceToken;
     }
     
@@ -171,7 +197,50 @@
 }
 
 - (MODToken *)newline {
-    return nil;
+    // we have established the indentation regexp
+    NSTextCheckingResult *match;
+    if (self.indentRegex){
+        match = [self.indentRegex firstMatchInString:self.str options:0 range:NSMakeRange(0, self.str.length)];
+    } else {
+        // figure out if we are using tabs or spaces
+        for (NSRegularExpression *regex in self.regexCache[@(MODTokenTypeIndent)]) {
+            if ([regex mod_firstMatchInString:self.str].length) {
+                self.indentRegex = regex;
+                break;
+            }
+        }
+    }
+
+    if (!match) return nil;
+
+    NSInteger indents = match.range.length;
+    [self skip:indents];
+    if ([self.str hasPrefix:@" "] || [self.str hasPrefix:@"\t"]) {
+        NSAssert(NO, @"Invalid indentation. You can use tabs or spaces to indent, but not both. at line number %d", self.lineNumber);
+    }
+
+    // Blank line
+    if ([self.str hasPrefix:@"\n"]) {
+        ++self.lineNumber;
+        return self.advanceToken;
+    }
+
+    MODToken *token;
+    NSInteger currentIndents = self.indentStack.count ? [self.indentStack[0] integerValue] : 0;
+    if (self.indentStack.count && indents < currentIndents) {
+        while (self.indentStack.count && currentIndents > indents) {
+            [self.stash addObject:[MODToken tokenOfType:MODTokenTypeOutdent]];
+            [self.indentStack removeObjectAtIndex:0];
+        }
+        token = [self popToken];
+    } else if (indents && indents != currentIndents) {
+        [self.indentStack insertObject:@(indents) atIndex:0];
+        token = [MODToken tokenOfType:MODTokenTypeIndent];
+    } else {
+        token = [MODToken tokenOfType:MODTokenTypeNewline];
+    }
+    
+    return token;
 }
 
 - (MODToken *)brace {
@@ -231,8 +300,7 @@
     for (NSRegularExpression *regex in regexes) {
         NSTextCheckingResult *match = [regex firstMatchInString:self.str options:0 range:NSMakeRange(0, self.str.length)];
         if (match) {
-            MODToken *token = MODToken.new;
-            token.type = tokenType;
+            MODToken *token = [MODToken tokenOfType:tokenType];
             if (transformValueBlock) {
                 token.value = transformValueBlock([self.str substringWithRange:match.range], match);
             }

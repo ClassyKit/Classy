@@ -8,6 +8,12 @@
 
 #import "MODToken.h"
 
+@interface MODToken ()
+
+@property (nonatomic, assign, readwrite) MODTokenType type;
+
+@end
+
 @implementation MODToken
 
 + (NSString *)stringForType:(MODTokenType)type {
@@ -41,23 +47,10 @@
     }
 }
 
-- (id)initWithType:(MODTokenType)type value:(id)value {
-    self = [super init];
-    if (!self) return nil;
-
-    self.type = type;
-    self.value = value;
-
-    return self;
-}
-
-- (id)initWithType:(MODTokenType)type {
-    self = [super init];
-    if (!self) return nil;
-
-    self.type = type;
-
-    return self;
++ (instancetype)tokenOfType:(MODTokenType)type {
+    MODToken *token = MODToken.new;
+    token.type = type;
+    return token;
 }
 
 - (NSString *)description {
