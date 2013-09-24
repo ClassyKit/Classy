@@ -39,7 +39,7 @@
         case MODTokenTypeBoolean:
             return @"boolean";
         case MODTokenTypeRef:
-            return @"ident";
+            return @"ref";
         case MODTokenTypeSpace:
             return @"space";
         case MODTokenTypeSelector:

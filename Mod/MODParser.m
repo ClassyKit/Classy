@@ -72,6 +72,7 @@ NSInteger const MODParserErrorFileContents = 2;
 }
 
 - (MODNode *)statement {
+    MODToken *token = self.peekToken;
     return nil;
 }
 

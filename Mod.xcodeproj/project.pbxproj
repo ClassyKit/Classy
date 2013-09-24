@@ -10,6 +10,7 @@
 		68F011DBD64A4843B4FDBD35 /* libPods-ModTests.a in Frameworks */ = {isa = PBXBuildFile; fileRef = A8118E4244BB4C60AA546E0D /* libPods-ModTests.a */; };
 		DD05C3F817E68181009AEAFE /* libMod.a in Frameworks */ = {isa = PBXBuildFile; fileRef = DDA2FCC217E6453B00237125 /* libMod.a */; };
 		DD05C40317E69A44009AEAFE /* UIView-Basic.mod in Resources */ = {isa = PBXBuildFile; fileRef = DD05C40217E69A44009AEAFE /* UIView-Basic.mod */; };
+		DD407BF217F13ED400B2F49D /* MODTokenSpec.m in Sources */ = {isa = PBXBuildFile; fileRef = DD407BF117F13ED400B2F49D /* MODTokenSpec.m */; };
 		DD58C42817E6BEE900B3173C /* MODStyler.m in Sources */ = {isa = PBXBuildFile; fileRef = DD58C42717E6BEE900B3173C /* MODStyler.m */; };
 		DD58C42A17E6BF5B00B3173C /* MODStylerSpec.m in Sources */ = {isa = PBXBuildFile; fileRef = DD58C42917E6BF5B00B3173C /* MODStylerSpec.m */; };
 		DD58C42D17E6C22E00B3173C /* UIColor+MODAdditions.m in Sources */ = {isa = PBXBuildFile; fileRef = DD58C42C17E6C22E00B3173C /* UIColor+MODAdditions.m */; };
@@ -58,6 +59,7 @@
 		7E07F99CDCA64122B2E37628 /* Pods-ModTests.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-ModTests.xcconfig"; path = "Pods/Pods-ModTests.xcconfig"; sourceTree = "<group>"; };
 		A8118E4244BB4C60AA546E0D /* libPods-ModTests.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-ModTests.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		DD05C40217E69A44009AEAFE /* UIView-Basic.mod */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = "UIView-Basic.mod"; sourceTree = "<group>"; };
+		DD407BF117F13ED400B2F49D /* MODTokenSpec.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MODTokenSpec.m; sourceTree = "<group>"; };
 		DD58C42617E6BEE900B3173C /* MODStyler.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MODStyler.h; sourceTree = "<group>"; };
 		DD58C42717E6BEE900B3173C /* MODStyler.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MODStyler.m; sourceTree = "<group>"; };
 		DD58C42917E6BF5B00B3173C /* MODStylerSpec.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MODStylerSpec.m; sourceTree = "<group>"; };
@@ -230,6 +232,7 @@
 				DDA2FD0317E6458E00237125 /* MODParserSpec.m */,
 				DD58C42917E6BF5B00B3173C /* MODStylerSpec.m */,
 				DDB9204717E78A4000280D47 /* MODLexerSpec.m */,
+				DD407BF117F13ED400B2F49D /* MODTokenSpec.m */,
 			);
 			name = Specs;
 			sourceTree = "<group>";
@@ -385,6 +388,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				DD58C42A17E6BF5B00B3173C /* MODStylerSpec.m in Sources */,
+				DD407BF217F13ED400B2F49D /* MODTokenSpec.m in Sources */,
 				DDB9204817E78A4000280D47 /* MODLexerSpec.m in Sources */,
 				DDA2FD0417E6458E00237125 /* MODParserSpec.m in Sources */,
 			);
