@@ -3,7 +3,7 @@ UIView {
 background-color:#fff
 }
 UIControl{
-    background-color:#ffffff;
+    background-color:#ffffff
     border-width: 1;
 }
 

@@ -89,6 +89,7 @@
 		DDB9204717E78A4000280D47 /* MODLexerSpec.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MODLexerSpec.m; sourceTree = "<group>"; };
 		DDB9204917E78B5B00280D47 /* NSRegularExpression+MODAdditions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSRegularExpression+MODAdditions.h"; sourceTree = "<group>"; };
 		DDB9204A17E78B5B00280D47 /* NSRegularExpression+MODAdditions.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSRegularExpression+MODAdditions.m"; sourceTree = "<group>"; };
+		DDD77AF817F3A8BD0009923A /* MODLog.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MODLog.h; sourceTree = "<group>"; };
 		DDE391B817E7079F00C8BBD1 /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
 		DDE76FF117F2ADE6003DF205 /* MODStyleGroup.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MODStyleGroup.h; sourceTree = "<group>"; };
 		DDE76FF217F2ADE6003DF205 /* MODStyleGroup.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MODStyleGroup.m; sourceTree = "<group>"; };
@@ -135,6 +136,7 @@
 		DD57497617E981B000E2945E /* Modules */ = {
 			isa = PBXGroup;
 			children = (
+				DDD77AF817F3A8BD0009923A /* MODLog.h */,
 				DDB9204417E70E4A00280D47 /* MODToken.h */,
 				DDB9204517E70E4A00280D47 /* MODToken.m */,
 				DDA2FD0517E645C700237125 /* MODLexer.h */,

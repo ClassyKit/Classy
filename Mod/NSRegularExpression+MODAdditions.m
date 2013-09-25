@@ -7,6 +7,7 @@
 //
 
 #import "NSRegularExpression+MODAdditions.h"
+#import "MODLog.h"
 
 extern NSRegularExpression *MODRegex(NSString *patternFormat, ...) {
     va_list args;
@@ -16,9 +17,9 @@ extern NSRegularExpression *MODRegex(NSString *patternFormat, ...) {
 
     NSError *error = nil;
     NSRegularExpression *regex = [NSRegularExpression regularExpressionWithPattern:pattern options:0 error:&error];
-    NSCAssert(error == nil, @"Could not create regex from pattern: %@", pattern);
+    NSCAssert(error == nil, @"Could not create regex from pattern %@", pattern);
     if (error) {
-        NSLog(@"error: %@", error);
+        MODLog(@"error %@", error);
     }
     return regex;
 }

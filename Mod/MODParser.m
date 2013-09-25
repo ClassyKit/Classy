@@ -10,6 +10,7 @@
 #import "MODLexer.h"
 #import "MODStyleGroup.h"
 #import "MODToken.h"
+#import "MODLog.h"
 
 NSString * const MODParserErrorDomain = @"MODParserErrorDomain";
 NSInteger const MODParserErrorFileContents = 2;
@@ -18,6 +19,7 @@ NSInteger const MODParserErrorFileContents = 2;
 
 @property (nonatomic, strong) MODLexer *lexer;
 @property (nonatomic, strong) NSMutableArray *styleGroups;
+@property (nonatomic, strong) NSString *filePath;
 
 @end
 
@@ -47,12 +49,15 @@ NSInteger const MODParserErrorFileContents = 2;
         return nil;
     }
 
+    self.filePath = filePath;
     self.lexer = [[MODLexer alloc] initWithString:contents];
     self.styleGroups = NSMutableArray.new;
+
     return self;
 }
 
 - (void)parse {
+    MODLog(@"Start parsing file \n%@", self.filePath);
     MODStyleGroup *currentGroup = nil;
     while (self.peekToken.type != MODTokenTypeEOS) {
         NSArray *selectors = self.selectorTokens;
@@ -60,17 +65,12 @@ NSInteger const MODParserErrorFileContents = 2;
             currentGroup = MODStyleGroup.new;
             currentGroup.selectors = selectors;
             [self.styleGroups addObject:currentGroup];
-            NSLog(@"selectors %@", selectors);
+            MODLog(@"(line %d) selectors %@", self.peekToken.lineNumber, selectors);
             continue;
         }
 
-        NSLog(@"TODO token %@ at line number %d", self.peekToken, self.peekToken.lineNumber);
+        MODLog(@"(line %d) token `%@`", self.peekToken.lineNumber, self.peekToken);
         [self nextToken];
-//        if ([self consumeTokenOfType:MODTokenTypeNewline]) continue;
-//        MODNode *stmt = self.statement;
-//        [self consumeTokenOfType:MODTokenTypeSemiColon];
-//        NSAssert(stmt, @"unexpected token %@ at line number %d, not allowed at the root level", self.peekToken, self.peekToken.lineNumber);
-//        [root addChildNode:stmt];
     }
 }
 

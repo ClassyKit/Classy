@@ -5,7 +5,8 @@
 //  Created by Jonas Budelmann on 16/09/13.
 //  Copyright (c) 2013 cloudling. All rights reserved.
 //
-// https://github.com/soffes/sstoolkit/blob/master/SSToolkit/UIColor%2BSSToolkitAdditions.h
+//  Slightly modified from https://github.com/soffes/sstoolkit/blob/master/SSToolkit/UIColor%2BSSToolkitAdditions.h
+//  Main change namespaced to avoid collisions with other UIColor categories
 
 #import <UIKit/UIKit.h>
 

@@ -93,11 +93,12 @@
 }
 
 - (MODToken *)lookaheadByCount:(NSUInteger)count {
-    NSAssert(count > 0, @"Invalid lookahead count value `%d` must lookahead at least one token", count);
+    NSAssert(count > 0, @"Invalid lookahead. Count `%d` must be >= 1", count);
     NSInteger fetch = count - self.stash.count;
     while (fetch-- > 0) {
         MODToken *token = self.advanceToken;
-        NSAssert(token, @"Could not parse token at line number %d for string '%@'", self.lineNumber, [self.str substringWithRange:NSMakeRange(0, MIN(self.str.length, 20))]);
+        NSAssert(token, @"Invalid token. Could not determine token for `%@`. (line %d)",
+                 [self.str substringWithRange:NSMakeRange(0, MIN(self.str.length, 20))], self.lineNumber);
         [self.stash addObject:token];
     }
     return self.stash[count-1];
@@ -224,7 +225,7 @@
     NSInteger indents = match.range.length;
     [self skip:indents];
     if ([self.str hasPrefix:@" "] || [self.str hasPrefix:@"\t"]) {
-        NSAssert(NO, @"Invalid indentation. You can use tabs or spaces to indent, but not both. at line number %d", self.lineNumber);
+        NSAssert(NO, @"Invalid indentation. You can use tabs or spaces to indent, but not both. (line %d)", self.lineNumber);
     }
 
     // Blank line
@@ -316,7 +317,7 @@
 
 - (MODToken *)testForTokenType:(MODTokenType)tokenType transformValueBlock:(id(^)(NSString *value, NSTextCheckingResult *match))transformValueBlock {
     NSArray *regexes = self.regexCache[@(tokenType)];
-    NSAssert(regexes, @"No cached regex for MODTokenType: %d", tokenType);
+    NSAssert(regexes.count, @"Invalid cache. No cached regex for MODTokenType `%@`", [MODToken stringForType:tokenType]);
     for (NSRegularExpression *regex in regexes) {
         NSTextCheckingResult *match = [regex firstMatchInString:self.str options:0 range:NSMakeRange(0, self.str.length)];
         if (match) {

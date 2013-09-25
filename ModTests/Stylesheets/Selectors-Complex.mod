@@ -1,7 +1,7 @@
 
 UIButton:selected UIControl {
     background-color:#ffffff;
-    border-width: 1;
+    border-width 1
 }
 
 
@@ -14,6 +14,6 @@ UISlider,
 UINavigationBar
 UIButton
 {
-    background-color:#ffffff;
+    background-color #ffffff
     border-width: 1;
 }
