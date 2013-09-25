@@ -43,13 +43,11 @@ it(@"should return space", ^{
 
 it(@"should return brace", ^{
     MODLexer *lexer = [[MODLexer alloc] initWithString:@"{  \t    hello"];
-    expect(lexer.peekToken.type).to.equal(MODTokenTypeBrace);
-    expect(lexer.peekToken.value).to.equal(@"{");
+    expect(lexer.peekToken.type).to.equal(MODTokenTypeOpeningBrace);
     expect(lexer.str).to.equal(@"  \t    hello");
 
     lexer = [[MODLexer alloc] initWithString:@"}{  world hello"];
-    expect(lexer.peekToken.type).to.equal(MODTokenTypeBrace);
-    expect(lexer.peekToken.value).to.equal(@"}");
+    expect(lexer.peekToken.type).to.equal(MODTokenTypeClosingBrace);
     expect(lexer.str).to.equal(@"{  world hello");
 });
 
@@ -142,11 +140,6 @@ it(@"should return selector", ^{
     expect(lexer.peekToken.type).to.equal(MODTokenTypeSelector);
     expect(lexer.peekToken.value).to.equal(@"^&*@#$_+!hello    world[asd//aa]     ");
     expect(lexer.str).to.equal(@",");
-
-    lexer = [[MODLexer alloc] initWithString:@"*hello ><?:'*   world//comment     ,"];
-    expect(lexer.peekToken.type).to.equal(MODTokenTypeSelector);
-    expect(lexer.peekToken.value).to.equal(@"*hello ><?:'*   world");
-    expect(lexer.str).to.equal(@"//comment     ,");
 });
 
 it(@"should return ref", ^{
@@ -198,6 +191,13 @@ it(@"should return indent", ^{
     expect(token.value).to.equal(nil);
     expect(token.lineNumber).to.equal(2);
     expect(lexer.str).to.equal(@"asdf");
+});
+
+it(@"should return Operator", ^{
+    MODLexer *lexer = [[MODLexer alloc] initWithString:@",   hello"];
+    expect(lexer.peekToken.type).to.equal(MODTokenTypeOperator);
+    expect(lexer.peekToken.value).to.equal(@",");
+    expect(lexer.str).to.equal(@"hello");
 });
 
 SpecEnd

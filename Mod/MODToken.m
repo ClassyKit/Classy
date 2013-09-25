@@ -28,8 +28,10 @@
             return @"semicolon";
         case MODTokenTypeNewline:
             return @"newline";
-        case MODTokenTypeBrace:
-            return @"brace";
+        case MODTokenTypeOpeningBrace:
+            return @"{";
+        case MODTokenTypeClosingBrace:
+            return @"}";
         case MODTokenTypeColor:
             return @"color";
         case MODTokenTypeString:
@@ -40,6 +42,8 @@
             return @"boolean";
         case MODTokenTypeRef:
             return @"ref";
+        case MODTokenTypeOperator:
+            return @"operator";
         case MODTokenTypeSpace:
             return @"space";
         case MODTokenTypeSelector:
@@ -55,7 +59,7 @@
 
 - (NSString *)description {
     if (self.value) {
-        return [NSString stringWithFormat:@"%@:%@", [self.class stringForType:self.type], self.value];
+        return [NSString stringWithFormat:@"%@ %@", [self.class stringForType:self.type], self.value];
     }
     return [self.class stringForType:self.type];
 }

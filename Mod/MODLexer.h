@@ -28,4 +28,7 @@
  */
 - (MODToken *)nextToken;
 
+
+- (MODToken *)lookahead:(NSUInteger)n;
+
 @end

@@ -22,7 +22,8 @@
     if (!self) return nil;
 
     self.parser = [[MODParser alloc] initWithFilePath:filePath error:error];
-    //[self.parser parse];
+    [self.parser parse];
+
     return self;
 }
 

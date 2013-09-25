@@ -53,15 +53,18 @@ NSInteger const MODParserErrorFileContents = 2;
 }
 
 - (void)parse {
-    MODNode *root = self.root;
     while (self.peekToken.type != MODTokenTypeEOS) {
-        if ([self consumeTokenOfType:MODTokenTypeNewline]) continue;
-        MODNode *stmt = self.statement;
-        [self consumeTokenOfType:MODTokenTypeSemiColon];
-        NSAssert(stmt, @"unexpected token %@ at line number %d, not allowed at the root level", self.peekToken, self.peekToken.lineNumber);
-        [root addChildNode:stmt];
+        NSLog(@"token %@ at line number %d", self.peekToken, self.peekToken.lineNumber);
+        [self nextToken];
+//        if ([self consumeTokenOfType:MODTokenTypeNewline]) continue;
+//        MODNode *stmt = self.statement;
+//        [self consumeTokenOfType:MODTokenTypeSemiColon];
+//        NSAssert(stmt, @"unexpected token %@ at line number %d, not allowed at the root level", self.peekToken, self.peekToken.lineNumber);
+//        [root addChildNode:stmt];
     }
 }
+
+#pragma mark - token helpers
 
 - (MODToken *)peekToken {
     return self.lexer.peekToken;
@@ -71,9 +74,8 @@ NSInteger const MODParserErrorFileContents = 2;
     return self.lexer.nextToken;
 }
 
-- (MODNode *)statement {
-    MODToken *token = self.peekToken;
-    return nil;
+- (MODToken *)lookahead:(NSUInteger)n {
+    return [self.lexer lookahead:n];
 }
 
 - (MODToken *)consumeTokenOfType:(MODTokenType)type {
@@ -83,6 +85,8 @@ NSInteger const MODParserErrorFileContents = 2;
     }
     return nil;
 }
+
+#pragma mark - nodes
 
 
 @end

@@ -51,9 +51,6 @@
         @(MODTokenTypeIndent)   : @[ MODRegex(@"^\\n([\\t]*)[ \\t]*"),
                                      MODRegex(@"^\\n([ \\t]*)") ],
 
-        // 1 of `{` or `}`
-        @(MODTokenTypeBrace)     : @[ MODRegex(@"^([{}])") ],
-
         //#rrggbbaa | #rrggbb | #rgb
         @(MODTokenTypeColor)     : @[ MODRegex(@"^#([a-fA-F0-9]{8})[ \\t]*"),
                                       MODRegex(@"^#([a-fA-F0-9]{6})[ \\t]*"),
@@ -70,6 +67,9 @@
 
         // optional `@` | `-` then at least one `_a-zA-Z$` following by any alphanumber or `-` or `$`
         @(MODTokenTypeRef)       : @[ MODRegex(@"^(@)?(-*[_a-zA-Z$][-\\w\\d$]*)") ],
+
+        // tests if string looks like math operation
+        @(MODTokenTypeOperator) : @[ MODRegex(@"^([.]{2,3}|&&|\\|\\||[!<>=?:]=|\\*\\*|[-+*\\/%%]=?|[,=?:!~<>&\\[\\]])([ \\t]*)") ],
 
         // 1-* of whitespace
         @(MODTokenTypeSpace)     : @[ MODRegex(@"^([ \\t]+)") ],
@@ -92,8 +92,6 @@
     return token;
 }
 
-#pragma mark - private
-
 - (MODToken *)lookahead:(NSUInteger)n {
     NSInteger fetch = n - self.stash.count;
     while (fetch-- > 0) {
@@ -103,6 +101,14 @@
     }
     return self.stash[--n];
 }
+
+- (MODToken *)tokenOfType:(MODTokenType)type {
+    MODToken *token = [MODToken tokenOfType:type];
+    token.lineNumber = self.lineNumber;
+    return token;
+}
+
+#pragma mark - private
 
 - (void)skip:(NSUInteger)n {
     [self.str deleteCharactersInRange:NSMakeRange(0, n)];
@@ -122,6 +128,7 @@
         ?: self.unit
         ?: self.boolean
         ?: self.ref
+        ?: self.operation
         ?: self.space
         ?: self.selector;
 
@@ -157,9 +164,9 @@
     if (self.str.length) return nil;
     if (self.indentStack.count) {
         [self.indentStack removeObjectAtIndex:0];
-        return [MODToken tokenOfType:MODTokenTypeOutdent];
+        return [self tokenOfType:MODTokenTypeOutdent];
     } else {
-        return [MODToken tokenOfType:MODTokenTypeEOS];
+        return [self tokenOfType:MODTokenTypeEOS];
     }
 }
 
@@ -229,24 +236,30 @@
     NSInteger currentIndents = self.indentStack.count ? [self.indentStack[0] integerValue] : 0;
     if (self.indentStack.count && indents < currentIndents) {
         while (self.indentStack.count && currentIndents > indents) {
-            [self.stash addObject:[MODToken tokenOfType:MODTokenTypeOutdent]];
+            [self.stash addObject:[self tokenOfType:MODTokenTypeOutdent]];
             [self.indentStack removeObjectAtIndex:0];
         }
         token = [self popToken];
     } else if (indents && indents != currentIndents) {
         [self.indentStack insertObject:@(indents) atIndex:0];
-        token = [MODToken tokenOfType:MODTokenTypeIndent];
+        token = [self tokenOfType:MODTokenTypeIndent];
     } else {
-        token = [MODToken tokenOfType:MODTokenTypeNewline];
+        token = [self tokenOfType:MODTokenTypeNewline];
     }
     
     return token;
 }
 
 - (MODToken *)brace {
-    return [self testForTokenType:MODTokenTypeBrace transformValueBlock:^id(NSString *value, NSTextCheckingResult *match){
-        return value;
-    }];
+    if ([self.str hasPrefix:@"{"]) {
+        [self skip:1];
+        return [self tokenOfType:MODTokenTypeOpeningBrace];
+    }
+    if ([self.str hasPrefix:@"}"]) {
+        [self skip:1];
+        return [self tokenOfType:MODTokenTypeClosingBrace];
+    }
+    return nil;
 }
 
 - (MODToken *)color {
@@ -282,6 +295,12 @@
     }];
 }
 
+- (MODToken *)operation {
+    return [self testForTokenType:MODTokenTypeOperator transformValueBlock:^id(NSString *value, NSTextCheckingResult *match) {
+        return [self.str substringWithRange:[match rangeAtIndex:1]];
+    }];
+}
+
 - (MODToken *)space {
     return [self testForTokenType:MODTokenTypeSpace transformValueBlock:nil];
 }
@@ -300,7 +319,7 @@
     for (NSRegularExpression *regex in regexes) {
         NSTextCheckingResult *match = [regex firstMatchInString:self.str options:0 range:NSMakeRange(0, self.str.length)];
         if (match) {
-            MODToken *token = [MODToken tokenOfType:tokenType];
+            MODToken *token = [self tokenOfType:tokenType];
             if (transformValueBlock) {
                 token.value = transformValueBlock([self.str substringWithRange:match.range], match);
             }
