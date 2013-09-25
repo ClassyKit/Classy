@@ -83,7 +83,7 @@
 
 
 - (MODToken *)peekToken {
-    return [self lookahead:1];
+    return [self lookaheadByCount:1];
 }
 
 - (MODToken *)nextToken {
@@ -92,15 +92,15 @@
     return token;
 }
 
-- (MODToken *)lookahead:(NSUInteger)n {
-    NSAssert(n > 0, @"must lookahead at least one token");
-    NSInteger fetch = n - self.stash.count;
+- (MODToken *)lookaheadByCount:(NSUInteger)count {
+    NSAssert(count > 0, @"Invalid lookahead count value `%d` must lookahead at least one token", count);
+    NSInteger fetch = count - self.stash.count;
     while (fetch-- > 0) {
         MODToken *token = self.advanceToken;
         NSAssert(token, @"Could not parse token at line number %d for string '%@'", self.lineNumber, [self.str substringWithRange:NSMakeRange(0, MIN(self.str.length, 20))]);
         [self.stash addObject:token];
     }
-    return self.stash[n-1];
+    return self.stash[count-1];
 }
 
 - (MODToken *)tokenOfType:(MODTokenType)type {

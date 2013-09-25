@@ -84,8 +84,8 @@ NSInteger const MODParserErrorFileContents = 2;
     return self.lexer.nextToken;
 }
 
-- (MODToken *)lookahead:(NSUInteger)n {
-    return [self.lexer lookahead:n];
+- (MODToken *)lookaheadByCount:(NSUInteger)count {
+    return [self.lexer lookaheadByCount:count];
 }
 
 - (MODToken *)consumeTokenOfType:(MODTokenType)type {
@@ -101,7 +101,6 @@ NSInteger const MODParserErrorFileContents = 2;
 - (NSArray *)selectorTokens {
     //primitive selector detection
     NSInteger i = 0;
-    NSString *seperator = @",";
     NSMutableArray *selectors = NSMutableArray.new;
     NSMutableString *currentSelector = NSMutableString.new;
 
@@ -112,14 +111,9 @@ NSInteger const MODParserErrorFileContents = 2;
         }
     };
 
-    MODToken *token = [self lookahead:++i];
-    while (token.type == MODTokenTypeRef
-            || token.type == MODTokenTypeSelector
-            || token.isWhitespace
-            || [token valueIsEqualToString:@":"]
-            || [token valueIsEqualToString:seperator]) {
-
-        if ([token valueIsEqualToString:seperator]) {
+    MODToken *token = [self lookaheadByCount:++i];
+    while (token.isPossiblySelector) {
+        if ([token valueIsEqualToString:@","]) {
             addSelector(currentSelector);
             currentSelector = NSMutableString.new;
         } else if(token.isWhitespace) {
@@ -127,8 +121,7 @@ NSInteger const MODParserErrorFileContents = 2;
         } else if ([token.value length]) {
             [currentSelector appendString:token.value];
         }
-
-        token = [self lookahead:++i];
+        token = [self lookaheadByCount:++i];
     }
     addSelector(currentSelector);
     

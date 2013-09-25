@@ -8,7 +8,6 @@
 
 #import <Foundation/Foundation.h>
 
-
 typedef NS_ENUM(NSInteger, MODTokenType) {
     MODTokenTypeIndent,
     MODTokenTypeOutdent,
@@ -29,27 +28,58 @@ typedef NS_ENUM(NSInteger, MODTokenType) {
 
 @interface MODToken : NSObject
 
+/**
+ *  The type of the token, may not represent the true type which is determined in context of other tokens
+ */
 @property (nonatomic, assign, readonly) MODTokenType type;
+
+/**
+ *  The value of the token, could be a boxed primitive or a `NSString`, `UIColor`, ...
+ */
 @property (nonatomic, strong) id value;
+
+/**
+ *  The line number at which the token appeared in the style file, used for debug and error messages
+ */
 @property (nonatomic, assign) NSInteger lineNumber;
 
+/**
+ *  Factory method for creating tokens with a particular `MODTokenType`
+ */
 + (instancetype)tokenOfType:(MODTokenType)type;
 
 /**
+ *  Returns a `NSString` representation of a `MODTokenType`
  *  Mainly used for debug output
+ *
+ *  @param type The `MODTokenType` to convert to a `NSString`
+ *
+ *  @return a `NSString` representing the passed `MODTokenType`
  */
 + (NSString *)stringForType:(MODTokenType)type;
 
 /**
- *  Token is whitespace type
+ *  Returns whether reciever is a whitespace token or not
  *
- *  @return Indent | Outdent | Space | NewLine
+ *  @return `YES` if reciever is one of the following types indent, outdent, space, new line.
  */
 - (BOOL)isWhitespace;
 
 /**
- *  value is a string and is equal to passed string
+ *  Returns whether reciever's value is a `NSString` and is equal to the given `NSString`
+ *
+ *  @param string the `NSString` for comparison
+ *
+ *  @return `YES` if reciever is an `NSString` and is equal to the given `NSString`
  */
 - (BOOL)valueIsEqualToString:(NSString *)string;
+
+/**
+ *  Returns whether the reciever could be a valid selector token.
+ *  However context will determine if it is definitely a selector
+ *
+ *  @return `YES` if it is possible that the reciever is a selector
+ */
+- (BOOL)isPossiblySelector;
 
 @end

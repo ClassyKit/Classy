@@ -16,6 +16,8 @@
 
 @implementation MODToken
 
+#pragma mark - debug
+
 + (NSString *)stringForType:(MODTokenType)type {
     switch (type) {
         case MODTokenTypeIndent:
@@ -51,18 +53,22 @@
     }
 }
 
-+ (instancetype)tokenOfType:(MODTokenType)type {
-    MODToken *token = MODToken.new;
-    token.type = type;
-    return token;
-}
-
 - (NSString *)description {
     if (self.value) {
         return [NSString stringWithFormat:@"%@ %@", [self.class stringForType:self.type], self.value];
     }
     return [self.class stringForType:self.type];
 }
+
+#pragma mark - Factory
+
++ (instancetype)tokenOfType:(MODTokenType)type {
+    MODToken *token = MODToken.new;
+    token.type = type;
+    return token;
+}
+
+#pragma mark - Helpers
 
 - (BOOL)isWhitespace {
     return self.type == MODTokenTypeIndent
@@ -73,6 +79,14 @@
 
 - (BOOL)valueIsEqualToString:(NSString *)string {
     return [self.value isKindOfClass:NSString.class] && [self.value isEqualToString:string];
+}
+
+- (BOOL)isPossiblySelector {
+    return self.type == MODTokenTypeRef
+        || self.type == MODTokenTypeSelector
+        || self.isWhitespace
+        || [self valueIsEqualToString:@":"]
+        || [self valueIsEqualToString:@","];
 }
 
 @end
