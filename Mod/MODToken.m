@@ -64,4 +64,15 @@
     return [self.class stringForType:self.type];
 }
 
+- (BOOL)isWhitespace {
+    return self.type == MODTokenTypeIndent
+        || self.type == MODTokenTypeOutdent
+        || self.type == MODTokenTypeNewline
+        || self.type == MODTokenTypeSpace;
+}
+
+- (BOOL)valueIsEqualToString:(NSString *)string {
+    return [self.value isKindOfClass:NSString.class] && [self.value isEqualToString:string];
+}
+
 @end

@@ -28,7 +28,13 @@
  */
 - (MODToken *)nextToken;
 
-
+/**
+ *  lookahead advances stash if needed then returns 'n' from top of stash
+ *
+ *  @param n number of tokens to lookahead, minimum=1
+ *
+ *  @return token
+ */
 - (MODToken *)lookahead:(NSUInteger)n;
 
 @end

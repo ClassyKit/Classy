@@ -11,13 +11,13 @@
 
 SpecBegin(MODStyler)
 
-it(@"should set basic properties", ^{
+xit(@"should set basic properties", ^{
     NSString *filePath = [[NSBundle bundleForClass:self.class] pathForResource:@"UIView-Basic.mod" ofType:nil];
     MODStyler *styler = [[MODStyler alloc] initWithFilePath:filePath error:nil];
     UIView *view = UIView.new;
     [styler styleView:view];
 
-    //expect(view.backgroundColor.mod_hexValue).to.equal(@"#A2A2A2");
+    expect(view.backgroundColor.mod_hexValue).to.equal(@"#A2A2A2");
 });
 
 SpecEnd

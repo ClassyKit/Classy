@@ -8,6 +8,7 @@
 
 #import <Foundation/Foundation.h>
 
+
 typedef NS_ENUM(NSInteger, MODTokenType) {
     MODTokenTypeIndent,
     MODTokenTypeOutdent,
@@ -32,8 +33,23 @@ typedef NS_ENUM(NSInteger, MODTokenType) {
 @property (nonatomic, strong) id value;
 @property (nonatomic, assign) NSInteger lineNumber;
 
++ (instancetype)tokenOfType:(MODTokenType)type;
+
+/**
+ *  Mainly used for debug output
+ */
 + (NSString *)stringForType:(MODTokenType)type;
 
-+ (instancetype)tokenOfType:(MODTokenType)type;
+/**
+ *  Token is whitespace type
+ *
+ *  @return Indent | Outdent | Space | NewLine
+ */
+- (BOOL)isWhitespace;
+
+/**
+ *  value is a string and is equal to passed string
+ */
+- (BOOL)valueIsEqualToString:(NSString *)string;
 
 @end

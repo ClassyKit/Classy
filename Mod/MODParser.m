@@ -8,7 +8,7 @@
 
 #import "MODParser.h"
 #import "MODLexer.h"
-#import "MODNode.h"
+#import "MODStyleGroup.h"
 #import "MODToken.h"
 
 NSString * const MODParserErrorDomain = @"MODParserErrorDomain";
@@ -17,7 +17,7 @@ NSInteger const MODParserErrorFileContents = 2;
 @interface MODParser ()
 
 @property (nonatomic, strong) MODLexer *lexer;
-@property (nonatomic, strong) MODNode *root;
+@property (nonatomic, strong) NSMutableArray *styleGroups;
 
 @end
 
@@ -48,13 +48,22 @@ NSInteger const MODParserErrorFileContents = 2;
     }
 
     self.lexer = [[MODLexer alloc] initWithString:contents];
-    self.root = MODNode.new;
+    self.styleGroups = NSMutableArray.new;
     return self;
 }
 
 - (void)parse {
+    MODStyleGroup *currentGroup = nil;
     while (self.peekToken.type != MODTokenTypeEOS) {
-        NSLog(@"token %@ at line number %d", self.peekToken, self.peekToken.lineNumber);
+        NSArray *selectors = self.selectorTokens;
+        if (selectors.count) {
+            currentGroup = MODStyleGroup.new;
+            currentGroup.selectors = selectors;
+            [self.styleGroups addObject:currentGroup];
+            continue;
+        }
+
+        NSLog(@"TODO token %@ at line number %d", self.peekToken, self.peekToken.lineNumber);
         [self nextToken];
 //        if ([self consumeTokenOfType:MODTokenTypeNewline]) continue;
 //        MODNode *stmt = self.statement;
@@ -87,6 +96,32 @@ NSInteger const MODParserErrorFileContents = 2;
 }
 
 #pragma mark - nodes
+
+- (NSArray *)selectorTokens {
+    //primitive selector detection
+    NSInteger i = 0;
+    NSMutableArray *selectors = NSMutableArray.new;
+
+    MODToken *token;
+    do {
+        token = [self lookahead:++i];
+        if (token.type == MODTokenTypeRef) {
+            [selectors addObject:token];
+        }
+    } while (token.type == MODTokenTypeRef
+             || token.isWhitespace
+             || [token valueIsEqualToString:@","]);
+
+    if ([self lookahead:i].type == MODTokenTypeOpeningBrace) {
+        //consume tokens
+        while (--i > 0) {
+            [self nextToken];
+        }
+        return selectors;
+    }
+
+    return nil;
+}
 
 
 @end
