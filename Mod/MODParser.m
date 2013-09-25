@@ -60,6 +60,7 @@ NSInteger const MODParserErrorFileContents = 2;
             currentGroup = MODStyleGroup.new;
             currentGroup.selectors = selectors;
             [self.styleGroups addObject:currentGroup];
+            NSLog(@"selectors %@", selectors);
             continue;
         }
 
@@ -100,19 +101,38 @@ NSInteger const MODParserErrorFileContents = 2;
 - (NSArray *)selectorTokens {
     //primitive selector detection
     NSInteger i = 0;
+    NSString *seperator = @",";
     NSMutableArray *selectors = NSMutableArray.new;
+    NSMutableString *currentSelector = NSMutableString.new;
 
-    MODToken *token;
-    do {
-        token = [self lookahead:++i];
-        if (token.type == MODTokenTypeRef) {
-            [selectors addObject:token];
+    void (^addSelector)(NSString *) = ^(NSString *aSelector){
+        NSString *selector = [aSelector stringByTrimmingCharactersInSet:[NSCharacterSet characterSetWithCharactersInString:@" \n"]];
+        if (selector.length) {
+            [selectors addObject:selector];
         }
-    } while (token.type == MODTokenTypeRef
-             || token.isWhitespace
-             || [token valueIsEqualToString:@","]);
+    };
 
-    if ([self lookahead:i].type == MODTokenTypeOpeningBrace) {
+    MODToken *token = [self lookahead:++i];
+    while (token.type == MODTokenTypeRef
+            || token.type == MODTokenTypeSelector
+            || token.isWhitespace
+            || [token valueIsEqualToString:@":"]
+            || [token valueIsEqualToString:seperator]) {
+
+        if ([token valueIsEqualToString:seperator]) {
+            addSelector(currentSelector);
+            currentSelector = NSMutableString.new;
+        } else if(token.isWhitespace) {
+            [currentSelector appendString:@" "];
+        } else if ([token.value length]) {
+            [currentSelector appendString:token.value];
+        }
+
+        token = [self lookahead:++i];
+    }
+    addSelector(currentSelector);
+    
+    if (token.type == MODTokenTypeOpeningBrace) {
         //consume tokens
         while (--i > 0) {
             [self nextToken];
