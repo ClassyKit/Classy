@@ -10,29 +10,43 @@
 
 @interface MODStyleProperty ()
 
-@property (nonatomic, strong, readwrite) MODToken *name;
-@property (nonatomic, strong) NSArray *values;
+@property (nonatomic, strong, readwrite) MODToken *nameToken;
+@property (nonatomic, strong) NSArray *valueTokens;
 
 @end
 
 @implementation MODStyleProperty
 
-- (id)initWithName:(MODToken *)name values:(NSArray *)values {
+- (id)initWithNameToken:(MODToken *)nameToken valueTokens:(NSArray *)valueTokens {
     self = [super init];
     if (!self) return nil;
 
-    self.name = name;
-    self.values = values;
+    self.nameToken = nameToken;
+    self.valueTokens = valueTokens;
 
     return self;
 }
 
 - (BOOL)isValid {
-    return self.name.value && self.values.count;
+    return self.nameToken.value && self.valueTokens.count;
+}
+
+- (NSString *)name {
+    return self.nameToken.value;
+}
+
+- (NSArray *)values {
+    NSMutableArray *values = NSMutableArray.new;
+    for (MODToken *valueToken in self.valueTokens) {
+        if (valueToken.value) {
+            [values addObject:valueToken.value];
+        }
+    }
+    return values;
 }
 
 - (NSString *)description {
-    return [NSString stringWithFormat:@"name: %@, values: %@", self.name, self.values];
+    return [NSString stringWithFormat:@"name: %@, values: %@", self.nameToken, self.valueTokens];
 }
 
 @end

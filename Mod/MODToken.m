@@ -84,7 +84,8 @@
 - (BOOL)isPossiblySelector {
     return self.type == MODTokenTypeRef
         || self.type == MODTokenTypeSelector
-        || self.isWhitespace
+        || self.type == MODTokenTypeNewline
+        || self.type == MODTokenTypeSpace
         || [self valueIsEqualTo:@":"]
         || [self valueIsEqualTo:@","];
 }

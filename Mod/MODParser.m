@@ -69,6 +69,7 @@ NSInteger const MODParserErrorFileContents = 2;
             currentGroup = styleGroup;
             [self.styleGroups addObject:currentGroup];
             [self consumeTokenOfType:MODTokenTypeOpeningBrace];
+            [self consumeTokenOfType:MODTokenTypeIndent];
             MODLog(@"(line %d) MODStyleGroup %@", self.peekToken.lineNumber, currentGroup);
             continue;
         }
@@ -76,17 +77,24 @@ NSInteger const MODParserErrorFileContents = 2;
         //not a style group therefore must be a property
         MODStyleProperty *styleProperty = [self nextStyleProperty];
         if (styleProperty.isValid) {
+            NSAssert(currentGroup, @"Invalid style property `%@`. Needs to be within a style group. (line %d)",
+                     styleProperty, self.peekToken.lineNumber);
             [currentGroup addStyleProperty:styleProperty];
             MODLog(@"(line %d) MODStyleProperty `%@`", self.peekToken.lineNumber, styleProperty);
             continue;
         }
 
-        BOOL acceptableToken = [self consumeTokensMatching:^BOOL(MODToken *token) {
-            return token.isWhitespace
-                || token.type == MODTokenTypeSemiColon
-                || token.type == MODTokenTypeClosingBrace; //TODO move back in style group stack
+        BOOL closeGroup = [self consumeTokensMatching:^BOOL(MODToken *token) {
+            return token.type == MODTokenTypeOutdent || token.type == MODTokenTypeClosingBrace;
         }];
-        NSAssert(acceptableToken, @"Unexpected token `%@`. (line %d)",
+        if (closeGroup) {
+            currentGroup = nil;
+        }
+
+        BOOL acceptableToken = [self consumeTokensMatching:^BOOL(MODToken *token) {
+            return token.isWhitespace || token.type == MODTokenTypeSemiColon;
+        }];
+        NSAssert(acceptableToken || closeGroup, @"Unexpected token `%@`. (line %d)",
                  self.nextToken, self.nextToken.lineNumber);
     }
 }
@@ -99,7 +107,6 @@ NSInteger const MODParserErrorFileContents = 2;
 
 - (MODToken *)nextToken {
     MODToken *token = self.lexer.nextToken;
-    MODLog(@"(line %d) skipping %@", token.lineNumber, token);
     return token;
 }
 
@@ -153,7 +160,7 @@ NSInteger const MODParserErrorFileContents = 2;
     }
     [styleGroup addSelector:currentSelector];
 
-    if (token.type == MODTokenTypeOpeningBrace) {
+    if (token.type == MODTokenTypeOpeningBrace || token.type == MODTokenTypeIndent) {
         while (--i > 0) {
             [self nextToken];
         }
@@ -191,11 +198,12 @@ NSInteger const MODParserErrorFileContents = 2;
         token = [self lookaheadByCount:++i];
     }
 
-    MODStyleProperty *styleProperty = [[MODStyleProperty alloc] initWithName:nameToken values:valueTokens];
+    MODStyleProperty *styleProperty = [[MODStyleProperty alloc] initWithNameToken:nameToken valueTokens:valueTokens];
     if (styleProperty.isValid) {
         //consume tokens
         while (--i > 0) {
-            [self nextToken];
+            MODToken *token = [self nextToken];
+            MODLog(@"(line %d) skipping %@", token.lineNumber, token);
         }
     }
 

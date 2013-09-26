@@ -17,6 +17,8 @@
 		DD58C42D17E6C22E00B3173C /* UIColor+MODAdditions.m in Sources */ = {isa = PBXBuildFile; fileRef = DD58C42C17E6C22E00B3173C /* UIColor+MODAdditions.m */; };
 		DD60E0C117E7C5CD004A171E /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DD60E0C017E7C5CD004A171E /* CoreGraphics.framework */; };
 		DD60E0C217E7C5FC004A171E /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DD60E0C017E7C5CD004A171E /* CoreGraphics.framework */; };
+		DD7A63A617F427AF00AC6DBA /* Selectors-Indentation.mod in Resources */ = {isa = PBXBuildFile; fileRef = DD7A63A517F427AF00AC6DBA /* Selectors-Indentation.mod */; };
+		DD7A63A817F427D300AC6DBA /* Properties-Basic.mod in Resources */ = {isa = PBXBuildFile; fileRef = DD7A63A717F427D300AC6DBA /* Properties-Basic.mod */; };
 		DDA2FCC617E6453B00237125 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DDA2FCC517E6453B00237125 /* Foundation.framework */; };
 		DDA2FCCB17E6453B00237125 /* Mod.h in CopyFiles */ = {isa = PBXBuildFile; fileRef = DDA2FCCA17E6453B00237125 /* Mod.h */; };
 		DDA2FCF117E6455700237125 /* SenTestingKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DDA2FCF017E6455700237125 /* SenTestingKit.framework */; };
@@ -69,6 +71,8 @@
 		DD58C42B17E6C22E00B3173C /* UIColor+MODAdditions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIColor+MODAdditions.h"; sourceTree = "<group>"; };
 		DD58C42C17E6C22E00B3173C /* UIColor+MODAdditions.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIColor+MODAdditions.m"; sourceTree = "<group>"; };
 		DD60E0C017E7C5CD004A171E /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = System/Library/Frameworks/CoreGraphics.framework; sourceTree = SDKROOT; };
+		DD7A63A517F427AF00AC6DBA /* Selectors-Indentation.mod */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = "Selectors-Indentation.mod"; sourceTree = "<group>"; };
+		DD7A63A717F427D300AC6DBA /* Properties-Basic.mod */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = "Properties-Basic.mod"; sourceTree = "<group>"; };
 		DD82B9B917E79771000CD9DD /* QuartzCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = QuartzCore.framework; path = System/Library/Frameworks/QuartzCore.framework; sourceTree = SDKROOT; };
 		DDA2FCC217E6453B00237125 /* libMod.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libMod.a; sourceTree = BUILT_PRODUCTS_DIR; };
 		DDA2FCC517E6453B00237125 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
@@ -127,8 +131,10 @@
 		DD05C40117E69A44009AEAFE /* Stylesheets */ = {
 			isa = PBXGroup;
 			children = (
+				DD7A63A717F427D300AC6DBA /* Properties-Basic.mod */,
 				DD05C40217E69A44009AEAFE /* Selectors-Basic.mod */,
 				DD2B3E3C17F2D98900C71ED9 /* Selectors-Complex.mod */,
+				DD7A63A517F427AF00AC6DBA /* Selectors-Indentation.mod */,
 			);
 			path = Stylesheets;
 			sourceTree = "<group>";
@@ -326,6 +332,8 @@
 			buildActionMask = 2147483647;
 			files = (
 				DD05C40317E69A44009AEAFE /* Selectors-Basic.mod in Resources */,
+				DD7A63A617F427AF00AC6DBA /* Selectors-Indentation.mod in Resources */,
+				DD7A63A817F427D300AC6DBA /* Properties-Basic.mod in Resources */,
 				DDA2FCF917E6455700237125 /* InfoPlist.strings in Resources */,
 				DD2B3E3D17F2D98900C71ED9 /* Selectors-Complex.mod in Resources */,
 			);

@@ -11,9 +11,10 @@
 
 @interface MODStyleProperty : NSObject
 
-@property (nonatomic, strong, readonly) MODToken *name;
+@property (nonatomic, strong, readonly) NSString *name;
+@property (nonatomic, strong, readonly) NSArray *values;
 
-- (id)initWithName:(MODToken *)name values:(NSArray *)values;
+- (id)initWithNameToken:(MODToken *)nameToken valueTokens:(NSArray *)valueTokens;
 - (BOOL)isValid;
 
 @end

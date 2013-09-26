@@ -241,7 +241,7 @@
     MODToken *token;
     if (self.indentStack.count && indents < [self.indentStack[0] integerValue]) {
         while (self.indentStack.count && [self.indentStack[0] integerValue] > indents) {
-            [self.stash addObject:[MODToken tokenOfType:MODTokenTypeOutdent]];
+            [self.stash insertObject:[MODToken tokenOfType:MODTokenTypeOutdent] atIndex:0];
             [self.indentStack removeObjectAtIndex:0];
         }
         token = [self popToken];
