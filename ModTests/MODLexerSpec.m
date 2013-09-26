@@ -192,8 +192,22 @@ it(@"should return ident", ^{
     expect(lexer.str).to.equal(@"asdf");
 });
 
-xit(@"should return outdent", ^{
+it(@"should return outdent", ^{
+    NSString *string = @"UIView{\n  asdf 1\n}";
 
+    MODLexer *lexer = [[MODLexer alloc] initWithString:string];
+    [lexer nextToken];
+    [lexer nextToken];
+    [lexer nextToken];
+    [lexer nextToken];
+    [lexer nextToken];
+    [lexer nextToken];
+    MODToken *token = lexer.nextToken;
+
+    expect(token.type).to.equal(MODTokenTypeOutdent);
+    expect(token.value).to.equal(nil);
+    expect(token.lineNumber).to.equal(3);
+    expect(lexer.str).to.equal(@"}");
 });
 
 it(@"should return Operator", ^{

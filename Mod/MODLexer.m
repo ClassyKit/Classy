@@ -239,14 +239,13 @@
 
     NSInteger indents = [match rangeAtIndex:1].length;
     MODToken *token;
-    NSInteger currentIndents = self.indentStack.count ? [self.indentStack[0] integerValue] : 0;
-    if (self.indentStack.count && indents < currentIndents) {
-        while (self.indentStack.count && currentIndents > indents) {
+    if (self.indentStack.count && indents < [self.indentStack[0] integerValue]) {
+        while (self.indentStack.count && [self.indentStack[0] integerValue] > indents) {
             [self.stash addObject:[MODToken tokenOfType:MODTokenTypeOutdent]];
             [self.indentStack removeObjectAtIndex:0];
         }
         token = [self popToken];
-    } else if (indents && indents != currentIndents) {
+    } else if (indents && indents != (self.indentStack.count ? [self.indentStack[0] integerValue] : 0)) {
         [self.indentStack insertObject:@(indents) atIndex:0];
         token = [MODToken tokenOfType:MODTokenTypeIndent];
     } else {
