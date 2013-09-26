@@ -66,13 +66,13 @@ typedef NS_ENUM(NSInteger, MODTokenType) {
 - (BOOL)isWhitespace;
 
 /**
- *  Returns whether reciever's value is a `NSString` and is equal to the given `NSString`
+ *  Returns whether reciever's value is equal to the given value
  *
- *  @param string the `NSString` for comparison
+ *  @param string the value for comparison
  *
- *  @return `YES` if reciever is an `NSString` and is equal to the given `NSString`
+ *  @return `YES` if reciever is equal to the given value
  */
-- (BOOL)valueIsEqualToString:(NSString *)string;
+- (BOOL)valueIsEqualTo:(id)value;
 
 /**
  *  Returns whether the reciever could be a valid selector token.

@@ -77,16 +77,16 @@
         || self.type == MODTokenTypeSpace;
 }
 
-- (BOOL)valueIsEqualToString:(NSString *)string {
-    return [self.value isKindOfClass:NSString.class] && [self.value isEqualToString:string];
+- (BOOL)valueIsEqualTo:(id)value {
+    return [self.value isEqual:value];
 }
 
 - (BOOL)isPossiblySelector {
     return self.type == MODTokenTypeRef
         || self.type == MODTokenTypeSelector
         || self.isWhitespace
-        || [self valueIsEqualToString:@":"]
-        || [self valueIsEqualToString:@","];
+        || [self valueIsEqualTo:@":"]
+        || [self valueIsEqualTo:@","];
 }
 
 @end

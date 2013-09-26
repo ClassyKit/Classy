@@ -11,6 +11,7 @@
 #import "MODStyleGroup.h"
 #import "MODToken.h"
 #import "MODLog.h"
+#import "MODStyleProperty.h"
 
 NSString * const MODParserErrorDomain = @"MODParserErrorDomain";
 NSInteger const MODParserErrorFileContents = 2;
@@ -57,6 +58,9 @@ NSInteger const MODParserErrorFileContents = 2;
 }
 
 - (void)parse {
+    //TODO make `{` & `}` optional ie use identation to detect style groups
+    //TODO support nested style groups
+
     MODLog(@"Start parsing file \n%@", self.filePath);
     MODStyleGroup *currentGroup = nil;
     while (self.peekToken.type != MODTokenTypeEOS) {
@@ -64,12 +68,26 @@ NSInteger const MODParserErrorFileContents = 2;
         if (styleGroup) {
             currentGroup = styleGroup;
             [self.styleGroups addObject:currentGroup];
-            MODLog(@"(line %d) style group %@", self.peekToken.lineNumber, currentGroup);
+            [self consumeTokenOfType:MODTokenTypeOpeningBrace];
+            MODLog(@"(line %d) MODStyleGroup %@", self.peekToken.lineNumber, currentGroup);
             continue;
         }
 
-        MODLog(@"(line %d) token `%@`", self.peekToken.lineNumber, self.peekToken);
-        [self nextToken];
+        //not a style group therefore must be a property
+        MODStyleProperty *styleProperty = [self nextStyleProperty];
+        if (styleProperty.isValid) {
+            [currentGroup addStyleProperty:styleProperty];
+            MODLog(@"(line %d) MODStyleProperty `%@`", self.peekToken.lineNumber, styleProperty);
+            continue;
+        }
+
+        BOOL acceptableToken = [self consumeTokensMatching:^BOOL(MODToken *token) {
+            return token.isWhitespace
+                || token.type == MODTokenTypeSemiColon
+                || token.type == MODTokenTypeClosingBrace; //TODO move back in style group stack
+        }];
+        NSAssert(acceptableToken, @"Unexpected token `%@`. (line %d)",
+                 self.nextToken, self.nextToken.lineNumber);
     }
 }
 
@@ -80,7 +98,9 @@ NSInteger const MODParserErrorFileContents = 2;
 }
 
 - (MODToken *)nextToken {
-    return self.lexer.nextToken;
+    MODToken *token = self.lexer.nextToken;
+    MODLog(@"(line %d) skipping %@", token.lineNumber, token);
+    return token;
 }
 
 - (MODToken *)lookaheadByCount:(NSUInteger)count {
@@ -95,17 +115,33 @@ NSInteger const MODParserErrorFileContents = 2;
     return nil;
 }
 
+- (MODToken *)consumeTokenWithValue:(id)value {
+    if ([self.peekToken valueIsEqualTo:value]) {
+        //return token and remove from stack
+        return self.nextToken;
+    }
+    return nil;
+}
+
+- (BOOL)consumeTokensMatching:(BOOL(^)(MODToken *token))matchBlock {
+    BOOL anyMatches = NO;
+    while (matchBlock(self.peekToken)) {
+        anyMatches = YES;
+        [self nextToken];
+    }
+    return anyMatches;
+}
+
 #pragma mark - nodes
 
 - (MODStyleGroup *)nextStyleGroup {
-    //TODO make `{` & `}` optional ie use identation to detect style groups
     NSInteger i = 1;
     MODStyleGroup *styleGroup = MODStyleGroup.new;
     NSMutableString *currentSelector = NSMutableString.new;
 
     MODToken *token = [self lookaheadByCount:i];
     while (token.isPossiblySelector) {
-        if ([token valueIsEqualToString:@","]) {
+        if ([token valueIsEqualTo:@","]) {
             [styleGroup addSelector:currentSelector];
             currentSelector = NSMutableString.new;
         } else if(token.isWhitespace) {
@@ -118,8 +154,7 @@ NSInteger const MODParserErrorFileContents = 2;
     [styleGroup addSelector:currentSelector];
 
     if (token.type == MODTokenTypeOpeningBrace) {
-        //consume tokens including opening brace
-        while (i-- > 0) {
+        while (--i > 0) {
             [self nextToken];
         }
         return styleGroup;
@@ -128,5 +163,43 @@ NSInteger const MODParserErrorFileContents = 2;
     return nil;
 }
 
+- (MODStyleProperty *)nextStyleProperty {
+    NSInteger i = 1;
+    MODToken *nameToken;
+    NSMutableArray *valueTokens = NSMutableArray.new;
+
+    MODToken *token = [self lookaheadByCount:i];
+    while (token.type != MODTokenTypeNewline
+           && token.type != MODTokenTypeOpeningBrace
+           && token.type != MODTokenTypeClosingBrace
+           && token.type != MODTokenTypeOutdent
+           && token.type != MODTokenTypeSemiColon
+           && token.type != MODTokenTypeEOS) {
+
+        if (token.type == MODTokenTypeSpace
+            || token.type == MODTokenTypeIndent
+            || [token valueIsEqualTo:@":"]) {
+            token = [self lookaheadByCount:++i];
+            continue;
+        }
+
+        if (!nameToken) {
+            nameToken = token;
+        } else {
+            [valueTokens addObject:token];
+        }
+        token = [self lookaheadByCount:++i];
+    }
+
+    MODStyleProperty *styleProperty = [[MODStyleProperty alloc] initWithName:nameToken values:valueTokens];
+    if (styleProperty.isValid) {
+        //consume tokens
+        while (--i > 0) {
+            [self nextToken];
+        }
+    }
+
+    return styleProperty;
+}
 
 @end

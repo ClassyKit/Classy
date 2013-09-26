@@ -7,9 +7,11 @@
 //
 
 #import <Foundation/Foundation.h>
+#import "MODStyleProperty.h"
 
 @interface MODStyleGroup : NSObject
 
 - (void)addSelector:(NSString *)selector;
+- (void)addStyleProperty:(MODStyleProperty *)styleProperty;
 
 @end

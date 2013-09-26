@@ -166,10 +166,10 @@ it(@"should return ref", ^{
 
 it(@"should skip comments", ^{
     MODLexer *lexer = [[MODLexer alloc] initWithString:@"//hello world   \n   \n stuff"];
-    expect(lexer.peekToken.type).to.equal(MODTokenTypeSelector);
-    expect(lexer.peekToken.value).to.equal(@"");
-    expect(lexer.peekToken.lineNumber).to.equal(1);
-    expect(lexer.str).to.equal(@"\n   \n stuff");
+    expect(lexer.peekToken.type).to.equal(MODTokenTypeIndent);
+    expect(lexer.peekToken.value).to.equal(nil);
+    expect(lexer.peekToken.lineNumber).to.equal(3);
+    expect(lexer.str).to.equal(@"stuff");
 
     lexer = [[MODLexer alloc] initWithString:@"/* hello \n \n world \n */  \n   \n stuff"];
     expect(lexer.peekToken.type).to.equal(MODTokenTypeSpace);
@@ -178,12 +178,11 @@ it(@"should skip comments", ^{
     expect(lexer.str).to.equal(@"\n   \n stuff");
 });
 
-it(@"should return indent", ^{
+it(@"should return ident", ^{
     NSString *string = @"UIView\n"
                         "  asdf";
 
     MODLexer *lexer = [[MODLexer alloc] initWithString:string];
-    [lexer nextToken];
     [lexer nextToken];
     MODToken *token = [lexer nextToken];
 
@@ -191,6 +190,10 @@ it(@"should return indent", ^{
     expect(token.value).to.equal(nil);
     expect(token.lineNumber).to.equal(2);
     expect(lexer.str).to.equal(@"asdf");
+});
+
+xit(@"should return outdent", ^{
+
 });
 
 it(@"should return Operator", ^{

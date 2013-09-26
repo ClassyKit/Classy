@@ -11,6 +11,7 @@
 @interface MODStyleGroup ()
 
 @property (nonatomic, strong) NSMutableArray *selectors;
+@property (nonatomic, strong) NSMutableArray *styleProperties;
 
 @end
 
@@ -21,6 +22,7 @@
     if (!self) return nil;
 
     self.selectors = NSMutableArray.new;
+    self.styleProperties = NSMutableArray.new;
 
     return self;
 }
@@ -31,6 +33,12 @@
         [self.selectors addObject:selector];
     }
 }
+
+- (void)addStyleProperty:(MODStyleProperty *)styleProperty {
+    [self.styleProperties addObject:styleProperty];
+}
+
+#pragma mark - debug
 
 - (NSString *)description {
     return [NSString stringWithFormat:@"selectors: %@", self.selectors];

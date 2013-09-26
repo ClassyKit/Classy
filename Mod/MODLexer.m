@@ -88,6 +88,7 @@
 
 - (MODToken *)nextToken {
     MODToken *token = self.popToken ?: self.advanceToken;
+    [self attachDebugInfoForToken:token];
     self.previousToken = token;
     return token;
 }
@@ -97,6 +98,7 @@
     NSInteger fetch = count - self.stash.count;
     while (fetch-- > 0) {
         MODToken *token = self.advanceToken;
+        [self attachDebugInfoForToken:token];
         NSAssert(token, @"Invalid token. Could not determine token for `%@`. (line %d)",
                  [self.str substringWithRange:NSMakeRange(0, MIN(self.str.length, 20))], self.lineNumber);
         [self.stash addObject:token];
@@ -104,10 +106,19 @@
     return self.stash[count-1];
 }
 
-- (MODToken *)tokenOfType:(MODTokenType)type {
-    MODToken *token = [MODToken tokenOfType:type];
+- (void)attachDebugInfoForToken:(MODToken *)token {
+    switch (token.type) {
+        case MODTokenTypeNewline:
+        case MODTokenTypeIndent:
+            ++self.lineNumber;
+            break;
+        case MODTokenTypeOutdent:
+            if (MODTokenTypeOutdent != self.previousToken.type) ++self.lineNumber;
+            break;
+        default:
+            break;
+    }
     token.lineNumber = self.lineNumber;
-    return token;
 }
 
 #pragma mark - private
@@ -134,18 +145,6 @@
         ?: self.space
         ?: self.selector;
 
-    switch (token.type) {
-        case MODTokenTypeNewline:
-        case MODTokenTypeIndent:
-            ++self.lineNumber;
-            break;
-        case MODTokenTypeOutdent:
-            if (MODTokenTypeOutdent != self.previousToken.type) ++self.lineNumber;
-            break;
-        default:
-            break;
-    }
-    token.lineNumber = self.lineNumber;
     return token;
 }
 
@@ -166,9 +165,9 @@
     if (self.str.length) return nil;
     if (self.indentStack.count) {
         [self.indentStack removeObjectAtIndex:0];
-        return [self tokenOfType:MODTokenTypeOutdent];
+        return [MODToken tokenOfType:MODTokenTypeOutdent];
     } else {
-        return [self tokenOfType:MODTokenTypeEOS];
+        return [MODToken tokenOfType:MODTokenTypeEOS];
     }
 }
 
@@ -213,7 +212,8 @@
     } else {
         // figure out if we are using tabs or spaces
         for (NSRegularExpression *regex in self.regexCache[@(MODTokenTypeIndent)]) {
-            if ([regex mod_firstMatchInString:self.str].length) {
+            match = [regex firstMatchInString:self.str options:0 range:NSMakeRange(0, self.str.length)];
+            if (match && [match rangeAtIndex:1].length) {
                 self.indentRegex = regex;
                 break;
             }
@@ -222,8 +222,8 @@
 
     if (!match) return nil;
 
-    NSInteger indents = match.range.length;
-    [self skip:indents];
+    [self skip:match.range.length];
+
     if ([self.str hasPrefix:@" "] || [self.str hasPrefix:@"\t"]) {
         NSAssert(NO, @"Invalid indentation. You can use tabs or spaces to indent, but not both. (line %d)", self.lineNumber);
     }
@@ -234,19 +234,20 @@
         return self.advanceToken;
     }
 
+    NSInteger indents = [match rangeAtIndex:1].length;
     MODToken *token;
     NSInteger currentIndents = self.indentStack.count ? [self.indentStack[0] integerValue] : 0;
     if (self.indentStack.count && indents < currentIndents) {
         while (self.indentStack.count && currentIndents > indents) {
-            [self.stash addObject:[self tokenOfType:MODTokenTypeOutdent]];
+            [self.stash addObject:[MODToken tokenOfType:MODTokenTypeOutdent]];
             [self.indentStack removeObjectAtIndex:0];
         }
         token = [self popToken];
     } else if (indents && indents != currentIndents) {
         [self.indentStack insertObject:@(indents) atIndex:0];
-        token = [self tokenOfType:MODTokenTypeIndent];
+        token = [MODToken tokenOfType:MODTokenTypeIndent];
     } else {
-        token = [self tokenOfType:MODTokenTypeNewline];
+        token = [MODToken tokenOfType:MODTokenTypeNewline];
     }
     
     return token;
@@ -255,11 +256,11 @@
 - (MODToken *)brace {
     if ([self.str hasPrefix:@"{"]) {
         [self skip:1];
-        return [self tokenOfType:MODTokenTypeOpeningBrace];
+        return [MODToken tokenOfType:MODTokenTypeOpeningBrace];
     }
     if ([self.str hasPrefix:@"}"]) {
         [self skip:1];
-        return [self tokenOfType:MODTokenTypeClosingBrace];
+        return [MODToken tokenOfType:MODTokenTypeClosingBrace];
     }
     return nil;
 }
@@ -321,7 +322,7 @@
     for (NSRegularExpression *regex in regexes) {
         NSTextCheckingResult *match = [regex firstMatchInString:self.str options:0 range:NSMakeRange(0, self.str.length)];
         if (match) {
-            MODToken *token = [self tokenOfType:tokenType];
+            MODToken *token = [MODToken tokenOfType:tokenType];
             if (transformValueBlock) {
                 token.value = transformValueBlock([self.str substringWithRange:match.range], match);
             }
