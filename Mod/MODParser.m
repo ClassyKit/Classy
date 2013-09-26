@@ -60,12 +60,11 @@ NSInteger const MODParserErrorFileContents = 2;
     MODLog(@"Start parsing file \n%@", self.filePath);
     MODStyleGroup *currentGroup = nil;
     while (self.peekToken.type != MODTokenTypeEOS) {
-        NSArray *selectors = self.selectorTokens;
-        if (selectors.count) {
-            currentGroup = MODStyleGroup.new;
-            currentGroup.selectors = selectors;
+        MODStyleGroup *styleGroup = [self nextStyleGroup];
+        if (styleGroup) {
+            currentGroup = styleGroup;
             [self.styleGroups addObject:currentGroup];
-            MODLog(@"(line %d) selectors %@", self.peekToken.lineNumber, selectors);
+            MODLog(@"(line %d) style group %@", self.peekToken.lineNumber, currentGroup);
             continue;
         }
 
@@ -98,23 +97,16 @@ NSInteger const MODParserErrorFileContents = 2;
 
 #pragma mark - nodes
 
-- (NSArray *)selectorTokens {
-    //primitive selector detection
-    NSInteger i = 0;
-    NSMutableArray *selectors = NSMutableArray.new;
+- (MODStyleGroup *)nextStyleGroup {
+    //TODO make `{` & `}` optional ie use identation to detect style groups
+    NSInteger i = 1;
+    MODStyleGroup *styleGroup = MODStyleGroup.new;
     NSMutableString *currentSelector = NSMutableString.new;
 
-    void (^addSelector)(NSString *) = ^(NSString *aSelector){
-        NSString *selector = [aSelector stringByTrimmingCharactersInSet:[NSCharacterSet characterSetWithCharactersInString:@" \n"]];
-        if (selector.length) {
-            [selectors addObject:selector];
-        }
-    };
-
-    MODToken *token = [self lookaheadByCount:++i];
+    MODToken *token = [self lookaheadByCount:i];
     while (token.isPossiblySelector) {
         if ([token valueIsEqualToString:@","]) {
-            addSelector(currentSelector);
+            [styleGroup addSelector:currentSelector];
             currentSelector = NSMutableString.new;
         } else if(token.isWhitespace) {
             [currentSelector appendString:@" "];
@@ -123,14 +115,14 @@ NSInteger const MODParserErrorFileContents = 2;
         }
         token = [self lookaheadByCount:++i];
     }
-    addSelector(currentSelector);
-    
+    [styleGroup addSelector:currentSelector];
+
     if (token.type == MODTokenTypeOpeningBrace) {
-        //consume tokens
-        while (--i > 0) {
+        //consume tokens including opening brace
+        while (i-- > 0) {
             [self nextToken];
         }
-        return selectors;
+        return styleGroup;
     }
 
     return nil;

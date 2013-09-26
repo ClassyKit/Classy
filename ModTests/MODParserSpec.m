@@ -11,9 +11,11 @@
 #import "MODToken.h"
 
 @interface MODParser ()
-
 @property (nonatomic, strong) NSMutableArray *styleGroups;
+@end
 
+@interface MODStyleGroup ()
+@property (nonatomic, strong) NSMutableArray *selectors;
 @end
 
 SpecBegin(MODParser)

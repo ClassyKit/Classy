@@ -10,6 +10,6 @@
 
 @interface MODStyleGroup : NSObject
 
-@property (nonatomic, strong) NSArray *selectors;
+- (void)addSelector:(NSString *)selector;
 
 @end
