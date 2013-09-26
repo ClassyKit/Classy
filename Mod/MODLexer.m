@@ -87,8 +87,11 @@
 }
 
 - (MODToken *)nextToken {
-    MODToken *token = self.popToken ?: self.advanceToken;
-    [self attachDebugInfoForToken:token];
+    MODToken *token = self.popToken;
+    if (!token) {
+        token = self.advanceToken;
+        [self attachDebugInfoForToken:token];
+    }
     self.previousToken = token;
     return token;
 }
