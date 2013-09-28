@@ -10,8 +10,15 @@
 #import "NSRegularExpression+MODAdditions.h"
 #import "UIColor+MODAdditions.h"
 
+NSString * const MODParseErrorDomain = @"MODParseErrorDomain";
+NSInteger const MODParseErrorInvalidToken = 1;
+NSInteger const MODParseErrorInvalidIndentation = 2;
+NSString * const MODParseFailingLineNumberErrorKey = @"MODParseFailingLineNumberErrorKey";
+NSString * const MODParseFailingStringErrorKey = @"MODParseFailingStringErrorKey";
+
 @interface MODLexer ()
 
+@property (nonatomic, strong, readwrite) NSError *error;
 @property (nonatomic, strong) NSMutableString *str;
 @property (nonatomic, strong) NSMutableArray *stash;
 @property (nonatomic, strong) NSMutableArray *indentStack;
@@ -81,7 +88,6 @@
     return self;
 }
 
-
 - (MODToken *)peekToken {
     return [self lookaheadByCount:1];
 }
@@ -101,9 +107,10 @@
     NSInteger fetch = count - self.stash.count;
     while (fetch-- > 0) {
         MODToken *token = self.advanceToken;
+        if (!token) {
+            return nil;
+        }
         [self attachDebugInfoForToken:token];
-        NSAssert(token, @"Invalid token. Could not determine token for `%@`. (line %d)",
-                 [self.str substringWithRange:NSMakeRange(0, MIN(self.str.length, 20))], self.lineNumber);
         [self.stash addObject:token];
     }
     return self.stash[count-1];
@@ -122,6 +129,20 @@
             break;
     }
     token.lineNumber = self.lineNumber;
+}
+
+- (NSError *)errorWithDescription:(NSString *)description reason:(NSString *)reason code:(NSUInteger)code {
+    NSString *string = [NSString stringWithFormat:@"\"%@\"", [self.str substringToIndex:MIN(self.str.length, 25)]];
+    if (string.length != self.str.length) {
+        string = [string stringByAppendingString:@" ..."];
+    }
+    NSDictionary *userInfo = @{
+        NSLocalizedDescriptionKey: description,
+        NSLocalizedFailureReasonErrorKey: reason,
+        MODParseFailingLineNumberErrorKey: @(self.lineNumber),
+        MODParseFailingStringErrorKey: string
+    };
+    return [NSError errorWithDomain:MODParseErrorDomain code:code userInfo:userInfo];
 }
 
 #pragma mark - private
@@ -147,6 +168,13 @@
         ?: self.operation
         ?: self.space
         ?: self.selector;
+
+    if (!token) {
+        self.error = [self errorWithDescription:@"Invalid style string"
+                                         reason:@"Could not determine token"
+                                           code:MODParseErrorInvalidToken];
+        return nil;
+    }
 
     return token;
 }
@@ -228,7 +256,10 @@
     [self skip:match.range.length];
 
     if ([self.str hasPrefix:@" "] || [self.str hasPrefix:@"\t"]) {
-        NSAssert(NO, @"Invalid indentation. You can use tabs or spaces to indent, but not both. (line %d)", self.lineNumber);
+        self.error = [self errorWithDescription:@"Invalid indentation"
+                                         reason:@"You can use tabs or spaces to indent, but not both."
+                                           code:MODParseErrorInvalidIndentation];
+        return nil;
     }
 
     // Blank line

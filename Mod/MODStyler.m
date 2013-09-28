@@ -11,7 +11,7 @@
 
 @interface MODStyler ()
 
-@property (nonatomic, strong) MODParser *parser;
+@property (nonatomic, strong) NSArray *styleGroups;
 
 @end
 
@@ -21,8 +21,7 @@
     self = [super init];
     if (!self) return nil;
 
-    self.parser = [[MODParser alloc] initWithFilePath:filePath error:error];
-    [self.parser parse];
+    self.styleGroups = [MODParser stylesFromFilePath:filePath error:error];
 
     return self;
 }

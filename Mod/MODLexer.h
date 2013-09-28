@@ -9,13 +9,28 @@
 #import <Foundation/Foundation.h>
 #import "MODToken.h"
 
+extern NSString * const MODParseErrorDomain;
+extern NSInteger const MODParseErrorInvalidToken;
+extern NSInteger const MODParseErrorInvalidIndentation;
+extern NSString * const MODParseFailingLineNumberErrorKey;
+extern NSString * const MODParseFailingStringErrorKey;
+
 @interface MODLexer : NSObject
+
+/**
+ *  The error, if any, that occurred during tokenisation
+ */
+@property (nonatomic, strong, readonly) NSError *error;
 
 /**
  *  Create new `MODLexer` with a `NSString` to Tokenize
  */
 - (id)initWithString:(NSString *)str;
 
+/**
+ *  Create a error with userInfo such as current string and line number
+ */
+- (NSError *)errorWithDescription:(NSString *)description reason:(NSString *)reason code:(NSUInteger)code;
 
 /**
  *  Token from stash or by advancing.

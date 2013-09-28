@@ -13,61 +13,97 @@
 #import "MODLog.h"
 #import "MODStyleProperty.h"
 
-NSString * const MODParserErrorDomain = @"MODParserErrorDomain";
-NSInteger const MODParserErrorFileContents = 2;
+NSString * const MODParseFailingFilePathErrorKey = @"MODParseFailingFilePathErrorKey";
+NSInteger const MODParseErrorFileContents = 2;
 
 @interface MODParser ()
 
 @property (nonatomic, strong) MODLexer *lexer;
-@property (nonatomic, strong) NSMutableArray *styleGroups;
-@property (nonatomic, strong) NSString *filePath;
 
 @end
 
 @implementation MODParser
 
-
-- (id)initWithFilePath:(NSString *)filePath error:(NSError **)error {
-    self = [super init];
-    if (!self) return nil;
-
++ (NSArray *)stylesFromFilePath:(NSString *)filePath error:(NSError **)error {
     NSError *fileError = nil;
     NSString *contents = [NSString stringWithContentsOfFile:filePath
-                                                  encoding:NSUTF8StringEncoding
-                                                     error:&fileError];
-
-    if (!contents) {
+                                                   encoding:NSUTF8StringEncoding
+                                                      error:&fileError];
+    if (!contents || fileError) {
         NSMutableDictionary *userInfo = @{
             NSLocalizedDescriptionKey: @"Could not parse file",
-            NSLocalizedFailureReasonErrorKey: [NSString stringWithFormat:@"File does not exist or is empty: %@", filePath]
+            NSLocalizedFailureReasonErrorKey: @"File does not exist or is empty",
+            MODParseFailingFilePathErrorKey : filePath
         }.mutableCopy;
 
         if (fileError) {
             [userInfo setObject:fileError forKey:NSUnderlyingErrorKey];
         }
-        *error = [NSError errorWithDomain:MODParserErrorDomain code:MODParserErrorFileContents userInfo:userInfo];
 
+        if (error) {
+            *error = [NSError errorWithDomain:MODParseErrorDomain code:MODParseErrorFileContents userInfo:userInfo];
+        }
+        
         return nil;
     }
 
-    self.filePath = filePath;
-    self.lexer = [[MODLexer alloc] initWithString:contents];
-    self.styleGroups = NSMutableArray.new;
+    MODLog(@"Start parsing file \n%@", filePath);
+    NSError *parseError = nil;
+    NSArray *styleGroups = [self stylesFromString:contents error:&parseError];
+    if (parseError) {
+        NSMutableDictionary *userInfo = parseError.userInfo.mutableCopy;
+        [userInfo addEntriesFromDictionary:@{ MODParseFailingFilePathErrorKey : filePath }];
+        if (error) {
+            *error = [NSError errorWithDomain:parseError.domain code:parseError.code userInfo:userInfo];
+        }
+        return nil;
+    }
 
-    return self;
+    return styleGroups;
 }
 
-- (void)parse {
-    //TODO make `{` & `}` optional ie use identation to detect style groups
-    //TODO support nested style groups
++ (NSArray *)stylesFromString:(NSString *)string error:(NSError **)error {
+    MODParser *parser = MODParser.new;
+    NSError *parseError = nil;
+    NSArray *styleGroups = [parser parseString:string error:&parseError];
 
-    MODLog(@"Start parsing file \n%@", self.filePath);
+    if (!styleGroups.count) {
+        NSDictionary *userInfo = @{
+            NSLocalizedDescriptionKey: @"Could not parse string",
+            NSLocalizedFailureReasonErrorKey: @"Could not find any styles"
+        };
+        if (error) {
+            *error = [NSError errorWithDomain:MODParseErrorDomain code:MODParseErrorFileContents userInfo:userInfo];
+        }
+        return nil;
+    }
+    if (parseError) {
+        if (error) {
+            *error = parseError;
+        }
+        return nil;
+    }
+    
+    return styleGroups;
+}
+
+- (NSArray *)parseString:(NSString *)string error:(NSError **)error {
+    self.lexer = [[MODLexer alloc] initWithString:string];
+
+    NSMutableArray *styleGroups = NSMutableArray.new;
     MODStyleGroup *currentGroup = nil;
     while (self.peekToken.type != MODTokenTypeEOS) {
+        if (self.lexer.error) {
+            if (error) {
+                *error = self.lexer.error;
+            }
+            return nil;
+        }
+
         MODStyleGroup *styleGroup = [self nextStyleGroup];
         if (styleGroup) {
             currentGroup = styleGroup;
-            [self.styleGroups addObject:currentGroup];
+            [styleGroups addObject:currentGroup];
             [self consumeTokenOfType:MODTokenTypeOpeningBrace];
             [self consumeTokenOfType:MODTokenTypeIndent];
             MODLog(@"(line %d) MODStyleGroup %@", self.peekToken.lineNumber, currentGroup);
@@ -77,8 +113,14 @@ NSInteger const MODParserErrorFileContents = 2;
         //not a style group therefore must be a property
         MODStyleProperty *styleProperty = [self nextStyleProperty];
         if (styleProperty.isValid) {
-            NSAssert(currentGroup, @"Invalid style property `%@`. Needs to be within a style group. (line %d)",
-                     styleProperty, self.peekToken.lineNumber);
+            if (!currentGroup) {
+                if (error) {
+                    *error = [self.lexer errorWithDescription:@"Invalid style property"
+                                                       reason:@"Needs to be within a style group"
+                                                         code:MODParseErrorFileContents];
+                }
+                return nil;
+            }
             [currentGroup addStyleProperty:styleProperty];
             MODLog(@"(line %d) MODStyleProperty `%@`", self.peekToken.lineNumber, styleProperty);
             continue;
@@ -94,9 +136,18 @@ NSInteger const MODParserErrorFileContents = 2;
         BOOL acceptableToken = [self consumeTokensMatching:^BOOL(MODToken *token) {
             return token.isWhitespace || token.type == MODTokenTypeSemiColon;
         }];
-        NSAssert(acceptableToken || closeGroup, @"Unexpected token `%@`. (line %d)",
-                 self.nextToken, self.nextToken.lineNumber);
+        if (!acceptableToken && !closeGroup) {
+            NSString *description = [NSString stringWithFormat:@"Unexpected token `%@`", self.nextToken];
+            if (error) {
+                *error = [self.lexer errorWithDescription:description
+                                                   reason:@"Token does not belong in current context"
+                                                     code:MODParseErrorFileContents];
+            }
+            return nil;
+        }
     }
+
+    return styleGroups;
 }
 
 #pragma mark - token helpers
@@ -147,7 +198,7 @@ NSInteger const MODParserErrorFileContents = 2;
     NSMutableString *currentSelector = NSMutableString.new;
 
     MODToken *token = [self lookaheadByCount:i];
-    while (token.isPossiblySelector) {
+    while (token && token.isPossiblySelector) {
         if ([token valueIsEqualTo:@","]) {
             [styleGroup addSelector:currentSelector];
             currentSelector = NSMutableString.new;
@@ -176,7 +227,7 @@ NSInteger const MODParserErrorFileContents = 2;
     NSMutableArray *valueTokens = NSMutableArray.new;
 
     MODToken *token = [self lookaheadByCount:i];
-    while (token.type != MODTokenTypeNewline
+    while (token && token.type != MODTokenTypeNewline
            && token.type != MODTokenTypeOpeningBrace
            && token.type != MODTokenTypeClosingBrace
            && token.type != MODTokenTypeOutdent

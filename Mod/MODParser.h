@@ -7,20 +7,16 @@
 //
 
 #import <Foundation/Foundation.h>
+#import "MODLexer.h"
 
-extern NSString * const MODParserErrorDomain;
-extern NSInteger const MODParserErrorFileContents;
+extern NSString * const MODParseFailingFilePathErrorKey;
+extern NSInteger const MODParseErrorFileContents;
 
 @interface MODParser : NSObject
 
 /**
- *  Create a parser with the given file path
+ *  Return style data from the given file path
  */
-- (id)initWithFilePath:(NSString *)filePath error:(NSError **)error;
-
-/**
- *  Parsing the style file by turning stream of tokens into usuable objects
- */
-- (void)parse;
++ (NSArray *)stylesFromFilePath:(NSString *)filePath error:(NSError **)error;
 
 @end
