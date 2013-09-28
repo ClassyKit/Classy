@@ -9,6 +9,7 @@
 #import <Foundation/Foundation.h>
 
 typedef NS_ENUM(NSInteger, MODTokenType) {
+    MODTokenTypeUnknown,
     MODTokenTypeIndent,
     MODTokenTypeOutdent,
     MODTokenTypeEOS,

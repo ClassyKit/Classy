@@ -192,6 +192,22 @@ it(@"should return ident", ^{
     expect(lexer.str).to.equal(@"asdf");
 });
 
+it(@"should complain when mixing indentation types", ^{
+    NSString *string = @"UIView\n"
+                        "  spaces:2;\n"
+                        "\ttabs:1;";
+    MODLexer *lexer = [[MODLexer alloc] initWithString:string];
+    while(lexer.peekToken && lexer.peekToken.type != MODTokenTypeEOS) {
+        [lexer nextToken];
+    }
+
+    expect(lexer.error).notTo.beNil();
+    expect(lexer.error.domain).to.equal(MODParseErrorDomain);
+    expect(lexer.error.code).to.equal(MODParseErrorInvalidIndentation);
+    expect(lexer.error.userInfo[MODParseFailingLineNumberErrorKey]).to.equal(@3);
+    expect(lexer.error.userInfo[MODParseFailingStringErrorKey]).to.equal(@"\"\ttabs:1;\"");
+});
+
 it(@"should return outdent", ^{
     NSString *string = @"UIView{\n  asdf 1\n}";
 

@@ -11,6 +11,7 @@
 SpecBegin(MODToken)
 
 it(@"should return token name", ^{
+    expect([MODToken stringForType:MODTokenTypeUnknown]).to.equal(@"unknown");
     expect([MODToken stringForType:MODTokenTypeIndent]).to.equal(@"indent");
     expect([MODToken stringForType:MODTokenTypeOutdent]).to.equal(@"outdent");
     expect([MODToken stringForType:MODTokenTypeEOS]).to.equal(@"EOS");

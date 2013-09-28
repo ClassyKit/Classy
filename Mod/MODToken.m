@@ -20,6 +20,8 @@
 
 + (NSString *)stringForType:(MODTokenType)type {
     switch (type) {
+        case MODTokenTypeUnknown:
+            return @"unknown";
         case MODTokenTypeIndent:
             return @"indent";
         case MODTokenTypeOutdent:

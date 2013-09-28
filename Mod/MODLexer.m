@@ -55,8 +55,8 @@ NSString * const MODParseFailingStringErrorKey = @"MODParseFailingStringErrorKey
         @(MODTokenTypeSemiColon) : @[ MODRegex(@"^;[ \\t]*") ],
 
         // new line followed by tabs or spaces
-        @(MODTokenTypeIndent)   : @[ MODRegex(@"^\\n([\\t]*)[ \\t]*"),
-                                     MODRegex(@"^\\n([ \\t]*)") ],
+        @(MODTokenTypeIndent)   : @[ MODRegex(@"^\\n([\\t]*)"),
+                                     MODRegex(@"^\\n([ ]*)") ],
 
         //#rrggbbaa | #rrggbb | #rgb
         @(MODTokenTypeColor)     : @[ MODRegex(@"^#([a-fA-F0-9]{8})[ \\t]*"),
@@ -64,7 +64,7 @@ NSString * const MODParseFailingStringErrorKey = @"MODParseFailingStringErrorKey
                                       MODRegex(@"^#([a-fA-F0-9]{3})[ \\t]*") ],
 
         // string enclosed in single or double quotes
-        @(MODTokenTypeString)    : @[ MODRegex(@"^(\"[^\"]*\"|'[^']*')[ \t]*") ],
+        @(MODTokenTypeString)    : @[ MODRegex(@"^(\"[^\"]*\"|'[^']*')[ \\t]*") ],
 
         // decimal/integer number with optional (px, pt) suffix
         @(MODTokenTypeUnit)      : @[ MODRegex(@"^(-)?(\\d+\\.\\d+|\\d+|\\.\\d+)(%@)?[ \\t]*", units) ],
@@ -132,10 +132,9 @@ NSString * const MODParseFailingStringErrorKey = @"MODParseFailingStringErrorKey
 }
 
 - (NSError *)errorWithDescription:(NSString *)description reason:(NSString *)reason code:(NSUInteger)code {
-    NSString *string = [NSString stringWithFormat:@"\"%@\"", [self.str substringToIndex:MIN(self.str.length, 25)]];
-    if (string.length != self.str.length) {
-        string = [string stringByAppendingString:@" ..."];
-    }
+    NSInteger length = MIN(self.str.length, 25);
+    NSString *format = length != self.str.length ? @"\"%@ ...\"" : @"\"%@\"";
+    NSString *string = [NSString stringWithFormat:format, [self.str substringToIndex:length]];
     NSDictionary *userInfo = @{
         NSLocalizedDescriptionKey: description,
         NSLocalizedFailureReasonErrorKey: reason,
@@ -256,6 +255,7 @@ NSString * const MODParseFailingStringErrorKey = @"MODParseFailingStringErrorKey
     [self skip:match.range.length];
 
     if ([self.str hasPrefix:@" "] || [self.str hasPrefix:@"\t"]) {
+        ++self.lineNumber;
         self.error = [self errorWithDescription:@"Invalid indentation"
                                          reason:@"You can use tabs or spaces to indent, but not both."
                                            code:MODParseErrorInvalidIndentation];
