@@ -18,10 +18,9 @@ typedef NS_OPTIONS(NSUInteger, MODStyleSelectorType) {
 @interface MODStyleSelector : NSObject
 
 @property (nonatomic, assign, readonly) MODStyleSelectorType type;
-@property (nonatomic, assign, readonly) Class viewClass;
-@property (nonatomic, assign, readonly) NSString *styleClass;
-@property (nonatomic, assign, readonly) NSString *pseudo;
-
+@property (nonatomic, strong, readonly) Class viewClass;
+@property (nonatomic, strong, readonly) NSString *styleClass;
+@property (nonatomic, strong, readonly) NSString *pseudo;
 @property (nonatomic, strong, readonly) NSString *string;
 @property (nonatomic, strong) MODStyleNode *node;
 
