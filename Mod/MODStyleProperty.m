@@ -27,10 +27,6 @@
     return self;
 }
 
-- (BOOL)isValid {
-    return self.nameToken.value && self.valueTokens.count;
-}
-
 - (NSString *)name {
     return self.nameToken.value;
 }

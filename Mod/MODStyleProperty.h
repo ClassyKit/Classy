@@ -15,6 +15,5 @@
 @property (nonatomic, strong, readonly) NSArray *values;
 
 - (id)initWithNameToken:(MODToken *)nameToken valueTokens:(NSArray *)valueTokens;
-- (BOOL)isValid;
 
 @end

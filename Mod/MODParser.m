@@ -8,10 +8,11 @@
 
 #import "MODParser.h"
 #import "MODLexer.h"
-#import "MODStyleGroup.h"
+#import "MODStyleNode.h"
 #import "MODToken.h"
 #import "MODLog.h"
 #import "MODStyleProperty.h"
+#import "MODStyleSelector.h"
 
 NSString * const MODParseFailingFilePathErrorKey = @"MODParseFailingFilePathErrorKey";
 NSInteger const MODParseErrorFileContents = 2;
@@ -19,6 +20,7 @@ NSInteger const MODParseErrorFileContents = 2;
 @interface MODParser ()
 
 @property (nonatomic, strong) MODLexer *lexer;
+@property (nonatomic, strong) NSMutableArray *styleSelectors;
 
 @end
 
@@ -49,7 +51,7 @@ NSInteger const MODParseErrorFileContents = 2;
 
     MODLog(@"Start parsing file \n%@", filePath);
     NSError *parseError = nil;
-    NSArray *styleGroups = [self stylesFromString:contents error:&parseError];
+    NSArray *styles = [self stylesFromString:contents error:&parseError];
     if (parseError) {
         NSMutableDictionary *userInfo = parseError.userInfo.mutableCopy;
         [userInfo addEntriesFromDictionary:@{ MODParseFailingFilePathErrorKey : filePath }];
@@ -59,15 +61,15 @@ NSInteger const MODParseErrorFileContents = 2;
         return nil;
     }
 
-    return styleGroups;
+    return styles;
 }
 
 + (NSArray *)stylesFromString:(NSString *)string error:(NSError **)error {
     MODParser *parser = MODParser.new;
     NSError *parseError = nil;
-    NSArray *styleGroups = [parser parseString:string error:&parseError];
+    NSArray *styles = [parser parseString:string error:&parseError];
 
-    if (!styleGroups.count) {
+    if (!styles.count) {
         NSDictionary *userInfo = @{
             NSLocalizedDescriptionKey: @"Could not parse string",
             NSLocalizedFailureReasonErrorKey: @"Could not find any styles"
@@ -84,14 +86,14 @@ NSInteger const MODParseErrorFileContents = 2;
         return nil;
     }
     
-    return styleGroups;
+    return styles;
 }
 
 - (NSArray *)parseString:(NSString *)string error:(NSError **)error {
     self.lexer = [[MODLexer alloc] initWithString:string];
+    self.styleSelectors = NSMutableArray.new;
 
-    NSMutableArray *styleGroups = NSMutableArray.new;
-    MODStyleGroup *currentGroup = nil;
+    MODStyleNode *currentNode = nil;
     while (self.peekToken.type != MODTokenTypeEOS) {
         if (self.lexer.error) {
             if (error) {
@@ -100,43 +102,42 @@ NSInteger const MODParseErrorFileContents = 2;
             return nil;
         }
 
-        MODStyleGroup *styleGroup = [self nextStyleGroup];
-        if (styleGroup) {
-            currentGroup = styleGroup;
-            [styleGroups addObject:currentGroup];
+        MODStyleNode *styleNode = [self nextStyleNode];
+        if (styleNode) {
+            currentNode = styleNode;
             [self consumeTokenOfType:MODTokenTypeOpeningBrace];
             [self consumeTokenOfType:MODTokenTypeIndent];
-            MODLog(@"(line %d) MODStyleGroup %@", self.peekToken.lineNumber, currentGroup);
+            MODLog(@"(line %d) MODStyleNode %@", self.peekToken.lineNumber, currentNode);
             continue;
         }
 
         //not a style group therefore must be a property
         MODStyleProperty *styleProperty = [self nextStyleProperty];
-        if (styleProperty.isValid) {
-            if (!currentGroup) {
+        if (styleProperty) {
+            if (!currentNode) {
                 if (error) {
                     *error = [self.lexer errorWithDescription:@"Invalid style property"
-                                                       reason:@"Needs to be within a style group"
+                                                       reason:@"Needs to be within a style node"
                                                          code:MODParseErrorFileContents];
                 }
                 return nil;
             }
-            [currentGroup addStyleProperty:styleProperty];
+            [currentNode addStyleProperty:styleProperty];
             MODLog(@"(line %d) MODStyleProperty `%@`", self.peekToken.lineNumber, styleProperty);
             continue;
         }
 
-        BOOL closeGroup = [self consumeTokensMatching:^BOOL(MODToken *token) {
+        BOOL closeNode = [self consumeTokensMatching:^BOOL(MODToken *token) {
             return token.type == MODTokenTypeOutdent || token.type == MODTokenTypeClosingBrace;
         }];
-        if (closeGroup) {
-            currentGroup = nil;
+        if (closeNode) {
+            currentNode = nil;
         }
 
         BOOL acceptableToken = [self consumeTokensMatching:^BOOL(MODToken *token) {
             return token.isWhitespace || token.type == MODTokenTypeSemiColon;
         }];
-        if (!acceptableToken && !closeGroup) {
+        if (!acceptableToken && !closeNode) {
             NSString *description = [NSString stringWithFormat:@"Unexpected token `%@`", self.nextToken];
             if (error) {
                 *error = [self.lexer errorWithDescription:description
@@ -147,7 +148,7 @@ NSInteger const MODParseErrorFileContents = 2;
         }
     }
 
-    return styleGroups;
+    return self.styleSelectors;
 }
 
 #pragma mark - token helpers
@@ -192,33 +193,39 @@ NSInteger const MODParseErrorFileContents = 2;
 
 #pragma mark - nodes
 
-- (MODStyleGroup *)nextStyleGroup {
-    NSInteger i = 1;
-    MODStyleGroup *styleGroup = MODStyleGroup.new;
-    NSMutableString *currentSelector = NSMutableString.new;
+- (void)addStyleSelectorWithName:(NSString *)name node:(MODStyleNode *)node {
+    MODStyleSelector *selector = [[MODStyleSelector alloc] initWithName:name node:node];
+    if (selector) {
+        [self.styleSelectors addObject:selector];
+    }
+}
 
+- (MODStyleNode *)nextStyleNode {
+    NSInteger i = 1;
     MODToken *token = [self lookaheadByCount:i];
     while (token && token.isPossiblySelector) {
-        if ([token valueIsEqualTo:@","]) {
-            [styleGroup addSelector:currentSelector];
-            currentSelector = NSMutableString.new;
-        } else if(token.isWhitespace) {
-            [currentSelector appendString:@" "];
-        } else if ([token.value length]) {
-            [currentSelector appendString:token.value];
-        }
         token = [self lookaheadByCount:++i];
     }
-    [styleGroup addSelector:currentSelector];
 
-    if (token.type == MODTokenTypeOpeningBrace || token.type == MODTokenTypeIndent) {
-        while (--i > 0) {
-            [self nextToken];
-        }
-        return styleGroup;
+    if (token.type != MODTokenTypeOpeningBrace && token.type != MODTokenTypeIndent) {
+        return nil;
     }
 
-    return nil;
+    MODStyleNode *styleNode = MODStyleNode.new;
+    NSMutableString *selectorName = NSMutableString.new;
+    while (--i > 0) {
+        token = [self nextToken];
+        if ([token valueIsEqualTo:@","]) {
+            [self addStyleSelectorWithName:selectorName node:styleNode];
+            selectorName = NSMutableString.new;
+        } else if(token.isWhitespace) {
+            [selectorName appendString:@" "];
+        } else if ([token.value length]) {
+            [selectorName appendString:token.value];
+        }
+    }
+    [self addStyleSelectorWithName:selectorName node:styleNode];
+    return styleNode;
 }
 
 - (MODStyleProperty *)nextStyleProperty {
@@ -249,16 +256,15 @@ NSInteger const MODParseErrorFileContents = 2;
         token = [self lookaheadByCount:++i];
     }
 
-    MODStyleProperty *styleProperty = [[MODStyleProperty alloc] initWithNameToken:nameToken valueTokens:valueTokens];
-    if (styleProperty.isValid) {
+    if (nameToken.value && valueTokens.count) {
         //consume tokens
         while (--i > 0) {
-            MODToken *token = [self nextToken];
-            MODLog(@"(line %d) skipping %@", token.lineNumber, token);
+            [self nextToken];
         }
+        return [[MODStyleProperty alloc] initWithNameToken:nameToken valueTokens:valueTokens];
     }
 
-    return styleProperty;
+    return nil;
 }
 
 @end

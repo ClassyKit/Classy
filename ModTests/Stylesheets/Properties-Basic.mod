@@ -5,7 +5,7 @@ UIButton:selected UIControl {
 }
 
 
-UIView.bordered, UIControl.highlighted {
+UIView.bordered, UIControl.border {
     font-color:#ffffff;
     border-width: 2;
 }

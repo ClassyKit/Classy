@@ -28,7 +28,7 @@ extern NSString * const MODParseFailingStringErrorKey;
 - (id)initWithString:(NSString *)str;
 
 /**
- *  Create a error with userInfo such as current string and line number
+ *  Create a error and attach current string and line number to userInfo
  */
 - (NSError *)errorWithDescription:(NSString *)description reason:(NSString *)reason code:(NSUInteger)code;
 
