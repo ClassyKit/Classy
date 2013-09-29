@@ -4,9 +4,11 @@ Alpha
 
 ###TODO
 
+- apply styles to views!
 - nesting
 - mixins
 - variables
 - property lookup
 - @media queries
+- @version queries
 - @import
