@@ -10,21 +10,22 @@
 #import "MODStyleNode.h"
 
 typedef NS_OPTIONS(NSUInteger, MODStyleSelectorType) {
-    MODStyleSelectorTypeNone         = 0,
     MODStyleSelectorTypeViewClass    = 1 << 0,
     MODStyleSelectorTypeStyleClass   = 1 << 1,
     MODStyleSelectorTypePseudo       = 1 << 2,
-    MODStyleSelectorTypeParent       = 1 << 3,
 };
 
 @interface MODStyleSelector : NSObject
 
 @property (nonatomic, assign, readonly) MODStyleSelectorType type;
-@property (nonatomic, assign, readonly) Class styleClass;
-@property (nonatomic, strong, readonly) NSString *name;
-@property (nonatomic, strong, readonly) MODStyleNode *node;
+@property (nonatomic, assign, readonly) Class viewClass;
+@property (nonatomic, assign, readonly) NSString *styleClass;
+@property (nonatomic, assign, readonly) NSString *pseudo;
 
-- (id)initWithName:(NSString *)name node:(MODStyleNode *)node;
+@property (nonatomic, strong, readonly) NSString *string;
+@property (nonatomic, strong) MODStyleNode *node;
+
+- (id)initWithString:(NSString *)string;
 
 - (BOOL)shouldSelectView:(UIView *)view;
 

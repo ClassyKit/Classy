@@ -11,27 +11,42 @@
 @interface MODStyleSelector ()
 
 @property (nonatomic, assign, readwrite) MODStyleSelectorType type;
-@property (nonatomic, strong, readwrite) NSString *name;
-@property (nonatomic, strong, readwrite) MODStyleNode *node;
-@property (nonatomic, strong) NSArray *components;
+@property (nonatomic, assign, readwrite) Class viewClass;
+@property (nonatomic, assign, readwrite) NSString *styleClass;
+@property (nonatomic, assign, readwrite) NSString *pseudo;
+
+@property (nonatomic, strong, readwrite) NSString *string;
+@property (nonatomic, strong, readwrite) NSMutableArray *components;
 
 @end
 
 @implementation MODStyleSelector
 
-- (id)initWithName:(NSString *)name node:(MODStyleNode *)node {
+- (id)initWithString:(NSString *)string {
     self = [super init];
     if (!self) return nil;
 
-    self.name = [name stringByTrimmingCharactersInSet:NSCharacterSet.whitespaceAndNewlineCharacterSet];
-    if (!self.name.length) return nil;
-    self.node = node;
+    string = [string stringByTrimmingCharactersInSet:NSCharacterSet.whitespaceAndNewlineCharacterSet];
+    if (!string.length) return nil;
+    self.string = string;
 
-    self.components = [self.name componentsSeparatedByCharactersInSet:NSCharacterSet.whitespaceAndNewlineCharacterSet];
-    if (!self.components.count) return nil;
+    NSArray *stringComponents = [string componentsSeparatedByCharactersInSet:NSCharacterSet.whitespaceAndNewlineCharacterSet];
+    if (!stringComponents.count) return nil;
 
-    NSInteger pseudoLocation = [self.components.lastObject rangeOfString:@":"].location;
-    NSInteger styleClassLocation = [self.components.lastObject rangeOfString:@"."].location;
+    [self setTypeFromString:stringComponents.lastObject];
+
+    self.components = NSMutableArray.new;
+    for (NSInteger i = 0; i < stringComponents.count-1; i++) {
+        NSString *stringComponent = stringComponents[i];
+        [self.components addObject:[[MODStyleSelector alloc] initWithString:stringComponent]];
+    }
+
+    return self;
+}
+
+- (void)setTypeFromString:(NSString *)string {
+    NSInteger pseudoLocation = [string rangeOfString:@":"].location;
+    NSInteger styleClassLocation = [string rangeOfString:@"."].location;
 
     if (pseudoLocation == 0) {
         self.type = MODStyleSelectorTypePseudo;
@@ -39,15 +54,18 @@
         self.type = MODStyleSelectorTypeStyleClass;
     } else {
         self.type = MODStyleSelectorTypeViewClass;
-        if (pseudoLocation != NSNotFound) {
-            self.type = self.type | MODStyleSelectorTypePseudo;
-        }
-        if (styleClassLocation != NSNotFound) {
-            self.type = self.type | MODStyleSelectorTypeStyleClass;
-        }
+        self.viewClass = NSClassFromString([string substringToIndex:MIN(string.length, MIN(pseudoLocation, styleClassLocation))]);
     }
 
-    return self;
+    if (pseudoLocation != NSNotFound) {
+        self.type = self.type | MODStyleSelectorTypePseudo;
+        self.pseudo = [string substringFromIndex:pseudoLocation+1];
+    }
+    if (styleClassLocation != NSNotFound) {
+        self.type = self.type | MODStyleSelectorTypeStyleClass;
+        NSInteger endLocation = MIN(string.length, pseudoLocation);
+        self.styleClass = [string substringWithRange:NSMakeRange(styleClassLocation+1, endLocation - styleClassLocation - 1)];
+    }
 }
 
 - (BOOL)shouldSelectView:(UIView *)view {

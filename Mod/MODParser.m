@@ -193,9 +193,10 @@ NSInteger const MODParseErrorFileContents = 2;
 
 #pragma mark - nodes
 
-- (void)addStyleSelectorWithName:(NSString *)name node:(MODStyleNode *)node {
-    MODStyleSelector *selector = [[MODStyleSelector alloc] initWithName:name node:node];
+- (void)addStyleSelectorWithString:(NSString *)string node:(MODStyleNode *)node {
+    MODStyleSelector *selector = [[MODStyleSelector alloc] initWithString:string];
     if (selector) {
+        selector.node = node;
         [self.styleSelectors addObject:selector];
     }
 }
@@ -211,21 +212,21 @@ NSInteger const MODParseErrorFileContents = 2;
         return nil;
     }
 
-    MODStyleNode *styleNode = MODStyleNode.new;
-    NSMutableString *selectorName = NSMutableString.new;
+    MODStyleNode *node = MODStyleNode.new;
+    NSMutableString *selector = NSMutableString.new;
     while (--i > 0) {
         token = [self nextToken];
         if ([token valueIsEqualTo:@","]) {
-            [self addStyleSelectorWithName:selectorName node:styleNode];
-            selectorName = NSMutableString.new;
+            [self addStyleSelectorWithString:selector node:node];
+            selector = NSMutableString.new;
         } else if(token.isWhitespace) {
-            [selectorName appendString:@" "];
+            [selector appendString:@" "];
         } else if ([token.value length]) {
-            [selectorName appendString:token.value];
+            [selector appendString:token.value];
         }
     }
-    [self addStyleSelectorWithName:selectorName node:styleNode];
-    return styleNode;
+    [self addStyleSelectorWithString:selector node:node];
+    return node;
 }
 
 - (MODStyleProperty *)nextStyleProperty {
