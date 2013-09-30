@@ -26,6 +26,4 @@ typedef NS_OPTIONS(NSUInteger, MODStyleSelectorType) {
 
 - (id)initWithString:(NSString *)string;
 
-- (BOOL)shouldSelectView:(UIView *)view;
-
 @end

@@ -69,8 +69,4 @@
     return self;
 }
 
-- (BOOL)shouldSelectView:(UIView *)view {
-    return NO;
-}
-
 @end
