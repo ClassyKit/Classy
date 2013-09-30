@@ -69,6 +69,12 @@ NSInteger const MODParseErrorFileContents = 2;
     NSError *parseError = nil;
     NSArray *styles = [parser parseString:string error:&parseError];
 
+    if (parseError) {
+        if (error) {
+            *error = parseError;
+        }
+        return nil;
+    }
     if (!styles.count) {
         NSDictionary *userInfo = @{
             NSLocalizedDescriptionKey: @"Could not parse string",
@@ -76,12 +82,6 @@ NSInteger const MODParseErrorFileContents = 2;
         };
         if (error) {
             *error = [NSError errorWithDomain:MODParseErrorDomain code:MODParseErrorFileContents userInfo:userInfo];
-        }
-        return nil;
-    }
-    if (parseError) {
-        if (error) {
-            *error = parseError;
         }
         return nil;
     }
@@ -221,6 +221,8 @@ NSInteger const MODParseErrorFileContents = 2;
             selector = NSMutableString.new;
         } else if(token.isWhitespace) {
             [selector appendString:@" "];
+        } else if([token valueIsEqualTo:@">"]) {
+            [selector appendString:([selector hasSuffix:@" "] ? @"> " : @" > ")];
         } else if ([token.value length]) {
             [selector appendString:token.value];
         }

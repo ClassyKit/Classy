@@ -88,6 +88,7 @@
         || self.type == MODTokenTypeSelector
         || self.type == MODTokenTypeNewline
         || self.type == MODTokenTypeSpace
+        || self.type == MODTokenTypeOperator
         || [self valueIsEqualTo:@":"]
         || [self valueIsEqualTo:@","];
 }

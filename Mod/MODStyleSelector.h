@@ -22,6 +22,7 @@ typedef NS_OPTIONS(NSUInteger, MODStyleSelectorType) {
 @property (nonatomic, strong, readonly) NSString *styleClass;
 @property (nonatomic, strong, readonly) NSString *pseudo;
 @property (nonatomic, strong, readonly) NSString *string;
+@property (nonatomic, assign, readonly, getter = isImmediateParent) BOOL immediateParent;
 @property (nonatomic, strong) MODStyleNode *node;
 
 - (id)initWithString:(NSString *)string;

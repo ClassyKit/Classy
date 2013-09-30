@@ -37,6 +37,7 @@
 		DDE76FF317F2ADE6003DF205 /* MODStyleNode.m in Sources */ = {isa = PBXBuildFile; fileRef = DDE76FF217F2ADE6003DF205 /* MODStyleNode.m */; };
 		DDE76FF617F2ADFB003DF205 /* MODStyleProperty.m in Sources */ = {isa = PBXBuildFile; fileRef = DDE76FF517F2ADFB003DF205 /* MODStyleProperty.m */; };
 		DDF8E9DB17E797F400E2DE34 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DDE391B817E7079F00C8BBD1 /* UIKit.framework */; };
+		DDF974CB17FA386800B15F9A /* Selectors-Hierarchy.mod in Resources */ = {isa = PBXBuildFile; fileRef = DDF974CA17FA386800B15F9A /* Selectors-Hierarchy.mod */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -108,6 +109,7 @@
 		DDE76FF217F2ADE6003DF205 /* MODStyleNode.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MODStyleNode.m; sourceTree = "<group>"; };
 		DDE76FF417F2ADFB003DF205 /* MODStyleProperty.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MODStyleProperty.h; sourceTree = "<group>"; };
 		DDE76FF517F2ADFB003DF205 /* MODStyleProperty.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MODStyleProperty.m; sourceTree = "<group>"; };
+		DDF974CA17FA386800B15F9A /* Selectors-Hierarchy.mod */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = "Selectors-Hierarchy.mod"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -144,6 +146,7 @@
 				DD05C40217E69A44009AEAFE /* Selectors-Basic.mod */,
 				DD2B3E3C17F2D98900C71ED9 /* Selectors-Complex.mod */,
 				DD7A63A517F427AF00AC6DBA /* Selectors-Indentation.mod */,
+				DDF974CA17FA386800B15F9A /* Selectors-Hierarchy.mod */,
 			);
 			path = Stylesheets;
 			sourceTree = "<group>";
@@ -349,6 +352,7 @@
 				DD05C40317E69A44009AEAFE /* Selectors-Basic.mod in Resources */,
 				DD7A63A617F427AF00AC6DBA /* Selectors-Indentation.mod in Resources */,
 				DD7A63A817F427D300AC6DBA /* Properties-Basic.mod in Resources */,
+				DDF974CB17FA386800B15F9A /* Selectors-Hierarchy.mod in Resources */,
 				DDA2FCF917E6455700237125 /* InfoPlist.strings in Resources */,
 				DD2B3E3D17F2D98900C71ED9 /* Selectors-Complex.mod in Resources */,
 			);
