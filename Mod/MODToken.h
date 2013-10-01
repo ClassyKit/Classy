@@ -14,6 +14,7 @@ typedef NS_ENUM(NSInteger, MODTokenType) {
     MODTokenTypeOutdent,
     MODTokenTypeEOS,
     MODTokenTypeSemiColon,
+    MODTokenTypeCarat,
     MODTokenTypeNewline,
     MODTokenTypeOpeningBrace,
     MODTokenTypeClosingBrace,

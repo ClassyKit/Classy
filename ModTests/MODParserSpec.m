@@ -122,16 +122,16 @@ describe(@"selectors", ^{
         expect(parentSelector.viewClass).to.equal(UIButton.class);
         expect(parentSelector.styleClass).to.beNil();
         expect(parentSelector.pseudo).to.beNil();
-        expect(parentSelector.immediateViewClassOnly).to.beTruthy();
-        expect(parentSelector.immediateSuperviewOnly).to.beFalsy();
+        expect(parentSelector.shouldSelectSubclasses).to.beFalsy();
+        expect(parentSelector.shouldSelectDescendants).to.beTruthy();
         expect(parentSelector.precedence).to.equal(2);
 
         parentSelector = selector2.parentSelectors[0];
         expect(parentSelector.viewClass).to.equal(UIImageView.class);
         expect(parentSelector.styleClass).to.beNil();
         expect(parentSelector.pseudo).to.beNil();
-        expect(parentSelector.immediateViewClassOnly).to.beTruthy();
-        expect(parentSelector.immediateSuperviewOnly).to.beFalsy();
+        expect(parentSelector.shouldSelectSubclasses).to.beFalsy();
+        expect(parentSelector.shouldSelectDescendants).to.beTruthy();
         expect(parentSelector.precedence).to.equal(2);
 
         MODStyleSelector *selector3 = styles[2];
@@ -188,15 +188,15 @@ describe(@"selectors", ^{
         expect(parentSelector.viewClass).to.equal(UINavigationBar.class);
         expect(parentSelector.styleClass).to.equal(@"videoNavBar");
         expect(parentSelector.pseudo).to.beNil();
-        expect(parentSelector.immediateViewClassOnly).to.beTruthy();
-        expect(parentSelector.immediateSuperviewOnly).to.beFalsy();
+        expect(parentSelector.shouldSelectSubclasses).to.beFalsy();
+        expect(parentSelector.shouldSelectDescendants).to.beTruthy();
 
         parentSelector = selector7.parentSelectors[0];
         expect(parentSelector.viewClass).to.equal(UIButton.class);
         expect(parentSelector.styleClass).to.beNil();
         expect(parentSelector.pseudo).to.beNil();
-        expect(parentSelector.immediateViewClassOnly).to.beTruthy();
-        expect(parentSelector.immediateSuperviewOnly).to.beFalsy();
+        expect(parentSelector.shouldSelectSubclasses).to.beFalsy();
+        expect(parentSelector.shouldSelectDescendants).to.beTruthy();
     });
 
     it(@"should parse without braces", ^{
@@ -219,8 +219,8 @@ describe(@"selectors", ^{
         expect(parentSelector.viewClass).to.equal(UIButton.class);
         expect(parentSelector.styleClass).to.beNil();
         expect(parentSelector.pseudo).to.equal(@"selected");
-        expect(parentSelector.immediateViewClassOnly).to.beTruthy();
-        expect(parentSelector.immediateSuperviewOnly).to.beFalsy();
+        expect(parentSelector.shouldSelectSubclasses).to.beFalsy();
+        expect(parentSelector.shouldSelectDescendants).to.beTruthy();
 
         MODStyleSelector *selector2 = styles[1];
         expect(selector2.string).to.equal(@"UIButton UIImageView .starImage");
@@ -235,15 +235,15 @@ describe(@"selectors", ^{
         expect(parentSelector.viewClass).to.equal(UIButton.class);
         expect(parentSelector.styleClass).to.beNil();
         expect(parentSelector.pseudo).to.beNil();
-        expect(parentSelector.immediateViewClassOnly).to.beTruthy();
-        expect(parentSelector.immediateSuperviewOnly).to.beFalsy();
+        expect(parentSelector.shouldSelectSubclasses).to.beFalsy();
+        expect(parentSelector.shouldSelectDescendants).to.beTruthy();
 
         parentSelector = selector2.parentSelectors[0];
         expect(parentSelector.viewClass).to.equal(UIImageView.class);
         expect(parentSelector.styleClass).to.beNil();
         expect(parentSelector.pseudo).to.beNil();
-        expect(parentSelector.immediateViewClassOnly).to.beTruthy();
-        expect(parentSelector.immediateSuperviewOnly).to.beFalsy();
+        expect(parentSelector.shouldSelectSubclasses).to.beFalsy();
+        expect(parentSelector.shouldSelectDescendants).to.beTruthy();
 
         MODStyleSelector *selector3 = styles[2];
         expect(selector3.string).to.equal(@"UIView.bordered");
@@ -293,15 +293,15 @@ describe(@"selectors", ^{
         expect(parentSelector.viewClass).to.equal(UINavigationBar.class);
         expect(parentSelector.styleClass).to.equal(@"videoNavBar");
         expect(parentSelector.pseudo).to.beNil();
-        expect(parentSelector.immediateViewClassOnly).to.beTruthy();
-        expect(parentSelector.immediateSuperviewOnly).to.beFalsy();
+        expect(parentSelector.shouldSelectSubclasses).to.beFalsy();
+        expect(parentSelector.shouldSelectDescendants).to.beTruthy();
 
         parentSelector = selector7.parentSelectors[0];
         expect(parentSelector.viewClass).to.equal(UIButton.class);
         expect(parentSelector.styleClass).to.beNil();
         expect(parentSelector.pseudo).to.beNil();
-        expect(parentSelector.immediateViewClassOnly).to.beTruthy();
-        expect(parentSelector.immediateSuperviewOnly).to.beFalsy();
+        expect(parentSelector.shouldSelectSubclasses).to.beFalsy();
+        expect(parentSelector.shouldSelectDescendants).to.beTruthy();
     });
 
     it(@"should parse direct descendant", ^{
@@ -324,22 +324,22 @@ describe(@"selectors", ^{
 
         MODStyleSelector *parentSelector = selector1.parentSelectors[1];
         expect(parentSelector.viewClass).to.equal(UIButton.class);
-        expect(parentSelector.immediateViewClassOnly).to.beTruthy();
-        expect(parentSelector.immediateSuperviewOnly).to.beTruthy();
+        expect(parentSelector.shouldSelectSubclasses).to.beFalsy();
+        expect(parentSelector.shouldSelectDescendants).to.beFalsy();
         expect(parentSelector.styleClass).to.beNil();
         expect(parentSelector.pseudo).to.beNil();
         expect(parentSelector.precedence).to.equal(3);
 
         parentSelector = selector1.parentSelectors[0];
         expect(parentSelector.viewClass).to.equal(UIImageView.class);
-        expect(parentSelector.immediateViewClassOnly).to.beTruthy();
-        expect(parentSelector.immediateSuperviewOnly).to.beFalsy();
+        expect(parentSelector.shouldSelectSubclasses).to.beFalsy();
+        expect(parentSelector.shouldSelectDescendants).to.beTruthy();
         expect(parentSelector.styleClass).to.beNil();
         expect(parentSelector.pseudo).to.beNil();
         expect(parentSelector.precedence).to.equal(2);
 
         MODStyleSelector *selector2 = styles[1];
-        expect(selector2.string).to.equal(@"UIView? > UINavigationBar");
+        expect(selector2.string).to.equal(@"^UIView > UINavigationBar");
         expect(selector2.node).toNot.beNil();
         expect(selector2.type).to.equal(MODStyleSelectorTypeViewClass);
         expect(selector2.viewClass).to.equal(UINavigationBar.class);
@@ -347,11 +347,12 @@ describe(@"selectors", ^{
         expect(selector2.pseudo).to.beNil();
         expect(selector2.parentSelectors).to.haveCountOf(1);
         expect(selector2.precedence).to.equal(5);
+        expect(selector2.shouldSelectSubclasses).to.beFalsy();
 
         parentSelector = selector2.parentSelectors[0];
         expect(parentSelector.viewClass).to.equal(UIView.class);
-        expect(parentSelector.immediateViewClassOnly).to.beFalsy();
-        expect(parentSelector.immediateSuperviewOnly).to.beTruthy();
+        expect(parentSelector.shouldSelectSubclasses).to.beTruthy();
+        expect(parentSelector.shouldSelectDescendants).to.beFalsy();
         expect(parentSelector.styleClass).to.beNil();
         expect(parentSelector.pseudo).to.beNil();
         expect(parentSelector.precedence).to.equal(1);
@@ -367,13 +368,13 @@ describe(@"selectors", ^{
 
         parentSelector = selector3.parentSelectors[0];
         expect(parentSelector.viewClass).to.equal(UIView.class);
-        expect(parentSelector.immediateViewClassOnly).to.beTruthy();
-        expect(parentSelector.immediateSuperviewOnly).to.beTruthy();
+        expect(parentSelector.shouldSelectSubclasses).to.beFalsy();
+        expect(parentSelector.shouldSelectDescendants).to.beFalsy();
         expect(parentSelector.styleClass).to.equal(@"bordered");
         expect(parentSelector.pseudo).to.beNil();
 
         MODStyleSelector *selector4 = styles[3];
-        expect(selector4.string).to.equal(@"UIView?:selected > UIImageView");
+        expect(selector4.string).to.equal(@"^UIView:selected > UIImageView");
         expect(selector4.node).toNot.beNil();
         expect(selector4.type).to.equal(MODStyleSelectorTypeViewClass);
         expect(selector4.viewClass).to.equal(UIImageView.class);
@@ -382,10 +383,10 @@ describe(@"selectors", ^{
         expect(selector4.parentSelectors).to.haveCountOf(1);
 
         parentSelector = selector4.parentSelectors[0];
-        expect(parentSelector.string).to.equal(@"UIView?:selected");
+        expect(parentSelector.string).to.equal(@"^UIView:selected");
         expect(parentSelector.viewClass).to.equal(UIView.class);
-        expect(parentSelector.immediateViewClassOnly).to.beFalsy();
-        expect(parentSelector.immediateSuperviewOnly).to.beTruthy();
+        expect(parentSelector.shouldSelectSubclasses).to.beTruthy();
+        expect(parentSelector.shouldSelectDescendants).to.beFalsy();
         expect(parentSelector.styleClass).to.beNil();
         expect(parentSelector.pseudo).to.equal(@"selected");
     });

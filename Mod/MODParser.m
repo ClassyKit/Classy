@@ -214,17 +214,27 @@ NSInteger const MODParseErrorFileContents = 2;
 
     MODStyleNode *node = MODStyleNode.new;
     NSMutableString *selector = NSMutableString.new;
+    BOOL ignoreWhitespace = YES;
     while (--i > 0) {
         token = [self nextToken];
+
         if ([token valueIsEqualTo:@","]) {
             [self addStyleSelectorWithString:selector node:node];
             selector = NSMutableString.new;
+            ignoreWhitespace = YES;
         } else if(token.isWhitespace) {
-            [selector appendString:@" "];
+            if (!ignoreWhitespace) {
+                [selector appendString:@" "];
+            }
         } else if([token valueIsEqualTo:@">"]) {
             [selector appendString:([selector hasSuffix:@" "] ? @"> " : @" > ")];
+            ignoreWhitespace = NO;
+        } else if([token valueIsEqualTo:@"^"]) {
+            [selector appendString:@"^"];
+            ignoreWhitespace = YES;
         } else if ([token.value length]) {
             [selector appendString:token.value];
+            ignoreWhitespace = NO;
         }
     }
     [self addStyleSelectorWithString:selector node:node];

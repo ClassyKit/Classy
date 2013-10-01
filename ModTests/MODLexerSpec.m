@@ -135,11 +135,6 @@ it(@"should return selector", ^{
     expect(lexer.peekToken.type).to.equal(MODTokenTypeSelector);
     expect(lexer.peekToken.value).to.equal(@".hello    world     ");
     expect(lexer.str).to.equal(@"{");
-
-    lexer = [[MODLexer alloc] initWithString:@"^&*@#$_+!hello    world[asd//aa]     ,"];
-    expect(lexer.peekToken.type).to.equal(MODTokenTypeSelector);
-    expect(lexer.peekToken.value).to.equal(@"^&*@#$_+!hello    world[asd//aa]     ");
-    expect(lexer.str).to.equal(@",");
 });
 
 it(@"should return ref", ^{

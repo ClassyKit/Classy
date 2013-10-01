@@ -16,6 +16,7 @@ it(@"should return token name", ^{
     expect([MODToken stringForType:MODTokenTypeOutdent]).to.equal(@"outdent");
     expect([MODToken stringForType:MODTokenTypeEOS]).to.equal(@"EOS");
     expect([MODToken stringForType:MODTokenTypeSemiColon]).to.equal(@"semicolon");
+    expect([MODToken stringForType:MODTokenTypeCarat]).to.equal(@"carat");
     expect([MODToken stringForType:MODTokenTypeNewline]).to.equal(@"newline");
     expect([MODToken stringForType:MODTokenTypeOpeningBrace]).to.equal(@"{");
     expect([MODToken stringForType:MODTokenTypeClosingBrace]).to.equal(@"}");

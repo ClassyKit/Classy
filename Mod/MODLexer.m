@@ -54,9 +54,12 @@ NSString * const MODParseFailingStringErrorKey = @"MODParseFailingStringErrorKey
         // 1 of `;` followed by 0-* of whitespace
         @(MODTokenTypeSemiColon) : @[ MODRegex(@"^;[ \\t]*") ],
 
+        // 1 of `^` followed by 0-* of whitespace
+        @(MODTokenTypeCarat)     : @[ MODRegex(@"^\\^[ \\t]*") ],
+
         // new line followed by tabs or spaces
-        @(MODTokenTypeIndent)   : @[ MODRegex(@"^\\n([\\t]*)"),
-                                     MODRegex(@"^\\n([ ]*)") ],
+        @(MODTokenTypeIndent)    : @[ MODRegex(@"^\\n([\\t]*)"),
+                                      MODRegex(@"^\\n([ ]*)") ],
 
         //#rrggbbaa | #rrggbb | #rgb
         @(MODTokenTypeColor)     : @[ MODRegex(@"^#([a-fA-F0-9]{8})[ \\t]*"),
@@ -76,7 +79,7 @@ NSString * const MODParseFailingStringErrorKey = @"MODParseFailingStringErrorKey
         @(MODTokenTypeRef)       : @[ MODRegex(@"^(@)?(-*[_a-zA-Z$][-\\w\\d$]*)") ],
 
         // tests if string looks like math operation
-        @(MODTokenTypeOperator) : @[ MODRegex(@"^([.]{2,3}|&&|\\|\\||[!<>=?:]=|\\*\\*|[-+*\\/%%]=?|[,=?:!~<>&\\[\\]])([ \\t]*)") ],
+        @(MODTokenTypeOperator)  : @[ MODRegex(@"^([.]{2,3}|&&|\\|\\||[!<>=?:]=|\\*\\*|[-+*\\/%%]=?|[,=?:!~<>&\\[\\]])([ \\t]*)") ],
 
         // 1-* of whitespace
         @(MODTokenTypeSpace)     : @[ MODRegex(@"^([ \\t]+)") ],
@@ -156,6 +159,7 @@ NSString * const MODParseFailingStringErrorKey = @"MODParseFailingStringErrorKey
     // however all these regexs are anchored to start of string so should be fairly quick
     MODToken *token = self.eos
         ?: self.seperator
+        ?: self.carat
         ?: self.comment
         ?: self.newline
         ?: self.brace
@@ -203,6 +207,12 @@ NSString * const MODParseFailingStringErrorKey = @"MODParseFailingStringErrorKey
 
 - (MODToken *)seperator {
     return [self testForTokenType:MODTokenTypeSemiColon transformValueBlock:nil];
+}
+
+- (MODToken *)carat {
+    return [self testForTokenType:MODTokenTypeCarat transformValueBlock:^id(NSString *value, NSTextCheckingResult *match) {
+        return value;
+    }];
 }
 
 - (MODToken *)comment {

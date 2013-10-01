@@ -22,8 +22,8 @@ typedef NS_OPTIONS(NSUInteger, MODStyleSelectorType) {
 @property (nonatomic, strong, readonly) NSString *styleClass;
 @property (nonatomic, strong, readonly) NSString *pseudo;
 @property (nonatomic, strong, readonly) NSString *string;
-@property (nonatomic, assign, readonly) BOOL immediateViewClassOnly;
-@property (nonatomic, assign, readonly) BOOL immediateSuperviewOnly;
+@property (nonatomic, assign, readonly) BOOL shouldSelectSubclasses;
+@property (nonatomic, assign, readonly) BOOL shouldSelectDescendants;
 @property (nonatomic, strong) MODStyleNode *node;
 
 - (id)initWithString:(NSString *)string;
@@ -35,16 +35,16 @@ typedef NS_OPTIONS(NSUInteger, MODStyleSelectorType) {
  *  The Rules
  *
  *  ViewClass matches
- *   +2 any superview
- *   +3 immediate superview
+ *   +2 ancestor
+ *   +3 superview
  *   +4 view
  *
- *   if loose match (!immediateViewClassOnly)
+ *   if loose match (shouldSelectSubclasses)
  *    -2
  *
  *  StyleClass matches
- *   +1000 any superview
- *   +2000 immediate superview
+ *   +1000 ancestor
+ *   +2000 superview
  *   +3000 view
  *
  *  @return Precendence score

@@ -30,6 +30,8 @@
             return @"EOS";
         case MODTokenTypeSemiColon:
             return @"semicolon";
+        case MODTokenTypeCarat:
+            return @"carat";
         case MODTokenTypeNewline:
             return @"newline";
         case MODTokenTypeOpeningBrace:
@@ -85,6 +87,7 @@
 
 - (BOOL)isPossiblySelector {
     return self.type == MODTokenTypeRef
+        || self.type == MODTokenTypeCarat
         || self.type == MODTokenTypeSelector
         || self.type == MODTokenTypeNewline
         || self.type == MODTokenTypeSpace

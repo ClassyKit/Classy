@@ -16,8 +16,8 @@
 @property (nonatomic, strong, readwrite) NSString *pseudo;
 @property (nonatomic, strong, readwrite) NSString *string;
 @property (nonatomic, strong, readwrite) NSMutableArray *parentSelectors;
-@property (nonatomic, assign, readwrite) BOOL immediateViewClassOnly;
-@property (nonatomic, assign, readwrite) BOOL immediateSuperviewOnly;
+@property (nonatomic, assign, readwrite) BOOL shouldSelectSubclasses;
+@property (nonatomic, assign, readwrite) BOOL shouldSelectDescendants;
 @property (nonatomic, assign, readwrite) NSInteger precedence;
 @property (nonatomic, getter = isParent) BOOL parent;
 
@@ -39,7 +39,6 @@
     if (!stringComponents.count) return nil;
 
     //extract pseudo and class components
-    self.immediateViewClassOnly = YES;
     NSString *mainString = stringComponents.lastObject;
     NSInteger pseudoLocation = [mainString rangeOfString:@":"].location;
     NSInteger styleClassLocation = [mainString rangeOfString:@"."].location;
@@ -52,10 +51,11 @@
         self.type = MODStyleSelectorTypeStyleClass;
     } else {
         self.type = MODStyleSelectorTypeViewClass;
+        self.shouldSelectSubclasses = [mainString characterAtIndex:0] == '^';
+        NSInteger classStartIndex = self.shouldSelectSubclasses ? 1 : 0;
         NSInteger classEndIndex = MIN(mainString.length, MIN(pseudoLocation, styleClassLocation));
-        self.immediateViewClassOnly = [mainString characterAtIndex:classEndIndex-1] != '?';
-        classEndIndex -= self.immediateViewClassOnly ? 0 : 1;
-        NSString *className = [mainString substringToIndex:classEndIndex];
+        NSRange classNameRange = NSMakeRange(classStartIndex, classEndIndex - classStartIndex);
+        NSString *className = [mainString substringWithRange:classNameRange];
         self.viewClass = NSClassFromString(className);
     }
 
@@ -72,20 +72,18 @@
     //extract selector hierarchy
     if (stringComponents.count > 1) {
         self.parentSelectors = NSMutableArray.new;
-        __block BOOL immediateSuperviewOnly = NO;
+        __block BOOL shouldSelectDescendants = YES;
         [stringComponents enumerateObjectsWithOptions:NSEnumerationReverse usingBlock:^(NSString *stringComponent, NSUInteger idx, BOOL *stop) {
             if (idx != stringComponents.count - 1 && stringComponent.length) {
                 if ([stringComponent isEqualToString:@">"]) {
-                    immediateSuperviewOnly = YES;
+                    shouldSelectDescendants = NO;
                     return;
                 }
                 MODStyleSelector *selector = [[MODStyleSelector alloc] initWithString:stringComponent];
                 selector.parent = YES;
-                if (immediateSuperviewOnly) {
-                    selector.immediateSuperviewOnly = YES;
-                    immediateSuperviewOnly = NO;
-                }
+                selector.shouldSelectDescendants = shouldSelectDescendants;
                 [self.parentSelectors addObject:selector];
+                shouldSelectDescendants = YES;
             }
         }];
     }
@@ -98,18 +96,18 @@
         _precedence = 0;
         if (self.viewClass) {
             if (self.isParent) {
-                _precedence += self.immediateSuperviewOnly ? 3 : 2;
+                _precedence += self.shouldSelectDescendants ? 2 : 3;
             } else {
                 _precedence += 4;
             }
-            if (!self.immediateViewClassOnly) {
+            if (self.shouldSelectSubclasses) {
                 _precedence -= 2;
             }
         }
 
         if (self.styleClass) {
             if (self.isParent) {
-                _precedence += self.immediateSuperviewOnly ? 2000 : 1000;
+                _precedence += self.shouldSelectDescendants ? 1000 : 2000;
             } else {
                 _precedence += 3000;
             }
