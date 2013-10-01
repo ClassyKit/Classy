@@ -18,7 +18,8 @@
 @property (nonatomic, strong, readwrite) NSMutableArray *parentSelectors;
 @property (nonatomic, assign, readwrite) BOOL immediateViewClassOnly;
 @property (nonatomic, assign, readwrite) BOOL immediateSuperviewOnly;
-@property (nonatomic, assign, readwrite) BOOL appleClass;
+@property (nonatomic, assign, readwrite) NSInteger precedence;
+@property (nonatomic, getter = isParent) BOOL parent;
 
 @end
 
@@ -27,6 +28,8 @@
 - (id)initWithString:(NSString *)string {
     self = [super init];
     if (!self) return nil;
+
+    self.precedence = NSNotFound;
 
     string = [string stringByTrimmingCharactersInSet:NSCharacterSet.whitespaceAndNewlineCharacterSet];
     if (!string.length) return nil;
@@ -77,6 +80,7 @@
                     return;
                 }
                 MODStyleSelector *selector = [[MODStyleSelector alloc] initWithString:stringComponent];
+                selector.parent = YES;
                 if (immediateSuperviewOnly) {
                     selector.immediateSuperviewOnly = YES;
                     immediateSuperviewOnly = NO;
@@ -90,7 +94,34 @@
 }
 
 - (NSInteger)precedence {
-    return 0;
+    if (_precedence == NSNotFound) {
+        _precedence = 0;
+        if (self.viewClass) {
+            if (self.isParent) {
+                _precedence += self.immediateSuperviewOnly ? 3 : 2;
+            } else {
+                _precedence += 4;
+            }
+            if (!self.immediateViewClassOnly) {
+                _precedence -= 2;
+            }
+        }
+
+        if (self.styleClass) {
+            if (self.isParent) {
+                _precedence += self.immediateSuperviewOnly ? 2000 : 1000;
+            } else {
+                _precedence += 3000;
+            }
+        }
+
+        if (self.isParent) return _precedence;
+
+        for (MODStyleSelector *parentSelector in self.parentSelectors) {
+            _precedence += parentSelector.precedence;
+        }
+    }
+    return _precedence;
 }
 
 @end

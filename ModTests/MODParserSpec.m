@@ -106,6 +106,7 @@ describe(@"selectors", ^{
         expect(selector1.styleClass).to.equal(@"command");
         expect(selector1.pseudo).to.equal(@"selected");
         expect(selector1.parentSelectors).to.beNil();
+        expect(selector1.precedence).to.equal(3004);
 
         MODStyleSelector *selector2 = styles[1];
         expect(selector2.string).to.equal(@"UIButton UIImageView .starImage");
@@ -115,6 +116,7 @@ describe(@"selectors", ^{
         expect(selector2.styleClass).to.equal(@"starImage");
         expect(selector2.pseudo).to.beNil();
         expect(selector2.parentSelectors).to.haveCountOf(2);
+        expect(selector2.precedence).to.equal(3004);
 
         MODStyleSelector *parentSelector = selector2.parentSelectors[1];
         expect(parentSelector.viewClass).to.equal(UIButton.class);
@@ -122,6 +124,7 @@ describe(@"selectors", ^{
         expect(parentSelector.pseudo).to.beNil();
         expect(parentSelector.immediateViewClassOnly).to.beTruthy();
         expect(parentSelector.immediateSuperviewOnly).to.beFalsy();
+        expect(parentSelector.precedence).to.equal(2);
 
         parentSelector = selector2.parentSelectors[0];
         expect(parentSelector.viewClass).to.equal(UIImageView.class);
@@ -129,6 +132,7 @@ describe(@"selectors", ^{
         expect(parentSelector.pseudo).to.beNil();
         expect(parentSelector.immediateViewClassOnly).to.beTruthy();
         expect(parentSelector.immediateSuperviewOnly).to.beFalsy();
+        expect(parentSelector.precedence).to.equal(2);
 
         MODStyleSelector *selector3 = styles[2];
         expect(selector3.string).to.equal(@"UIView.bordered");
@@ -138,6 +142,7 @@ describe(@"selectors", ^{
         expect(selector3.styleClass).to.equal(@"bordered");
         expect(selector3.pseudo).to.beNil();
         expect(selector3.parentSelectors).to.beNil();
+        expect(selector3.precedence).to.equal(3004);
 
         MODStyleSelector *selector4 = styles[3];
         expect(selector4.string).to.equal(@".panel");
@@ -147,6 +152,8 @@ describe(@"selectors", ^{
         expect(selector4.styleClass).to.equal(@"panel");
         expect(selector4.pseudo).to.beNil();
         expect(selector4.parentSelectors).to.beNil();
+        expect(selector4.precedence).to.equal(3000);
+
 
         MODStyleSelector *selector5 = styles[4];
         expect(selector5.string).to.equal(@"UISlider");
@@ -156,6 +163,7 @@ describe(@"selectors", ^{
         expect(selector5.styleClass).to.beNil();
         expect(selector5.pseudo).to.beNil();
         expect(selector5.parentSelectors).to.beNil();
+        expect(selector5.precedence).to.equal(4);
 
         MODStyleSelector *selector6 = styles[5];
         expect(selector6.string).to.equal(@":selected");
@@ -165,6 +173,7 @@ describe(@"selectors", ^{
         expect(selector6.styleClass).to.beNil();
         expect(selector6.pseudo).to.equal(@"selected");
         expect(selector6.parentSelectors).to.beNil();
+        expect(selector6.precedence).to.equal(0);
 
         MODStyleSelector *selector7 = styles[6];
         expect(selector7.string).to.equal(@"UINavigationBar.videoNavBar UIButton :highlighted");
@@ -173,6 +182,7 @@ describe(@"selectors", ^{
         expect(selector7.viewClass).to.beNil();
         expect(selector7.styleClass).to.beNil();
         expect(selector7.parentSelectors).to.haveCountOf(2);
+        expect(selector7.precedence).to.equal(1004);
 
         parentSelector = selector7.parentSelectors[1];
         expect(parentSelector.viewClass).to.equal(UINavigationBar.class);
@@ -310,6 +320,7 @@ describe(@"selectors", ^{
         expect(selector1.styleClass).to.equal(@"starImage");
         expect(selector1.pseudo).to.beNil();
         expect(selector1.parentSelectors).to.haveCountOf(2);
+        expect(selector1.precedence).to.equal(3005);
 
         MODStyleSelector *parentSelector = selector1.parentSelectors[1];
         expect(parentSelector.viewClass).to.equal(UIButton.class);
@@ -317,6 +328,7 @@ describe(@"selectors", ^{
         expect(parentSelector.immediateSuperviewOnly).to.beTruthy();
         expect(parentSelector.styleClass).to.beNil();
         expect(parentSelector.pseudo).to.beNil();
+        expect(parentSelector.precedence).to.equal(3);
 
         parentSelector = selector1.parentSelectors[0];
         expect(parentSelector.viewClass).to.equal(UIImageView.class);
@@ -324,6 +336,7 @@ describe(@"selectors", ^{
         expect(parentSelector.immediateSuperviewOnly).to.beFalsy();
         expect(parentSelector.styleClass).to.beNil();
         expect(parentSelector.pseudo).to.beNil();
+        expect(parentSelector.precedence).to.equal(2);
 
         MODStyleSelector *selector2 = styles[1];
         expect(selector2.string).to.equal(@"UIView? > UINavigationBar");
@@ -333,6 +346,7 @@ describe(@"selectors", ^{
         expect(selector2.styleClass).to.beNil();
         expect(selector2.pseudo).to.beNil();
         expect(selector2.parentSelectors).to.haveCountOf(1);
+        expect(selector2.precedence).to.equal(5);
 
         parentSelector = selector2.parentSelectors[0];
         expect(parentSelector.viewClass).to.equal(UIView.class);
@@ -340,6 +354,7 @@ describe(@"selectors", ^{
         expect(parentSelector.immediateSuperviewOnly).to.beTruthy();
         expect(parentSelector.styleClass).to.beNil();
         expect(parentSelector.pseudo).to.beNil();
+        expect(parentSelector.precedence).to.equal(1);
 
         MODStyleSelector *selector3 = styles[2];
         expect(selector3.string).to.equal(@"UIView.bordered > .panel");
