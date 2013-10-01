@@ -16,7 +16,7 @@
 @property (nonatomic, strong, readwrite) NSString *pseudo;
 @property (nonatomic, strong, readwrite) NSString *string;
 @property (nonatomic, strong, readwrite) NSMutableArray *parentSelectors;
-@property (nonatomic, assign, readwrite) BOOL immediateParent;
+@property (nonatomic, assign, readwrite) BOOL immediateSuperviewOnly;
 
 @end
 
@@ -62,17 +62,17 @@
     //extract selector hierarchy
     if (stringComponents.count > 1) {
         self.parentSelectors = NSMutableArray.new;
-        __block BOOL immediateParent = NO;
+        __block BOOL immediateSuperviewOnly = NO;
         [stringComponents enumerateObjectsWithOptions:NSEnumerationReverse usingBlock:^(NSString *stringComponent, NSUInteger idx, BOOL *stop) {
             if (idx != stringComponents.count - 1 && stringComponent.length) {
                 if ([stringComponent isEqualToString:@">"]) {
-                    immediateParent = YES;
+                    immediateSuperviewOnly = YES;
                     return;
                 }
                 MODStyleSelector *selector = [[MODStyleSelector alloc] initWithString:stringComponent];
-                if (immediateParent) {
-                    selector.immediateParent = YES;
-                    immediateParent = NO;
+                if (immediateSuperviewOnly) {
+                    selector.immediateSuperviewOnly = YES;
+                    immediateSuperviewOnly = NO;
                 }
                 [self.parentSelectors addObject:selector];
             }
@@ -80,6 +80,10 @@
     }
 
     return self;
+}
+
+- (NSUInteger)precedence {
+    return 0;
 }
 
 @end
