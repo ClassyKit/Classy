@@ -364,27 +364,27 @@ describe(@"properties", ^{
         //group 1
         MODStyleNode *node = [styles[0] node];
         expect(node.styleProperties).to.haveCountOf(2);
-        expect([node.styleProperties[0] name]).to.equal(@"background-color");
+        expect([node.styleProperties[0] name]).to.equal(@"backgroundColor");
         expect([node.styleProperties[0] values]).to.equal(@[[UIColor mod_colorWithHex:@"#ffffff"]]);
-        expect([node.styleProperties[1] name]).to.equal(@"border-inset");
+        expect([node.styleProperties[1] name]).to.equal(@"borderInset");
         expect([node.styleProperties[1] values]).to.equal(@[@1]);
 
         //group 2
         node = [styles[2] node];
         expect(node.styleProperties).to.haveCountOf(2);
-        expect([node.styleProperties[0] name]).to.equal(@"font-color");
+        expect([node.styleProperties[0] name]).to.equal(@"fontColor");
         expect([node.styleProperties[0] values]).to.equal(@[[UIColor mod_colorWithHex:@"#ffffff"]]);
-        expect([node.styleProperties[1] name]).to.equal(@"border-width");
+        expect([node.styleProperties[1] name]).to.equal(@"borderWidth");
         expect([node.styleProperties[1] values]).to.equal(@[@2]);
 
         //group 3
         node = [styles[3] node];
         expect(node.styleProperties).to.haveCountOf(3);
-        expect([node.styleProperties[0] name]).to.equal(@"font-name");
+        expect([node.styleProperties[0] name]).to.equal(@"fontName");
         expect([node.styleProperties[0] values]).to.equal(@[@"helvetica"]);
         expect([node.styleProperties[1] name]).to.equal(@"size");
         expect([node.styleProperties[1] values]).to.equal((@[@40, @50]));
-        expect([node.styleProperties[2] name]).to.equal(@"text-color");
+        expect([node.styleProperties[2] name]).to.equal(@"textColor");
         expect([node.styleProperties[2] values]).to.equal(@[[UIColor mod_colorWithHex:@"#444"]]);
     });
 

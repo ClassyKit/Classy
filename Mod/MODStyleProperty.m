@@ -10,7 +10,10 @@
 
 @interface MODStyleProperty ()
 
-@property (nonatomic, strong, readwrite) MODToken *nameToken;
+@property (nonatomic, strong, readwrite) NSString *name;
+@property (nonatomic, strong, readwrite) NSArray *values;
+
+@property (nonatomic, strong) MODToken *nameToken;
 @property (nonatomic, strong) NSArray *valueTokens;
 
 @end
@@ -28,17 +31,33 @@
 }
 
 - (NSString *)name {
-    return self.nameToken.value;
+    if (!_name) {
+        NSArray *components = [self.nameToken.value componentsSeparatedByString:@"-"];
+        NSMutableString *camelCasedName = [NSMutableString string];
+
+        for (NSUInteger i = 0; i < components.count; i++) {
+            if (i == 0) {
+                [camelCasedName appendString:components[i]];
+            } else {
+                [camelCasedName appendString:[components[i] capitalizedString]];
+            }
+        }
+        _name = camelCasedName;
+    }
+    return _name;
 }
 
 - (NSArray *)values {
-    NSMutableArray *values = NSMutableArray.new;
-    for (MODToken *valueToken in self.valueTokens) {
-        if (valueToken.value) {
-            [values addObject:valueToken.value];
+    if (!_values) {
+        NSMutableArray *values = NSMutableArray.new;
+        for (MODToken *valueToken in self.valueTokens) {
+            if (valueToken.value) {
+                [values addObject:valueToken.value];
+            }
         }
+        _values = values;
     }
-    return values;
+    return _values;
 }
 
 - (NSString *)description {
