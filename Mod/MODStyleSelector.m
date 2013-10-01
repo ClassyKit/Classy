@@ -16,7 +16,9 @@
 @property (nonatomic, strong, readwrite) NSString *pseudo;
 @property (nonatomic, strong, readwrite) NSString *string;
 @property (nonatomic, strong, readwrite) NSMutableArray *parentSelectors;
+@property (nonatomic, assign, readwrite) BOOL immediateViewClassOnly;
 @property (nonatomic, assign, readwrite) BOOL immediateSuperviewOnly;
+@property (nonatomic, assign, readwrite) BOOL appleClass;
 
 @end
 
@@ -34,6 +36,7 @@
     if (!stringComponents.count) return nil;
 
     //extract pseudo and class components
+    self.immediateViewClassOnly = YES;
     NSString *mainString = stringComponents.lastObject;
     NSInteger pseudoLocation = [mainString rangeOfString:@":"].location;
     NSInteger styleClassLocation = [mainString rangeOfString:@"."].location;
@@ -46,7 +49,11 @@
         self.type = MODStyleSelectorTypeStyleClass;
     } else {
         self.type = MODStyleSelectorTypeViewClass;
-        self.viewClass = NSClassFromString([mainString substringToIndex:MIN(mainString.length, MIN(pseudoLocation, styleClassLocation))]);
+        NSInteger classEndIndex = MIN(mainString.length, MIN(pseudoLocation, styleClassLocation));
+        self.immediateViewClassOnly = [mainString characterAtIndex:classEndIndex-1] != '?';
+        classEndIndex -= self.immediateViewClassOnly ? 0 : 1;
+        NSString *className = [mainString substringToIndex:classEndIndex];
+        self.viewClass = NSClassFromString(className);
     }
 
     if (pseudoLocation != NSNotFound) {
@@ -82,7 +89,7 @@
     return self;
 }
 
-- (NSUInteger)precedence {
+- (NSInteger)precedence {
     return 0;
 }
 

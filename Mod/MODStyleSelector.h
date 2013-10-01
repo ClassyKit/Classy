@@ -22,6 +22,7 @@ typedef NS_OPTIONS(NSUInteger, MODStyleSelectorType) {
 @property (nonatomic, strong, readonly) NSString *styleClass;
 @property (nonatomic, strong, readonly) NSString *pseudo;
 @property (nonatomic, strong, readonly) NSString *string;
+@property (nonatomic, assign, readonly) BOOL immediateViewClassOnly;
 @property (nonatomic, assign, readonly) BOOL immediateSuperviewOnly;
 @property (nonatomic, strong) MODStyleNode *node;
 
@@ -34,14 +35,12 @@ typedef NS_OPTIONS(NSUInteger, MODStyleSelectorType) {
  *  The Rules
  *
  *  ViewClass matches
- *   if UIKit class
- *    +0 view is a very generic UIKit class `UIView`, `UIControl`, `UIResponder`
- *    +1 view is any other UIKit class
+ *   +2 any superview
+ *   +3 immediate superview
+ *   +4 view
  *
- *   else
- *    +2 any superview
- *    +3 immediate superview
- *    +4 view
+ *   if loose match (!immediateViewClassOnly)
+ *    -2
  *
  *  StyleClass matches
  *   +1000 any superview
@@ -50,6 +49,6 @@ typedef NS_OPTIONS(NSUInteger, MODStyleSelectorType) {
  *
  *  @return Precendence score
  */
-- (NSUInteger)precedence;
+- (NSInteger)precedence;
 
 @end
