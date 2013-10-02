@@ -8,8 +8,26 @@
 
 #import "MODStyler.h"
 #import "UIColor+MODAdditions.h"
+#import "MODStyleSelector.h"
+
+@interface MODStyler ()
+@property (nonatomic, strong) NSMutableArray *styles;
+@end
 
 SpecBegin(MODStyler)
+
+it(@"should sort selectors by precedence", ^{
+    NSError *error = nil;
+    NSString *filePath = [[NSBundle bundleForClass:self.class] pathForResource:@"Properties-Basic.mod" ofType:nil];
+    MODStyler *styler = [[MODStyler alloc] initWithFilePath:filePath error:&error];
+    expect(error).to.beNil();
+
+    expect([styler.styles[0] string]).to.equal(@"UIView.bordered");
+    expect([styler.styles[1] string]).to.equal(@"UIControl.border");
+    expect([styler.styles[2] string]).to.equal(@"UIButton:selected UIControl");
+    expect([styler.styles[3] string]).to.equal(@"UINavigationBar UIButton");
+    expect([styler.styles[4] string]).to.equal(@"UISlider");
+});
 
 xit(@"should set basic properties", ^{
     NSString *filePath = [[NSBundle bundleForClass:self.class] pathForResource:@"UIView-Basic.mod" ofType:nil];

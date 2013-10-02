@@ -13,7 +13,7 @@
 
 @interface MODStyler ()
 
-@property (nonatomic, strong) NSArray *styles;
+@property (nonatomic, strong) NSMutableArray *styles;
 @property (nonatomic, strong) NSMapTable *viewClassInfoCache;
 
 @end
@@ -24,8 +24,15 @@
     self = [super init];
     if (!self) return nil;
 
-    //TODO order ascending by precedence
-    self.styles = [MODParser stylesFromFilePath:filePath error:error];
+    self.styles = [[MODParser stylesFromFilePath:filePath error:error] mutableCopy];
+
+    //order descending by precedence
+    [self.styles sortWithOptions:NSSortStable usingComparator:^NSComparisonResult(MODStyleSelector *s1, MODStyleSelector *s2) {
+        if (s1.precedence == s2.precedence) return NSOrderedSame;
+        if (s1.precedence <  s2.precedence) return NSOrderedDescending;
+        return NSOrderedAscending;
+    }];
+
     self.viewClassInfoCache = NSMapTable.strongToStrongObjectsMapTable;
 
     return self;

@@ -35,7 +35,7 @@ NSInteger const MODParseErrorFileContents = 2;
         NSMutableDictionary *userInfo = @{
             NSLocalizedDescriptionKey: @"Could not parse file",
             NSLocalizedFailureReasonErrorKey: @"File does not exist or is empty",
-            MODParseFailingFilePathErrorKey : filePath
+            MODParseFailingFilePathErrorKey : filePath ?: @""
         }.mutableCopy;
 
         if (fileError) {
