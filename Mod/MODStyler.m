@@ -39,7 +39,13 @@
 }
 
 - (void)styleView:(UIView *)view {
-    //TODO get all selectors that apply to this view.
+    //TODO style lookup table to improve speed.
+
+    for (MODStyleSelector *styleSelector in self.styles.reverseObjectEnumerator) {
+        if ([styleSelector shouldSelectView:view]) {
+            //apply style node
+        }
+    }
 }
 
 - (MODViewClassInfo *)viewClassInfoForClass:(Class)class {

@@ -51,4 +51,13 @@ typedef NS_OPTIONS(NSUInteger, MODStyleSelectorType) {
  */
 - (NSInteger)precedence;
 
+/**
+ *  Whether is selector matches the given view
+ *
+ *  @param view `UIView` or a subclass
+ *
+ *  @return `YES` if all selectors including parent selectors match the view
+ */
+- (BOOL)shouldSelectView:(UIView *)view;
+
 @end

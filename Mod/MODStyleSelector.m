@@ -7,6 +7,7 @@
 //
 
 #import "MODStyleSelector.h"
+#import "UIView+MODAdditions.h"
 
 @interface MODStyleSelector ()
 
@@ -120,6 +121,42 @@
         }
     }
     return _precedence;
+}
+
+- (UIView *)firstSelectableAncestorOfView:(UIView *)view {
+	for (UIView *ancestor = view.superview; ancestor != nil; ancestor = ancestor.superview) {
+        if ([self shouldSelectSingleView:ancestor]) return ancestor;
+        if (!self.shouldSelectDescendants) return nil;
+	}
+	return nil;
+}
+
+- (BOOL)shouldSelectSingleView:(UIView *)view {
+    if (self.viewClass) {
+        if (self.shouldSelectSubclasses) {
+            if (![view isKindOfClass:self.viewClass]) return NO;
+        } else {
+            if (![view isMemberOfClass:self.viewClass]) return NO;
+        }
+    }
+    if (self.styleClass.length && ![self.styleClass isEqualToString:view.mod_styleClass]) {
+        return NO;
+    }
+    return YES;
+}
+
+- (BOOL)shouldSelectView:(UIView *)view {
+    if (![self shouldSelectSingleView:view]) {
+        return NO;
+    }
+
+    UIView *ancestorView;
+    for (MODStyleSelector *parentSelector in self.parentSelectors) {
+        ancestorView = [parentSelector firstSelectableAncestorOfView:ancestorView ?: view];
+        if (!ancestorView) return NO;
+    }
+
+    return YES;
 }
 
 @end
