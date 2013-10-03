@@ -18,8 +18,10 @@ it(@"should return token name", ^{
     expect([MODToken stringForType:MODTokenTypeSemiColon]).to.equal(@"semicolon");
     expect([MODToken stringForType:MODTokenTypeCarat]).to.equal(@"carat");
     expect([MODToken stringForType:MODTokenTypeNewline]).to.equal(@"newline");
-    expect([MODToken stringForType:MODTokenTypeOpeningBrace]).to.equal(@"{");
-    expect([MODToken stringForType:MODTokenTypeClosingBrace]).to.equal(@"}");
+    expect([MODToken stringForType:MODTokenTypeLeftSquareBrace]).to.equal(@"[");
+    expect([MODToken stringForType:MODTokenTypeRightSquareBrace]).to.equal(@"]");
+    expect([MODToken stringForType:MODTokenTypeLeftCurlyBrace]).to.equal(@"{");
+    expect([MODToken stringForType:MODTokenTypeRightCurlyBrace]).to.equal(@"}");
     expect([MODToken stringForType:MODTokenTypeColor]).to.equal(@"color");
     expect([MODToken stringForType:MODTokenTypeString]).to.equal(@"string");
     expect([MODToken stringForType:MODTokenTypeUnit]).to.equal(@"unit");

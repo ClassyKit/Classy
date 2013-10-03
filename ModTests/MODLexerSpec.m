@@ -41,14 +41,24 @@ it(@"should return space", ^{
     expect(lexer.str).to.equal(@"hello");
 });
 
-it(@"should return brace", ^{
+it(@"should return curly brace", ^{
     MODLexer *lexer = [[MODLexer alloc] initWithString:@"{  \t    hello"];
-    expect(lexer.peekToken.type).to.equal(MODTokenTypeOpeningBrace);
+    expect(lexer.peekToken.type).to.equal(MODTokenTypeLeftCurlyBrace);
     expect(lexer.str).to.equal(@"  \t    hello");
 
     lexer = [[MODLexer alloc] initWithString:@"}{  world hello"];
-    expect(lexer.peekToken.type).to.equal(MODTokenTypeClosingBrace);
+    expect(lexer.peekToken.type).to.equal(MODTokenTypeRightCurlyBrace);
     expect(lexer.str).to.equal(@"{  world hello");
+});
+
+it(@"should return square brace", ^{
+    MODLexer *lexer = [[MODLexer alloc] initWithString:@"[  \t    hello"];
+    expect(lexer.peekToken.type).to.equal(MODTokenTypeLeftSquareBrace);
+    expect(lexer.str).to.equal(@"  \t    hello");
+
+    lexer = [[MODLexer alloc] initWithString:@"][  world hello"];
+    expect(lexer.peekToken.type).to.equal(MODTokenTypeRightSquareBrace);
+    expect(lexer.str).to.equal(@"[  world hello");
 });
 
 it(@"should return rgb UIColor", ^{

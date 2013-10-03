@@ -34,9 +34,13 @@
             return @"carat";
         case MODTokenTypeNewline:
             return @"newline";
-        case MODTokenTypeOpeningBrace:
+        case MODTokenTypeLeftSquareBrace:
+            return @"[";
+        case MODTokenTypeRightSquareBrace:
+            return @"]";
+        case MODTokenTypeLeftCurlyBrace:
             return @"{";
-        case MODTokenTypeClosingBrace:
+        case MODTokenTypeRightCurlyBrace:
             return @"}";
         case MODTokenTypeColor:
             return @"color";
@@ -88,6 +92,8 @@
 - (BOOL)isPossiblySelector {
     return self.type == MODTokenTypeRef
         || self.type == MODTokenTypeCarat
+        || self.type == MODTokenTypeLeftSquareBrace
+        || self.type == MODTokenTypeRightSquareBrace
         || self.type == MODTokenTypeSelector
         || self.type == MODTokenTypeNewline
         || self.type == MODTokenTypeSpace

@@ -105,7 +105,7 @@ NSInteger const MODParseErrorFileContents = 2;
         MODStyleNode *styleNode = [self nextStyleNode];
         if (styleNode) {
             currentNode = styleNode;
-            [self consumeTokenOfType:MODTokenTypeOpeningBrace];
+            [self consumeTokenOfType:MODTokenTypeLeftCurlyBrace];
             [self consumeTokenOfType:MODTokenTypeIndent];
             MODLog(@"(line %d) MODStyleNode %@", self.peekToken.lineNumber, currentNode);
             continue;
@@ -128,7 +128,7 @@ NSInteger const MODParseErrorFileContents = 2;
         }
 
         BOOL closeNode = [self consumeTokensMatching:^BOOL(MODToken *token) {
-            return token.type == MODTokenTypeOutdent || token.type == MODTokenTypeClosingBrace;
+            return token.type == MODTokenTypeOutdent || token.type == MODTokenTypeRightCurlyBrace;
         }];
         if (closeNode) {
             currentNode = nil;
@@ -208,13 +208,14 @@ NSInteger const MODParseErrorFileContents = 2;
         token = [self lookaheadByCount:++i];
     }
 
-    if (token.type != MODTokenTypeOpeningBrace && token.type != MODTokenTypeIndent) {
+    if (token.type != MODTokenTypeLeftCurlyBrace && token.type != MODTokenTypeIndent) {
         return nil;
     }
 
     MODStyleNode *node = MODStyleNode.new;
     NSMutableString *selector = NSMutableString.new;
     BOOL ignoreWhitespace = YES;
+    
     while (--i > 0) {
         token = [self nextToken];
 
@@ -248,8 +249,8 @@ NSInteger const MODParseErrorFileContents = 2;
 
     MODToken *token = [self lookaheadByCount:i];
     while (token && token.type != MODTokenTypeNewline
-           && token.type != MODTokenTypeOpeningBrace
-           && token.type != MODTokenTypeClosingBrace
+           && token.type != MODTokenTypeLeftCurlyBrace
+           && token.type != MODTokenTypeRightCurlyBrace
            && token.type != MODTokenTypeOutdent
            && token.type != MODTokenTypeSemiColon
            && token.type != MODTokenTypeEOS) {
