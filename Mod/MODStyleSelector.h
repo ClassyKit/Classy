@@ -9,24 +9,15 @@
 #import <UIKit/UIKit.h>
 #import "MODStyleNode.h"
 
-typedef NS_OPTIONS(NSUInteger, MODStyleSelectorType) {
-    MODStyleSelectorTypeViewClass    = 1 << 0,
-    MODStyleSelectorTypeStyleClass   = 1 << 1,
-    MODStyleSelectorTypePseudo       = 1 << 2,
-};
-
 @interface MODStyleSelector : NSObject
 
-@property (nonatomic, assign, readonly) MODStyleSelectorType type;
-@property (nonatomic, strong, readonly) Class viewClass;
-@property (nonatomic, strong, readonly) NSString *styleClass;
-@property (nonatomic, strong, readonly) NSString *pseudo;
-@property (nonatomic, strong, readonly) NSString *string;
-@property (nonatomic, assign, readonly) BOOL shouldSelectSubclasses;
-@property (nonatomic, assign, readonly) BOOL shouldSelectDescendants;
+@property (nonatomic, strong) Class viewClass;
+@property (nonatomic, strong) NSString *styleClass;
+@property (nonatomic, assign) BOOL shouldSelectSubclasses;
+@property (nonatomic, assign) BOOL shouldSelectDescendants;
 @property (nonatomic, strong) MODStyleNode *node;
-
-- (id)initWithString:(NSString *)string;
+@property (nonatomic, weak) MODStyleSelector *parentSelector;
+@property (nonatomic, strong) MODStyleSelector *childSelector;
 
 /**
  *  Returns a integer representation of how specific this selector is.
@@ -59,5 +50,7 @@ typedef NS_OPTIONS(NSUInteger, MODStyleSelectorType) {
  *  @return `YES` if all selectors including parent selectors match the view
  */
 - (BOOL)shouldSelectView:(UIView *)view;
+
+- (NSString *)string;
 
 @end

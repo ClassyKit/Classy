@@ -11,5 +11,5 @@ UIView  , UIButton,UITabBar{
     border-width: 3;
 }
 
-  UIView  , , UITabBar    {
+  UIView   ,   UITabBar    {
 }

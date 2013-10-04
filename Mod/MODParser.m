@@ -193,14 +193,6 @@ NSInteger const MODParseErrorFileContents = 2;
 
 #pragma mark - nodes
 
-- (void)addStyleSelectorWithString:(NSString *)string node:(MODStyleNode *)node {
-    MODStyleSelector *selector = [[MODStyleSelector alloc] initWithString:string];
-    if (selector) {
-        selector.node = node;
-        [self.styleSelectors addObject:selector];
-    }
-}
-
 - (MODStyleNode *)nextStyleNode {
     NSInteger i = 1;
     MODToken *token = [self lookaheadByCount:i];
@@ -213,32 +205,54 @@ NSInteger const MODParseErrorFileContents = 2;
     }
 
     MODStyleNode *node = MODStyleNode.new;
-    NSMutableString *selector = NSMutableString.new;
-    BOOL ignoreWhitespace = YES;
-    
+    MODStyleSelector *currentSelector = MODStyleSelector.new;
+    currentSelector.node = node;
+    BOOL shouldIgnoreWhitespace = NO;
+    MODToken *previousToken;
+    token = nil;
+
     while (--i > 0) {
+        previousToken = token;
         token = [self nextToken];
 
-        if ([token valueIsEqualTo:@","]) {
-            [self addStyleSelectorWithString:selector node:node];
-            selector = NSMutableString.new;
-            ignoreWhitespace = YES;
-        } else if(token.isWhitespace) {
-            if (!ignoreWhitespace) {
-                [selector appendString:@" "];
-            }
+        if (token.type == MODTokenTypeCarat) {
+            currentSelector.shouldSelectSubclasses = YES;
+        } else if (token.type == MODTokenTypeRef) {
+            NSString *viewClassName = [token.value stringByTrimmingCharactersInSet:NSCharacterSet.whitespaceCharacterSet];
+            //TODO error if viewClass is nil
+            currentSelector.viewClass = NSClassFromString(viewClassName);
+
+        } else if (token.type == MODTokenTypeLeftSquareBrace) {
+            shouldIgnoreWhitespace = YES;
+        } else if (token.type == MODTokenTypeRightSquareBrace) {
+            shouldIgnoreWhitespace = NO;
+        } else if (token.type == MODTokenTypeSelector) {
+            //TODO styleClass
+            currentSelector.styleClass = token.value;
         } else if([token valueIsEqualTo:@">"]) {
-            [selector appendString:([selector hasSuffix:@" "] ? @"> " : @" > ")];
-            ignoreWhitespace = NO;
-        } else if([token valueIsEqualTo:@"^"]) {
-            [selector appendString:@"^"];
-            ignoreWhitespace = YES;
-        } else if ([token.value length]) {
-            [selector appendString:token.value];
-            ignoreWhitespace = NO;
+            if (previousToken.isWhitespace) {
+                //already created new child
+                currentSelector.parentSelector.shouldSelectDescendants = YES;
+            } else {
+                //new selector
+                currentSelector.shouldSelectDescendants = YES;
+                currentSelector.childSelector = MODStyleSelector.new;
+                currentSelector = currentSelector.childSelector;
+            }
+        } else if (token.isWhitespace) {
+            if (shouldIgnoreWhitespace) continue;
+            //new selector
+            currentSelector.childSelector = MODStyleSelector.new;
+            currentSelector = currentSelector.childSelector;
+            shouldIgnoreWhitespace = YES;
+        } else if ([token valueIsEqualTo:@","]) {
+            [self.styleSelectors addObject:currentSelector];
+            currentSelector = MODStyleSelector.new;
+            currentSelector.node = node;
         }
     }
-    [self addStyleSelectorWithString:selector node:node];
+    [self.styleSelectors addObject:currentSelector];
+
     return node;
 }
 

@@ -1,5 +1,5 @@
 
-UIButton.command:selected , UIButton UIImageView .starImage  {
+UIButton[state:selected].command , UIButton UIImageView .starImage  {
     background-color:#ffffff;
     border-width 1
 }
