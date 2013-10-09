@@ -11,6 +11,6 @@ UIView.bordered > .panel {
     background-color:#ffffff;
 }
 
-^UIView:selected > UIImageView {
+^UIView[state:selected] > UIImageView {
     background-color:#ffffff;
 }

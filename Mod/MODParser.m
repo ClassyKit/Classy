@@ -204,54 +204,89 @@ NSInteger const MODParseErrorFileContents = 2;
         return nil;
     }
 
+    MODStyleSelector *styleSelector;
     MODStyleNode *node = MODStyleNode.new;
-    MODStyleSelector *currentSelector = MODStyleSelector.new;
-    currentSelector.node = node;
-    BOOL shouldIgnoreWhitespace = NO;
-    MODToken *previousToken;
+    MODToken *previousToken, *argNameToken, *argValueToken;
     token = nil;
+    BOOL shouldSelectSubclasses = NO;
+    BOOL shouldSelectDescendants = YES;
+    BOOL argumentListMode = NO;
 
     while (--i > 0) {
         previousToken = token;
         token = [self nextToken];
 
-        if (token.type == MODTokenTypeCarat) {
-            currentSelector.shouldSelectSubclasses = YES;
-        } else if (token.type == MODTokenTypeRef) {
-            NSString *viewClassName = [token.value stringByTrimmingCharactersInSet:NSCharacterSet.whitespaceCharacterSet];
-            //TODO error if viewClass is nil
-            currentSelector.viewClass = NSClassFromString(viewClassName);
+        if (argumentListMode) {
+            //TODO refactor
+            if (token.type == MODTokenTypeRightSquareBrace) {
+                argumentListMode = NO;
+            } else if (token.type == MODTokenTypeSelector || token.type == MODTokenTypeRef) {
+                if (!argNameToken) {
+                    argNameToken = token;
+                } else if (!argValueToken) {
+                    argValueToken = token;
+                }
 
-        } else if (token.type == MODTokenTypeLeftSquareBrace) {
-            shouldIgnoreWhitespace = YES;
-        } else if (token.type == MODTokenTypeRightSquareBrace) {
-            shouldIgnoreWhitespace = NO;
-        } else if (token.type == MODTokenTypeSelector) {
-            //TODO styleClass
-            currentSelector.styleClass = token.value;
-        } else if([token valueIsEqualTo:@">"]) {
-            if (previousToken.isWhitespace) {
-                //already created new child
-                currentSelector.parentSelector.shouldSelectDescendants = YES;
-            } else {
-                //new selector
-                currentSelector.shouldSelectDescendants = YES;
-                currentSelector.childSelector = MODStyleSelector.new;
-                currentSelector = currentSelector.childSelector;
+                if (argNameToken && argValueToken) {
+                    [styleSelector setArgumentValue:argValueToken forKey:argNameToken];
+                    argValueToken = nil;
+                    argNameToken = nil;
+                }
             }
-        } else if (token.isWhitespace) {
-            if (shouldIgnoreWhitespace) continue;
-            //new selector
-            currentSelector.childSelector = MODStyleSelector.new;
-            currentSelector = currentSelector.childSelector;
-            shouldIgnoreWhitespace = YES;
+            continue;
+        }
+
+        if (token.type == MODTokenTypeCarat) {
+            shouldSelectSubclasses = YES;
+        } else if (token.type == MODTokenTypeRef || token.type == MODTokenTypeSelector) {
+            NSString *tokenValue = [token.value stringByTrimmingCharactersInSet:NSCharacterSet.whitespaceCharacterSet];
+
+            BOOL shouldSpawn = ![tokenValue hasPrefix:@"."]
+                                || styleSelector == nil
+                                || previousToken.isWhitespace
+                                || [previousToken valueIsEqualTo:@">"];
+
+            if (shouldSpawn) {
+                if (styleSelector) {
+                    MODStyleSelector *childSelector = MODStyleSelector.new;
+                    styleSelector.shouldSelectDescendants = shouldSelectDescendants;
+                    styleSelector.childSelector = childSelector;
+
+                    styleSelector = childSelector;
+                } else {
+                    styleSelector = MODStyleSelector.new;
+                }
+            }
+
+            styleSelector.shouldSelectSubclasses = shouldSelectSubclasses;
+            
+            //TODO error if viewClass is nil
+
+            if ([tokenValue hasPrefix:@"."]) {
+                styleSelector.styleClass = [tokenValue substringFromIndex:1];
+            } else {
+                styleSelector.viewClass = NSClassFromString(tokenValue);
+            }
+
+            //reset state
+            shouldSelectSubclasses = NO;
+            shouldSelectDescendants = YES;
+        } else if (token.type == MODTokenTypeLeftSquareBrace) {
+            argumentListMode = YES;
+        } else if([token valueIsEqualTo:@">"]) {
+            shouldSelectDescendants = NO;
         } else if ([token valueIsEqualTo:@","]) {
-            [self.styleSelectors addObject:currentSelector];
-            currentSelector = MODStyleSelector.new;
-            currentSelector.node = node;
+            styleSelector.node = node;
+            if (styleSelector) {
+                [self.styleSelectors addObject:styleSelector];
+            }
+            styleSelector = nil;
         }
     }
-    [self.styleSelectors addObject:currentSelector];
+    styleSelector.node = node;
+    if (styleSelector) {
+        [self.styleSelectors addObject:styleSelector];
+    }
 
     return node;
 }

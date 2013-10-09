@@ -16,8 +16,8 @@
 @property (nonatomic, assign) BOOL shouldSelectSubclasses;
 @property (nonatomic, assign) BOOL shouldSelectDescendants;
 @property (nonatomic, strong) MODStyleNode *node;
-@property (nonatomic, weak) MODStyleSelector *parentSelector;
-@property (nonatomic, strong) MODStyleSelector *childSelector;
+@property (nonatomic, strong) MODStyleSelector *parentSelector;
+@property (nonatomic, weak) MODStyleSelector *childSelector;
 
 /**
  *  Returns a integer representation of how specific this selector is.
@@ -51,6 +51,8 @@
  */
 - (BOOL)shouldSelectView:(UIView *)view;
 
-- (NSString *)string;
+- (void)setArgumentValue:(MODToken *)argumentValue forKey:(MODToken *)key;
+
+- (NSString *)stringValue;
 
 @end

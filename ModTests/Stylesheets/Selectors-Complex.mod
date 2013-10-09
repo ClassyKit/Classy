@@ -1,5 +1,5 @@
 
-UIButton[state:selected].command , UIButton UIImageView .starImage  {
+UIButton[state:selected, coolness:alot].command , UIButton UIImageView .starImage  {
     background-color:#ffffff;
     border-width 1
 }
@@ -11,9 +11,8 @@ UIView.bordered, .panel {
 }
 
 UISlider,
-:selected,
 UINavigationBar.videoNavBar
-UIButton :highlighted
+UIButton[state:highlighted]
 {
     background-color #ffffff
     border-width: 3;

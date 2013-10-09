@@ -53,31 +53,31 @@ describe(@"selectors", ^{
         expect(styles.count).to.equal(7);
 
         MODStyleSelector *selector1 = styles[0];
-        expect(selector1.string).to.equal(@"UIView");
+        expect(selector1.stringValue).to.equal(@"UIView");
         expect(selector1.node).toNot.beNil();
 
         MODStyleSelector *selector2 = styles[1];
-        expect(selector2.string).to.equal(@"UIControl");
+        expect(selector2.stringValue).to.equal(@"UIControl");
         expect(selector2.node).toNot.beNil();
 
         MODStyleSelector *selector3 = styles[2];
-        expect(selector3.string).to.equal(@"UIView");
+        expect(selector3.stringValue).to.equal(@"UIView");
         expect(selector3.node).toNot.beNil();
 
         MODStyleSelector *selector4 = styles[3];
-        expect(selector4.string).to.equal(@"UIButton");
+        expect(selector4.stringValue).to.equal(@"UIButton");
         expect(selector4.node).to.beIdenticalTo(selector3.node);
 
         MODStyleSelector *selector5 = styles[4];
-        expect(selector5.string).to.equal(@"UITabBar");
+        expect(selector5.stringValue).to.equal(@"UITabBar");
         expect(selector5.node).to.beIdenticalTo(selector3.node);
 
         MODStyleSelector *selector6 = styles[5];
-        expect(selector6.string).to.equal(@"UIView");
+        expect(selector6.stringValue).to.equal(@"UIView");
         expect(selector6.node).toNot.beNil();
 
         MODStyleSelector *selector7 = styles[6];
-        expect(selector7.string).to.equal(@"UITabBar");
+        expect(selector7.stringValue).to.equal(@"UITabBar");
         expect(selector7.node).to.beIdenticalTo(selector6.node);
     });
 
@@ -85,16 +85,38 @@ describe(@"selectors", ^{
         NSString *filePath = [[NSBundle bundleForClass:self.class] pathForResource:@"Selectors-Complex.mod" ofType:nil];
         NSArray *styles = [MODParser stylesFromFilePath:filePath error:nil];
 
-        expect(styles.count).to.equal(7);
+        expect(styles.count).to.equal(6);
 
-        expect([styles[0] string]).to.equal(@"UIButton[state:selected].command");
+        expect([styles[0] stringValue]).to.equal(@"UIButton[coolness:alot, state:selected].command");
+        
+        expect([styles[1] stringValue]).to.equal(@"UIButton UIImageView .starImage");
+
+        expect([styles[2] stringValue]).to.equal(@"UIView.bordered");
+
+        expect([styles[3] stringValue]).to.equal(@".panel");
+
+        expect([styles[4] stringValue]).to.equal(@"UISlider");
+
+        expect([styles[5] stringValue]).to.equal(@"UINavigationBar.videoNavBar UIButton[state:highlighted]");
     });
 
     it(@"should parse without braces", ^{
         NSString *filePath = [[NSBundle bundleForClass:self.class] pathForResource:@"Selectors-Indentation.mod" ofType:nil];
         NSArray *styles = [MODParser stylesFromFilePath:filePath error:nil];
 
-        expect(styles.count).to.equal(7);
+        expect(styles.count).to.equal(6);
+
+        expect([styles[0] stringValue]).to.equal(@"UIButton[state:selected] UIControl");
+
+        expect([styles[1] stringValue]).to.equal(@"UIButton UIImageView .starImage");
+
+        expect([styles[2] stringValue]).to.equal(@"UIView.bordered");
+
+        expect([styles[3] stringValue]).to.equal(@".panel");
+
+        expect([styles[4] stringValue]).to.equal(@"UISlider");
+
+        expect([styles[5] stringValue]).to.equal(@"UINavigationBar.videoNavBar UIButton[state:highlighted]");
     });
 
     it(@"should parse direct descendant", ^{
@@ -104,6 +126,14 @@ describe(@"selectors", ^{
 
         expect(error).to.beNil();
         expect(styles.count).to.equal(4);
+        
+        expect([styles[0] stringValue]).to.equal(@"UIButton > UIImageView .starImage");
+
+        expect([styles[1] stringValue]).to.equal(@"^UIView > UINavigationBar");
+
+        expect([styles[2] stringValue]).to.equal(@"UIView.bordered > .panel");
+
+        expect([styles[3] stringValue]).to.equal(@"^UIView[state:selected] > UIImageView");
     });
 
 });

@@ -22,11 +22,11 @@ it(@"should sort selectors by precedence", ^{
     MODStyler *styler = [[MODStyler alloc] initWithFilePath:filePath error:&error];
     expect(error).to.beNil();
 
-    expect([styler.styles[0] string]).to.equal(@"UIView.bordered");
-    expect([styler.styles[1] string]).to.equal(@"UIControl.border");
-    expect([styler.styles[2] string]).to.equal(@"UIButton:selected UIControl");
-    expect([styler.styles[3] string]).to.equal(@"UINavigationBar UIButton");
-    expect([styler.styles[4] string]).to.equal(@"UISlider");
+    expect([styler.styles[0] stringValue]).to.equal(@"UIView.bordered");
+    expect([styler.styles[1] stringValue]).to.equal(@"UIControl.border");
+    expect([styler.styles[2] stringValue]).to.equal(@"UIButton[state:selected] UIControl");
+    expect([styler.styles[3] stringValue]).to.equal(@"UINavigationBar UIButton");
+    expect([styler.styles[4] stringValue]).to.equal(@"UISlider");
 });
 
 xit(@"should set basic properties", ^{

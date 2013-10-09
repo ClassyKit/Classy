@@ -1,5 +1,5 @@
 
-UIButton:selected UIControl, UIButton UIImageView .starImage
+UIButton[state:selected] UIControl, UIButton UIImageView .starImage
       background-color:#ffffff;
       border-width 1
 
@@ -9,9 +9,8 @@ UIView.bordered, .panel
     border-width: 2;
 
 UISlider,
-:selected,
 UINavigationBar.videoNavBar
-UIButton :highlighted
+UIButton [state:highlighted]
 
  background-color #ffffff
  border-width: 3;

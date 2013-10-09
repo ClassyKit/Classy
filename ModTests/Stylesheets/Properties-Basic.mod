@@ -1,5 +1,5 @@
 
-UIButton:selected UIControl {
+UIButton[state:selected] UIControl {
     background-color:#ffffff;
     border-inset 1
 }

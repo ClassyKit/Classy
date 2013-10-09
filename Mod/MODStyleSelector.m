@@ -23,76 +23,18 @@
 
     self.shouldSelectSubclasses = NO;
     self.shouldSelectDescendants = YES;
-    self.arguments = NSMutableDictionary.new;
-
-//    string = [string stringByTrimmingCharactersInSet:NSCharacterSet.whitespaceAndNewlineCharacterSet];
-//    if (!string.length) return nil;
-//    self.string = string;
-//
-//    NSArray *stringComponents = [string componentsSeparatedByCharactersInSet:NSCharacterSet.whitespaceAndNewlineCharacterSet];
-//    if (!stringComponents.count) return nil;
-//
-//    //extract pseudo and class components
-//    NSString *mainString = stringComponents.lastObject;
-//    NSInteger pseudoLocation = [mainString rangeOfString:@":"].location;
-//    NSInteger styleClassLocation = [mainString rangeOfString:@"."].location;
-//
-//    //TODO error if more then one occurance of `.` or `:`
-//    //TODO error if `.` cannot come after `:`
-//    if (pseudoLocation == 0) {
-//        self.type = MODStyleSelectorTypePseudo;
-//    } else if (styleClassLocation == 0) {
-//        self.type = MODStyleSelectorTypeStyleClass;
-//    } else {
-//        self.type = MODStyleSelectorTypeViewClass;
-//        self.shouldSelectSubclasses = [mainString characterAtIndex:0] == '^';
-//        NSInteger classStartIndex = self.shouldSelectSubclasses ? 1 : 0;
-//        NSInteger classEndIndex = MIN(mainString.length, MIN(pseudoLocation, styleClassLocation));
-//        NSRange classNameRange = NSMakeRange(classStartIndex, classEndIndex - classStartIndex);
-//        NSString *className = [mainString substringWithRange:classNameRange];
-//        self.viewClass = NSClassFromString(className);
-//    }
-//
-//    if (pseudoLocation != NSNotFound) {
-//        self.type = self.type | MODStyleSelectorTypePseudo;
-//        self.pseudo = [mainString substringFromIndex:pseudoLocation+1];
-//    }
-//    if (styleClassLocation != NSNotFound) {
-//        self.type = self.type | MODStyleSelectorTypeStyleClass;
-//        NSInteger endLocation = MIN(mainString.length, pseudoLocation);
-//        self.styleClass = [mainString substringWithRange:NSMakeRange(styleClassLocation+1, endLocation - styleClassLocation - 1)];
-//    }
-//
-//    //extract selector hierarchy
-//    if (stringComponents.count > 1) {
-//        self.parentSelectors = NSMutableArray.new;
-//        __block BOOL shouldSelectDescendants = YES;
-//        [stringComponents enumerateObjectsWithOptions:NSEnumerationReverse usingBlock:^(NSString *stringComponent, NSUInteger idx, BOOL *stop) {
-//            if (idx != stringComponents.count - 1 && stringComponent.length) {
-//                if ([stringComponent isEqualToString:@">"]) {
-//                    shouldSelectDescendants = NO;
-//                    return;
-//                }
-//                MODStyleSelector *selector = [[MODStyleSelector alloc] initWithString:stringComponent];
-//                selector.parent = YES;
-//                selector.shouldSelectDescendants = shouldSelectDescendants;
-//                [self.parentSelectors addObject:selector];
-//                shouldSelectDescendants = YES;
-//            }
-//        }];
-//    }
 
     return self;
 }
+
+#pragma mark - properties
 
 - (void)setChildSelector:(MODStyleSelector *)childSelector {
     _childSelector = childSelector;
     _childSelector.parentSelector = self;
 }
 
-- (BOOL)isParent {
-    return self.childSelector != nil;
-}
+#pragma mark - public
 
 - (NSInteger)precedence {
     NSInteger precedence = 0;
@@ -119,18 +61,64 @@
     return precedence;
 }
 
-- (NSString *)string {
+- (BOOL)shouldSelectView:(UIView *)view {
+    if (![self shouldSelectSingleView:view]) {
+        return NO;
+    }
+
+    UIView *ancestorView;
+
+	for (MODStyleSelector *parent = self.parentSelector; parent != nil; parent = parent.parentSelector) {
+        ancestorView = [parent firstSelectableAncestorOfView:ancestorView ?: view];
+        if (!ancestorView) return NO;
+    }
+
+    return YES;
+}
+
+- (void)setArgumentValue:(MODToken *)argumentValue forKey:(MODToken *)key {
+    if (!self.arguments) {
+        self.arguments = NSMutableDictionary.new;
+    }
+    NSString *tokenValue = [argumentValue.value stringByTrimmingCharactersInSet:NSCharacterSet.whitespaceCharacterSet];
+    if ([tokenValue hasPrefix:@"."]) {
+        tokenValue = [tokenValue substringFromIndex:1];
+    }
+    [self.arguments setObject:tokenValue forKey:key.value];
+}
+
+- (NSString *)stringValue {
     NSMutableString *stringValue = NSMutableString.new;
+    if (self.parentSelector) {
+        [stringValue appendFormat:self.parentSelector.shouldSelectDescendants ? @"%@ " : @"%@ > ", [self.parentSelector stringValue]];
+    }
     if (self.shouldSelectSubclasses) {
         [stringValue appendString:@"^"];
     }
     if (self.viewClass) {
         [stringValue appendString:NSStringFromClass(self.viewClass)];
     }
+    if (self.arguments) {
+        [stringValue appendString:@"["];
+        NSArray *keys = [self.arguments.allKeys sortedArrayUsingSelector:@selector(caseInsensitiveCompare:)];
+        [keys enumerateObjectsUsingBlock:^(NSString *key, NSUInteger idx, BOOL *stop) {
+            [stringValue appendFormat:@"%@:%@", key, self.arguments[key]];
+            if (idx != keys.count - 1) {
+                [stringValue appendString:@", "];
+            }
+        }];
+        [stringValue appendString:@"]"];
+    }
     if (self.styleClass) {
         [stringValue appendFormat:@".%@", self.styleClass];
     }
     return stringValue;
+}
+
+#pragma mark - private
+
+- (BOOL)isParent {
+    return self.childSelector != nil;
 }
 
 - (UIView *)firstSelectableAncestorOfView:(UIView *)view {
@@ -152,20 +140,6 @@
     if (self.styleClass.length && ![self.styleClass isEqualToString:view.mod_styleClass]) {
         return NO;
     }
-    return YES;
-}
-
-- (BOOL)shouldSelectView:(UIView *)view {
-    if (![self shouldSelectSingleView:view]) {
-        return NO;
-    }
-
-    UIView *ancestorView;
-    for (MODStyleSelector *parentSelector in self.parentSelectors) {
-        ancestorView = [parentSelector firstSelectableAncestorOfView:ancestorView ?: view];
-        if (!ancestorView) return NO;
-    }
-
     return YES;
 }
 
