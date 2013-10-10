@@ -30,12 +30,4 @@ extern NSRegularExpression *MODRegex(NSString *patternFormat, ...) {
     return [self replaceMatchesInString:string options:0 range:NSMakeRange(0, string.length) withTemplate:templ];
 }
 
-- (NSString *)mod_firstMatchInString:(NSString *)string {
-    NSTextCheckingResult *result = [self firstMatchInString:string options:0 range:NSMakeRange(0, string.length)];
-    if (result) {
-        return [string substringWithRange:result.range];
-    }
-    return nil;
-}
-
 @end
