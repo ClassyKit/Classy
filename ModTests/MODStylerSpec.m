@@ -9,6 +9,7 @@
 #import "MODStyler.h"
 #import "UIColor+MODAdditions.h"
 #import "MODStyleSelector.h"
+#import "UIView+MODAdditions.h"
 
 @interface MODStyler ()
 @property (nonatomic, strong) NSMutableArray *styles;
@@ -27,6 +28,42 @@ it(@"should sort selectors by precedence", ^{
     expect([styler.styles[2] stringValue]).to.equal(@"UIButton[state:selected] UIControl");
     expect([styler.styles[3] stringValue]).to.equal(@"UINavigationBar UIButton");
     expect([styler.styles[4] stringValue]).to.equal(@"UISlider");
+});
+
+it(@"should select view with styleClass", ^{
+    NSString *filePath = [[NSBundle bundleForClass:self.class] pathForResource:@"Properties-Basic.mod" ofType:nil];
+    MODStyler *styler = [[MODStyler alloc] initWithFilePath:filePath error:nil];
+
+    MODStyleSelector *selector = styler.styles[0];
+    expect([selector stringValue]).to.equal(@"UIView.bordered");
+    expect([selector shouldSelectView:UIView.new]).to.beFalsy();
+
+    UIView *view = UIView.new;
+    view.mod_styleClass = @"bordered";
+    expect([selector shouldSelectView:view]).to.beTruthy();
+});
+
+it(@"should select indirect superview", ^{
+    NSString *filePath = [[NSBundle bundleForClass:self.class] pathForResource:@"Properties-Basic.mod" ofType:nil];
+    MODStyler *styler = [[MODStyler alloc] initWithFilePath:filePath error:nil];
+
+    MODStyleSelector *selector = styler.styles[3];
+    expect([selector stringValue]).to.equal(@"UINavigationBar UIButton");
+    expect([selector shouldSelectView:UIButton.new]).to.beFalsy();
+
+    //direct superview
+    UIButton *button = UIButton.new;
+    button.mod_styleClass = @"large";
+    UINavigationBar *navigationBar = UINavigationBar.new;
+    [navigationBar addSubview:button];
+    expect([selector shouldSelectView:button]).to.beTruthy();
+
+    //indirect superview
+    [button removeFromSuperview];
+    UIImageView *imageView = UIImageView.new;
+    [imageView addSubview:button];
+    [navigationBar addSubview:imageView];
+    expect([selector shouldSelectView:button]).to.beTruthy();
 });
 
 xit(@"should set basic properties", ^{
