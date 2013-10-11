@@ -35,6 +35,7 @@
 		DDB9204617E70E4A00280D47 /* MODToken.m in Sources */ = {isa = PBXBuildFile; fileRef = DDB9204517E70E4A00280D47 /* MODToken.m */; };
 		DDB9204817E78A4000280D47 /* MODLexerSpec.m in Sources */ = {isa = PBXBuildFile; fileRef = DDB9204717E78A4000280D47 /* MODLexerSpec.m */; };
 		DDB9204B17E78B5B00280D47 /* NSRegularExpression+MODAdditions.m in Sources */ = {isa = PBXBuildFile; fileRef = DDB9204A17E78B5B00280D47 /* NSRegularExpression+MODAdditions.m */; };
+		DDC5F87E1807E87000471A44 /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DD82B9B917E79771000CD9DD /* QuartzCore.framework */; };
 		DDCA963217F92BFC00A0EAB7 /* MODViewClassInfo.m in Sources */ = {isa = PBXBuildFile; fileRef = DDCA963117F92BFC00A0EAB7 /* MODViewClassInfo.m */; };
 		DDE391B917E7079F00C8BBD1 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DDE391B817E7079F00C8BBD1 /* UIKit.framework */; };
 		DDE76FF317F2ADE6003DF205 /* MODStyleNode.m in Sources */ = {isa = PBXBuildFile; fileRef = DDE76FF217F2ADE6003DF205 /* MODStyleNode.m */; };
@@ -135,6 +136,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				DDC5F87E1807E87000471A44 /* QuartzCore.framework in Frameworks */,
 				DD60E0C217E7C5FC004A171E /* CoreGraphics.framework in Frameworks */,
 				DDA2FCF217E6455700237125 /* Foundation.framework in Frameworks */,
 				DDF8E9DB17E797F400E2DE34 /* UIKit.framework in Frameworks */,
