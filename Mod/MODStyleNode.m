@@ -29,4 +29,8 @@
     [self.styleProperties addObject:styleProperty];
 }
 
+- (NSArray *)properties {
+    return self.styleProperties;
+}
+
 @end

@@ -66,13 +66,16 @@ it(@"should select indirect superview", ^{
     expect([selector shouldSelectView:button]).to.beTruthy();
 });
 
-xit(@"should set basic properties", ^{
+it(@"should set basic properties", ^{
     NSString *filePath = [[NSBundle bundleForClass:self.class] pathForResource:@"UIView-Basic.mod" ofType:nil];
     MODStyler *styler = [[MODStyler alloc] initWithFilePath:filePath error:nil];
     UIView *view = UIView.new;
     [styler styleView:view];
 
-    expect(view.backgroundColor.mod_hexValue).to.equal(@"#A2A2A2");
+    expect(view.backgroundColor.mod_hexValue).to.equal(@"a2a2a2");
+    expect([UIColor colorWithCGColor:view.layer.borderColor].mod_hexValue).to.equal(@"a1a1a1");
+    expect(view.layer.borderWidth).to.equal(2);
+    expect(view.layer.cornerRadius).to.equal(7);
 });
 
 SpecEnd

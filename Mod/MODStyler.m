@@ -15,6 +15,7 @@
 
 @property (nonatomic, strong) NSMutableArray *styles;
 @property (nonatomic, strong) NSMapTable *viewClassInfoCache;
+@property (nonatomic, strong) NSDictionary *keyPathsByStyleName;
 
 @end
 
@@ -35,6 +36,12 @@
 
     self.viewClassInfoCache = NSMapTable.strongToStrongObjectsMapTable;
 
+    self.keyPathsByStyleName = @{
+        @"borderColor" : @"layer.borderColor",
+        @"borderWidth" : @"layer.borderWidth",
+        @"borderRadius" : @"layer.cornerRadius"
+    };
+
     return self;
 }
 
@@ -43,7 +50,20 @@
 
     for (MODStyleSelector *styleSelector in self.styles.reverseObjectEnumerator) {
         if ([styleSelector shouldSelectView:view]) {
-            //apply style node
+            //apply style nodes
+            for (MODStyleProperty *styleProperty in styleSelector.node.properties) {
+                //TODO type checking and catch errors
+                NSString *keyPath = self.keyPathsByStyleName[styleProperty.name] ?:styleProperty.name;
+                id value = [styleProperty.values lastObject];
+
+                //TODO smarter more automatic way of coercing types
+                if ([keyPath isEqualToString:@"layer.borderColor"]) {
+                    value = (id)[value CGColor];
+                }
+
+                [view setValue:value forKeyPath:keyPath];
+
+            }
         }
     }
 }

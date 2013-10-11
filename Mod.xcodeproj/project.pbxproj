@@ -11,6 +11,8 @@
 		DD05C3F817E68181009AEAFE /* libMod.a in Frameworks */ = {isa = PBXBuildFile; fileRef = DDA2FCC217E6453B00237125 /* libMod.a */; };
 		DD05C40317E69A44009AEAFE /* Selectors-Basic.mod in Resources */ = {isa = PBXBuildFile; fileRef = DD05C40217E69A44009AEAFE /* Selectors-Basic.mod */; };
 		DD0F891517F79A4400DED62D /* MODStyleSelector.m in Sources */ = {isa = PBXBuildFile; fileRef = DD0F891417F79A4400DED62D /* MODStyleSelector.m */; };
+		DD27D48E1807A66600322ED1 /* UIView-Basic.mod in Resources */ = {isa = PBXBuildFile; fileRef = DD27D48D1807A66600322ED1 /* UIView-Basic.mod */; };
+		DD27D4911807AEE700322ED1 /* MODExampleView.m in Sources */ = {isa = PBXBuildFile; fileRef = DD27D4901807AEE700322ED1 /* MODExampleView.m */; };
 		DD2B3E3D17F2D98900C71ED9 /* Selectors-Complex.mod in Resources */ = {isa = PBXBuildFile; fileRef = DD2B3E3C17F2D98900C71ED9 /* Selectors-Complex.mod */; };
 		DD3796A017F91ADF003FE21C /* UIView+MODAdditions.m in Sources */ = {isa = PBXBuildFile; fileRef = DD37969F17F91ADE003FE21C /* UIView+MODAdditions.m */; };
 		DD407BF217F13ED400B2F49D /* MODTokenSpec.m in Sources */ = {isa = PBXBuildFile; fileRef = DD407BF117F13ED400B2F49D /* MODTokenSpec.m */; };
@@ -69,6 +71,9 @@
 		DD05C40217E69A44009AEAFE /* Selectors-Basic.mod */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = "Selectors-Basic.mod"; sourceTree = "<group>"; };
 		DD0F891317F79A4400DED62D /* MODStyleSelector.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MODStyleSelector.h; sourceTree = "<group>"; };
 		DD0F891417F79A4400DED62D /* MODStyleSelector.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MODStyleSelector.m; sourceTree = "<group>"; };
+		DD27D48D1807A66600322ED1 /* UIView-Basic.mod */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = "UIView-Basic.mod"; sourceTree = "<group>"; };
+		DD27D48F1807AEE700322ED1 /* MODExampleView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MODExampleView.h; sourceTree = "<group>"; };
+		DD27D4901807AEE700322ED1 /* MODExampleView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MODExampleView.m; sourceTree = "<group>"; };
 		DD2B3E3C17F2D98900C71ED9 /* Selectors-Complex.mod */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = "Selectors-Complex.mod"; sourceTree = "<group>"; };
 		DD37969E17F91ADE003FE21C /* UIView+MODAdditions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIView+MODAdditions.h"; sourceTree = "<group>"; };
 		DD37969F17F91ADE003FE21C /* UIView+MODAdditions.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIView+MODAdditions.m"; sourceTree = "<group>"; };
@@ -142,6 +147,7 @@
 		DD05C40117E69A44009AEAFE /* Stylesheets */ = {
 			isa = PBXGroup;
 			children = (
+				DD27D48D1807A66600322ED1 /* UIView-Basic.mod */,
 				DD7A63A717F427D300AC6DBA /* Properties-Basic.mod */,
 				DD05C40217E69A44009AEAFE /* Selectors-Basic.mod */,
 				DD2B3E3C17F2D98900C71ED9 /* Selectors-Complex.mod */,
@@ -253,6 +259,8 @@
 		DDA2FCF517E6455700237125 /* Supporting Files */ = {
 			isa = PBXGroup;
 			children = (
+				DD27D48F1807AEE700322ED1 /* MODExampleView.h */,
+				DD27D4901807AEE700322ED1 /* MODExampleView.m */,
 				DDA2FCF617E6455700237125 /* ModTests-Info.plist */,
 				DDA2FCF717E6455700237125 /* InfoPlist.strings */,
 				DDA2FCFC17E6455700237125 /* ModTests-Prefix.pch */,
@@ -355,6 +363,7 @@
 				DDF974CB17FA386800B15F9A /* Selectors-Hierarchy.mod in Resources */,
 				DDA2FCF917E6455700237125 /* InfoPlist.strings in Resources */,
 				DD2B3E3D17F2D98900C71ED9 /* Selectors-Complex.mod in Resources */,
+				DD27D48E1807A66600322ED1 /* UIView-Basic.mod in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -432,6 +441,7 @@
 				DD58C42A17E6BF5B00B3173C /* MODStylerSpec.m in Sources */,
 				DD407BF217F13ED400B2F49D /* MODTokenSpec.m in Sources */,
 				DDB9204817E78A4000280D47 /* MODLexerSpec.m in Sources */,
+				DD27D4911807AEE700322ED1 /* MODExampleView.m in Sources */,
 				DDA2FD0417E6458E00237125 /* MODParserSpec.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

@@ -11,6 +11,8 @@
 
 @interface MODStyleNode : NSObject
 
+@property (nonatomic, readonly) NSArray *properties;
+
 - (void)addStyleProperty:(MODStyleProperty *)styleProperty;
 
 @end
