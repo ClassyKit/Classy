@@ -13,6 +13,7 @@
 		DD0F891517F79A4400DED62D /* MODStyleSelector.m in Sources */ = {isa = PBXBuildFile; fileRef = DD0F891417F79A4400DED62D /* MODStyleSelector.m */; };
 		DD27D48E1807A66600322ED1 /* UIView-Basic.mod in Resources */ = {isa = PBXBuildFile; fileRef = DD27D48D1807A66600322ED1 /* UIView-Basic.mod */; };
 		DD27D4911807AEE700322ED1 /* MODExampleView.m in Sources */ = {isa = PBXBuildFile; fileRef = DD27D4901807AEE700322ED1 /* MODExampleView.m */; };
+		DD27D4941807C7B500322ED1 /* MODValueTransformers.m in Sources */ = {isa = PBXBuildFile; fileRef = DD27D4931807C7B400322ED1 /* MODValueTransformers.m */; };
 		DD2B3E3D17F2D98900C71ED9 /* Selectors-Complex.mod in Resources */ = {isa = PBXBuildFile; fileRef = DD2B3E3C17F2D98900C71ED9 /* Selectors-Complex.mod */; };
 		DD3796A017F91ADF003FE21C /* UIView+MODAdditions.m in Sources */ = {isa = PBXBuildFile; fileRef = DD37969F17F91ADE003FE21C /* UIView+MODAdditions.m */; };
 		DD407BF217F13ED400B2F49D /* MODTokenSpec.m in Sources */ = {isa = PBXBuildFile; fileRef = DD407BF117F13ED400B2F49D /* MODTokenSpec.m */; };
@@ -74,6 +75,8 @@
 		DD27D48D1807A66600322ED1 /* UIView-Basic.mod */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = "UIView-Basic.mod"; sourceTree = "<group>"; };
 		DD27D48F1807AEE700322ED1 /* MODExampleView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MODExampleView.h; sourceTree = "<group>"; };
 		DD27D4901807AEE700322ED1 /* MODExampleView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MODExampleView.m; sourceTree = "<group>"; };
+		DD27D4921807C7B400322ED1 /* MODValueTransformers.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MODValueTransformers.h; sourceTree = "<group>"; };
+		DD27D4931807C7B400322ED1 /* MODValueTransformers.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MODValueTransformers.m; sourceTree = "<group>"; };
 		DD2B3E3C17F2D98900C71ED9 /* Selectors-Complex.mod */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = "Selectors-Complex.mod"; sourceTree = "<group>"; };
 		DD37969E17F91ADE003FE21C /* UIView+MODAdditions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIView+MODAdditions.h"; sourceTree = "<group>"; };
 		DD37969F17F91ADE003FE21C /* UIView+MODAdditions.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIView+MODAdditions.m"; sourceTree = "<group>"; };
@@ -177,6 +180,8 @@
 				DDE76FF217F2ADE6003DF205 /* MODStyleNode.m */,
 				DDE76FF417F2ADFB003DF205 /* MODStyleProperty.h */,
 				DDE76FF517F2ADFB003DF205 /* MODStyleProperty.m */,
+				DD27D4921807C7B400322ED1 /* MODValueTransformers.h */,
+				DD27D4931807C7B400322ED1 /* MODValueTransformers.m */,
 			);
 			name = Modules;
 			sourceTree = "<group>";
@@ -424,6 +429,7 @@
 				DD3796A017F91ADF003FE21C /* UIView+MODAdditions.m in Sources */,
 				DDCA963217F92BFC00A0EAB7 /* MODViewClassInfo.m in Sources */,
 				DDA2FD0917E645C700237125 /* MODLexer.m in Sources */,
+				DD27D4941807C7B500322ED1 /* MODValueTransformers.m in Sources */,
 				DDB9204B17E78B5B00280D47 /* NSRegularExpression+MODAdditions.m in Sources */,
 				DD58C42D17E6C22E00B3173C /* UIColor+MODAdditions.m in Sources */,
 				DD0F891517F79A4400DED62D /* MODStyleSelector.m in Sources */,

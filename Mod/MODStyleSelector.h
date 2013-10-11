@@ -11,12 +11,39 @@
 
 @interface MODStyleSelector : NSObject
 
+/**
+ *  Class of View to match
+ */
 @property (nonatomic, strong) Class viewClass;
+
+/**
+ *  If not nil checks the view's mod_styleClass property
+ */
 @property (nonatomic, strong) NSString *styleClass;
+
+/**
+ *  Whether or not to do strict matching against viewClass
+ */
 @property (nonatomic, assign) BOOL shouldSelectSubclasses;
+
+/**
+ *  Whether or not view has to be a direct subview or can be a descendant
+ */
 @property (nonatomic, assign) BOOL shouldSelectDescendants;
+
+/**
+ *  The style node linked to this selector
+ */
 @property (nonatomic, strong) MODStyleNode *node;
+
+/**
+ *  Parent selector
+ */
 @property (nonatomic, strong) MODStyleSelector *parentSelector;
+
+/**
+ *  Child selector
+ */
 @property (nonatomic, weak) MODStyleSelector *childSelector;
 
 /**
@@ -51,8 +78,17 @@
  */
 - (BOOL)shouldSelectView:(UIView *)view;
 
+/**
+ *  Provides support for properties that have extra arguments such as
+ *  - setTitle:forState:
+ */
 - (void)setArgumentValue:(MODToken *)argumentValue forKey:(MODToken *)key;
 
+/**
+ *  String representation of receiver
+ *
+ *  @return a `NSString` value
+ */
 - (NSString *)stringValue;
 
 @end

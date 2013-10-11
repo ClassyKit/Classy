@@ -11,8 +11,20 @@
 
 @interface MODStyleProperty : NSObject
 
+/**
+ *  Name of the receiver
+ */
 @property (nonatomic, strong, readonly) NSString *name;
+
+/**
+ *  Raw values of the receiver
+ */
 @property (nonatomic, strong, readonly) NSArray *values;
+
+/**
+ *  Cached transformed value of the receiver
+ */
+@property (nonatomic, strong) id cachedValue;
 
 - (id)initWithNameToken:(MODToken *)nameToken valueTokens:(NSArray *)valueTokens;
 

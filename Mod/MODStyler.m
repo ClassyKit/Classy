@@ -57,6 +57,7 @@
                 id value = [styleProperty.values lastObject];
 
                 //TODO smarter more automatic way of coercing types
+                //[MODValueTransformers transformValue:value toType:@encode(CGColorRef)];
                 if ([keyPath isEqualToString:@"layer.borderColor"]) {
                     value = (id)[value CGColor];
                 }

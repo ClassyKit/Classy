@@ -63,26 +63,26 @@ typedef NS_ENUM(NSInteger, MODTokenType) {
 + (NSString *)stringForType:(MODTokenType)type;
 
 /**
- *  Returns whether reciever is a whitespace token or not
+ *  Returns whether receiver is a whitespace token or not
  *
- *  @return `YES` if reciever is one of the following types indent, outdent, space, new line.
+ *  @return `YES` if receiver is one of the following types indent, outdent, space, new line.
  */
 - (BOOL)isWhitespace;
 
 /**
- *  Returns whether reciever's value is equal to the given value
+ *  Returns whether receiver's value is equal to the given value
  *
  *  @param string the value for comparison
  *
- *  @return `YES` if reciever is equal to the given value
+ *  @return `YES` if receiver is equal to the given value
  */
 - (BOOL)valueIsEqualTo:(id)value;
 
 /**
- *  Returns whether the reciever could be a valid selector token.
+ *  Returns whether the receiver could be a valid selector token.
  *  However context will determine if it is definitely a selector
  *
- *  @return `YES` if it is possible that the reciever is a selector
+ *  @return `YES` if it is possible that the receiver is a selector
  */
 - (BOOL)isPossiblySelector;
 
