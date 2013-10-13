@@ -11,9 +11,9 @@
 
 @interface MODPropertyDescriptor : NSObject
 
-@property (nonatomic, strong, readonly) NSInvocation *invocation;
 @property (nonatomic, strong, readonly) NSString *key;
 @property (nonatomic, strong) NSArray *argumentDescriptors;
+@property (nonatomic, assign) SEL setter;
 
 - (id)initWithKey:(NSString *)key;
 

@@ -25,9 +25,4 @@
     return self;
 }
 
-- (NSInvocation *)invocation {
-    //TODO
-    return nil;
-}
-
 @end

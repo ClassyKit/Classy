@@ -7,7 +7,7 @@
 //
 
 #import "MODViewClassDescriptor.h"
-#import <objc/runtime.h>
+#import "MODRuntimeExtensions.h"
 
 @interface MODViewClassDescriptor ()
 
@@ -28,17 +28,31 @@
     return self;
 }
 
+#pragma mark - property descriptor support
 
-#pragma mark - subscripting
+- (NSInvocation *)invocationForPropertyDescriptor:(MODPropertyDescriptor *)propertyDescriptor {
+    if (!propertyDescriptor) return nil;
+    
+    SEL selector = propertyDescriptor.setter;
+    Method method = class_getInstanceMethod(self.viewClass, selector);
+    struct objc_method_description* desc = method_getDescription(method);
+    if (desc == NULL || desc->name == NULL)
+        return nil;
 
-- (MODPropertyDescriptor *)objectForKeyedSubscript:(NSString *)key {
+    NSMethodSignature *methodSignature = [NSMethodSignature signatureWithObjCTypes:desc->types];
+    NSInvocation *invocation = [NSInvocation invocationWithMethodSignature:methodSignature];
+    [invocation setSelector:selector];
+    return invocation;
+}
+
+- (MODPropertyDescriptor *)propertyDescriptorForKey:(NSString *)key {
     //if property descriptor exists on this class descriptor. return it.
     NSString *propertyKey = self.propertyKeyAliases[key] ?: key;
     MODPropertyDescriptor *propertyDescriptor = self.propertyDescriptorCache[propertyKey];
     if (propertyDescriptor) return propertyDescriptor;
 
     //if property descriptor exists on parent class descriptor. return it.
-    propertyDescriptor = [self.parent objectForKeyedSubscript:key];
+    propertyDescriptor = [self.parent propertyDescriptorForKey:key];
     if (propertyDescriptor) return propertyDescriptor;
 
     //create property descriptor on this descriptor if has propertyKeyAlias
@@ -48,13 +62,30 @@
     if (self.propertyKeyAliases[propertyKey]
         || ([self.viewClass instancesRespondToSelector:propertySelector] && ![self.viewClass.superclass instancesRespondToSelector:propertySelector])) {
         propertyDescriptor = [[MODPropertyDescriptor alloc] initWithKey:propertyKey];
+
         objc_property_t property = class_getProperty(self.viewClass, [propertyKey UTF8String]);
         if (property != NULL) {
-            propertyDescriptor.argumentDescriptors = @[[MODArgumentDescriptor argWithObjCType:property_getAttributes(property)]];
+            mod_propertyAttributes *propertyAttributes = mod_copyPropertyAttributes(class_getProperty(self.viewClass, [propertyKey UTF8String]));
+            if (!propertyAttributes->readonly) {
+                if (propertyAttributes->objectClass) {
+                    propertyDescriptor.argumentDescriptors = @[
+                        [MODArgumentDescriptor argWithClass:propertyAttributes->objectClass]
+                    ];
+                } else {
+                    NSString *type = [NSString stringWithCString:propertyAttributes->type encoding:NSASCIIStringEncoding];
+                    propertyDescriptor.argumentDescriptors = @[
+                        [MODArgumentDescriptor argWithType:type]
+                    ];
+                }
+                propertyDescriptor.setter = propertyAttributes->setter;
+            }
+            free(propertyAttributes);
+
+            self.propertyDescriptorCache[propertyKey] = propertyDescriptor;
+            return propertyDescriptor;
         } else {
             //TODO error
         }
-        self.propertyDescriptorCache[propertyKey] = propertyDescriptor;
     }
 
     return nil;

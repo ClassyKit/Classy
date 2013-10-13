@@ -48,11 +48,12 @@
             //precompute styleProperty value
             //TODO type checking and throw errors
 
-            MODViewClassDescriptor *descriptor = [self viewClassDescriptorForClass:styleSelector.viewClass];
-            MODPropertyDescriptor *propertyDescriptor = descriptor[styleProperty.name];
+            MODViewClassDescriptor *viewClassDescriptor = [self viewClassDescriptorForClass:styleSelector.viewClass];
+            MODPropertyDescriptor *propertyDescriptor = [viewClassDescriptor propertyDescriptorForKey:styleProperty.name];
 
-            NSInvocation *invocation = propertyDescriptor.invocation;
+            NSInvocation *invocation = [viewClassDescriptor invocationForPropertyDescriptor:propertyDescriptor];
             [propertyDescriptor.argumentDescriptors enumerateObjectsUsingBlock:^(MODArgumentDescriptor *argDescriptor, NSUInteger idx, BOOL *stop) {
+                //TODO
 //                id value;
 //                if (idx == 0) {
 //                    value = [styleProperty valueWithArgumentDescriptor:argDescriptor];

@@ -28,6 +28,8 @@
 
 - (id)initWithClass:(Class)class;
 
-- (MODPropertyDescriptor *)objectForKeyedSubscript:(NSString *)key;
+- (NSInvocation *)invocationForPropertyDescriptor:(MODPropertyDescriptor *)propertyDescriptor;
+
+- (MODPropertyDescriptor *)propertyDescriptorForKey:(NSString *)key;
 
 @end
