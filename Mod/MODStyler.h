@@ -7,6 +7,7 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "MODViewClassDescriptor.h"
 
 @interface MODStyler : NSObject
 
@@ -21,5 +22,10 @@
  *  @param view `UIView` to apply styles to
  */
 - (void)styleView:(UIView *)view;
+
+/**
+ *  Returns a cached MODViewClassDescriptor if it exists or creates one
+ */
+- (MODViewClassDescriptor *)viewClassDescriptorForClass:(Class)class;
 
 @end

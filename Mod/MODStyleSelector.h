@@ -82,7 +82,7 @@
  *  Provides support for properties that have extra arguments such as
  *  - setTitle:forState:
  */
-- (void)setArgumentValue:(MODToken *)argumentValue forKey:(MODToken *)key;
+- (void)setArgumentValue:(MODToken *)argumentValue forName:(MODToken *)name;
 
 /**
  *  String representation of receiver

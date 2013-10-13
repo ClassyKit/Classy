@@ -228,7 +228,7 @@ NSInteger const MODParseErrorFileContents = 2;
                 }
 
                 if (argNameToken && argValueToken) {
-                    [styleSelector setArgumentValue:argValueToken forKey:argNameToken];
+                    [styleSelector setArgumentValue:argValueToken forName:argNameToken];
                     argValueToken = nil;
                     argNameToken = nil;
                 }

@@ -9,13 +9,12 @@
 #import "MODStyler.h"
 #import "MODParser.h"
 #import "MODStyleSelector.h"
-#import "MODViewClassInfo.h"
+#import "MODPropertyDescriptor.h"
 
 @interface MODStyler ()
 
 @property (nonatomic, strong) NSMutableArray *styles;
-@property (nonatomic, strong) NSMapTable *viewClassInfoCache;
-@property (nonatomic, strong) NSDictionary *keyPathsByStyleName;
+@property (nonatomic, strong) NSMapTable *viewClassDescriptorCache;
 
 @end
 
@@ -34,13 +33,38 @@
         return NSOrderedAscending;
     }];
 
-    self.viewClassInfoCache = NSMapTable.strongToStrongObjectsMapTable;
+    self.viewClassDescriptorCache = NSMapTable.strongToStrongObjectsMapTable;
 
-    self.keyPathsByStyleName = @{
-        @"borderColor" : @"layer.borderColor",
-        @"borderWidth" : @"layer.borderWidth",
-        @"borderRadius" : @"layer.cornerRadius"
+    MODViewClassDescriptor *viewClassDescriptor = [self viewClassDescriptorForClass:UIView.class];
+    viewClassDescriptor.propertyKeyAliases = @{
+        @"borderColor" : @"mod_borderColor",
+        @"borderWidth" : @"mod_borderWidth",
+        @"borderRadius" : @"mod_cornerRadius"
     };
+
+    //precompute values
+    for (MODStyleSelector *styleSelector in self.styles.reverseObjectEnumerator) {
+        for (MODStyleProperty *styleProperty in styleSelector.node.properties) {
+            //precompute styleProperty value
+            //TODO type checking and throw errors
+
+            MODViewClassDescriptor *descriptor = [self viewClassDescriptorForClass:styleSelector.viewClass];
+            MODPropertyDescriptor *propertyDescriptor = descriptor[styleProperty.name];
+
+            NSInvocation *invocation = propertyDescriptor.invocation;
+            [propertyDescriptor.argumentDescriptors enumerateObjectsUsingBlock:^(MODArgumentDescriptor *argDescriptor, NSUInteger idx, BOOL *stop) {
+//                id value;
+//                if (idx == 0) {
+//                    value = [styleProperty valueWithArgumentDescriptor:argDescriptor];
+//                } else {
+//                    value = [styleSelector valueWithArgumentDescriptor:argDescriptor]
+//                }
+//                [invocation setArgument:value atIndex:2+idx];
+            }];
+            [invocation retainArguments];
+            styleProperty.invocation = invocation;
+        }
+    }
 
     return self;
 }
@@ -52,30 +76,22 @@
         if ([styleSelector shouldSelectView:view]) {
             //apply style nodes
             for (MODStyleProperty *styleProperty in styleSelector.node.properties) {
-                //TODO type checking and catch errors
-                NSString *keyPath = self.keyPathsByStyleName[styleProperty.name] ?:styleProperty.name;
-                id value = [styleProperty.values lastObject];
-
-                //TODO smarter more automatic way of coercing types
-                //[MODValueTransformers transformValue:value toType:@encode(CGColorRef)];
-                if ([keyPath isEqualToString:@"layer.borderColor"]) {
-                    value = (id)[value CGColor];
-                }
-
-                [view setValue:value forKeyPath:keyPath];
-
+                [styleProperty.invocation invokeWithTarget:view];
             }
         }
     }
 }
 
-- (MODViewClassInfo *)viewClassInfoForClass:(Class)class {
-    MODViewClassInfo *classInfo = [self.viewClassInfoCache objectForKey:class];
-    if (!classInfo) {
-        classInfo = MODViewClassInfo.new;
-        [self.viewClassInfoCache setObject:classInfo forKey:class];
+- (MODViewClassDescriptor *)viewClassDescriptorForClass:(Class)class {
+    MODViewClassDescriptor *viewClassDescriptor = [self.viewClassDescriptorCache objectForKey:class];
+    if (!viewClassDescriptor) {
+        viewClassDescriptor = [[MODViewClassDescriptor alloc] initWithClass:class];
+        if (class.superclass && ![UIResponder.class isSubclassOfClass:class.superclass]) {
+            viewClassDescriptor.parent = [self viewClassDescriptorForClass:class.superclass];
+        }
+        [self.viewClassDescriptorCache setObject:viewClassDescriptor forKey:class];
     }
-    return classInfo;
+    return viewClassDescriptor;
 }
 
 @end

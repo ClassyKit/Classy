@@ -22,9 +22,9 @@
 @property (nonatomic, strong, readonly) NSArray *values;
 
 /**
- *  Cached transformed value of the receiver
+ *  NSInvocation to apply to appropriate view
  */
-@property (nonatomic, strong) id cachedValue;
+@property (nonatomic, strong) NSInvocation *invocation;
 
 - (id)initWithNameToken:(MODToken *)nameToken valueTokens:(NSArray *)valueTokens;
 

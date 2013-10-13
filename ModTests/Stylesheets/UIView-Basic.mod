@@ -1,4 +1,4 @@
-UIView {
+UISlider {
   background-color:#A2A2A2;
   border-color: #A1A1A1;
   border-width: 2;

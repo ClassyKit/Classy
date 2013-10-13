@@ -76,7 +76,7 @@
     return YES;
 }
 
-- (void)setArgumentValue:(MODToken *)argumentValue forKey:(MODToken *)key {
+- (void)setArgumentValue:(MODToken *)argumentValue forName:(MODToken *)name {
     if (!self.arguments) {
         self.arguments = NSMutableDictionary.new;
     }
@@ -84,7 +84,7 @@
     if ([tokenValue hasPrefix:@"."]) {
         tokenValue = [tokenValue substringFromIndex:1];
     }
-    [self.arguments setObject:tokenValue forKey:key.value];
+    [self.arguments setObject:tokenValue forKey:name.value];
 }
 
 - (NSString *)stringValue {

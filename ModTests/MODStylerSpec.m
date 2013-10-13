@@ -10,6 +10,7 @@
 #import "UIColor+MODAdditions.h"
 #import "MODStyleSelector.h"
 #import "UIView+MODAdditions.h"
+#import <objc/runtime.h>
 
 @interface MODStyler ()
 @property (nonatomic, strong) NSMutableArray *styles;
@@ -66,16 +67,50 @@ it(@"should select indirect superview", ^{
     expect([selector shouldSelectView:button]).to.beTruthy();
 });
 
-it(@"should set basic properties", ^{
+xit(@"should set basic properties", ^{
     NSString *filePath = [[NSBundle bundleForClass:self.class] pathForResource:@"UIView-Basic.mod" ofType:nil];
     MODStyler *styler = [[MODStyler alloc] initWithFilePath:filePath error:nil];
-    UIView *view = UIView.new;
+    UISlider *view = UISlider.new;
     [styler styleView:view];
 
     expect(view.backgroundColor.mod_hexValue).to.equal(@"a2a2a2");
     expect([UIColor colorWithCGColor:view.layer.borderColor].mod_hexValue).to.equal(@"a1a1a1");
     expect(view.layer.borderWidth).to.equal(2);
     expect(view.layer.cornerRadius).to.equal(7);
+});
+
+it(@"should get view descriptor", ^{
+    NSString *filePath = [[NSBundle bundleForClass:self.class] pathForResource:@"UIView-Basic.mod" ofType:nil];
+    MODStyler *styler = [[MODStyler alloc] initWithFilePath:filePath error:nil];
+
+    MODViewClassDescriptor *descriptor = [styler viewClassDescriptorForClass:UISlider.class];
+    expect(descriptor.viewClass).to.equal(UISlider.class);
+    expect(descriptor.parent.viewClass).to.equal(UIControl.class);
+    expect(descriptor.parent.parent.viewClass).to.equal(UIView.class);
+    expect(descriptor.parent.parent.parent).to.beNil();
+
+    descriptor = [styler viewClassDescriptorForClass:UIView.class];
+    expect(descriptor.viewClass).to.equal(UIView.class);
+    expect(descriptor.parent).to.beNil();
+});
+
+xit(@"should do reflection", ^{
+    objc_property_t property = class_getProperty([UISlider  class], "mod_styleClass");
+    expect(property).notTo.beNil();
+    if (property != NULL) {
+        const char *type = property_getAttributes(property);
+        NSString *typeString = [NSString stringWithUTF8String:type];
+        expect(typeString).to.equal(@"kadsf");
+    }
+    NSMethodSignature *signature = [[UIView class] instanceMethodSignatureForSelector:@selector(setFrame:)];
+    NSString *typeString = [NSString stringWithUTF8String:[signature getArgumentTypeAtIndex:2]];
+    expect(typeString).to.equal(@"");
+
+    typeString = [NSString stringWithUTF8String:@encode(CGColorRef)];
+    expect(typeString).to.equal(@"");
+
+    expect([UIView.class isSubclassOfClass:UIResponder.class]).to.beTruthy();
+    expect([UIView.class isSubclassOfClass:UISlider.class]).to.beFalsy();
 });
 
 SpecEnd

@@ -12,4 +12,8 @@
 
 @property (nonatomic, strong) NSString *mod_styleClass;
 
+@property (nonatomic, strong) UIColor *mod_borderColor;
+@property (nonatomic, assign) CGFloat mod_borderWidth;
+@property (nonatomic, assign) CGFloat mod_cornerRadius;
+
 @end
