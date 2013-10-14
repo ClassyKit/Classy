@@ -11,6 +11,7 @@ Alpha
 - @media queries
 - @version queries
 - @import
+- precompile style files (save parsed object graph to disk with NSCoding)
+- Mac OSX support
 - nesting
 - mixins
-- precompile style files
