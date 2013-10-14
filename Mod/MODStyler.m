@@ -14,6 +14,12 @@
 #import "UITextField+MODAdditions.h"
 #import "MODLog.h"
 
+@interface NSArray ()
+
+- (id)firstObject;
+
+@end
+
 @interface MODStyler ()
 
 @property (nonatomic, strong) NSMutableArray *styles;
@@ -42,8 +48,10 @@
     //precompute values
     for (MODStyleSelector *styleSelector in self.styles.reverseObjectEnumerator) {
         for (MODStyleProperty *styleProperty in styleSelector.node.properties) {
-            //precompute styleProperty value
             //TODO type checking and throw errors
+
+            //ensure we dont do same node twice
+            if (styleProperty.invocation) continue;
 
             MODViewClassDescriptor *viewClassDescriptor = [self viewClassDescriptorForClass:styleSelector.viewClass];
             MODPropertyDescriptor *propertyDescriptor = [viewClassDescriptor propertyDescriptorForKey:styleProperty.name];
@@ -52,10 +60,15 @@
             [propertyDescriptor.argumentDescriptors enumerateObjectsUsingBlock:^(MODArgumentDescriptor *argDescriptor, NSUInteger idx, BOOL *stop) {
                 NSInteger argIndex = 2 + idx;
                 if (argDescriptor.primitiveType == MODPrimitiveTypeInteger) {
-                    NSInteger value = [[styleProperty.values lastObject] integerValue];
+                    NSInteger value;
+                    if (argDescriptor.valuesByName) {
+                        value = [argDescriptor.valuesByName[styleProperty.values.firstObject] integerValue];
+                    } else {
+                        value = [styleProperty.values.lastObject integerValue];
+                    }
                     [invocation setArgument:&value atIndex:argIndex];
                 } else if (argDescriptor.primitiveType == MODPrimitiveTypeDouble) {
-                    CGFloat value = [[styleProperty.values lastObject] doubleValue];
+                    CGFloat value = [styleProperty.values.firstObject doubleValue];
                     [invocation setArgument:&value atIndex:argIndex];
                 } else if (argDescriptor.primitiveType == MODPrimitiveTypeCGSize) {
                     __block CGSize size;
@@ -87,6 +100,8 @@
 }
 
 - (void)setupViewClassDescriptors {
+
+    // UIView
     MODViewClassDescriptor *viewClassDescriptor = [self viewClassDescriptorForClass:UIView.class];
     viewClassDescriptor.propertyKeyAliases = @{
         @"borderColor"   : @mod_propertykey(UIView, mod_borderColor),
@@ -99,14 +114,48 @@
     };
 
     //some properties don't show up via reflection so we need to add them manually
-    [viewClassDescriptor setPropertyType:[MODArgumentDescriptor argWithClass:UIColor.class] forKey:@"backgroundColor"];
+    [viewClassDescriptor setPropertyType:[MODArgumentDescriptor argWithClass:UIColor.class]
+                                  forKey:@mod_propertykey(UIView, backgroundColor)];
 
+    // UITextField
     viewClassDescriptor = [self viewClassDescriptorForClass:UITextField.class];
     viewClassDescriptor.propertyKeyAliases = @{
-        @"fontColor" : @mod_propertykey(UITextField, textColor),
-        @"fontName"  : @mod_propertykey(UITextField, mod_fontName),
-        @"fontSize"  : @mod_propertykey(UITextField, mod_fontSize),
+        @"fontColor"             : @mod_propertykey(UITextField, textColor),
+        @"fontName"              : @mod_propertykey(UITextField, mod_fontName),
+        @"fontSize"              : @mod_propertykey(UITextField, mod_fontSize),
+        @"horizontalAlignment"   : @mod_propertykey(UITextField, textAlignment),
     };
+
+    NSDictionary *textAlignmentMap = @{
+        @"center"    : @(NSTextAlignmentCenter),
+        @"left"      : @(NSTextAlignmentLeft),
+        @"right"     : @(NSTextAlignmentRight),
+        @"justified" : @(NSTextAlignmentJustified),
+        @"natural"   : @(NSTextAlignmentNatural),
+    };
+    [viewClassDescriptor setPropertyType:[MODArgumentDescriptor argWithValuesByName:textAlignmentMap]
+                                  forKey:@mod_propertykey(UITextField, textAlignment)];
+
+    // UIControl
+    viewClassDescriptor = [self viewClassDescriptorForClass:UIControl.class];
+
+    NSDictionary *contentVerticalAlignmentMap = @{
+        @"center" : @(UIControlContentVerticalAlignmentCenter),
+        @"top"    : @(UIControlContentVerticalAlignmentTop),
+        @"bottom" : @(UIControlContentVerticalAlignmentBottom),
+        @"fill"   : @(UIControlContentVerticalAlignmentFill),
+    };
+    [viewClassDescriptor setPropertyType:[MODArgumentDescriptor argWithValuesByName:contentVerticalAlignmentMap]
+                                  forKey:@mod_propertykey(UIControl, contentVerticalAlignment)];
+
+    NSDictionary *contentHorizontalAlignmentMap = @{
+        @"center" : @(UIControlContentHorizontalAlignmentCenter),
+        @"left"   : @(UIControlContentHorizontalAlignmentLeft),
+        @"right"  : @(UIControlContentHorizontalAlignmentRight),
+        @"fill"   : @(UIControlContentHorizontalAlignmentFill),
+    };
+    [viewClassDescriptor setPropertyType:[MODArgumentDescriptor argWithValuesByName:contentHorizontalAlignmentMap]
+                                  forKey:@mod_propertykey(UIControl, contentHorizontalAlignment)];
 }
 
 - (void)styleView:(UIView *)view {

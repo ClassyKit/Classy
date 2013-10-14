@@ -17,3 +17,11 @@ MODExampleView {
     testNSInteger = -999;
     testInt = 345;
 }
+
+UITextField {
+ font-name: Avenir-Heavy;
+ font-size: 12;
+ font-color: #a0a0a0;
+ horizontal-alignment: natural,
+ content-vertical-alignment: bottom,
+}

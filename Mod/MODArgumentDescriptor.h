@@ -13,6 +13,7 @@
  */
 typedef NS_ENUM(NSUInteger, MODPrimitiveType) {
     MODPrimitiveTypeNone,
+    MODPrimitiveTypeUnsupported,
     MODPrimitiveTypeDouble,
     MODPrimitiveTypeInteger,
     MODPrimitiveTypeCGSize,
@@ -27,10 +28,11 @@ typedef NS_ENUM(NSUInteger, MODPrimitiveType) {
 
 @property (nonatomic, strong, readonly) Class argumentClass;
 @property (nonatomic, assign, readonly) MODPrimitiveType primitiveType;
+@property (nonatomic, strong, readonly) NSDictionary *valuesByName;
 
 + (instancetype)argWithObjCType:(const char *)type;
 + (instancetype)argWithType:(NSString *)type;
 + (instancetype)argWithClass:(Class)class;
-+ (instancetype)argWithName:(NSString *)name valuesByName:(NSDictionary *)valuesByName;
++ (instancetype)argWithValuesByName:(NSDictionary *)valuesByName;
 
 @end

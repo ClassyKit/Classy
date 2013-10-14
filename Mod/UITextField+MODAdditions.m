@@ -7,20 +7,19 @@
 //
 
 #import "UITextField+MODAdditions.h"
+#import <objc/runtime.h>
 
 @implementation UITextField (MODAdditions)
 
 #pragma mark - font properties
 
-//@property (nonatomic, strong) NSString *mod_fontName;
-//@property (nonatomic, strong) CGFloat *mod_fontSize;
-
 - (void)setMod_fontName:(NSString *)fontName {
+    objc_setAssociatedObject(self, @selector(mod_fontName), fontName, OBJC_ASSOCIATION_RETAIN_NONATOMIC);
     self.font = [UIFont fontWithName:fontName size:self.mod_fontSize];
 }
 
 - (NSString *)mod_fontName {
-    return self.font.fontName;
+    return objc_getAssociatedObject(self, @selector(mod_fontName));
 }
 
 - (void)setMod_fontSize:(CGFloat)fontSize {

@@ -13,6 +13,8 @@
 
 @property (nonatomic, strong, readwrite) Class argumentClass;
 @property (nonatomic, strong, readwrite) NSString *type;
+@property (nonatomic, strong, readwrite) NSDictionary *valuesByName;
+
 
 @end
 
@@ -36,9 +38,11 @@
     return descriptor;
 }
 
-+ (instancetype)argWithName:(NSString *)name valuesByName:(NSDictionary *)valuesByName {
-    //TODO
-    return nil;
++ (instancetype)argWithValuesByName:(NSDictionary *)valuesByName {
+    MODArgumentDescriptor *descriptor = MODArgumentDescriptor.new;
+    descriptor.type = [NSString stringWithUTF8String:@encode(NSInteger)];
+    descriptor.valuesByName = valuesByName;
+    return descriptor;
 }
 
 - (MODPrimitiveType)primitiveType {
@@ -74,7 +78,7 @@
         return MODPrimitiveTypeUIOffset;
     }
 
-    return MODPrimitiveTypeNone;
+    return MODPrimitiveTypeUnsupported;
 }
 
 @end

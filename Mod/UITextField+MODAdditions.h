@@ -8,14 +8,6 @@
 
 #import <UIKit/UIKit.h>
 
-//font-color (Color)
-//font-name (FontName)
-//font-size (Number)
-//padding (Box)
-//vertical-align (VerticalAlign)
-//textAlignment
-//setContentVerticalAlignment
-
 @interface UITextField (MODAdditions)
 
 @property (nonatomic, strong) NSString *mod_fontName;

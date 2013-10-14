@@ -12,6 +12,7 @@
 #import "UIView+MODAdditions.h"
 #import <objc/runtime.h>
 #import "MODExampleView.h"
+#import "UITextField+MODAdditions.h"
 
 @interface MODStyler ()
 @property (nonatomic, strong) NSMutableArray *styles;
@@ -83,6 +84,20 @@ it(@"should set basic properties", ^{
     expect(view.mod_shadowOffset).to.equal(CGSizeMake(1, 3));
     expect(view.mod_shadowOpacity).to.equal(0.5);
     expect(view.mod_shadowRadius).to.equal(4);
+});
+
+it(@"should set UITextField properties", ^{
+    NSString *filePath = [[NSBundle bundleForClass:self.class] pathForResource:@"UIView-Basic.mod" ofType:nil];
+    MODStyler *styler = [[MODStyler alloc] initWithFilePath:filePath error:nil];
+    UITextField *view = UITextField.new;
+    [styler styleView:view];
+
+    expect(view.font.fontName).to.equal(@"Avenir Heavy");
+    expect(view.mod_fontName).to.equal(@"Avenir-Heavy");
+    expect(view.mod_fontSize).to.equal(12);
+    expect(view.textColor.mod_hexValue).to.equal(@"a0a0a0");
+    expect(view.textAlignment).to.equal(NSTextAlignmentNatural);
+    expect(view.contentVerticalAlignment).to.equal(UIControlContentVerticalAlignmentBottom);
 });
 
 it(@"should set custom properties", ^{
