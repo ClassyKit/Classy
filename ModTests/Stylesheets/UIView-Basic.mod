@@ -24,5 +24,6 @@ UITextField {
  font-color: #a0a0a0;
  horizontal-alignment: natural;
  content-vertical-alignment: bottom;
- background-image: "bg_textfield" 1, 2, 3, 4
+ background-image: bg_textfield 1, 2, 3, 4;
+ border-style:line;
 }

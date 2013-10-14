@@ -61,6 +61,13 @@
     return _values;
 }
 
+- (id)valueOfTokenType:(MODTokenType)tokenType {
+    for (MODToken *token in self.valueTokens) {
+        if (token.type == tokenType) return token.value;
+    }
+    return nil;
+}
+
 - (NSArray *)valuesOfTokenType:(MODTokenType)tokenType {
     NSMutableArray *tokens = NSMutableArray.new;
     for (MODToken *token in self.valueTokens) {

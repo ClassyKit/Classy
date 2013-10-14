@@ -15,9 +15,7 @@
 #import "MODLog.h"
 
 @interface NSArray ()
-
 - (id)firstObject;
-
 @end
 
 @interface MODStyler ()
@@ -51,12 +49,14 @@
             //TODO type checking and throw errors
 
             //ensure we dont do same node twice
+            //TODO each styleSelector should really have its own node.
             if (styleProperty.invocation) continue;
 
             MODViewClassDescriptor *viewClassDescriptor = [self viewClassDescriptorForClass:styleSelector.viewClass];
             MODPropertyDescriptor *propertyDescriptor = [viewClassDescriptor propertyDescriptorForKey:styleProperty.name];
 
             NSInvocation *invocation = [viewClassDescriptor invocationForPropertyDescriptor:propertyDescriptor];
+            [invocation retainArguments];
             [propertyDescriptor.argumentDescriptors enumerateObjectsUsingBlock:^(MODArgumentDescriptor *argDescriptor, NSUInteger idx, BOOL *stop) {
                 NSInteger argIndex = 2 + idx;
                 if (argDescriptor.primitiveType == MODPrimitiveTypeInteger) {
@@ -95,7 +95,7 @@
                         insets = UIEdgeInsetsMake([unitTokens[0] doubleValue], [unitTokens[1] doubleValue], [unitTokens[2] doubleValue], [unitTokens[3] doubleValue]);
                     }
 
-                    NSString *imageName = [[styleProperty valuesOfTokenType:MODTokenTypeString] lastObject];
+                    NSString *imageName = [styleProperty valueOfTokenType:MODTokenTypeString] ?: [styleProperty valueOfTokenType:MODTokenTypeRef];
                     UIImage *image = [UIImage imageNamed:imageName];
                     if (unitTokens.count) {
                         image = [image resizableImageWithCapInsets:insets];
@@ -108,7 +108,6 @@
                     [invocation setArgument:&value atIndex:argIndex];
                 }
             }];
-            [invocation retainArguments];
             styleProperty.invocation = invocation;
         }
     }
@@ -135,6 +134,8 @@
                                   forKey:@mod_propertykey(UIView, backgroundColor)];
 
     // UITextField
+    //TODO text insets
+    //TODO border insets
     viewClassDescriptor = [self viewClassDescriptorForClass:UITextField.class];
     viewClassDescriptor.propertyKeyAliases = @{
         @"fontColor"             : @mod_propertykey(UITextField, textColor),
@@ -154,6 +155,16 @@
     [viewClassDescriptor setPropertyType:[MODArgumentDescriptor argWithValuesByName:textAlignmentMap]
                                   forKey:@mod_propertykey(UITextField, textAlignment)];
 
+    NSDictionary *borderStyleMap = @{
+        @"none"    : @(UITextBorderStyleNone),
+        @"line"    : @(UITextBorderStyleLine),
+        @"bezel"   : @(UITextBorderStyleBezel),
+        @"rounded" : @(UITextBorderStyleRoundedRect),
+    };
+    [viewClassDescriptor setPropertyType:[MODArgumentDescriptor argWithValuesByName:borderStyleMap]
+                                  forKey:@mod_propertykey(UITextField, borderStyle)];
+
+    
     // UIControl
     viewClassDescriptor = [self viewClassDescriptorForClass:UIControl.class];
 
