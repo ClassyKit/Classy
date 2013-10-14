@@ -8,6 +8,7 @@
 
 #import "MODViewClassDescriptor.h"
 #import "MODRuntimeExtensions.h"
+#import "NSString+MODAdditions.h"
 
 @interface MODViewClassDescriptor ()
 
@@ -34,7 +35,7 @@
     MODPropertyDescriptor *propertyDescriptor = [[MODPropertyDescriptor alloc] initWithKey:key];
     propertyDescriptor.argumentDescriptors = @[argDescriptor];
 
-    NSString *setter = [NSString stringWithFormat:@"set%@:", [key stringByReplacingCharactersInRange:NSMakeRange(0,1) withString:[[key substringToIndex:1] capitalizedString]]];
+    NSString *setter = [NSString stringWithFormat:@"set%@:", [key mod_stringByCapitalizingFirstLetter]];
 
     propertyDescriptor.setter = NSSelectorFromString(setter);
     self.propertyDescriptorCache[key] = propertyDescriptor;

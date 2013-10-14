@@ -7,6 +7,7 @@
 //
 
 #import "MODStyleProperty.h"
+#import "NSString+MODAdditions.h"
 
 @interface MODStyleProperty ()
 
@@ -39,7 +40,7 @@
             if (i == 0) {
                 [camelCasedName appendString:components[i]];
             } else {
-                [camelCasedName appendString:[components[i] capitalizedString]];
+                [camelCasedName appendString:[components[i] mod_stringByCapitalizingFirstLetter]];
             }
         }
         _name = camelCasedName;
@@ -58,6 +59,16 @@
         _values = values;
     }
     return _values;
+}
+
+- (NSArray *)valuesOfTokenType:(MODTokenType)tokenType {
+    NSMutableArray *tokens = NSMutableArray.new;
+    for (MODToken *token in self.valueTokens) {
+        if (token.type == tokenType) {
+            [tokens addObject:token.value];
+        }
+    }
+    return tokens;
 }
 
 - (NSString *)description {

@@ -38,4 +38,6 @@
 
 - (id)initWithNameToken:(MODToken *)nameToken valueTokens:(NSArray *)valueTokens;
 
+- (NSArray *)valuesOfTokenType:(MODTokenType)tokenType;
+
 @end

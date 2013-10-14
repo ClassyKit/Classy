@@ -98,6 +98,8 @@ it(@"should set UITextField properties", ^{
     expect(view.textColor.mod_hexValue).to.equal(@"a0a0a0");
     expect(view.textAlignment).to.equal(NSTextAlignmentNatural);
     expect(view.contentVerticalAlignment).to.equal(UIControlContentVerticalAlignmentBottom);
+    //expect(view.background).notTo.beNil();
+    //expect(view.background.capInsets).to.equal(UIEdgeInsetsMake(1, 2, 3, 4));
 });
 
 it(@"should set custom properties", ^{

@@ -22,6 +22,7 @@ UITextField {
  font-name: Avenir-Heavy;
  font-size: 12;
  font-color: #a0a0a0;
- horizontal-alignment: natural,
- content-vertical-alignment: bottom,
+ horizontal-alignment: natural;
+ content-vertical-alignment: bottom;
+ background-image: "bg_textfield" 1, 2, 3, 4
 }

@@ -71,22 +71,39 @@
                     CGFloat value = [styleProperty.values.firstObject doubleValue];
                     [invocation setArgument:&value atIndex:argIndex];
                 } else if (argDescriptor.primitiveType == MODPrimitiveTypeCGSize) {
-                    __block CGSize size;
-                    __block BOOL hasWidth = NO, hasHeight = NO;
-                    [styleProperty.valueTokens enumerateObjectsUsingBlock:^(MODToken *token, NSUInteger idx, BOOL *stop) {
-                        if (token.type == MODTokenTypeUnit) {
-                            if (!hasWidth) {
-                                size.width = [token.value doubleValue];
-                                size.height = [token.value doubleValue];
-                                hasWidth = YES;
-                            } else if (!hasHeight) {
-                                size.height = [token.value doubleValue];
-                                hasHeight = YES;
-                            }
-                        }
-                    }];
+                    CGSize size = CGSizeZero;
+                    NSArray *unitTokens = [styleProperty valuesOfTokenType:MODTokenTypeUnit];
+                    if (unitTokens.count >= 1) {
+                        size.width = [unitTokens[0] doubleValue];
+                        size.height = [unitTokens[0] doubleValue];
+                    }
+                    if (unitTokens.count >= 2) {
+                        size.height = [unitTokens[1] doubleValue];
+                    }
                     [invocation setArgument:&size atIndex:argIndex];
-                } else if (argDescriptor.class) {
+                } else if (argDescriptor.argumentClass == UIImage.class) {
+                    UIEdgeInsets insets = UIEdgeInsetsZero;
+                    NSArray *unitTokens = [styleProperty valuesOfTokenType:MODTokenTypeUnit];
+                    if (unitTokens.count == 1) {
+                        CGFloat value = [unitTokens[0] doubleValue];
+                        insets = UIEdgeInsetsMake(value, value, value, value);
+                    } else if (unitTokens.count == 2) {
+                        CGFloat value1 = [unitTokens[0] doubleValue];
+                        CGFloat value2 = [unitTokens[1] doubleValue];
+                        insets = UIEdgeInsetsMake(value1, value2, value1, value2);
+                    } else if (unitTokens.count == 4) {
+                        insets = UIEdgeInsetsMake([unitTokens[0] doubleValue], [unitTokens[1] doubleValue], [unitTokens[2] doubleValue], [unitTokens[3] doubleValue]);
+                    }
+
+                    NSString *imageName = [[styleProperty valuesOfTokenType:MODTokenTypeString] lastObject];
+                    UIImage *image = [UIImage imageNamed:imageName];
+                    if (unitTokens.count) {
+                        image = [image resizableImageWithCapInsets:insets];
+                    }
+                    if (image) {
+                        [invocation setArgument:&image atIndex:argIndex];
+                    }
+                } else if (argDescriptor.argumentClass) {
                     id value = [styleProperty.values lastObject];
                     [invocation setArgument:&value atIndex:argIndex];
                 }
@@ -124,6 +141,7 @@
         @"fontName"              : @mod_propertykey(UITextField, mod_fontName),
         @"fontSize"              : @mod_propertykey(UITextField, mod_fontSize),
         @"horizontalAlignment"   : @mod_propertykey(UITextField, textAlignment),
+        @"backgroundImage"       : @mod_propertykey(UITextField, background),
     };
 
     NSDictionary *textAlignmentMap = @{
