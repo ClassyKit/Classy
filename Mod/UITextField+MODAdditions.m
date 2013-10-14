@@ -23,6 +23,7 @@
 }
 
 - (void)setMod_fontSize:(CGFloat)fontSize {
+    objc_setAssociatedObject(self, @selector(mod_fontSize), @(fontSize), OBJC_ASSOCIATION_RETAIN_NONATOMIC);
     if (self.mod_fontName) {
         self.font = [UIFont fontWithName:self.mod_fontName size:fontSize];
     } else {
@@ -31,7 +32,7 @@
 }
 
 - (CGFloat)mod_fontSize {
-    return self.font.pointSize;
+    return [objc_getAssociatedObject(self, @selector(mod_fontSize)) doubleValue];
 }
 
 @end

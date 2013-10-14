@@ -27,6 +27,7 @@
 		DD60E0C217E7C5FC004A171E /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DD60E0C017E7C5CD004A171E /* CoreGraphics.framework */; };
 		DD7A63A617F427AF00AC6DBA /* Selectors-Indentation.mod in Resources */ = {isa = PBXBuildFile; fileRef = DD7A63A517F427AF00AC6DBA /* Selectors-Indentation.mod */; };
 		DD7A63A817F427D300AC6DBA /* Properties-Basic.mod in Resources */ = {isa = PBXBuildFile; fileRef = DD7A63A717F427D300AC6DBA /* Properties-Basic.mod */; };
+		DD92491F180CA98400F34FC7 /* MODSpecHelpers.m in Sources */ = {isa = PBXBuildFile; fileRef = DD92491E180CA98400F34FC7 /* MODSpecHelpers.m */; };
 		DDA2FCC617E6453B00237125 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DDA2FCC517E6453B00237125 /* Foundation.framework */; };
 		DDA2FCCB17E6453B00237125 /* Mod.h in CopyFiles */ = {isa = PBXBuildFile; fileRef = DDA2FCCA17E6453B00237125 /* Mod.h */; };
 		DDA2FCF117E6455700237125 /* SenTestingKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DDA2FCF017E6455700237125 /* SenTestingKit.framework */; };
@@ -101,6 +102,8 @@
 		DD7A63A517F427AF00AC6DBA /* Selectors-Indentation.mod */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = "Selectors-Indentation.mod"; sourceTree = "<group>"; };
 		DD7A63A717F427D300AC6DBA /* Properties-Basic.mod */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = "Properties-Basic.mod"; sourceTree = "<group>"; };
 		DD82B9B917E79771000CD9DD /* QuartzCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = QuartzCore.framework; path = System/Library/Frameworks/QuartzCore.framework; sourceTree = SDKROOT; };
+		DD92491D180CA98400F34FC7 /* MODSpecHelpers.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MODSpecHelpers.h; sourceTree = "<group>"; };
+		DD92491E180CA98400F34FC7 /* MODSpecHelpers.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MODSpecHelpers.m; sourceTree = "<group>"; };
 		DDA2FCC217E6453B00237125 /* libMod.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libMod.a; sourceTree = BUILT_PRODUCTS_DIR; };
 		DDA2FCC517E6453B00237125 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
 		DDA2FCC917E6453B00237125 /* Mod-Prefix.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "Mod-Prefix.pch"; sourceTree = "<group>"; };
@@ -286,6 +289,8 @@
 		DDA2FCF517E6455700237125 /* Supporting Files */ = {
 			isa = PBXGroup;
 			children = (
+				DD92491D180CA98400F34FC7 /* MODSpecHelpers.h */,
+				DD92491E180CA98400F34FC7 /* MODSpecHelpers.m */,
 				DD27D48F1807AEE700322ED1 /* MODExampleView.h */,
 				DD27D4901807AEE700322ED1 /* MODExampleView.m */,
 				DDA2FCF617E6455700237125 /* ModTests-Info.plist */,
@@ -471,6 +476,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				DD58C42A17E6BF5B00B3173C /* MODStylerSpec.m in Sources */,
+				DD92491F180CA98400F34FC7 /* MODSpecHelpers.m in Sources */,
 				DD407BF217F13ED400B2F49D /* MODTokenSpec.m in Sources */,
 				DDB9204817E78A4000280D47 /* MODLexerSpec.m in Sources */,
 				DD27D4911807AEE700322ED1 /* MODExampleView.m in Sources */,
