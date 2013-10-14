@@ -13,8 +13,8 @@
 @property (nonatomic, strong, readwrite) NSString *name;
 @property (nonatomic, strong, readwrite) NSArray *values;
 
-@property (nonatomic, strong) MODToken *nameToken;
-@property (nonatomic, strong) NSArray *valueTokens;
+@property (nonatomic, strong, readwrite) MODToken *nameToken;
+@property (nonatomic, strong, readwrite) NSArray *valueTokens;
 
 @end
 

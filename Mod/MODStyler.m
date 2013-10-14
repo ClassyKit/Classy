@@ -37,9 +37,13 @@
 
     MODViewClassDescriptor *viewClassDescriptor = [self viewClassDescriptorForClass:UIView.class];
     viewClassDescriptor.propertyKeyAliases = @{
-        @"borderColor" : @"mod_borderColor",
-        @"borderWidth" : @"mod_borderWidth",
-        @"borderRadius" : @"mod_cornerRadius"
+        @"borderColor"   : @"mod_borderColor",
+        @"borderWidth"   : @"mod_borderWidth",
+        @"borderRadius"  : @"mod_cornerRadius",
+        @"shadowColor"   : @"mod_shadowColor",
+        @"shadowOffset"  : @"mod_shadowOffset",
+        @"shadowOpacity" : @"mod_shadowOpacity",
+        @"shadowRadius"  : @"mod_shadowRadius",
     };
 
     //some properties don't show up via reflection so we need to add them manually
@@ -63,6 +67,22 @@
                 } else if (argDescriptor.primitiveType == MODPrimitiveTypeDouble) {
                     CGFloat value = [[styleProperty.values lastObject] doubleValue];
                     [invocation setArgument:&value atIndex:argIndex];
+                } else if (argDescriptor.primitiveType == MODPrimitiveTypeCGSize) {
+                    __block CGSize size;
+                    __block BOOL hasWidth = NO, hasHeight = NO;
+                    [styleProperty.valueTokens enumerateObjectsUsingBlock:^(MODToken *token, NSUInteger idx, BOOL *stop) {
+                        if (token.type == MODTokenTypeUnit) {
+                            if (!hasWidth) {
+                                size.width = [token.value doubleValue];
+                                size.height = [token.value doubleValue];
+                                hasWidth = YES;
+                            } else if (!hasHeight) {
+                                size.height = [token.value doubleValue];
+                                hasHeight = YES;
+                            }
+                        }
+                    }];
+                    [invocation setArgument:&size atIndex:argIndex];
                 } else if (argDescriptor.class) {
                     id value = [styleProperty.values lastObject];
                     [invocation setArgument:&value atIndex:argIndex];

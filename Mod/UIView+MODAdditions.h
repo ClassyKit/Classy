@@ -16,4 +16,9 @@
 @property (nonatomic, assign) CGFloat mod_borderWidth;
 @property (nonatomic, assign) CGFloat mod_cornerRadius;
 
+@property (nonatomic, strong) UIColor *mod_shadowColor;
+@property (nonatomic, assign) CGSize mod_shadowOffset;
+@property (nonatomic, assign) CGFloat mod_shadowOpacity;
+@property (nonatomic, assign) CGFloat mod_shadowRadius;
+
 @end

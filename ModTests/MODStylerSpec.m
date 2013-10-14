@@ -76,8 +76,13 @@ it(@"should set basic properties", ^{
 
     expect(view.mod_borderColor.mod_hexValue).to.equal(@"a1a1a1");
     expect(view.backgroundColor.mod_hexValue).to.equal(@"a2a2a2");
-    expect(view.layer.borderWidth).to.equal(2);
-    expect(view.layer.cornerRadius).to.equal(7);
+    expect(view.mod_borderWidth).to.equal(2);
+    expect(view.mod_cornerRadius).to.equal(7);
+
+    expect(view.mod_shadowColor.mod_hexValue).to.equal(@"a3a3a3");
+    expect(view.mod_shadowOffset).to.equal(CGSizeMake(1, 3));
+    expect(view.mod_shadowOpacity).to.equal(0.5);
+    expect(view.mod_shadowRadius).to.equal(4);
 });
 
 it(@"should set custom properties", ^{

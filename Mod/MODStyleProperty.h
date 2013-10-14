@@ -22,6 +22,16 @@
 @property (nonatomic, strong, readonly) NSArray *values;
 
 /**
+ *  Name token of the receiver
+ */
+@property (nonatomic, strong, readonly) MODToken *nameToken;
+
+/**
+ *  value tokens of the receiver
+ */
+@property (nonatomic, strong, readonly) NSArray *valueTokens;
+
+/**
  *  NSInvocation to apply to appropriate view
  */
 @property (nonatomic, strong) NSInvocation *invocation;
