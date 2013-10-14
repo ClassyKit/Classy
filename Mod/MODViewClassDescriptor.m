@@ -30,6 +30,16 @@
 
 #pragma mark - property descriptor support
 
+- (void)setPropertyType:(MODArgumentDescriptor *)argDescriptor forKey:(NSString *)key {
+    MODPropertyDescriptor *propertyDescriptor = [[MODPropertyDescriptor alloc] initWithKey:key];
+    propertyDescriptor.argumentDescriptors = @[argDescriptor];
+
+    NSString *setter = [NSString stringWithFormat:@"set%@:", [key stringByReplacingCharactersInRange:NSMakeRange(0,1) withString:[[key substringToIndex:1] capitalizedString]]];
+
+    propertyDescriptor.setter = NSSelectorFromString(setter);
+    self.propertyDescriptorCache[key] = propertyDescriptor;
+}
+
 - (NSInvocation *)invocationForPropertyDescriptor:(MODPropertyDescriptor *)propertyDescriptor {
     if (!propertyDescriptor) return nil;
     

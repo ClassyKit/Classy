@@ -75,7 +75,7 @@ it(@"should set basic properties", ^{
     [styler styleView:view];
 
     expect(view.mod_borderColor.mod_hexValue).to.equal(@"a1a1a1");
-//TODO    expect(view.backgroundColor.mod_hexValue).to.equal(@"a2a2a2");
+    expect(view.backgroundColor.mod_hexValue).to.equal(@"a2a2a2");
     expect(view.layer.borderWidth).to.equal(2);
     expect(view.layer.cornerRadius).to.equal(7);
 });
@@ -106,18 +106,6 @@ it(@"should get view descriptor", ^{
     descriptor = [styler viewClassDescriptorForClass:UIView.class];
     expect(descriptor.viewClass).to.equal(UIView.class);
     expect(descriptor.parent).to.beNil();
-});
-
-xit(@"should do reflection", ^{
-    NSMethodSignature *signature = [[UIView class] instanceMethodSignatureForSelector:@selector(setFrame:)];
-    NSString *typeString = [NSString stringWithUTF8String:[signature getArgumentTypeAtIndex:2]];
-    expect(typeString).to.equal(@"");
-
-    typeString = [NSString stringWithUTF8String:@encode(CGColorRef)];
-    expect(typeString).to.equal(@"");
-
-    expect([UIView.class isSubclassOfClass:UIResponder.class]).to.beTruthy();
-    expect([UIView.class isSubclassOfClass:UISlider.class]).to.beFalsy();
 });
 
 SpecEnd

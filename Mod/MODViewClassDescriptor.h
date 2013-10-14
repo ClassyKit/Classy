@@ -32,4 +32,6 @@
 
 - (MODPropertyDescriptor *)propertyDescriptorForKey:(NSString *)key;
 
+- (void)setPropertyType:(MODArgumentDescriptor *)argDescriptor forKey:(NSString *)key;
+
 @end

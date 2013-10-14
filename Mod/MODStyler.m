@@ -42,6 +42,9 @@
         @"borderRadius" : @"mod_cornerRadius"
     };
 
+    //some properties don't show up via reflection so we need to add them manually
+    [viewClassDescriptor setPropertyType:[MODArgumentDescriptor argWithClass:UIColor.class] forKey:@"backgroundColor"];
+
     //precompute values
     for (MODStyleSelector *styleSelector in self.styles.reverseObjectEnumerator) {
         for (MODStyleProperty *styleProperty in styleSelector.node.properties) {
