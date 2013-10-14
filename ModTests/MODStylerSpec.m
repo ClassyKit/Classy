@@ -11,6 +11,7 @@
 #import "MODStyleSelector.h"
 #import "UIView+MODAdditions.h"
 #import <objc/runtime.h>
+#import "MODExampleView.h"
 
 @interface MODStyler ()
 @property (nonatomic, strong) NSMutableArray *styles;
@@ -74,10 +75,22 @@ it(@"should set basic properties", ^{
     [styler styleView:view];
 
     expect(view.mod_borderColor.mod_hexValue).to.equal(@"a1a1a1");
-    //TODO
-//    expect(view.backgroundColor.mod_hexValue).to.equal(@"a2a2a2");
-//    expect(view.layer.borderWidth).to.equal(2);
-//    expect(view.layer.cornerRadius).to.equal(7);
+//TODO    expect(view.backgroundColor.mod_hexValue).to.equal(@"a2a2a2");
+    expect(view.layer.borderWidth).to.equal(2);
+    expect(view.layer.cornerRadius).to.equal(7);
+});
+
+it(@"should set custom properties", ^{
+    NSString *filePath = [[NSBundle bundleForClass:self.class] pathForResource:@"UIView-Basic.mod" ofType:nil];
+    MODStyler *styler = [[MODStyler alloc] initWithFilePath:filePath error:nil];
+    MODExampleView *exampleView = MODExampleView.new;
+    [styler styleView:exampleView];
+
+    expect(exampleView.testCGFloat).to.equal(4.5);
+    expect(exampleView.testBOOL).to.equal(YES);
+    expect(exampleView.testNSInteger).to.equal(-999);
+    expect(exampleView.testNSUInteger).to.equal(1000);
+    expect(exampleView.testInt).to.equal(345);
 });
 
 it(@"should get view descriptor", ^{

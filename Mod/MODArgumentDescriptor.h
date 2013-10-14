@@ -8,10 +8,25 @@
 
 #import <Foundation/Foundation.h>
 
+/**
+ *  Supported primitive argument types
+ */
+typedef NS_ENUM(NSUInteger, MODPrimitiveType) {
+    MODPrimitiveTypeNone,
+    MODPrimitiveTypeDouble,
+    MODPrimitiveTypeInteger,
+    MODPrimitiveTypeCGSize,
+    MODPrimitiveTypeCGRect,
+    MODPrimitiveTypeUIEdgeInsets,
+    MODPrimitiveTypeUIOffset
+};
+
+
+
 @interface MODArgumentDescriptor : NSObject
 
 @property (nonatomic, strong, readonly) Class argumentClass;
-@property (nonatomic, strong, readonly) NSString *type;
+@property (nonatomic, assign, readonly) MODPrimitiveType primitiveType;
 
 + (instancetype)argWithObjCType:(const char *)type;
 + (instancetype)argWithType:(NSString *)type;

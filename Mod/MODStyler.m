@@ -53,17 +53,17 @@
 
             NSInvocation *invocation = [viewClassDescriptor invocationForPropertyDescriptor:propertyDescriptor];
             [propertyDescriptor.argumentDescriptors enumerateObjectsUsingBlock:^(MODArgumentDescriptor *argDescriptor, NSUInteger idx, BOOL *stop) {
-                if (argDescriptor.class) {
+                NSInteger argIndex = 2 + idx;
+                if (argDescriptor.primitiveType == MODPrimitiveTypeInteger) {
+                    NSInteger value = [[styleProperty.values lastObject] integerValue];
+                    [invocation setArgument:&value atIndex:argIndex];
+                } else if (argDescriptor.primitiveType == MODPrimitiveTypeDouble) {
+                    CGFloat value = [[styleProperty.values lastObject] doubleValue];
+                    [invocation setArgument:&value atIndex:argIndex];
+                } else if (argDescriptor.class) {
                     id value = [styleProperty.values lastObject];
-                    [invocation setArgument:&value atIndex:2+idx];
+                    [invocation setArgument:&value atIndex:argIndex];
                 }
-                //TODO
-//                id value;
-//                if (idx == 0) {
-//                    value = [styleProperty valueWithArgumentDescriptor:argDescriptor];
-//                } else {
-//                    value = [styleSelector valueWithArgumentDescriptor:argDescriptor]
-//                }
             }];
             [invocation retainArguments];
             styleProperty.invocation = invocation;

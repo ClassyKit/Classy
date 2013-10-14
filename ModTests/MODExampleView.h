@@ -10,4 +10,10 @@
 
 @interface MODExampleView : UIView
 
+@property (nonatomic, assign) BOOL testBOOL;
+@property (nonatomic, assign) NSUInteger testNSUInteger;
+@property (nonatomic, assign) CGFloat testCGFloat;
+@property (nonatomic, assign) NSInteger testNSInteger;
+@property (nonatomic, assign) int testInt;
+
 @end
