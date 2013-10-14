@@ -10,6 +10,9 @@
 #import "MODParser.h"
 #import "MODStyleSelector.h"
 #import "MODPropertyDescriptor.h"
+#import "UIView+MODAdditions.h"
+#import "UITextField+MODAdditions.h"
+#import "MODLog.h"
 
 @interface MODStyler ()
 
@@ -34,20 +37,7 @@
     }];
 
     self.viewClassDescriptorCache = NSMapTable.strongToStrongObjectsMapTable;
-
-    MODViewClassDescriptor *viewClassDescriptor = [self viewClassDescriptorForClass:UIView.class];
-    viewClassDescriptor.propertyKeyAliases = @{
-        @"borderColor"   : @"mod_borderColor",
-        @"borderWidth"   : @"mod_borderWidth",
-        @"borderRadius"  : @"mod_cornerRadius",
-        @"shadowColor"   : @"mod_shadowColor",
-        @"shadowOffset"  : @"mod_shadowOffset",
-        @"shadowOpacity" : @"mod_shadowOpacity",
-        @"shadowRadius"  : @"mod_shadowRadius",
-    };
-
-    //some properties don't show up via reflection so we need to add them manually
-    [viewClassDescriptor setPropertyType:[MODArgumentDescriptor argWithClass:UIColor.class] forKey:@"backgroundColor"];
+    [self setupViewClassDescriptors];
 
     //precompute values
     for (MODStyleSelector *styleSelector in self.styles.reverseObjectEnumerator) {
@@ -94,6 +84,29 @@
     }
 
     return self;
+}
+
+- (void)setupViewClassDescriptors {
+    MODViewClassDescriptor *viewClassDescriptor = [self viewClassDescriptorForClass:UIView.class];
+    viewClassDescriptor.propertyKeyAliases = @{
+        @"borderColor"   : @mod_propertykey(UIView, mod_borderColor),
+        @"borderWidth"   : @mod_propertykey(UIView, mod_borderWidth),
+        @"borderRadius"  : @mod_propertykey(UIView, mod_cornerRadius),
+        @"shadowColor"   : @mod_propertykey(UIView, mod_shadowColor),
+        @"shadowOffset"  : @mod_propertykey(UIView, mod_shadowOffset),
+        @"shadowOpacity" : @mod_propertykey(UIView, mod_shadowOpacity),
+        @"shadowRadius"  : @mod_propertykey(UIView, mod_shadowRadius),
+    };
+
+    //some properties don't show up via reflection so we need to add them manually
+    [viewClassDescriptor setPropertyType:[MODArgumentDescriptor argWithClass:UIColor.class] forKey:@"backgroundColor"];
+
+    viewClassDescriptor = [self viewClassDescriptorForClass:UITextField.class];
+    viewClassDescriptor.propertyKeyAliases = @{
+        @"fontColor" : @mod_propertykey(UITextField, textColor),
+        @"fontName"  : @mod_propertykey(UITextField, mod_fontName),
+        @"fontSize"  : @mod_propertykey(UITextField, mod_fontSize),
+    };
 }
 
 - (void)styleView:(UIView *)view {

@@ -17,6 +17,7 @@
 		DD27D48E1807A66600322ED1 /* UIView-Basic.mod in Resources */ = {isa = PBXBuildFile; fileRef = DD27D48D1807A66600322ED1 /* UIView-Basic.mod */; };
 		DD27D4911807AEE700322ED1 /* MODExampleView.m in Sources */ = {isa = PBXBuildFile; fileRef = DD27D4901807AEE700322ED1 /* MODExampleView.m */; };
 		DD2B3E3D17F2D98900C71ED9 /* Selectors-Complex.mod in Resources */ = {isa = PBXBuildFile; fileRef = DD2B3E3C17F2D98900C71ED9 /* Selectors-Complex.mod */; };
+		DD33C3C0180BB8E80058A681 /* UITextField+MODAdditions.m in Sources */ = {isa = PBXBuildFile; fileRef = DD33C3BF180BB8E80058A681 /* UITextField+MODAdditions.m */; };
 		DD3796A017F91ADF003FE21C /* UIView+MODAdditions.m in Sources */ = {isa = PBXBuildFile; fileRef = DD37969F17F91ADE003FE21C /* UIView+MODAdditions.m */; };
 		DD407BF217F13ED400B2F49D /* MODTokenSpec.m in Sources */ = {isa = PBXBuildFile; fileRef = DD407BF117F13ED400B2F49D /* MODTokenSpec.m */; };
 		DD58C42817E6BEE900B3173C /* MODStyler.m in Sources */ = {isa = PBXBuildFile; fileRef = DD58C42717E6BEE900B3173C /* MODStyler.m */; };
@@ -85,6 +86,8 @@
 		DD27D48F1807AEE700322ED1 /* MODExampleView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MODExampleView.h; sourceTree = "<group>"; };
 		DD27D4901807AEE700322ED1 /* MODExampleView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MODExampleView.m; sourceTree = "<group>"; };
 		DD2B3E3C17F2D98900C71ED9 /* Selectors-Complex.mod */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = "Selectors-Complex.mod"; sourceTree = "<group>"; };
+		DD33C3BE180BB8E80058A681 /* UITextField+MODAdditions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UITextField+MODAdditions.h"; sourceTree = "<group>"; };
+		DD33C3BF180BB8E80058A681 /* UITextField+MODAdditions.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UITextField+MODAdditions.m"; sourceTree = "<group>"; };
 		DD37969E17F91ADE003FE21C /* UIView+MODAdditions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIView+MODAdditions.h"; sourceTree = "<group>"; };
 		DD37969F17F91ADE003FE21C /* UIView+MODAdditions.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIView+MODAdditions.m"; sourceTree = "<group>"; };
 		DD407BF117F13ED400B2F49D /* MODTokenSpec.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MODTokenSpec.m; sourceTree = "<group>"; };
@@ -207,6 +210,8 @@
 				DDB9204A17E78B5B00280D47 /* NSRegularExpression+MODAdditions.m */,
 				DD37969E17F91ADE003FE21C /* UIView+MODAdditions.h */,
 				DD37969F17F91ADE003FE21C /* UIView+MODAdditions.m */,
+				DD33C3BE180BB8E80058A681 /* UITextField+MODAdditions.h */,
+				DD33C3BF180BB8E80058A681 /* UITextField+MODAdditions.m */,
 			);
 			name = Additions;
 			sourceTree = "<group>";
@@ -438,6 +443,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				DDE76FF317F2ADE6003DF205 /* MODStyleNode.m in Sources */,
+				DD33C3C0180BB8E80058A681 /* UITextField+MODAdditions.m in Sources */,
 				DD3796A017F91ADF003FE21C /* UIView+MODAdditions.m in Sources */,
 				DD01AE9D1808DD8900F6CB8E /* MODArgumentDescriptor.m in Sources */,
 				DDCA963217F92BFC00A0EAB7 /* MODViewClassDescriptor.m in Sources */,

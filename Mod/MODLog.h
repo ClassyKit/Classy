@@ -13,3 +13,7 @@
 #else
 #   define MODLog(...)
 #endif
+
+//TODO move
+#define mod_propertykey(classname, property) \
+(((void)(NO && ((void)(( classname *)(nil)).property, NO)), # property))
