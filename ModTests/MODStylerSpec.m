@@ -67,16 +67,17 @@ it(@"should select indirect superview", ^{
     expect([selector shouldSelectView:button]).to.beTruthy();
 });
 
-xit(@"should set basic properties", ^{
+it(@"should set basic properties", ^{
     NSString *filePath = [[NSBundle bundleForClass:self.class] pathForResource:@"UIView-Basic.mod" ofType:nil];
     MODStyler *styler = [[MODStyler alloc] initWithFilePath:filePath error:nil];
     UISlider *view = UISlider.new;
     [styler styleView:view];
 
-    expect(view.backgroundColor.mod_hexValue).to.equal(@"a2a2a2");
-    expect([UIColor colorWithCGColor:view.layer.borderColor].mod_hexValue).to.equal(@"a1a1a1");
-    expect(view.layer.borderWidth).to.equal(2);
-    expect(view.layer.cornerRadius).to.equal(7);
+    expect(view.mod_borderColor.mod_hexValue).to.equal(@"a1a1a1");
+    //TODO
+//    expect(view.backgroundColor.mod_hexValue).to.equal(@"a2a2a2");
+//    expect(view.layer.borderWidth).to.equal(2);
+//    expect(view.layer.cornerRadius).to.equal(7);
 });
 
 it(@"should get view descriptor", ^{
@@ -95,13 +96,6 @@ it(@"should get view descriptor", ^{
 });
 
 xit(@"should do reflection", ^{
-    objc_property_t property = class_getProperty([UISlider  class], "mod_styleClass");
-    expect(property).notTo.beNil();
-    if (property != NULL) {
-        const char *type = property_getAttributes(property);
-        NSString *typeString = [NSString stringWithUTF8String:type];
-        expect(typeString).to.equal(@"kadsf");
-    }
     NSMethodSignature *signature = [[UIView class] instanceMethodSignatureForSelector:@selector(setFrame:)];
     NSString *typeString = [NSString stringWithUTF8String:[signature getArgumentTypeAtIndex:2]];
     expect(typeString).to.equal(@"");

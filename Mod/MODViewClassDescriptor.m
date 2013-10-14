@@ -34,12 +34,7 @@
     if (!propertyDescriptor) return nil;
     
     SEL selector = propertyDescriptor.setter;
-    Method method = class_getInstanceMethod(self.viewClass, selector);
-    struct objc_method_description* desc = method_getDescription(method);
-    if (desc == NULL || desc->name == NULL)
-        return nil;
-
-    NSMethodSignature *methodSignature = [NSMethodSignature signatureWithObjCTypes:desc->types];
+    NSMethodSignature *methodSignature = [self.viewClass instanceMethodSignatureForSelector:selector];
     NSInvocation *invocation = [NSInvocation invocationWithMethodSignature:methodSignature];
     [invocation setSelector:selector];
     return invocation;

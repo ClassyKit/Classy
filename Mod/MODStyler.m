@@ -53,6 +53,10 @@
 
             NSInvocation *invocation = [viewClassDescriptor invocationForPropertyDescriptor:propertyDescriptor];
             [propertyDescriptor.argumentDescriptors enumerateObjectsUsingBlock:^(MODArgumentDescriptor *argDescriptor, NSUInteger idx, BOOL *stop) {
+                if (argDescriptor.class) {
+                    id value = [styleProperty.values lastObject];
+                    [invocation setArgument:&value atIndex:2+idx];
+                }
                 //TODO
 //                id value;
 //                if (idx == 0) {
@@ -60,7 +64,6 @@
 //                } else {
 //                    value = [styleSelector valueWithArgumentDescriptor:argDescriptor]
 //                }
-//                [invocation setArgument:value atIndex:2+idx];
             }];
             [invocation retainArguments];
             styleProperty.invocation = invocation;
