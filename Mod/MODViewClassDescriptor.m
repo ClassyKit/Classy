@@ -52,17 +52,17 @@
 }
 
 - (MODPropertyDescriptor *)propertyDescriptorForKey:(NSString *)key {
-    //if property descriptor exists on this class descriptor. return it.
+    // if property descriptor exists on this class descriptor. return it.
     NSString *propertyKey = self.propertyKeyAliases[key] ?: key;
     MODPropertyDescriptor *propertyDescriptor = self.propertyDescriptorCache[propertyKey];
     if (propertyDescriptor) return propertyDescriptor;
 
-    //if property descriptor exists on parent class descriptor. return it.
+    // if property descriptor exists on parent class descriptor. return it.
     propertyDescriptor = [self.parent propertyDescriptorForKey:key];
     if (propertyDescriptor) return propertyDescriptor;
 
-    //create property descriptor on this descriptor if has propertyKeyAlias
-    //or if responds to property and superclass doesn't
+    // create property descriptor on this descriptor if has propertyKeyAlias
+    // or if responds to property and superclass doesn't
     SEL propertySelector = NSSelectorFromString(propertyKey);
 
     if (self.propertyKeyAliases[propertyKey]
@@ -90,7 +90,7 @@
             self.propertyDescriptorCache[propertyKey] = propertyDescriptor;
             return propertyDescriptor;
         } else {
-            //TODO error
+            // TODO error
         }
     }
 

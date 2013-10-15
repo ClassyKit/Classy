@@ -86,4 +86,12 @@ typedef NS_ENUM(NSInteger, MODTokenType) {
  */
 - (BOOL)isPossiblySelector;
 
+/**
+ *  Returns whether the receiver could be a valid variable token.
+ *  However context will determine if it is definitely a variable
+ *
+ *  @return `YES` if it is possible that the receiver is a variable
+ */
+- (BOOL)isPossiblyVar;
+
 @end

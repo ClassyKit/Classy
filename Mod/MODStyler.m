@@ -29,7 +29,7 @@
 
     self.styles = [[MODParser stylesFromFilePath:filePath error:error] mutableCopy];
 
-    //order descending by precedence
+    // order descending by precedence
     [self.styles sortWithOptions:NSSortStable usingComparator:^NSComparisonResult(MODStyleSelector *s1, MODStyleSelector *s2) {
         if (s1.precedence == s2.precedence) return NSOrderedSame;
         if (s1.precedence <  s2.precedence) return NSOrderedDescending;
@@ -39,13 +39,13 @@
     self.viewClassDescriptorCache = NSMapTable.strongToStrongObjectsMapTable;
     [self setupViewClassDescriptors];
 
-    //precompute values
+    // precompute values
     for (MODStyleSelector *styleSelector in self.styles.reverseObjectEnumerator) {
         for (MODStyleProperty *styleProperty in styleSelector.node.properties) {
-            //TODO type checking and throw errors
+            // TODO type checking and throw errors
 
-            //ensure we dont do same node twice
-            //TODO each styleSelector should really have its own node.
+            // ensure we dont do same node twice
+            // TODO each styleSelector should really have its own node.
             if (styleProperty.invocation) continue;
 
             MODViewClassDescriptor *viewClassDescriptor = [self viewClassDescriptorForClass:styleSelector.viewClass];
@@ -149,13 +149,13 @@
     [viewClassDescriptor setPropertyType:[MODArgumentDescriptor argWithValuesByName:contentModeMap]
                                   forKey:@mod_propertykey(UIView, contentMode)];
 
-    //some properties don't show up via reflection so we need to add them manually
+    // some properties don't show up via reflection so we need to add them manually
     [viewClassDescriptor setPropertyType:[MODArgumentDescriptor argWithClass:UIColor.class]
                                   forKey:@mod_propertykey(UIView, backgroundColor)];
 
     // UITextField
-    //TODO text insets
-    //TODO border insets
+    // TODO text insets
+    // TODO border insets
     viewClassDescriptor = [self viewClassDescriptorForClass:UITextField.class];
     viewClassDescriptor.propertyKeyAliases = @{
         @"fontColor"           : @mod_propertykey(UITextField, textColor),
@@ -209,11 +209,11 @@
 }
 
 - (void)styleView:(UIView *)view {
-    //TODO style lookup table to improve speed.
+    // TODO style lookup table to improve speed.
 
     for (MODStyleSelector *styleSelector in self.styles.reverseObjectEnumerator) {
         if ([styleSelector shouldSelectView:view]) {
-            //apply style nodes
+            // apply style nodes
             for (MODStyleProperty *styleProperty in styleSelector.node.properties) {
                 [styleProperty.invocation invokeWithTarget:view];
             }

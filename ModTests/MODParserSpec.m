@@ -146,7 +146,7 @@ describe(@"properties", ^{
 
         expect(styles.count).to.equal(5);
 
-        //group 1
+        // group 1
         MODStyleNode *node = [styles[0] node];
         expect(node.styleProperties).to.haveCountOf(2);
         expect([node.styleProperties[0] name]).to.equal(@"backgroundColor");
@@ -154,7 +154,7 @@ describe(@"properties", ^{
         expect([node.styleProperties[1] name]).to.equal(@"borderInset");
         expect([node.styleProperties[1] values]).to.equal(@[@1]);
 
-        //group 2
+        // group 2
         node = [styles[2] node];
         expect(node.styleProperties).to.haveCountOf(2);
         expect([node.styleProperties[0] name]).to.equal(@"fontColor");
@@ -162,7 +162,7 @@ describe(@"properties", ^{
         expect([node.styleProperties[1] name]).to.equal(@"borderWidth");
         expect([node.styleProperties[1] values]).to.equal(@[@2]);
 
-        //group 3
+        // group 3
         node = [styles[3] node];
         expect(node.styleProperties).to.haveCountOf(3);
         expect([node.styleProperties[0] name]).to.equal(@"fontName");

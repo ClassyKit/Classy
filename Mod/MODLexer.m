@@ -61,7 +61,7 @@ NSString * const MODParseFailingStringErrorKey = @"MODParseFailingStringErrorKey
         @(MODTokenTypeIndent)    : @[ MODRegex(@"^\\n([\\t]*)"),
                                       MODRegex(@"^\\n([ ]*)") ],
 
-        //#rrggbbaa | #rrggbb | #rgb
+        // #rrggbbaa | #rrggbb | #rgb
         @(MODTokenTypeColor)     : @[ MODRegex(@"^#([a-fA-F0-9]{8})[ \\t]*"),
                                       MODRegex(@"^#([a-fA-F0-9]{6})[ \\t]*"),
                                       MODRegex(@"^#([a-fA-F0-9]{3})[ \\t]*") ],

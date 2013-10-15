@@ -102,4 +102,11 @@
         || [self valueIsEqualTo:@","];
 }
 
+- (BOOL)isPossiblyVar {
+    return self.type == MODTokenTypeIndent
+        || self.type == MODTokenTypeSpace
+        || self.type == MODTokenTypeRef
+        || [self valueIsEqualTo:@"="];
+}
+
 @end

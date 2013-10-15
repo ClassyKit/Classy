@@ -21,6 +21,7 @@ NSInteger const MODParseErrorFileContents = 2;
 
 @property (nonatomic, strong) MODLexer *lexer;
 @property (nonatomic, strong) NSMutableArray *styleSelectors;
+@property (nonatomic, strong) NSMutableDictionary *styleVars;
 
 @end
 
@@ -92,6 +93,7 @@ NSInteger const MODParseErrorFileContents = 2;
 - (NSArray *)parseString:(NSString *)string error:(NSError **)error {
     self.lexer = [[MODLexer alloc] initWithString:string];
     self.styleSelectors = NSMutableArray.new;
+    self.styleVars = NSMutableDictionary.new;
 
     MODStyleNode *currentNode = nil;
     while (self.peekToken.type != MODTokenTypeEOS) {
@@ -100,6 +102,18 @@ NSInteger const MODParseErrorFileContents = 2;
                 *error = self.lexer.error;
             }
             return nil;
+        }
+
+        MODStyleProperty *styleVar = [self nextStyleVar];
+        if (styleVar) {
+            if (currentNode) {
+                //TODO error can't have vars inside styleNOdes
+            }
+            self.styleVars[styleVar.nameToken.value] = styleVar;
+            [self consumeTokensMatching:^BOOL(MODToken *token) {
+                return token.isWhitespace || token.type == MODTokenTypeSemiColon;
+            }];
+            continue;
         }
 
         MODStyleNode *styleNode = [self nextStyleNode];
@@ -111,7 +125,7 @@ NSInteger const MODParseErrorFileContents = 2;
             continue;
         }
 
-        //not a style group therefore must be a property
+        // not a style group therefore must be a property
         MODStyleProperty *styleProperty = [self nextStyleProperty];
         if (styleProperty) {
             if (!currentNode) {
@@ -168,7 +182,7 @@ NSInteger const MODParseErrorFileContents = 2;
 
 - (MODToken *)consumeTokenOfType:(MODTokenType)type {
     if (type == self.peekToken.type) {
-        //return token and remove from stack
+        // return token and remove from stack
         return self.nextToken;
     }
     return nil;
@@ -176,7 +190,7 @@ NSInteger const MODParseErrorFileContents = 2;
 
 - (MODToken *)consumeTokenWithValue:(id)value {
     if ([self.peekToken valueIsEqualTo:value]) {
-        //return token and remove from stack
+        // return token and remove from stack
         return self.nextToken;
     }
     return nil;
@@ -192,6 +206,40 @@ NSInteger const MODParseErrorFileContents = 2;
 }
 
 #pragma mark - nodes
+
+- (MODStyleProperty *)nextStyleVar {
+    // variable if following seq: MODTokenTypeRef, `=`, any token until newline
+    NSInteger i = 1;
+    MODToken *token = [self lookaheadByCount:i];
+    BOOL hasEqualsSign = NO;
+    MODToken *refToken;
+
+    while (token && token.isPossiblyVar && !(hasEqualsSign && refToken)) {
+        if (token.type == MODTokenTypeRef) {
+            refToken = token;
+        }
+        if (refToken && [token valueIsEqualTo:@"="]) {
+            hasEqualsSign = YES;
+        }
+        token = [self lookaheadByCount:++i];
+    }
+
+    if (hasEqualsSign && refToken) {
+        // consume LHS of var
+        while (--i >= 0) {
+            [self nextToken];
+        }
+
+        // collect value tokens
+        NSMutableArray *valueTokens = NSMutableArray.new;
+        while (token.type != MODTokenTypeNewline && token.type != MODTokenTypeSemiColon) {
+            [valueTokens addObject:token];
+            token = [self nextToken];
+        }
+        return [[MODStyleProperty alloc] initWithNameToken:refToken valueTokens:valueTokens];
+    }
+    return nil;
+}
 
 - (MODStyleNode *)nextStyleNode {
     NSInteger i = 1;
@@ -217,7 +265,7 @@ NSInteger const MODParseErrorFileContents = 2;
         token = [self nextToken];
 
         if (argumentListMode) {
-            //TODO refactor
+            // TODO refactor
             if (token.type == MODTokenTypeRightSquareBrace) {
                 argumentListMode = NO;
             } else if (token.type == MODTokenTypeSelector || token.type == MODTokenTypeRef) {
@@ -260,7 +308,7 @@ NSInteger const MODParseErrorFileContents = 2;
 
             styleSelector.shouldSelectSubclasses = shouldSelectSubclasses;
             
-            //TODO error if viewClass is nil
+            // TODO error if viewClass is nil
 
             if ([tokenValue hasPrefix:@"."]) {
                 styleSelector.styleClass = [tokenValue substringFromIndex:1];
@@ -268,7 +316,7 @@ NSInteger const MODParseErrorFileContents = 2;
                 styleSelector.viewClass = NSClassFromString(tokenValue);
             }
 
-            //reset state
+            // reset state
             shouldSelectSubclasses = NO;
             shouldSelectDescendants = YES;
         } else if (token.type == MODTokenTypeLeftSquareBrace) {
@@ -314,13 +362,22 @@ NSInteger const MODParseErrorFileContents = 2;
         if (!nameToken) {
             nameToken = token;
         } else {
-            [valueTokens addObject:token];
+            if (token.type == MODTokenTypeRef) {
+                MODStyleProperty *styleVar = self.styleVars[token.value];
+                if (styleVar) {
+                    [valueTokens addObjectsFromArray:styleVar.valueTokens];
+                } else {
+                    [valueTokens addObject:token];
+                }
+            } else {
+                [valueTokens addObject:token];
+            }
         }
         token = [self lookaheadByCount:++i];
     }
 
     if (nameToken.value && valueTokens.count) {
-        //consume tokens
+        // consume tokens
         while (--i > 0) {
             [self nextToken];
         }
