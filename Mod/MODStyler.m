@@ -14,10 +14,6 @@
 #import "UITextField+MODAdditions.h"
 #import "MODLog.h"
 
-@interface NSArray ()
-- (id)firstObject;
-@end
-
 @interface MODStyler ()
 
 @property (nonatomic, strong) NSMutableArray *styles;
@@ -59,26 +55,45 @@
             [invocation retainArguments];
             [propertyDescriptor.argumentDescriptors enumerateObjectsUsingBlock:^(MODArgumentDescriptor *argDescriptor, NSUInteger idx, BOOL *stop) {
                 NSInteger argIndex = 2 + idx;
-                if (argDescriptor.primitiveType == MODPrimitiveTypeInteger) {
-                    NSInteger value;
-                    if (argDescriptor.valuesByName) {
-                        value = [argDescriptor.valuesByName[styleProperty.values.firstObject] integerValue];
-                    } else {
-                        value = [styleProperty.values.lastObject integerValue];
+                switch (argDescriptor.primitiveType) {
+                    case MODPrimitiveTypeBOOL: {
+                        BOOL value = [[styleProperty valueOfTokenType:MODTokenTypeBoolean] boolValue];
+                        [invocation setArgument:&value atIndex:argIndex];
+                        break;
                     }
-                    [invocation setArgument:&value atIndex:argIndex];
-                } else if (argDescriptor.primitiveType == MODPrimitiveTypeDouble) {
-                    CGFloat value = [styleProperty.values.firstObject doubleValue];
-                    [invocation setArgument:&value atIndex:argIndex];
-                } else if (argDescriptor.primitiveType == MODPrimitiveTypeCGSize) {
-                    CGSize size;
-                    [styleProperty transformValuesToCGSize:&size];
-                    [invocation setArgument:&size atIndex:argIndex];
-                } else if (argDescriptor.primitiveType == MODPrimitiveTypeUIEdgeInsets) {
-                    UIEdgeInsets insets;
-                    [styleProperty transformValuesToUIEdgeInsets:&insets];
-                    [invocation setArgument:&insets atIndex:argIndex];
-                } else if (argDescriptor.argumentClass == UIImage.class) {
+                    case MODPrimitiveTypeInteger: {
+                        NSInteger value;
+                        if (argDescriptor.valuesByName) {
+                            NSString *valueName = [styleProperty valueOfTokenType:MODTokenTypeRef];
+                            value = [argDescriptor.valuesByName[valueName] integerValue];
+                        } else {
+                            value = [[styleProperty valueOfTokenType:MODTokenTypeUnit] integerValue];
+                        }
+                        [invocation setArgument:&value atIndex:argIndex];
+                        break;
+                    }
+                    case MODPrimitiveTypeDouble: {
+                        CGFloat value = [[styleProperty valueOfTokenType:MODTokenTypeUnit] doubleValue];
+                        [invocation setArgument:&value atIndex:argIndex];
+                        break;
+                    }
+                    case MODPrimitiveTypeCGSize: {
+                        CGSize size;
+                        [styleProperty transformValuesToCGSize:&size];
+                        [invocation setArgument:&size atIndex:argIndex];
+                        break;
+                    }
+                    case MODPrimitiveTypeUIEdgeInsets: {
+                        UIEdgeInsets insets;
+                        [styleProperty transformValuesToUIEdgeInsets:&insets];
+                        [invocation setArgument:&insets atIndex:argIndex];
+                        break;
+                    }
+                    default:
+                        break;
+                }
+
+                if (argDescriptor.argumentClass == UIImage.class) {
                     UIEdgeInsets insets;
                     BOOL hasInsets = [styleProperty transformValuesToUIEdgeInsets:&insets];
 
@@ -91,7 +106,7 @@
                         [invocation setArgument:&image atIndex:argIndex];
                     }
                 } else if (argDescriptor.argumentClass) {
-                    id value = [styleProperty.values lastObject];
+                    id value = styleProperty.values.count ? styleProperty.values[0] : nil;
                     [invocation setArgument:&value atIndex:argIndex];
                 }
             }];

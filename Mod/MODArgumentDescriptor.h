@@ -14,6 +14,7 @@
 typedef NS_ENUM(NSUInteger, MODPrimitiveType) {
     MODPrimitiveTypeNone,
     MODPrimitiveTypeUnsupported,
+    MODPrimitiveTypeBOOL,
     MODPrimitiveTypeDouble,
     MODPrimitiveTypeInteger,
     MODPrimitiveTypeCGSize,

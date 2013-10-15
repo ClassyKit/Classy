@@ -48,9 +48,13 @@
 - (MODPrimitiveType)primitiveType {
     if (!self.type.length) return MODPrimitiveTypeNone;
 
+    // if char type assume it's a BOOL, since chars aren't very useful for styling
+    BOOL isBOOL = self.type.length == 1 && [self.type isEqualToString:@"c"];
+    if (isBOOL) return MODPrimitiveTypeBOOL;
+
+    // check for integer
     BOOL isInteger = self.type.length == 1 && (
-           [self.type isEqualToString:@"c"]   // A char or a BOOL
-        || [self.type isEqualToString:@"i"]   // An int
+           [self.type isEqualToString:@"i"]   // An int
         || [self.type isEqualToString:@"s"]   // A short
         || [self.type isEqualToString:@"l"]   // A longl is treated as a 32-bit quantity on 64-bit programs.
         || [self.type isEqualToString:@"q"]   // A long long
@@ -59,16 +63,16 @@
         || [self.type isEqualToString:@"S"]   // An unsigned short
         || [self.type isEqualToString:@"L"]   // An unsigned long
         || [self.type isEqualToString:@"Q"]); // An unsigned long long
+    if (isInteger) return MODPrimitiveTypeInteger;
 
+    // check for double
     BOOL isDouble = self.type.length == 1 && (
            [self.type isEqualToString:@"f"]   // A float
         || [self.type isEqualToString:@"d"]); // A double
+    if (isDouble) return MODPrimitiveTypeDouble;
 
-    if (isInteger) {
-        return MODPrimitiveTypeInteger;
-    } else if (isDouble) {
-        return MODPrimitiveTypeDouble;
-    } else if ([self.type hasPrefix:@"{CGSize"]) {
+    // check for structs
+    if ([self.type hasPrefix:@"{CGSize"]) {
         return MODPrimitiveTypeCGSize;
     } else if ([self.type hasPrefix:@"{CGRect"]) {
         return MODPrimitiveTypeCGSize;
