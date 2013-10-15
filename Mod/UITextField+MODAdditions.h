@@ -12,5 +12,6 @@
 
 @property (nonatomic, strong) NSString *mod_fontName;
 @property (nonatomic, assign) CGFloat mod_fontSize;
+@property (nonatomic, assign) UIEdgeInsets mod_textEdgeInsets;
 
 @end

@@ -114,7 +114,8 @@ mod_propertyAttributes *mod_copyPropertyAttributes (objc_property_t property) {
                     size_t selectorLength = nextFlag - next;
                     if (!selectorLength) {
                         fprintf(stderr, "ERROR: Found zero length selector name in attribute string \"%s\" for property %s\n", attrString, property_getName(property));
-                        goto errorOut;
+                        free(attributes);
+                        return NULL;
                     }
 
                     char selectorString[selectorLength + 1];
@@ -203,8 +204,4 @@ mod_propertyAttributes *mod_copyPropertyAttributes (objc_property_t property) {
     }
     
     return attributes;
-    
-errorOut:
-    free(attributes);
-    return NULL;
 }

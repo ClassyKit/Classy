@@ -113,8 +113,14 @@ describe(@"apply properties", ^{
         NSString *filePath = [[NSBundle bundleForClass:self.class] pathForResource:@"UIView-Basic.mod" ofType:nil];
         MODStyler *styler = [[MODStyler alloc] initWithFilePath:filePath error:nil];
         UITextField *view = UITextField.new;
+
+        expect(view.mod_textEdgeInsets).to.equal(UIEdgeInsetsZero);
+
         [styler styleView:view];
 
+        CGRect bounds = CGRectMake(0, 0, 10, 10);
+        expect(view.mod_textEdgeInsets).to.equal(UIEdgeInsetsMake(4, 3, 2, 1));
+        expect([view textRectForBounds:bounds]).to.equal(UIEdgeInsetsInsetRect(bounds, view.mod_textEdgeInsets));
         expect(view.mod_fontName).to.equal(@"Avenir-Heavy");
         expect(view.mod_fontSize).to.equal(12);
         expect(view.textColor.mod_hexValue).to.equal(@"a0a0a0");

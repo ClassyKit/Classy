@@ -29,6 +29,7 @@
 		DD7A63A817F427D300AC6DBA /* Properties-Basic.mod in Resources */ = {isa = PBXBuildFile; fileRef = DD7A63A717F427D300AC6DBA /* Properties-Basic.mod */; };
 		DD92491F180CA98400F34FC7 /* MODSpecHelpers.m in Sources */ = {isa = PBXBuildFile; fileRef = DD92491E180CA98400F34FC7 /* MODSpecHelpers.m */; };
 		DD924925180CC86400F34FC7 /* MODRuntimeExtensionsSpec.m in Sources */ = {isa = PBXBuildFile; fileRef = DD924924180CC86400F34FC7 /* MODRuntimeExtensionsSpec.m */; };
+		DD924928180CDFF000F34FC7 /* NSObject+MODSwizzle.m in Sources */ = {isa = PBXBuildFile; fileRef = DD924927180CDFEF00F34FC7 /* NSObject+MODSwizzle.m */; };
 		DDA2FCC617E6453B00237125 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DDA2FCC517E6453B00237125 /* Foundation.framework */; };
 		DDA2FCCB17E6453B00237125 /* Mod.h in CopyFiles */ = {isa = PBXBuildFile; fileRef = DDA2FCCA17E6453B00237125 /* Mod.h */; };
 		DDA2FCF117E6455700237125 /* SenTestingKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DDA2FCF017E6455700237125 /* SenTestingKit.framework */; };
@@ -106,6 +107,8 @@
 		DD92491D180CA98400F34FC7 /* MODSpecHelpers.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MODSpecHelpers.h; sourceTree = "<group>"; };
 		DD92491E180CA98400F34FC7 /* MODSpecHelpers.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MODSpecHelpers.m; sourceTree = "<group>"; };
 		DD924924180CC86400F34FC7 /* MODRuntimeExtensionsSpec.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MODRuntimeExtensionsSpec.m; sourceTree = "<group>"; };
+		DD924926180CDFEF00F34FC7 /* NSObject+MODSwizzle.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSObject+MODSwizzle.h"; sourceTree = "<group>"; };
+		DD924927180CDFEF00F34FC7 /* NSObject+MODSwizzle.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSObject+MODSwizzle.m"; sourceTree = "<group>"; };
 		DDA2FCC217E6453B00237125 /* libMod.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libMod.a; sourceTree = BUILT_PRODUCTS_DIR; };
 		DDA2FCC517E6453B00237125 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
 		DDA2FCC917E6453B00237125 /* Mod-Prefix.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "Mod-Prefix.pch"; sourceTree = "<group>"; };
@@ -222,6 +225,8 @@
 				DD33C3BF180BB8E80058A681 /* UITextField+MODAdditions.m */,
 				DDD0B90D180BEF3B001861D6 /* NSString+MODAdditions.h */,
 				DDD0B90E180BEF3B001861D6 /* NSString+MODAdditions.m */,
+				DD924926180CDFEF00F34FC7 /* NSObject+MODSwizzle.h */,
+				DD924927180CDFEF00F34FC7 /* NSObject+MODSwizzle.m */,
 			);
 			name = Additions;
 			sourceTree = "<group>";
@@ -465,6 +470,7 @@
 				DD0911D3180B538B0085F902 /* MODRuntimeExtensions.m in Sources */,
 				DDB9204B17E78B5B00280D47 /* NSRegularExpression+MODAdditions.m in Sources */,
 				DD58C42D17E6C22E00B3173C /* UIColor+MODAdditions.m in Sources */,
+				DD924928180CDFF000F34FC7 /* NSObject+MODSwizzle.m in Sources */,
 				DD0F891517F79A4400DED62D /* MODStyleSelector.m in Sources */,
 				DDE76FF617F2ADFB003DF205 /* MODStyleProperty.m in Sources */,
 				DD01AEA01809139F00F6CB8E /* MODPropertyDescriptor.m in Sources */,

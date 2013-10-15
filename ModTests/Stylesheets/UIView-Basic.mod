@@ -27,4 +27,5 @@ UITextField {
  content-vertical-alignment: bottom;
  background-image: bg_textfield 1, 2, 3, 4;
  border-style:line;
+ text-insets: 4 3 2 1
 }

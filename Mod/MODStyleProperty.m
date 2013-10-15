@@ -31,6 +31,8 @@
     return self;
 }
 
+#pragma mark - properties
+
 - (NSString *)name {
     if (!_name) {
         NSArray *components = [self.nameToken.value componentsSeparatedByString:@"-"];
@@ -61,6 +63,8 @@
     return _values;
 }
 
+#pragma mark - helpers
+
 - (id)valueOfTokenType:(MODTokenType)tokenType {
     for (MODToken *token in self.valueTokens) {
         if (token.type == tokenType) return token.value;
@@ -77,6 +81,46 @@
     }
     return tokens;
 }
+
+#pragma - primitive values
+
+- (BOOL)transformValuesToCGSize:(CGSize *)size {
+    NSArray *unitTokens = [self valuesOfTokenType:MODTokenTypeUnit];
+    if (unitTokens.count == 1) {
+        CGFloat value = [unitTokens[0] doubleValue];
+        *size = CGSizeMake(value, value);
+        return YES;
+    }
+    if (unitTokens.count == 2) {
+        CGFloat value1 = [unitTokens[0] doubleValue];
+        CGFloat value2 = [unitTokens[1] doubleValue];
+        *size = CGSizeMake(value1, value2);
+        return YES;
+    }
+    return NO;
+}
+
+- (BOOL)transformValuesToUIEdgeInsets:(UIEdgeInsets *)insets {
+    NSArray *unitTokens = [self valuesOfTokenType:MODTokenTypeUnit];
+    if (unitTokens.count == 1) {
+        CGFloat value = [unitTokens[0] doubleValue];
+        *insets = UIEdgeInsetsMake(value, value, value, value);
+        return YES;
+    }
+    if (unitTokens.count == 2) {
+        CGFloat value1 = [unitTokens[0] doubleValue];
+        CGFloat value2 = [unitTokens[1] doubleValue];
+        *insets = UIEdgeInsetsMake(value1, value2, value1, value2);
+        return YES;
+    }
+    if (unitTokens.count == 4) {
+        *insets = UIEdgeInsetsMake([unitTokens[0] doubleValue], [unitTokens[1] doubleValue], [unitTokens[2] doubleValue], [unitTokens[3] doubleValue]);
+        return YES;
+    }
+    return NO;
+}
+
+#pragma mark - debug
 
 - (NSString *)description {
     return [NSString stringWithFormat:@"name: %@, values: %@", self.nameToken, self.valueTokens];

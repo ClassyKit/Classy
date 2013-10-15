@@ -7,6 +7,7 @@
 //
 
 #import <Foundation/Foundation.h>
+#import <UIKit/UIKit.h>
 #import "MODToken.h"
 
 @interface MODStyleProperty : NSObject
@@ -40,5 +41,8 @@
 
 - (id)valueOfTokenType:(MODTokenType)tokenType;
 - (NSArray *)valuesOfTokenType:(MODTokenType)tokenType;
+
+- (BOOL)transformValuesToCGSize:(CGSize *)size;
+- (BOOL)transformValuesToUIEdgeInsets:(UIEdgeInsets *)insets;
 
 @end
