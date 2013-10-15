@@ -66,11 +66,11 @@ describe(@"selectors", ^{
 
         MODStyleSelector *selector4 = styles[3];
         expect(selector4.stringValue).to.equal(@"UIButton");
-        expect(selector4.node).to.beIdenticalTo(selector3.node);
+        expect(selector4.node).notTo.beIdenticalTo(selector3.node);
 
         MODStyleSelector *selector5 = styles[4];
         expect(selector5.stringValue).to.equal(@"UITabBar");
-        expect(selector5.node).to.beIdenticalTo(selector3.node);
+        expect(selector5.node).notTo.beIdenticalTo(selector3.node);
 
         MODStyleSelector *selector6 = styles[5];
         expect(selector6.stringValue).to.equal(@"UIView");
@@ -78,7 +78,7 @@ describe(@"selectors", ^{
 
         MODStyleSelector *selector7 = styles[6];
         expect(selector7.stringValue).to.equal(@"UITabBar");
-        expect(selector7.node).to.beIdenticalTo(selector6.node);
+        expect(selector7.node).notTo.beIdenticalTo(selector6.node);
     });
 
     it(@"should parse complex", ^{

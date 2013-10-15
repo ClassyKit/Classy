@@ -45,7 +45,6 @@
             // TODO type checking and throw errors
 
             // ensure we dont do same node twice
-            // TODO each styleSelector should really have its own node.
             if (styleProperty.invocation) continue;
 
             MODViewClassDescriptor *viewClassDescriptor = [self viewClassDescriptorForClass:styleSelector.viewClass];

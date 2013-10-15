@@ -95,7 +95,7 @@ NSInteger const MODParseErrorFileContents = 2;
     self.styleSelectors = NSMutableArray.new;
     self.styleVars = NSMutableDictionary.new;
 
-    MODStyleNode *currentNode = nil;
+    NSArray *currentNodes = nil;
     while (self.peekToken.type != MODTokenTypeEOS) {
         if (self.lexer.error) {
             if (error) {
@@ -106,7 +106,7 @@ NSInteger const MODParseErrorFileContents = 2;
 
         MODStyleProperty *styleVar = [self nextStyleVar];
         if (styleVar) {
-            if (currentNode) {
+            if (currentNodes.count) {
                 //TODO error can't have vars inside styleNOdes
             }
             self.styleVars[styleVar.nameToken.value] = styleVar;
@@ -116,19 +116,18 @@ NSInteger const MODParseErrorFileContents = 2;
             continue;
         }
 
-        MODStyleNode *styleNode = [self nextStyleNode];
-        if (styleNode) {
-            currentNode = styleNode;
+        NSArray *styleNodes = [self nextStyleNodes];
+        if (styleNodes.count) {
+            currentNodes = styleNodes;
             [self consumeTokenOfType:MODTokenTypeLeftCurlyBrace];
             [self consumeTokenOfType:MODTokenTypeIndent];
-            MODLog(@"(line %d) MODStyleNode %@", self.peekToken.lineNumber, currentNode);
             continue;
         }
 
         // not a style group therefore must be a property
         MODStyleProperty *styleProperty = [self nextStyleProperty];
         if (styleProperty) {
-            if (!currentNode) {
+            if (!currentNodes.count) {
                 if (error) {
                     *error = [self.lexer errorWithDescription:@"Invalid style property"
                                                        reason:@"Needs to be within a style node"
@@ -136,8 +135,9 @@ NSInteger const MODParseErrorFileContents = 2;
                 }
                 return nil;
             }
-            [currentNode addStyleProperty:styleProperty];
-            MODLog(@"(line %d) MODStyleProperty `%@`", self.peekToken.lineNumber, styleProperty);
+            for (MODStyleNode *node in currentNodes) {
+                [node addStyleProperty:styleProperty];
+            }
             continue;
         }
 
@@ -145,7 +145,7 @@ NSInteger const MODParseErrorFileContents = 2;
             return token.type == MODTokenTypeOutdent || token.type == MODTokenTypeRightCurlyBrace;
         }];
         if (closeNode) {
-            currentNode = nil;
+            currentNodes = nil;
         }
 
         BOOL acceptableToken = [self consumeTokensMatching:^BOOL(MODToken *token) {
@@ -224,6 +224,10 @@ NSInteger const MODParseErrorFileContents = 2;
         token = [self lookaheadByCount:++i];
     }
 
+    if ([refToken.value hasPrefix:@"@"]) {
+        //TODO error `@` is reserved for property lookup
+    }
+
     if (hasEqualsSign && refToken) {
         // consume LHS of var
         while (--i >= 0) {
@@ -241,7 +245,7 @@ NSInteger const MODParseErrorFileContents = 2;
     return nil;
 }
 
-- (MODStyleNode *)nextStyleNode {
+- (NSArray *)nextStyleNodes {
     NSInteger i = 1;
     MODToken *token = [self lookaheadByCount:i];
     while (token && token.isPossiblySelector) {
@@ -252,8 +256,8 @@ NSInteger const MODParseErrorFileContents = 2;
         return nil;
     }
 
+    NSMutableArray *styleNodes = NSMutableArray.new;
     MODStyleSelector *styleSelector;
-    MODStyleNode *node = MODStyleNode.new;
     MODToken *previousToken, *argNameToken, *argValueToken;
     token = nil;
     BOOL shouldSelectSubclasses = NO;
@@ -324,19 +328,21 @@ NSInteger const MODParseErrorFileContents = 2;
         } else if([token valueIsEqualTo:@">"]) {
             shouldSelectDescendants = NO;
         } else if ([token valueIsEqualTo:@","]) {
-            styleSelector.node = node;
             if (styleSelector) {
+                [styleNodes addObject:MODStyleNode.new];
+                styleSelector.node = styleNodes.lastObject;
                 [self.styleSelectors addObject:styleSelector];
             }
             styleSelector = nil;
         }
     }
-    styleSelector.node = node;
     if (styleSelector) {
+        [styleNodes addObject:MODStyleNode.new];
+        styleSelector.node = styleNodes.lastObject;
         [self.styleSelectors addObject:styleSelector];
     }
-
-    return node;
+    
+    return styleNodes;
 }
 
 - (MODStyleProperty *)nextStyleProperty {
