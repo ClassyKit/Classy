@@ -7,6 +7,7 @@ UISlider {
   shadow-offset: 1,3;
   shadow-opacity: 0.5;
   shadow-radius: 4;
+  content-mode: aspectFill;
 }
 
 

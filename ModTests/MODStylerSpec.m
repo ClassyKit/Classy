@@ -105,6 +105,8 @@ describe(@"apply properties", ^{
         expect(view.mod_shadowOffset).to.equal(CGSizeMake(1, 3));
         expect(view.mod_shadowOpacity).to.equal(0.5);
         expect(view.mod_shadowRadius).to.equal(4);
+
+        expect(view.contentMode).to.equal(UIViewContentModeScaleAspectFill);
     });
 
     it(@"should set UITextField properties", ^{

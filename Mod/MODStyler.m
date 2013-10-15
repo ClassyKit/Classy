@@ -129,6 +129,24 @@
         @"shadowRadius"  : @mod_propertykey(UIView, mod_shadowRadius),
     };
 
+    NSDictionary *contentModeMap = @{
+        @"fill"        : @(UIViewContentModeScaleToFill),
+        @"aspectFit"   : @(UIViewContentModeScaleAspectFit),
+        @"aspectFill"  : @(UIViewContentModeScaleAspectFill),
+        @"redraw"      : @(UIViewContentModeRedraw),
+        @"center"      : @(UIViewContentModeCenter),
+        @"top"         : @(UIViewContentModeTop),
+        @"bottom"      : @(UIViewContentModeBottom),
+        @"left"        : @(UIViewContentModeLeft),
+        @"right"       : @(UIViewContentModeRight),
+        @"topLeft"     : @(UIViewContentModeTopLeft),
+        @"topRight"    : @(UIViewContentModeTopRight),
+        @"bottomLeft"  : @(UIViewContentModeBottomLeft),
+        @"bottomRight" : @(UIViewContentModeBottomRight),
+    };
+    [viewClassDescriptor setPropertyType:[MODArgumentDescriptor argWithValuesByName:contentModeMap]
+                                  forKey:@mod_propertykey(UIView, contentMode)];
+
     //some properties don't show up via reflection so we need to add them manually
     [viewClassDescriptor setPropertyType:[MODArgumentDescriptor argWithClass:UIColor.class]
                                   forKey:@mod_propertykey(UIView, backgroundColor)];
