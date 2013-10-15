@@ -22,6 +22,8 @@ it(@"should return token name", ^{
     expect([MODToken stringForType:MODTokenTypeRightSquareBrace]).to.equal(@"]");
     expect([MODToken stringForType:MODTokenTypeLeftCurlyBrace]).to.equal(@"{");
     expect([MODToken stringForType:MODTokenTypeRightCurlyBrace]).to.equal(@"}");
+    expect([MODToken stringForType:MODTokenTypeLeftRoundBrace]).to.equal(@"(");
+    expect([MODToken stringForType:MODTokenTypeRightRoundBrace]).to.equal(@")");
     expect([MODToken stringForType:MODTokenTypeColor]).to.equal(@"color");
     expect([MODToken stringForType:MODTokenTypeString]).to.equal(@"string");
     expect([MODToken stringForType:MODTokenTypeUnit]).to.equal(@"unit");

@@ -164,6 +164,7 @@ NSString * const MODParseFailingStringErrorKey = @"MODParseFailingStringErrorKey
         ?: self.newline
         ?: self.squareBrace
         ?: self.curlyBrace
+        ?: self.roundBrace
         ?: self.color
         ?: self.string
         ?: self.unit
@@ -317,6 +318,18 @@ NSString * const MODParseFailingStringErrorKey = @"MODParseFailingStringErrorKey
     if ([self.str hasPrefix:@"}"]) {
         [self skip:1];
         return [MODToken tokenOfType:MODTokenTypeRightCurlyBrace];
+    }
+    return nil;
+}
+
+- (MODToken *)roundBrace {
+    if ([self.str hasPrefix:@"("]) {
+        [self skip:1];
+        return [MODToken tokenOfType:MODTokenTypeLeftRoundBrace];
+    }
+    if ([self.str hasPrefix:@")"]) {
+        [self skip:1];
+        return [MODToken tokenOfType:MODTokenTypeRightRoundBrace];
     }
     return nil;
 }

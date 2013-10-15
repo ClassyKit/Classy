@@ -20,6 +20,8 @@ typedef NS_ENUM(NSInteger, MODTokenType) {
     MODTokenTypeRightSquareBrace,
     MODTokenTypeLeftCurlyBrace,
     MODTokenTypeRightCurlyBrace,
+    MODTokenTypeLeftRoundBrace,
+    MODTokenTypeRightRoundBrace,
     MODTokenTypeColor,
     MODTokenTypeString,
     MODTokenTypeUnit,

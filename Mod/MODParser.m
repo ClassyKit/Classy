@@ -234,12 +234,15 @@ NSInteger const MODParseErrorFileContents = 2;
             [self nextToken];
         }
 
-        // collect value tokens
+        // collect value tokens, enclose in ()
         NSMutableArray *valueTokens = NSMutableArray.new;
+        [valueTokens addObject:[MODToken tokenOfType:MODTokenTypeLeftRoundBrace]];
         while (token.type != MODTokenTypeNewline && token.type != MODTokenTypeSemiColon) {
             [valueTokens addObject:token];
             token = [self nextToken];
         }
+        [valueTokens addObject:[MODToken tokenOfType:MODTokenTypeRightRoundBrace]];
+
         return [[MODStyleProperty alloc] initWithNameToken:refToken valueTokens:valueTokens];
     }
     return nil;

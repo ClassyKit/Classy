@@ -42,6 +42,10 @@
             return @"{";
         case MODTokenTypeRightCurlyBrace:
             return @"}";
+        case MODTokenTypeLeftRoundBrace:
+            return @"(";
+        case MODTokenTypeRightRoundBrace:
+            return @")";
         case MODTokenTypeColor:
             return @"color";
         case MODTokenTypeString:
