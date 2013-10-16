@@ -75,7 +75,7 @@
     if ([self.type hasPrefix:@"{CGSize"]) {
         return MODPrimitiveTypeCGSize;
     } else if ([self.type hasPrefix:@"{CGRect"]) {
-        return MODPrimitiveTypeCGSize;
+        return MODPrimitiveTypeCGRect;
     } else if ([self.type hasPrefix:@"{UIEdgeInsets"]) {
         return MODPrimitiveTypeUIEdgeInsets;
     } else if ([self.type hasPrefix:@"{UIOffset"]) {

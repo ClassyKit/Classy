@@ -20,6 +20,7 @@
 		DD33C3C0180BB8E80058A681 /* UITextField+MODAdditions.m in Sources */ = {isa = PBXBuildFile; fileRef = DD33C3BF180BB8E80058A681 /* UITextField+MODAdditions.m */; };
 		DD3796A017F91ADF003FE21C /* UIView+MODAdditions.m in Sources */ = {isa = PBXBuildFile; fileRef = DD37969F17F91ADE003FE21C /* UIView+MODAdditions.m */; };
 		DD407BF217F13ED400B2F49D /* MODTokenSpec.m in Sources */ = {isa = PBXBuildFile; fileRef = DD407BF117F13ED400B2F49D /* MODTokenSpec.m */; };
+		DD4C8945180E95CD0006EB50 /* MODArgumentDescriptorSpec.m in Sources */ = {isa = PBXBuildFile; fileRef = DD4C8944180E95CD0006EB50 /* MODArgumentDescriptorSpec.m */; };
 		DD58C42817E6BEE900B3173C /* MODStyler.m in Sources */ = {isa = PBXBuildFile; fileRef = DD58C42717E6BEE900B3173C /* MODStyler.m */; };
 		DD58C42A17E6BF5B00B3173C /* MODStylerSpec.m in Sources */ = {isa = PBXBuildFile; fileRef = DD58C42917E6BF5B00B3173C /* MODStylerSpec.m */; };
 		DD58C42D17E6C22E00B3173C /* UIColor+MODAdditions.m in Sources */ = {isa = PBXBuildFile; fileRef = DD58C42C17E6C22E00B3173C /* UIColor+MODAdditions.m */; };
@@ -95,6 +96,7 @@
 		DD37969E17F91ADE003FE21C /* UIView+MODAdditions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIView+MODAdditions.h"; sourceTree = "<group>"; };
 		DD37969F17F91ADE003FE21C /* UIView+MODAdditions.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIView+MODAdditions.m"; sourceTree = "<group>"; };
 		DD407BF117F13ED400B2F49D /* MODTokenSpec.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MODTokenSpec.m; sourceTree = "<group>"; };
+		DD4C8944180E95CD0006EB50 /* MODArgumentDescriptorSpec.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MODArgumentDescriptorSpec.m; sourceTree = "<group>"; };
 		DD58C42617E6BEE900B3173C /* MODStyler.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MODStyler.h; sourceTree = "<group>"; };
 		DD58C42717E6BEE900B3173C /* MODStyler.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MODStyler.m; sourceTree = "<group>"; };
 		DD58C42917E6BF5B00B3173C /* MODStylerSpec.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MODStylerSpec.m; sourceTree = "<group>"; };
@@ -315,6 +317,7 @@
 				DDB9204717E78A4000280D47 /* MODLexerSpec.m */,
 				DD407BF117F13ED400B2F49D /* MODTokenSpec.m */,
 				DD924924180CC86400F34FC7 /* MODRuntimeExtensionsSpec.m */,
+				DD4C8944180E95CD0006EB50 /* MODArgumentDescriptorSpec.m */,
 			);
 			name = Specs;
 			sourceTree = "<group>";
@@ -487,6 +490,7 @@
 				DD58C42A17E6BF5B00B3173C /* MODStylerSpec.m in Sources */,
 				DD924925180CC86400F34FC7 /* MODRuntimeExtensionsSpec.m in Sources */,
 				DD92491F180CA98400F34FC7 /* MODSpecHelpers.m in Sources */,
+				DD4C8945180E95CD0006EB50 /* MODArgumentDescriptorSpec.m in Sources */,
 				DD407BF217F13ED400B2F49D /* MODTokenSpec.m in Sources */,
 				DDB9204817E78A4000280D47 /* MODLexerSpec.m in Sources */,
 				DD27D4911807AEE700322ED1 /* MODExampleView.m in Sources */,

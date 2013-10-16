@@ -25,6 +25,18 @@ it(@"should clean up end of string", ^{
     expect(lexer.str).to.equal(@"hello\n");
 });
 
+it(@"should return EOS", ^{
+    MODLexer *lexer = [[MODLexer alloc] initWithString:@""];
+    expect([lexer lookaheadByCount:100].type).to.equal(MODTokenTypeEOS);
+});
+
+it(@"should return error", ^{
+    MODLexer *lexer = [[MODLexer alloc] initWithString:@"†"];
+    expect(lexer.nextToken).to.beNil();
+    expect(lexer.error.domain).to.equal(MODParseErrorDomain);
+    expect(lexer.error.localizedDescription).to.equal(@"Invalid style string");
+});
+
 it(@"should return seperator", ^{
     MODLexer *lexer = [[MODLexer alloc] initWithString:@";  \t    hello"];
     expect(lexer.peekToken.type).to.equal(MODTokenTypeSemiColon);
@@ -199,6 +211,19 @@ it(@"should skip comments", ^{
     expect(lexer.peekToken.value).to.equal(nil);
     expect(lexer.peekToken.lineNumber).to.equal(4);
     expect(lexer.str).to.equal(@"\n   \n stuff");
+
+    //EOS
+    lexer = [[MODLexer alloc] initWithString:@"//hello world again"];
+    expect(lexer.peekToken.type).to.equal(MODTokenTypeEOS);
+    expect(lexer.peekToken.value).to.equal(nil);
+    expect(lexer.peekToken.lineNumber).to.equal(1);
+    expect(lexer.str).to.equal(@"");
+
+    lexer = [[MODLexer alloc] initWithString:@"/*hello world again"];
+    expect(lexer.peekToken.type).to.equal(MODTokenTypeEOS);
+    expect(lexer.peekToken.value).to.equal(nil);
+    expect(lexer.peekToken.lineNumber).to.equal(1);
+    expect(lexer.str).to.equal(@"");
 });
 
 it(@"should return ident", ^{

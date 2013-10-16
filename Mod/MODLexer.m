@@ -110,9 +110,6 @@ NSString * const MODParseFailingStringErrorKey = @"MODParseFailingStringErrorKey
     NSInteger fetch = count - self.stash.count;
     while (fetch-- > 0) {
         MODToken *token = self.advanceToken;
-        if (!token) {
-            return nil;
-        }
         [self attachDebugInfoForToken:token];
         [self.stash addObject:token];
     }
