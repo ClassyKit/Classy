@@ -86,6 +86,15 @@ describe(@"selection", ^{
         [navigationBar addSubview:imageView];
         expect([selector shouldSelectView:button]).to.beTruthy();
     });
+
+    it(@"should select subclasses", ^{
+        MODStyleSelector *selector = MODStyleSelector.new;
+        selector.viewClass = UIControl.class;
+        selector.shouldSelectSubclasses = YES;
+        expect([selector shouldSelectView:UIControl.new]).to.equal(YES);
+        expect([selector shouldSelectView:UIView.new]).to.equal(NO);
+        expect([selector shouldSelectView:UIButton.new]).to.equal(YES);
+    });
 });
 
 describe(@"apply properties", ^{
