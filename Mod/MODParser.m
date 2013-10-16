@@ -189,14 +189,6 @@ NSInteger const MODParseErrorFileContents = 2;
     return nil;
 }
 
-- (MODToken *)consumeTokenWithValue:(id)value {
-    if ([self.peekToken valueIsEqualTo:value]) {
-        // return token and remove from stack
-        return self.nextToken;
-    }
-    return nil;
-}
-
 - (BOOL)consumeTokensMatching:(BOOL(^)(MODToken *token))matchBlock {
     BOOL anyMatches = NO;
     while (matchBlock(self.peekToken)) {
