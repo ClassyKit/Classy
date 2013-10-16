@@ -8,6 +8,7 @@
 
 #import "MODLexer.h"
 #import "NSRegularExpression+MODAdditions.h"
+#import "NSString+MODAdditions.h"
 #import "UIColor+MODAdditions.h"
 
 NSString * const MODParseErrorDomain = @"MODParseErrorDomain";
@@ -84,8 +85,8 @@ NSString * const MODParseFailingStringErrorKey = @"MODParseFailingStringErrorKey
         // 1-* of whitespace
         @(MODTokenTypeSpace)     : @[ MODRegex(@"^([ \\t]+)") ],
 
-        // any character except `\n` | `{` | `,` and stop if encounter `//` unless its inbetween `[ ]`
-        @(MODTokenTypeSelector)  : @[ MODRegex(@"^.*?(?=\\/\\/(?![^\\[]*\\])|[,\\n{])") ]
+        // any character except `\n` | `{` | `,` | whitespace
+        @(MODTokenTypeSelector)  : @[ MODRegex(@"^.*?(?=\\/\\/|[ \\t,\\n{])") ]
     };
 
     return self;
@@ -333,13 +334,13 @@ NSString * const MODParseFailingStringErrorKey = @"MODParseFailingStringErrorKey
 
 - (MODToken *)color {
     return [self testForTokenType:MODTokenTypeColor transformValueBlock:^id(NSString *value, NSTextCheckingResult *match) {
-        return [UIColor mod_colorWithHex:[value stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceCharacterSet]]];
+        return [UIColor mod_colorWithHex:[value mod_stringByTrimmingWhitespace]];
     }];
 }
 
 - (MODToken *)string {
     return [self testForTokenType:MODTokenTypeString transformValueBlock:^id(NSString *value, NSTextCheckingResult *match) {
-        NSString *string = [value stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceCharacterSet]];
+        NSString *string = [value mod_stringByTrimmingWhitespace];
         return [string substringWithRange:NSMakeRange(1, string.length-2)];
     }];
 }
@@ -347,7 +348,7 @@ NSString * const MODParseFailingStringErrorKey = @"MODParseFailingStringErrorKey
 - (MODToken *)unit {
     return [self testForTokenType:MODTokenTypeUnit transformValueBlock:^id(NSString *value, NSTextCheckingResult *match){
         //px,pt,% etc NSString *type = [self.str substringWithRange:[match rangeAtIndex:match.numberOfRanges-1]];
-        NSString *string = [value stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceCharacterSet]];
+        NSString *string = [value mod_stringByTrimmingWhitespace];
         return @([string doubleValue]);
     }];
 }

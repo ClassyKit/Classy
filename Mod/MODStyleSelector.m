@@ -8,6 +8,7 @@
 
 #import "MODStyleSelector.h"
 #import "UIView+MODAdditions.h"
+#import "NSString+MODAdditions.h"
 
 @interface MODStyleSelector ()
 
@@ -80,11 +81,9 @@
     if (!self.arguments) {
         self.arguments = NSMutableDictionary.new;
     }
-    NSString *tokenValue = [argumentValue.value stringByTrimmingCharactersInSet:NSCharacterSet.whitespaceCharacterSet];
-    if ([tokenValue hasPrefix:@"."]) {
-        tokenValue = [tokenValue substringFromIndex:1];
-    }
-    [self.arguments setObject:tokenValue forKey:name.value];
+    NSString *argValue = [argumentValue.value mod_stringByTrimmingWhitespace];
+    NSString *argName = [name.value mod_stringByTrimmingWhitespace];
+    [self.arguments setObject:argValue forKey:argName];
 }
 
 - (NSString *)stringValue {

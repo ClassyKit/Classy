@@ -107,16 +107,22 @@ describe(@"selectors", ^{
         expect(styles.count).to.equal(6);
 
         expect([styles[0] stringValue]).to.equal(@"UIButton[state:selected] UIControl");
+        expect([styles[0] precedence]).to.equal(6);
 
         expect([styles[1] stringValue]).to.equal(@"UIButton UIImageView .starImage");
+        expect([styles[1] precedence]).to.equal(3004);
 
         expect([styles[2] stringValue]).to.equal(@"UIView.bordered");
+        expect([styles[2] precedence]).to.equal(3004);
 
         expect([styles[3] stringValue]).to.equal(@".panel");
+        expect([styles[3] precedence]).to.equal(3000);
 
         expect([styles[4] stringValue]).to.equal(@"UISlider");
+        expect([styles[4] precedence]).to.equal(4);
 
         expect([styles[5] stringValue]).to.equal(@"UINavigationBar.videoNavBar UIButton[state:highlighted]");
+        expect([styles[5] precedence]).to.equal(1006);
     });
 
     it(@"should parse direct descendant", ^{
@@ -128,12 +134,17 @@ describe(@"selectors", ^{
         expect(styles.count).to.equal(4);
         
         expect([styles[0] stringValue]).to.equal(@"UIButton > UIImageView .starImage");
+        expect([styles[0] precedence]).to.equal(3005);
 
         expect([styles[1] stringValue]).to.equal(@"^UIView > UINavigationBar");
+        expect([styles[1] precedence]).to.equal(5);
 
         expect([styles[2] stringValue]).to.equal(@"UIView.bordered > .panel");
+        expect([styles[2] parentSelector]).notTo.beNil();
+        expect([styles[2] precedence]).to.equal(5003);
 
         expect([styles[3] stringValue]).to.equal(@"^UIView[state:selected] > UIImageView");
+        expect([styles[3] precedence]).to.equal(5);
     });
 
 });

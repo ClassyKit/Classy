@@ -13,6 +13,7 @@
 #import "MODLog.h"
 #import "MODStyleProperty.h"
 #import "MODStyleSelector.h"
+#import "NSString+MODAdditions.h"
 
 NSString * const MODParseFailingFilePathErrorKey = @"MODParseFailingFilePathErrorKey";
 NSInteger const MODParseErrorFileContents = 2;
@@ -294,7 +295,7 @@ NSInteger const MODParseErrorFileContents = 2;
         if (token.type == MODTokenTypeCarat) {
             shouldSelectSubclasses = YES;
         } else if (token.type == MODTokenTypeRef || token.type == MODTokenTypeSelector) {
-            NSString *tokenValue = [token.value stringByTrimmingCharactersInSet:NSCharacterSet.whitespaceCharacterSet];
+            NSString *tokenValue = [token.value mod_stringByTrimmingWhitespace];
 
             BOOL shouldSpawn = ![tokenValue hasPrefix:@"."]
                                 || styleSelector == nil

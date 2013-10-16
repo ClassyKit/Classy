@@ -11,5 +11,6 @@
 @interface NSString (MODAdditions)
 
 - (NSString *)mod_stringByCapitalizingFirstLetter;
+- (NSString *)mod_stringByTrimmingWhitespace;
 
 @end

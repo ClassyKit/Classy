@@ -169,12 +169,12 @@ it(@"should return boolean", ^{
 });
 
 it(@"should return selector", ^{
-    // any character except `\n` | `{` | `,` and stop if encounter `//` unless its inbetween `[ ]`
+    // any character except `\n` | `{` | `,` | whitespace
 
     MODLexer *lexer = [[MODLexer alloc] initWithString:@".hello    world     {"];
     expect(lexer.peekToken.type).to.equal(MODTokenTypeSelector);
-    expect(lexer.peekToken.value).to.equal(@".hello    world     ");
-    expect(lexer.str).to.equal(@"{");
+    expect(lexer.peekToken.value).to.equal(@".hello");
+    expect(lexer.str).to.equal(@"    world     {");
 });
 
 it(@"should return ref", ^{
