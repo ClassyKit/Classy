@@ -112,11 +112,11 @@ it(@"should resolve 2-tuple", ^{
     expect([prop.values componentsJoinedByString:@""]).to.equal(@"(22.5,10)");
 });
 
-xit(@"should resolve 4-tuple", ^{
+it(@"should resolve 4-tuple", ^{
     NSArray *valueTokens = @[
         [MODToken tokenOfType:MODTokenTypeLeftRoundBrace value:@"("],
         [MODToken tokenOfType:MODTokenTypeSpace value:@" "],
-        [MODToken tokenOfType:MODTokenTypeUnit value:@7],
+        [MODToken tokenOfType:MODTokenTypeUnit value:@6],
         [MODToken tokenOfType:MODTokenTypeOperator value:@","],
         [MODToken tokenOfType:MODTokenTypeSpace value:@" "],
         [MODToken tokenOfType:MODTokenTypeUnit value:@10],
@@ -124,17 +124,17 @@ xit(@"should resolve 4-tuple", ^{
         [MODToken tokenOfType:MODTokenTypeUnit value:@12],
         [MODToken tokenOfType:MODTokenTypeOperator value:@","],
         [MODToken tokenOfType:MODTokenTypeSpace value:@" "],
-        [MODToken tokenOfType:MODTokenTypeUnit value:@6],
+        [MODToken tokenOfType:MODTokenTypeUnit value:@8],
         [MODToken tokenOfType:MODTokenTypeSpace value:@" "],
         [MODToken tokenOfType:MODTokenTypeRightRoundBrace value:@")"],
         [MODToken tokenOfType:MODTokenTypeOperator value:@" / "],
-        [MODToken tokenOfType:MODTokenTypeUnit value:@5],
+        [MODToken tokenOfType:MODTokenTypeUnit value:@2],
     ];
 
     MODStyleProperty *prop = [[MODStyleProperty alloc] initWithNameToken:nil valueTokens:valueTokens];
-    expect([prop.values componentsJoinedByString:@""]).to.equal(@"( 7, 10 12, 6 ) / 5");
+    expect([prop.values componentsJoinedByString:@""]).to.equal(@"( 6, 10 12, 8 ) / 2");
     [prop resolveExpressions];
-    expect([prop.values componentsJoinedByString:@""]).to.equal(@"(22.5,10)");
+    expect([prop.values componentsJoinedByString:@""]).to.equal(@"(3, 5,6, 4)");
 });
 
 it(@"should solve mixed expression", ^{
@@ -178,7 +178,7 @@ it(@"should solve mixed expression", ^{
     MODStyleProperty *prop = [[MODStyleProperty alloc] initWithNameToken:nil valueTokens:valueTokens];
     expect([prop.values componentsJoinedByString:@""]).to.equal(@"tiger place 2 + 2 (1 + (2 * 3) 3 + 0.5) * 2 / 5");
     [prop resolveExpressions];
-    expect([prop.values componentsJoinedByString:@""]).to.equal(@"tiger place 4(2,1.4)");
+    expect([prop.values componentsJoinedByString:@""]).to.equal(@"tiger place 4(2,1.4) ");
 });
 
 SpecEnd

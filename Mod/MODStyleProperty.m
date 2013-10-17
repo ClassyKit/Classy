@@ -136,7 +136,7 @@
     BOOL needsCloseTuple;
     NSMutableArray *tokenStack = NSMutableArray.new;
     NSMutableArray *expressionStack = NSMutableArray.new;
-    NSMutableDictionary *expressionMap = NSMutableDictionary.new;
+    NSMutableDictionary *tupleMap = NSMutableDictionary.new;
 
     NSArray *functionKeywords = @[@"floor"];
     MODToken *prevNonWhitespaceToken;
@@ -160,39 +160,46 @@
             BOOL split = [token valueIsEqualTo:@","] || breakToken;
             if (split) {
                 if (braceCounter > 0) {
-                    needsCloseTuple = YES;
-                    [tokenStack addObject:[MODToken tokenOfType:MODTokenTypeLeftRoundBrace value:@"("]];
-                    [tokenStack addObject:NSNull.null];
+                    if (!tupleMap.count) {
+                        needsCloseTuple = YES;
+                        [tokenStack addObject:[MODToken tokenOfType:MODTokenTypeLeftRoundBrace value:@"("]];
+                    }
 
+                    [tokenStack addObject:NSNull.null];
                     [expressionStack addObject:[MODToken tokenOfType:MODTokenTypeRightRoundBrace value:@")"]];
-                    expressionMap[@(tokenStack.count-1)] = expressionStack;
+                    tupleMap[@(tokenStack.count-1)] = expressionStack;
 
                     [tokenStack addObject:[MODToken tokenOfType:MODTokenTypeOperator value:@","]];
-
                     expressionStack = NSMutableArray.new;
+
                     if (![token valueIsEqualTo:@","]) {
                         [expressionStack addObject:token];
-                    }
-                    [tokenStack addObject:NSNull.null];
-                    expressionMap[@(tokenStack.count-1)] = expressionStack;
+                    };
                 } else if (braceCounter == 0) {
-                    //solve this expression
-                    //[expressionStack addObject:token];
                     MODToken *token = [self reduceTokens:expressionStack];
                     [tokenStack addObject:token];
                     expressionStack = NSMutableArray.new;
                 }
                 prevNonWhitespaceToken= nil;
             } else {
-                if (braceCounter == 0 && expressionMap.count) {
+                if (braceCounter == 0 && tupleMap.count) {
                     if (needsCloseTuple) {
-                        needsCloseTuple = NO;
+
+                        [tokenStack addObject:NSNull.null];
+                        [expressionStack addObject:[MODToken tokenOfType:MODTokenTypeRightRoundBrace value:@")"]];
+                        tupleMap[@(tokenStack.count-1)] = expressionStack;
+                        expressionStack = NSMutableArray.new;
+
                         [tokenStack addObject:[MODToken tokenOfType:MODTokenTypeRightRoundBrace value:@")"]];
                     }
 
-                    for (NSMutableArray *expressionStack in expressionMap.allValues) {
+                    for (NSMutableArray *expressionStack in tupleMap.allValues) {
+                        if (needsCloseTuple) {
+                            [self balanceRoundBraces:expressionStack];
+                        }
                         [expressionStack addObject:token];
                     }
+                    needsCloseTuple = NO;
                 } else {
                     [expressionStack addObject:token];
                 }
@@ -212,11 +219,7 @@
         }
     }
 
-    [expressionMap enumerateKeysAndObjectsUsingBlock:^(NSNumber *key, NSMutableArray *expressionStack, BOOL *stop) {
-        MODToken *firstToken = expressionStack.count ? expressionStack[0] : nil;
-        if (firstToken.type != MODTokenTypeLeftRoundBrace) {
-            [expressionStack insertObject:[MODToken tokenOfType:MODTokenTypeLeftRoundBrace value:@"("] atIndex:0];
-        }
+    [tupleMap enumerateKeysAndObjectsUsingBlock:^(NSNumber *key, NSMutableArray *expressionStack, BOOL *stop) {
         MODToken *token = [self reduceTokens:expressionStack];
         [tokenStack replaceObjectAtIndex:[key integerValue] withObject:token];
         [expressionStack removeAllObjects];
@@ -230,8 +233,27 @@
     self.values = nil;
 }
 
-- (void)trimRoundBraces:(NSMutableArray *)tokens {
+- (void)balanceRoundBraces:(NSMutableArray *)tokens {
+    NSInteger leftIndex = 0;
+    while (leftIndex < tokens.count / 2) {
+        NSInteger rightIndex = tokens.count - leftIndex - 1;
+        MODToken *leftToken = tokens[leftIndex];
+        MODToken *rightToken = tokens[rightIndex];
+        BOOL hasRightBrace = rightToken.type == MODTokenTypeRightRoundBrace;
+        BOOL hasLeftBrace = leftToken.type == MODTokenTypeLeftRoundBrace;
 
+        if (!hasRightBrace && !hasLeftBrace) {
+            return;
+        }
+        if (hasRightBrace && !hasLeftBrace) {
+            [tokens insertObject:[MODToken tokenOfType:MODTokenTypeLeftRoundBrace value:@"("] atIndex:leftIndex];
+        }
+        if (hasLeftBrace && !hasRightBrace) {
+            [tokens insertObject:[MODToken tokenOfType:MODTokenTypeRightRoundBrace value:@")"] atIndex:rightIndex];
+        }
+
+        leftIndex++;
+    }
 }
 
 - (MODToken *)reduceTokens:(NSArray *)tokens {
