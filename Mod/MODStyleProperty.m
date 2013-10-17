@@ -138,11 +138,10 @@
     NSMutableArray *expressionStack = NSMutableArray.new;
     NSMutableDictionary *tupleMap = NSMutableDictionary.new;
 
-    NSArray *functionKeywords = @[@"floor"];
     MODToken *prevNonWhitespaceToken;
 
     for (MODToken *token in self.valueTokens) {
-        BOOL isFunctionKeyword = [functionKeywords containsObject:token.value];
+        BOOL isFunctionKeyword = [self.class.acceptableExpressionKeywords containsObject:token.value];
         if (token.isPossiblyExpression || isFunctionKeyword) {
             if (token.isWhitespace && !expressionStack.count) {
                 [tokenStack addObject:token];
@@ -231,6 +230,19 @@
     }
     self.valueTokens = tokenStack;
     self.values = nil;
+}
+
++ (NSSet *)acceptableExpressionKeywords {
+    //not a complete list but added ones that seemed useful
+    static NSSet * _acceptableExpressionKeywords = nil;
+    static dispatch_once_t onceToken;
+    dispatch_once(&onceToken, ^{
+        _acceptableExpressionKeywords = [[NSSet alloc] initWithArray:@[
+            @"floor", @"abs", @"random", @"ceiling", @"abs", @"uppercase", @"lowercase", @"log"
+        ]];
+    });
+
+    return _acceptableExpressionKeywords;
 }
 
 - (void)balanceRoundBraces:(NSMutableArray *)tokens {
