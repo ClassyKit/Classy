@@ -148,6 +148,11 @@
                 continue;
             }
 
+            if (token.type == MODTokenTypeLeftRoundBrace) {
+                braceCounter++;
+            } else if (token.type == MODTokenTypeRightRoundBrace) {
+                braceCounter--;
+            }
             BOOL breakToken = prevNonWhitespaceToken != nil && (
                    (prevNonWhitespaceToken.type == MODTokenTypeUnit
                     && token.type == MODTokenTypeLeftRoundBrace)
@@ -158,7 +163,7 @@
 
             BOOL split = [token valueIsEqualTo:@","] || breakToken;
             if (split) {
-                if (braceCounter > 0) {
+                if (braceCounter > 0 && token.type != MODTokenTypeLeftRoundBrace) {
                     if (!tupleMap.count) {
                         needsCloseTuple = YES;
                         [tokenStack addObject:[MODToken tokenOfType:MODTokenTypeLeftRoundBrace value:@"("]];
@@ -170,11 +175,13 @@
 
                     [tokenStack addObject:[MODToken tokenOfType:MODTokenTypeOperator value:@","]];
                     expressionStack = NSMutableArray.new;
-
+                    if (token.type != MODTokenTypeLeftRoundBrace) {
+                        [expressionStack addObject:[MODToken tokenOfType:MODTokenTypeLeftRoundBrace value:@"("]];
+                    }
                     if (![token valueIsEqualTo:@","]) {
                         [expressionStack addObject:token];
-                    };
-                } else if (braceCounter == 0) {
+                    }
+                } else {
                     MODToken *token = [self reduceTokens:expressionStack];
                     [tokenStack addObject:token];
                     expressionStack = NSMutableArray.new;
@@ -183,32 +190,24 @@
             } else {
                 if (braceCounter == 0 && tupleMap.count) {
                     if (needsCloseTuple) {
-
                         [tokenStack addObject:NSNull.null];
                         [expressionStack addObject:[MODToken tokenOfType:MODTokenTypeRightRoundBrace value:@")"]];
                         tupleMap[@(tokenStack.count-1)] = expressionStack;
                         expressionStack = NSMutableArray.new;
 
                         [tokenStack addObject:[MODToken tokenOfType:MODTokenTypeRightRoundBrace value:@")"]];
+                    } else {
+                        for (NSMutableArray *expressionStack in tupleMap.allValues) {
+                            [expressionStack addObject:token];
+                        }
                     }
 
-                    for (NSMutableArray *expressionStack in tupleMap.allValues) {
-                        if (needsCloseTuple) {
-                            [self balanceRoundBraces:expressionStack];
-                        }
-                        [expressionStack addObject:token];
-                    }
                     needsCloseTuple = NO;
                 } else {
                     [expressionStack addObject:token];
                 }
             }
 
-            if (token.type == MODTokenTypeLeftRoundBrace) {
-                braceCounter++;
-            } else if (token.type == MODTokenTypeRightRoundBrace) {
-                braceCounter--;
-            }
             
             if (!token.isWhitespace) {
                 prevNonWhitespaceToken = token;
@@ -243,29 +242,6 @@
     });
 
     return _acceptableExpressionKeywords;
-}
-
-- (void)balanceRoundBraces:(NSMutableArray *)tokens {
-    NSInteger leftIndex = 0;
-    while (leftIndex < tokens.count / 2) {
-        NSInteger rightIndex = tokens.count - leftIndex - 1;
-        MODToken *leftToken = tokens[leftIndex];
-        MODToken *rightToken = tokens[rightIndex];
-        BOOL hasRightBrace = rightToken.type == MODTokenTypeRightRoundBrace;
-        BOOL hasLeftBrace = leftToken.type == MODTokenTypeLeftRoundBrace;
-
-        if (!hasRightBrace && !hasLeftBrace) {
-            return;
-        }
-        if (hasRightBrace && !hasLeftBrace) {
-            [tokens insertObject:[MODToken tokenOfType:MODTokenTypeLeftRoundBrace value:@"("] atIndex:leftIndex];
-        }
-        if (hasLeftBrace && !hasRightBrace) {
-            [tokens insertObject:[MODToken tokenOfType:MODTokenTypeRightRoundBrace value:@")"] atIndex:rightIndex];
-        }
-
-        leftIndex++;
-    }
 }
 
 - (MODToken *)reduceTokens:(NSArray *)tokens {

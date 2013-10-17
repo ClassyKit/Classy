@@ -112,6 +112,23 @@ it(@"should resolve 2-tuple", ^{
     expect([prop.values componentsJoinedByString:@""]).to.equal(@"(22.5,10)");
 });
 
+xit(@"should resolve 2-tuple forwards", ^{
+    NSArray *valueTokens = @[
+        [MODToken tokenOfType:MODTokenTypeUnit value:@5],
+        [MODToken tokenOfType:MODTokenTypeOperator value:@"*"],
+        [MODToken tokenOfType:MODTokenTypeLeftRoundBrace value:@"("],
+        [MODToken tokenOfType:MODTokenTypeUnit value:@4.5],
+        [MODToken tokenOfType:MODTokenTypeOperator value:@","],
+        [MODToken tokenOfType:MODTokenTypeUnit value:@2],
+        [MODToken tokenOfType:MODTokenTypeRightRoundBrace value:@")"],
+    ];
+
+    MODStyleProperty *prop = [[MODStyleProperty alloc] initWithNameToken:nil valueTokens:valueTokens];
+    expect([prop.values componentsJoinedByString:@""]).to.equal(@"5*(4.5,2)");
+    [prop resolveExpressions];
+    expect([prop.values componentsJoinedByString:@""]).to.equal(@"(22.5,10)");
+});
+
 it(@"should resolve 4-tuple", ^{
     NSArray *valueTokens = @[
         [MODToken tokenOfType:MODTokenTypeLeftRoundBrace value:@"("],
@@ -134,10 +151,10 @@ it(@"should resolve 4-tuple", ^{
     MODStyleProperty *prop = [[MODStyleProperty alloc] initWithNameToken:nil valueTokens:valueTokens];
     expect([prop.values componentsJoinedByString:@""]).to.equal(@"( 6, 10 12, 8 ) / 2");
     [prop resolveExpressions];
-    expect([prop.values componentsJoinedByString:@""]).to.equal(@"(3, 5,6, 4)");
+    expect([prop.values componentsJoinedByString:@""]).to.equal(@"(3,5,6,4)");
 });
 
-it(@"should solve mixed expression", ^{
+xit(@"should solve mixed expression", ^{
     NSArray *valueTokens = @[
         [MODToken tokenOfType:MODTokenTypeRef value:@"tiger"],
         [MODToken tokenOfType:MODTokenTypeSpace value:@" "],
