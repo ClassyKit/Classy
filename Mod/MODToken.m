@@ -80,7 +80,21 @@
     return token;
 }
 
++ (instancetype)tokenOfType:(MODTokenType)type value:(id)value {
+    MODToken *token = MODToken.new;
+    token.type = type;
+    token.value = value;
+    return token;
+}
+
 #pragma mark - Helpers
+
+- (NSString *)stringValue {
+    if ([self.value isKindOfClass:NSString.class]) {
+        return self.value;
+    }
+    return [self.value stringValue];
+}
 
 - (BOOL)isWhitespace {
     return self.type == MODTokenTypeIndent
@@ -111,6 +125,14 @@
         || self.type == MODTokenTypeSpace
         || self.type == MODTokenTypeRef
         || [self valueIsEqualTo:@"="];
+}
+
+- (BOOL)isPossiblyExpression {
+    return self.type == MODTokenTypeUnit
+        || self.type == MODTokenTypeSpace
+        || self.type == MODTokenTypeLeftRoundBrace
+        || self.type == MODTokenTypeRightRoundBrace
+        || (self.type == MODTokenTypeOperator);
 }
 
 @end

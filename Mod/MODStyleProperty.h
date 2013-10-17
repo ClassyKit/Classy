@@ -45,4 +45,6 @@
 - (BOOL)transformValuesToCGSize:(CGSize *)size;
 - (BOOL)transformValuesToUIEdgeInsets:(UIEdgeInsets *)insets;
 
+- (void)resolveExpressions;
+
 @end

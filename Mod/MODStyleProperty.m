@@ -110,7 +110,7 @@
     if (unitTokens.count == 2) {
         CGFloat value1 = [unitTokens[0] doubleValue];
         CGFloat value2 = [unitTokens[1] doubleValue];
-        *insets = UIEdgeInsetsMake(value1, value2, value1, value2);
+        *insets = UIEdgeInsetsMake(value2, value1, value2, value1);
         return YES;
     }
     if (unitTokens.count == 4) {
@@ -120,10 +120,133 @@
     return NO;
 }
 
-#pragma mark - debug
+- (void)resolveExpressions {
+    BOOL hasOperator = NO;
+    for (MODToken *token in self.valueTokens) {
+        if (token.type == MODTokenTypeOperator && ![token valueIsEqualTo:@","]) {
+            hasOperator = YES;
+            break;
+        }
+    }
 
-- (NSString *)description {
-    return [NSString stringWithFormat:@"name: %@, values: %@", self.nameToken, self.valueTokens];
+    if (!hasOperator) return;
+
+    //TODO refactor, this is fragile and convuluted.
+    NSInteger braceCounter = 0;
+    BOOL needsCloseTuple;
+    NSMutableArray *tokenStack = NSMutableArray.new;
+    NSMutableArray *expressionStack = NSMutableArray.new;
+    NSMutableDictionary *expressionMap = NSMutableDictionary.new;
+
+    NSArray *functionKeywords = @[@"floor"];
+    MODToken *prevNonWhitespaceToken;
+
+    for (MODToken *token in self.valueTokens) {
+        BOOL isFunctionKeyword = [functionKeywords containsObject:token.value];
+        if (token.isPossiblyExpression || isFunctionKeyword) {
+            if (token.isWhitespace && !expressionStack.count) {
+                [tokenStack addObject:token];
+                continue;
+            }
+
+            BOOL breakToken = prevNonWhitespaceToken != nil && (
+                   (prevNonWhitespaceToken.type == MODTokenTypeUnit
+                    && token.type == MODTokenTypeLeftRoundBrace)
+                || (prevNonWhitespaceToken.type == MODTokenTypeRightRoundBrace
+                    && token.type == MODTokenTypeUnit)
+                || (prevNonWhitespaceToken.type == MODTokenTypeUnit
+                    && token.type == MODTokenTypeUnit));
+
+            BOOL split = [token valueIsEqualTo:@","] || breakToken;
+            if (split) {
+                if (braceCounter > 0) {
+                    needsCloseTuple = YES;
+                    [tokenStack addObject:[MODToken tokenOfType:MODTokenTypeLeftRoundBrace value:@"("]];
+                    [tokenStack addObject:NSNull.null];
+
+                    [expressionStack addObject:[MODToken tokenOfType:MODTokenTypeRightRoundBrace value:@")"]];
+                    expressionMap[@(tokenStack.count-1)] = expressionStack;
+
+                    [tokenStack addObject:[MODToken tokenOfType:MODTokenTypeOperator value:@","]];
+
+                    expressionStack = NSMutableArray.new;
+                    if (![token valueIsEqualTo:@","]) {
+                        [expressionStack addObject:token];
+                    }
+                    [tokenStack addObject:NSNull.null];
+                    expressionMap[@(tokenStack.count-1)] = expressionStack;
+                } else if (braceCounter == 0) {
+                    //solve this expression
+                    //[expressionStack addObject:token];
+                    MODToken *token = [self reduceTokens:expressionStack];
+                    [tokenStack addObject:token];
+                    expressionStack = NSMutableArray.new;
+                }
+                prevNonWhitespaceToken= nil;
+            } else {
+                if (braceCounter == 0 && expressionMap.count) {
+                    if (needsCloseTuple) {
+                        needsCloseTuple = NO;
+                        [tokenStack addObject:[MODToken tokenOfType:MODTokenTypeRightRoundBrace value:@")"]];
+                    }
+
+                    for (NSMutableArray *expressionStack in expressionMap.allValues) {
+                        [expressionStack addObject:token];
+                    }
+                } else {
+                    [expressionStack addObject:token];
+                }
+            }
+
+            if (token.type == MODTokenTypeLeftRoundBrace) {
+                braceCounter++;
+            } else if (token.type == MODTokenTypeRightRoundBrace) {
+                braceCounter--;
+            }
+            
+            if (!token.isWhitespace) {
+                prevNonWhitespaceToken = token;
+            }
+        } else {
+            [tokenStack addObject:token];
+        }
+    }
+
+    [expressionMap enumerateKeysAndObjectsUsingBlock:^(NSNumber *key, NSMutableArray *expressionStack, BOOL *stop) {
+        MODToken *firstToken = expressionStack.count ? expressionStack[0] : nil;
+        if (firstToken.type != MODTokenTypeLeftRoundBrace) {
+            [expressionStack insertObject:[MODToken tokenOfType:MODTokenTypeLeftRoundBrace value:@"("] atIndex:0];
+        }
+        MODToken *token = [self reduceTokens:expressionStack];
+        [tokenStack replaceObjectAtIndex:[key integerValue] withObject:token];
+        [expressionStack removeAllObjects];
+    }];
+
+    if (expressionStack.count) {
+        MODToken *token = [self reduceTokens:expressionStack];
+        [tokenStack addObject:token];
+    }
+    self.valueTokens = tokenStack;
+    self.values = nil;
+}
+
+- (void)trimRoundBraces:(NSMutableArray *)tokens {
+
+}
+
+- (MODToken *)reduceTokens:(NSArray *)tokens {
+    if (tokens.count == 1) {
+        return tokens.lastObject;
+    }
+
+    NSMutableArray *values = NSMutableArray.new;
+    for (MODToken *token in tokens) {
+        [values addObject:token.stringValue];
+    }
+
+    NSExpression *expression = [NSExpression expressionWithFormat:[values componentsJoinedByString:@""]];
+    id value = [expression expressionValueWithObject:nil context:nil];
+    return [MODToken tokenOfType:MODTokenTypeUnit value:value];
 }
 
 @end

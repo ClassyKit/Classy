@@ -55,6 +55,11 @@ typedef NS_ENUM(NSInteger, MODTokenType) {
 + (instancetype)tokenOfType:(MODTokenType)type;
 
 /**
+ *  Factory method for creating tokens with a particular `MODTokenType` and value
+ */
++ (instancetype)tokenOfType:(MODTokenType)type value:(id)value;
+
+/**
  *  Returns a `NSString` representation of a `MODTokenType`
  *  Mainly used for debug output
  *
@@ -63,6 +68,11 @@ typedef NS_ENUM(NSInteger, MODTokenType) {
  *  @return a `NSString` representing the passed `MODTokenType`
  */
 + (NSString *)stringForType:(MODTokenType)type;
+
+/**
+ *  Returns value of receiver as a string
+ */
+- (NSString *)stringValue;
 
 /**
  *  Returns whether receiver is a whitespace token or not
@@ -95,5 +105,13 @@ typedef NS_ENUM(NSInteger, MODTokenType) {
  *  @return `YES` if it is possible that the receiver is a variable
  */
 - (BOOL)isPossiblyVar;
+
+/**
+ *  Returns whether the receiver could be a valid expression token.
+ *  However context will determine if it is definitely part of an expression
+ *
+ *  @return `YES` if it is possible that the receiver is a expression token
+ */
+- (BOOL)isPossiblyExpression;
 
 @end

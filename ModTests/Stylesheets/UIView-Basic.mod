@@ -1,6 +1,6 @@
 $border-width = 2;
 //hello comments, look vars can be on same line 
-$defaultFontName = Avenir-Heavy; $textInsets = 4 3 2 1
+$textInsets = 4 3 2 1; $defaultFontName = Avenir-Heavy;
 
 UISlider {
   background-color:#A2A2A2;

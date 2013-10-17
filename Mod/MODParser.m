@@ -110,6 +110,7 @@ NSInteger const MODParseErrorFileContents = 2;
             if (currentNodes.count) {
                 //TODO error can't have vars inside styleNOdes
             }
+            [styleVar resolveExpressions];
             self.styleVars[styleVar.nameToken.value] = styleVar;
             [self consumeTokensMatching:^BOOL(MODToken *token) {
                 return token.isWhitespace || token.type == MODTokenTypeSemiColon;
@@ -136,6 +137,7 @@ NSInteger const MODParseErrorFileContents = 2;
                 }
                 return nil;
             }
+            [styleProperty resolveExpressions];
             for (MODStyleNode *node in currentNodes) {
                 [node addStyleProperty:styleProperty];
             }

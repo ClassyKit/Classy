@@ -56,20 +56,24 @@ it(@"should return space", ^{
 it(@"should return curly brace", ^{
     MODLexer *lexer = [[MODLexer alloc] initWithString:@"{  \t    hello"];
     expect(lexer.peekToken.type).to.equal(MODTokenTypeLeftCurlyBrace);
+    expect(lexer.peekToken.value).to.equal(@"{");
     expect(lexer.str).to.equal(@"  \t    hello");
 
     lexer = [[MODLexer alloc] initWithString:@"}{  world hello"];
     expect(lexer.peekToken.type).to.equal(MODTokenTypeRightCurlyBrace);
+    expect(lexer.peekToken.value).to.equal(@"}");
     expect(lexer.str).to.equal(@"{  world hello");
 });
 
 it(@"should return square brace", ^{
     MODLexer *lexer = [[MODLexer alloc] initWithString:@"[  \t    hello"];
     expect(lexer.peekToken.type).to.equal(MODTokenTypeLeftSquareBrace);
+    expect(lexer.peekToken.value).to.equal(@"[");
     expect(lexer.str).to.equal(@"  \t    hello");
 
     lexer = [[MODLexer alloc] initWithString:@"][  world hello"];
     expect(lexer.peekToken.type).to.equal(MODTokenTypeRightSquareBrace);
+    expect(lexer.peekToken.value).to.equal(@"]");
     expect(lexer.str).to.equal(@"[  world hello");
 });
 
@@ -82,12 +86,12 @@ it(@"should return ()", ^{
 
     token = lexer.nextToken;
     expect(token.type).to.equal(MODTokenTypeLeftRoundBrace);
-    expect(token.value).to.beNil();
+    expect(token.value).to.equal(@"(");
     expect(lexer.str).to.equal(@"1,2,3,4)");
 
     token = [lexer lookaheadByCount:8];
     expect(token.type).to.equal(MODTokenTypeRightRoundBrace);
-    expect(token.value).to.beNil();
+    expect(token.value).to.equal(@")");
     expect(lexer.str).to.equal(@"");
 });
 

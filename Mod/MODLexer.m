@@ -299,11 +299,11 @@ NSString * const MODParseFailingStringErrorKey = @"MODParseFailingStringErrorKey
 - (MODToken *)squareBrace {
     if ([self.str hasPrefix:@"["]) {
         [self skip:1];
-        return [MODToken tokenOfType:MODTokenTypeLeftSquareBrace];
+        return [MODToken tokenOfType:MODTokenTypeLeftSquareBrace value:@"["];
     }
     if ([self.str hasPrefix:@"]"]) {
         [self skip:1];
-        return [MODToken tokenOfType:MODTokenTypeRightSquareBrace];
+        return [MODToken tokenOfType:MODTokenTypeRightSquareBrace value:@"]"];
     }
     return nil;
 }
@@ -311,11 +311,11 @@ NSString * const MODParseFailingStringErrorKey = @"MODParseFailingStringErrorKey
 - (MODToken *)curlyBrace {
     if ([self.str hasPrefix:@"{"]) {
         [self skip:1];
-        return [MODToken tokenOfType:MODTokenTypeLeftCurlyBrace];
+        return [MODToken tokenOfType:MODTokenTypeLeftCurlyBrace value:@"{"];
     }
     if ([self.str hasPrefix:@"}"]) {
         [self skip:1];
-        return [MODToken tokenOfType:MODTokenTypeRightCurlyBrace];
+        return [MODToken tokenOfType:MODTokenTypeRightCurlyBrace value:@"}"];
     }
     return nil;
 }
@@ -323,11 +323,11 @@ NSString * const MODParseFailingStringErrorKey = @"MODParseFailingStringErrorKey
 - (MODToken *)roundBrace {
     if ([self.str hasPrefix:@"("]) {
         [self skip:1];
-        return [MODToken tokenOfType:MODTokenTypeLeftRoundBrace];
+        return [MODToken tokenOfType:MODTokenTypeLeftRoundBrace value:@"("];
     }
     if ([self.str hasPrefix:@")"]) {
         [self skip:1];
-        return [MODToken tokenOfType:MODTokenTypeRightRoundBrace];
+        return [MODToken tokenOfType:MODTokenTypeRightRoundBrace value:@")"];
     }
     return nil;
 }
