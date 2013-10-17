@@ -1,4 +1,4 @@
-#Mod [![Build Status](https://travis-ci.org/cloudkite/Mod.png?branch=master)](https://travis-ci.org/cloudkite/Mod) [![Coverage Status](https://coveralls.io/repos/cloudkite/Mod/badge.png?branch=master)](https://coveralls.io/r/cloudkite/Mod?branch=master)
+#Classy [![Build Status](https://travis-ci.org/cloudkite/Class.png?branch=master)](https://travis-ci.org/cloudkite/Classy) [![Coverage Status](https://coveralls.io/repos/cloudkite/Classy/badge.png?branch=master)](https://coveralls.io/r/cloudkite/Classy?branch=master)
 
 Alpha
 
