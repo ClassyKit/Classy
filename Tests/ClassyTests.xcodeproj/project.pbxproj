@@ -226,6 +226,7 @@
 				DDD3D4C31810D9A400E378A2 /* Frameworks */,
 				DDD3D4C41810D9A400E378A2 /* Resources */,
 				170AC70AAB67457A972677ED /* Copy Pods Resources */,
+				DDD3D5041810ED4F00E378A2 /* ShellScript */,
 			);
 			buildRules = (
 			);
@@ -355,6 +356,19 @@
 			shellPath = /bin/sh;
 			shellScript = "\"${SRCROOT}/Pods/Pods-resources.sh\"\n";
 			showEnvVarsInLog = 0;
+		};
+		DDD3D5041810ED4F00E378A2 /* ShellScript */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = ../script/exportenv.sh;
 		};
 /* End PBXShellScriptBuildPhase section */
 
