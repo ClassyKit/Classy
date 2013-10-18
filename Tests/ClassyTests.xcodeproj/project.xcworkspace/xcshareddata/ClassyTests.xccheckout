@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>IDESourceControlProjectFavoriteDictionaryKey</key>
+	<false/>
+	<key>IDESourceControlProjectIdentifier</key>
+	<string>5AD75AC1-8958-4FBB-A090-A8F1BA88736B</string>
+	<key>IDESourceControlProjectName</key>
+	<string>ClassyTests</string>
+	<key>IDESourceControlProjectOriginsDictionary</key>
+	<dict>
+		<key>8ED57007-8469-49FE-8F73-0498C64D8859</key>
+		<string>https://github.com/cloudkite/Classy.git</string>
+	</dict>
+	<key>IDESourceControlProjectPath</key>
+	<string>Tests/ClassyTests.xcodeproj/project.xcworkspace</string>
+	<key>IDESourceControlProjectRelativeInstallPathDictionary</key>
+	<dict>
+		<key>8ED57007-8469-49FE-8F73-0498C64D8859</key>
+		<string>../../..</string>
+	</dict>
+	<key>IDESourceControlProjectURL</key>
+	<string>https://github.com/cloudkite/Classy.git</string>
+	<key>IDESourceControlProjectVersion</key>
+	<integer>110</integer>
+	<key>IDESourceControlProjectWCCIdentifier</key>
+	<string>8ED57007-8469-49FE-8F73-0498C64D8859</string>
+	<key>IDESourceControlProjectWCConfigurations</key>
+	<array>
+		<dict>
+			<key>IDESourceControlRepositoryExtensionIdentifierKey</key>
+			<string>public.vcs.git</string>
+			<key>IDESourceControlWCCIdentifierKey</key>
+			<string>8ED57007-8469-49FE-8F73-0498C64D8859</string>
+			<key>IDESourceControlWCCName</key>
+			<string>Classy</string>
+		</dict>
+	</array>
+</dict>
+</plist>

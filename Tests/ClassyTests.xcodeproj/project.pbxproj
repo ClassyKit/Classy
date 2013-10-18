@@ -1,0 +1,571 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 46;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		3BA41BB7D74E49DCAB9A71F3 /* libPods.a in Frameworks */ = {isa = PBXBuildFile; fileRef = D2EB520A6E364581AD17C325 /* libPods.a */; };
+		DDD3D48D1810D6DA00E378A2 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DDD3D48C1810D6DA00E378A2 /* Foundation.framework */; };
+		DDD3D48F1810D6DA00E378A2 /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DDD3D48E1810D6DA00E378A2 /* CoreGraphics.framework */; };
+		DDD3D4911810D6DA00E378A2 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DDD3D4901810D6DA00E378A2 /* UIKit.framework */; };
+		DDD3D4C01810D8B100E378A2 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = DDD3D4BD1810D8B100E378A2 /* Images.xcassets */; };
+		DDD3D4C11810D8B100E378A2 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = DDD3D4BE1810D8B100E378A2 /* main.m */; };
+		DDD3D4C81810D9A400E378A2 /* SenTestingKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DDD3D4C71810D9A400E378A2 /* SenTestingKit.framework */; };
+		DDD3D4C91810D9A400E378A2 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DDD3D48C1810D6DA00E378A2 /* Foundation.framework */; };
+		DDD3D4CA1810D9A400E378A2 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DDD3D4901810D6DA00E378A2 /* UIKit.framework */; };
+		DDD3D4E61810DB0000E378A2 /* CASArgumentDescriptorSpec.m in Sources */ = {isa = PBXBuildFile; fileRef = DDD3D4DD1810DB0000E378A2 /* CASArgumentDescriptorSpec.m */; };
+		DDD3D4E71810DB0000E378A2 /* CASExampleView.m in Sources */ = {isa = PBXBuildFile; fileRef = DDD3D4DF1810DB0000E378A2 /* CASExampleView.m */; };
+		DDD3D4E81810DB0000E378A2 /* CASLexerSpec.m in Sources */ = {isa = PBXBuildFile; fileRef = DDD3D4E01810DB0000E378A2 /* CASLexerSpec.m */; };
+		DDD3D4E91810DB0000E378A2 /* CASParserSpec.m in Sources */ = {isa = PBXBuildFile; fileRef = DDD3D4E11810DB0000E378A2 /* CASParserSpec.m */; };
+		DDD3D4EA1810DB0000E378A2 /* CASRuntimeExtensionsSpec.m in Sources */ = {isa = PBXBuildFile; fileRef = DDD3D4E21810DB0000E378A2 /* CASRuntimeExtensionsSpec.m */; };
+		DDD3D4EB1810DB0000E378A2 /* CASStylePropertySpec.m in Sources */ = {isa = PBXBuildFile; fileRef = DDD3D4E31810DB0000E378A2 /* CASStylePropertySpec.m */; };
+		DDD3D4EC1810DB0000E378A2 /* CASStylerSpec.m in Sources */ = {isa = PBXBuildFile; fileRef = DDD3D4E41810DB0000E378A2 /* CASStylerSpec.m */; };
+		DDD3D4ED1810DB0000E378A2 /* CASTokenSpec.m in Sources */ = {isa = PBXBuildFile; fileRef = DDD3D4E51810DB0000E378A2 /* CASTokenSpec.m */; };
+		DDD3D4F91810DF1800E378A2 /* Properties-Basic.cas in Resources */ = {isa = PBXBuildFile; fileRef = DDD3D4F31810DF1800E378A2 /* Properties-Basic.cas */; };
+		DDD3D4FA1810DF1800E378A2 /* Selectors-Basic.cas in Resources */ = {isa = PBXBuildFile; fileRef = DDD3D4F41810DF1800E378A2 /* Selectors-Basic.cas */; };
+		DDD3D4FB1810DF1800E378A2 /* Selectors-Complex.cas in Resources */ = {isa = PBXBuildFile; fileRef = DDD3D4F51810DF1800E378A2 /* Selectors-Complex.cas */; };
+		DDD3D4FC1810DF1800E378A2 /* Selectors-Hierarchy.cas in Resources */ = {isa = PBXBuildFile; fileRef = DDD3D4F61810DF1800E378A2 /* Selectors-Hierarchy.cas */; };
+		DDD3D4FD1810DF1800E378A2 /* Selectors-Indentation.cas in Resources */ = {isa = PBXBuildFile; fileRef = DDD3D4F71810DF1800E378A2 /* Selectors-Indentation.cas */; };
+		DDD3D4FE1810DF1800E378A2 /* UIView-Basic.cas in Resources */ = {isa = PBXBuildFile; fileRef = DDD3D4F81810DF1800E378A2 /* UIView-Basic.cas */; };
+		DDD3D5001810DF7C00E378A2 /* bg_textfield.png in Resources */ = {isa = PBXBuildFile; fileRef = DDD3D4FF1810DF7C00E378A2 /* bg_textfield.png */; };
+		DDD3D5021810E02F00E378A2 /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DDD3D5011810E02F00E378A2 /* QuartzCore.framework */; };
+		F34D3EB9A0B442619C2BC824 /* libPods-ClassyTests.a in Frameworks */ = {isa = PBXBuildFile; fileRef = C594C855E67D4ABAAB9D8034 /* libPods-ClassyTests.a */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXContainerItemProxy section */
+		DDD3D4D41810D9A400E378A2 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = DDD3D4811810D6DA00E378A2 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = DDD3D4881810D6DA00E378A2;
+			remoteInfo = ClassyTestsLoader;
+		};
+/* End PBXContainerItemProxy section */
+
+/* Begin PBXFileReference section */
+		88668587A9354D3F91D80BDF /* Pods-ClassyTests.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-ClassyTests.xcconfig"; path = "Pods/Pods-ClassyTests.xcconfig"; sourceTree = "<group>"; };
+		C594C855E67D4ABAAB9D8034 /* libPods-ClassyTests.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-ClassyTests.a"; sourceTree = BUILT_PRODUCTS_DIR; };
+		D2EB520A6E364581AD17C325 /* libPods.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libPods.a; sourceTree = BUILT_PRODUCTS_DIR; };
+		DDD3D4891810D6DA00E378A2 /* ClassyTestsLoader.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = ClassyTestsLoader.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		DDD3D48C1810D6DA00E378A2 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
+		DDD3D48E1810D6DA00E378A2 /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = System/Library/Frameworks/CoreGraphics.framework; sourceTree = SDKROOT; };
+		DDD3D4901810D6DA00E378A2 /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
+		DDD3D4BC1810D8B100E378A2 /* ClassyTestsLoader-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "ClassyTestsLoader-Info.plist"; sourceTree = "<group>"; };
+		DDD3D4BD1810D8B100E378A2 /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Images.xcassets; sourceTree = "<group>"; };
+		DDD3D4BE1810D8B100E378A2 /* main.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
+		DDD3D4C61810D9A400E378A2 /* ClassyTests.octest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = ClassyTests.octest; sourceTree = BUILT_PRODUCTS_DIR; };
+		DDD3D4C71810D9A400E378A2 /* SenTestingKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SenTestingKit.framework; path = Library/Frameworks/SenTestingKit.framework; sourceTree = DEVELOPER_DIR; };
+		DDD3D4DD1810DB0000E378A2 /* CASArgumentDescriptorSpec.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CASArgumentDescriptorSpec.m; sourceTree = "<group>"; };
+		DDD3D4DE1810DB0000E378A2 /* CASExampleView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CASExampleView.h; sourceTree = "<group>"; };
+		DDD3D4DF1810DB0000E378A2 /* CASExampleView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CASExampleView.m; sourceTree = "<group>"; };
+		DDD3D4E01810DB0000E378A2 /* CASLexerSpec.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CASLexerSpec.m; sourceTree = "<group>"; };
+		DDD3D4E11810DB0000E378A2 /* CASParserSpec.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CASParserSpec.m; sourceTree = "<group>"; };
+		DDD3D4E21810DB0000E378A2 /* CASRuntimeExtensionsSpec.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CASRuntimeExtensionsSpec.m; sourceTree = "<group>"; };
+		DDD3D4E31810DB0000E378A2 /* CASStylePropertySpec.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CASStylePropertySpec.m; sourceTree = "<group>"; };
+		DDD3D4E41810DB0000E378A2 /* CASStylerSpec.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CASStylerSpec.m; sourceTree = "<group>"; };
+		DDD3D4E51810DB0000E378A2 /* CASTokenSpec.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CASTokenSpec.m; sourceTree = "<group>"; };
+		DDD3D4EF1810DB4300E378A2 /* ClassyTests-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "ClassyTests-Info.plist"; sourceTree = "<group>"; };
+		DDD3D4F01810DB4300E378A2 /* ClassyTests-Prefix.pch */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "ClassyTests-Prefix.pch"; sourceTree = "<group>"; };
+		DDD3D4F31810DF1800E378A2 /* Properties-Basic.cas */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = "Properties-Basic.cas"; sourceTree = "<group>"; };
+		DDD3D4F41810DF1800E378A2 /* Selectors-Basic.cas */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = "Selectors-Basic.cas"; sourceTree = "<group>"; };
+		DDD3D4F51810DF1800E378A2 /* Selectors-Complex.cas */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = "Selectors-Complex.cas"; sourceTree = "<group>"; };
+		DDD3D4F61810DF1800E378A2 /* Selectors-Hierarchy.cas */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = "Selectors-Hierarchy.cas"; sourceTree = "<group>"; };
+		DDD3D4F71810DF1800E378A2 /* Selectors-Indentation.cas */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = "Selectors-Indentation.cas"; sourceTree = "<group>"; };
+		DDD3D4F81810DF1800E378A2 /* UIView-Basic.cas */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = "UIView-Basic.cas"; sourceTree = "<group>"; };
+		DDD3D4FF1810DF7C00E378A2 /* bg_textfield.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = bg_textfield.png; sourceTree = "<group>"; };
+		DDD3D5011810E02F00E378A2 /* QuartzCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = QuartzCore.framework; path = System/Library/Frameworks/QuartzCore.framework; sourceTree = SDKROOT; };
+		ED5C5AF728124C198887B50C /* Pods.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.xcconfig; path = Pods/Pods.xcconfig; sourceTree = "<group>"; };
+/* End PBXFileReference section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		DDD3D4861810D6DA00E378A2 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				DDD3D48F1810D6DA00E378A2 /* CoreGraphics.framework in Frameworks */,
+				DDD3D4911810D6DA00E378A2 /* UIKit.framework in Frameworks */,
+				DDD3D48D1810D6DA00E378A2 /* Foundation.framework in Frameworks */,
+				3BA41BB7D74E49DCAB9A71F3 /* libPods.a in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		DDD3D4C31810D9A400E378A2 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				DDD3D5021810E02F00E378A2 /* QuartzCore.framework in Frameworks */,
+				DDD3D4C81810D9A400E378A2 /* SenTestingKit.framework in Frameworks */,
+				DDD3D4CA1810D9A400E378A2 /* UIKit.framework in Frameworks */,
+				DDD3D4C91810D9A400E378A2 /* Foundation.framework in Frameworks */,
+				F34D3EB9A0B442619C2BC824 /* libPods-ClassyTests.a in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		DDD3D4801810D6DA00E378A2 = {
+			isa = PBXGroup;
+			children = (
+				DDD3D4F21810DF1800E378A2 /* Stylesheets */,
+				DDD3D4DC1810DB0000E378A2 /* Specs */,
+				DDD3D4BB1810D8B100E378A2 /* ClassyTestsLoader */,
+				DDD3D48B1810D6DA00E378A2 /* Frameworks */,
+				DDD3D48A1810D6DA00E378A2 /* Products */,
+				88668587A9354D3F91D80BDF /* Pods-ClassyTests.xcconfig */,
+				ED5C5AF728124C198887B50C /* Pods.xcconfig */,
+			);
+			sourceTree = "<group>";
+		};
+		DDD3D48A1810D6DA00E378A2 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				DDD3D4891810D6DA00E378A2 /* ClassyTestsLoader.app */,
+				DDD3D4C61810D9A400E378A2 /* ClassyTests.octest */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		DDD3D48B1810D6DA00E378A2 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				DDD3D5011810E02F00E378A2 /* QuartzCore.framework */,
+				DDD3D48C1810D6DA00E378A2 /* Foundation.framework */,
+				DDD3D48E1810D6DA00E378A2 /* CoreGraphics.framework */,
+				DDD3D4901810D6DA00E378A2 /* UIKit.framework */,
+				DDD3D4C71810D9A400E378A2 /* SenTestingKit.framework */,
+				C594C855E67D4ABAAB9D8034 /* libPods-ClassyTests.a */,
+				D2EB520A6E364581AD17C325 /* libPods.a */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		DDD3D4BB1810D8B100E378A2 /* ClassyTestsLoader */ = {
+			isa = PBXGroup;
+			children = (
+				DDD3D4FF1810DF7C00E378A2 /* bg_textfield.png */,
+				DDD3D4BC1810D8B100E378A2 /* ClassyTestsLoader-Info.plist */,
+				DDD3D4BD1810D8B100E378A2 /* Images.xcassets */,
+				DDD3D4BE1810D8B100E378A2 /* main.m */,
+			);
+			path = ClassyTestsLoader;
+			sourceTree = "<group>";
+		};
+		DDD3D4DC1810DB0000E378A2 /* Specs */ = {
+			isa = PBXGroup;
+			children = (
+				DDD3D4DD1810DB0000E378A2 /* CASArgumentDescriptorSpec.m */,
+				DDD3D4DE1810DB0000E378A2 /* CASExampleView.h */,
+				DDD3D4DF1810DB0000E378A2 /* CASExampleView.m */,
+				DDD3D4E01810DB0000E378A2 /* CASLexerSpec.m */,
+				DDD3D4E11810DB0000E378A2 /* CASParserSpec.m */,
+				DDD3D4E21810DB0000E378A2 /* CASRuntimeExtensionsSpec.m */,
+				DDD3D4E31810DB0000E378A2 /* CASStylePropertySpec.m */,
+				DDD3D4E41810DB0000E378A2 /* CASStylerSpec.m */,
+				DDD3D4E51810DB0000E378A2 /* CASTokenSpec.m */,
+				DDD3D4EE1810DB0500E378A2 /* Supporting Files */,
+			);
+			path = Specs;
+			sourceTree = "<group>";
+		};
+		DDD3D4EE1810DB0500E378A2 /* Supporting Files */ = {
+			isa = PBXGroup;
+			children = (
+				DDD3D4EF1810DB4300E378A2 /* ClassyTests-Info.plist */,
+				DDD3D4F01810DB4300E378A2 /* ClassyTests-Prefix.pch */,
+			);
+			name = "Supporting Files";
+			sourceTree = "<group>";
+		};
+		DDD3D4F21810DF1800E378A2 /* Stylesheets */ = {
+			isa = PBXGroup;
+			children = (
+				DDD3D4F31810DF1800E378A2 /* Properties-Basic.cas */,
+				DDD3D4F41810DF1800E378A2 /* Selectors-Basic.cas */,
+				DDD3D4F51810DF1800E378A2 /* Selectors-Complex.cas */,
+				DDD3D4F61810DF1800E378A2 /* Selectors-Hierarchy.cas */,
+				DDD3D4F71810DF1800E378A2 /* Selectors-Indentation.cas */,
+				DDD3D4F81810DF1800E378A2 /* UIView-Basic.cas */,
+			);
+			path = Stylesheets;
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXNativeTarget section */
+		DDD3D4881810D6DA00E378A2 /* ClassyTestsLoader */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = DDD3D4B51810D6DA00E378A2 /* Build configuration list for PBXNativeTarget "ClassyTestsLoader" */;
+			buildPhases = (
+				2884B0B1F45F49E891674381 /* Check Pods Manifest.lock */,
+				DDD3D4851810D6DA00E378A2 /* Sources */,
+				DDD3D4861810D6DA00E378A2 /* Frameworks */,
+				DDD3D4871810D6DA00E378A2 /* Resources */,
+				578C6D5D43CC478FAEE55CD2 /* Copy Pods Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = ClassyTestsLoader;
+			productName = ClassyTests;
+			productReference = DDD3D4891810D6DA00E378A2 /* ClassyTestsLoader.app */;
+			productType = "com.apple.product-type.application";
+		};
+		DDD3D4C51810D9A400E378A2 /* ClassyTests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = DDD3D4D61810D9A400E378A2 /* Build configuration list for PBXNativeTarget "ClassyTests" */;
+			buildPhases = (
+				2CD9F490D31E4BDBADD92D9F /* Check Pods Manifest.lock */,
+				DDD3D4C21810D9A400E378A2 /* Sources */,
+				DDD3D4C31810D9A400E378A2 /* Frameworks */,
+				DDD3D4C41810D9A400E378A2 /* Resources */,
+				170AC70AAB67457A972677ED /* Copy Pods Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				DDD3D4D51810D9A400E378A2 /* PBXTargetDependency */,
+			);
+			name = ClassyTests;
+			productName = ClassyTests;
+			productReference = DDD3D4C61810D9A400E378A2 /* ClassyTests.octest */;
+			productType = "com.apple.product-type.bundle";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		DDD3D4811810D6DA00E378A2 /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				CLASSPREFIX = CAS;
+				LastUpgradeCheck = 0500;
+				ORGANIZATIONNAME = "Jonas Budelmann";
+				TargetAttributes = {
+					DDD3D4C51810D9A400E378A2 = {
+						TestTargetID = DDD3D4881810D6DA00E378A2;
+					};
+				};
+			};
+			buildConfigurationList = DDD3D4841810D6DA00E378A2 /* Build configuration list for PBXProject "ClassyTests" */;
+			compatibilityVersion = "Xcode 3.2";
+			developmentRegion = English;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				en,
+			);
+			mainGroup = DDD3D4801810D6DA00E378A2;
+			productRefGroup = DDD3D48A1810D6DA00E378A2 /* Products */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				DDD3D4881810D6DA00E378A2 /* ClassyTestsLoader */,
+				DDD3D4C51810D9A400E378A2 /* ClassyTests */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXResourcesBuildPhase section */
+		DDD3D4871810D6DA00E378A2 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				DDD3D5001810DF7C00E378A2 /* bg_textfield.png in Resources */,
+				DDD3D4C01810D8B100E378A2 /* Images.xcassets in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		DDD3D4C41810D9A400E378A2 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				DDD3D4FC1810DF1800E378A2 /* Selectors-Hierarchy.cas in Resources */,
+				DDD3D4FE1810DF1800E378A2 /* UIView-Basic.cas in Resources */,
+				DDD3D4F91810DF1800E378A2 /* Properties-Basic.cas in Resources */,
+				DDD3D4FA1810DF1800E378A2 /* Selectors-Basic.cas in Resources */,
+				DDD3D4FD1810DF1800E378A2 /* Selectors-Indentation.cas in Resources */,
+				DDD3D4FB1810DF1800E378A2 /* Selectors-Complex.cas in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXResourcesBuildPhase section */
+
+/* Begin PBXShellScriptBuildPhase section */
+		170AC70AAB67457A972677ED /* Copy Pods Resources */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "Copy Pods Resources";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Pods-ClassyTests-resources.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		2884B0B1F45F49E891674381 /* Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "Check Pods Manifest.lock";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_ROOT}/../Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [[ $? != 0 ]] ; then\n    cat << EOM\nerror: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\nEOM\n    exit 1\nfi\n";
+			showEnvVarsInLog = 0;
+		};
+		2CD9F490D31E4BDBADD92D9F /* Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "Check Pods Manifest.lock";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_ROOT}/../Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [[ $? != 0 ]] ; then\n    cat << EOM\nerror: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\nEOM\n    exit 1\nfi\n";
+			showEnvVarsInLog = 0;
+		};
+		578C6D5D43CC478FAEE55CD2 /* Copy Pods Resources */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "Copy Pods Resources";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Pods-resources.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+/* End PBXShellScriptBuildPhase section */
+
+/* Begin PBXSourcesBuildPhase section */
+		DDD3D4851810D6DA00E378A2 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				DDD3D4C11810D8B100E378A2 /* main.m in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		DDD3D4C21810D9A400E378A2 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				DDD3D4E61810DB0000E378A2 /* CASArgumentDescriptorSpec.m in Sources */,
+				DDD3D4E91810DB0000E378A2 /* CASParserSpec.m in Sources */,
+				DDD3D4E71810DB0000E378A2 /* CASExampleView.m in Sources */,
+				DDD3D4EB1810DB0000E378A2 /* CASStylePropertySpec.m in Sources */,
+				DDD3D4ED1810DB0000E378A2 /* CASTokenSpec.m in Sources */,
+				DDD3D4EC1810DB0000E378A2 /* CASStylerSpec.m in Sources */,
+				DDD3D4E81810DB0000E378A2 /* CASLexerSpec.m in Sources */,
+				DDD3D4EA1810DB0000E378A2 /* CASRuntimeExtensionsSpec.m in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin PBXTargetDependency section */
+		DDD3D4D51810D9A400E378A2 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = DDD3D4881810D6DA00E378A2 /* ClassyTestsLoader */;
+			targetProxy = DDD3D4D41810D9A400E378A2 /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
+
+/* Begin XCBuildConfiguration section */
+		DDD3D4B31810D6DA00E378A2 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				ARCHS = "$(ARCHS_STANDARD_INCLUDING_64_BIT)";
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				COPY_PHASE_STRIP = NO;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				GCC_SYMBOLS_PRIVATE_EXTERN = NO;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
+				ONLY_ACTIVE_ARCH = YES;
+				SDKROOT = iphoneos;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Debug;
+		};
+		DDD3D4B41810D6DA00E378A2 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				ARCHS = "$(ARCHS_STANDARD_INCLUDING_64_BIT)";
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				COPY_PHASE_STRIP = YES;
+				ENABLE_NS_ASSERTIONS = NO;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
+				SDKROOT = iphoneos;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				VALIDATE_PRODUCT = YES;
+			};
+			name = Release;
+		};
+		DDD3D4B61810D6DA00E378A2 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = ED5C5AF728124C198887B50C /* Pods.xcconfig */;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				INFOPLIST_FILE = "ClassyTestsLoader/ClassyTestsLoader-Info.plist";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				WRAPPER_EXTENSION = app;
+			};
+			name = Debug;
+		};
+		DDD3D4B71810D6DA00E378A2 /* Release */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = ED5C5AF728124C198887B50C /* Pods.xcconfig */;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				INFOPLIST_FILE = "ClassyTestsLoader/ClassyTestsLoader-Info.plist";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				WRAPPER_EXTENSION = app;
+			};
+			name = Release;
+		};
+		DDD3D4D71810D9A400E378A2 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = 88668587A9354D3F91D80BDF /* Pods-ClassyTests.xcconfig */;
+			buildSettings = {
+				ARCHS = "$(ARCHS_STANDARD_INCLUDING_64_BIT)";
+				BUNDLE_LOADER = "$(BUILT_PRODUCTS_DIR)/ClassyTestsLoader.app/ClassyTestsLoader";
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(SDKROOT)/Developer/Library/Frameworks",
+					"$(inherited)",
+					"$(DEVELOPER_FRAMEWORKS_DIR)",
+				);
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = "ClassyTests-Prefix.pch";
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				INFOPLIST_FILE = "ClassyTests-Info.plist";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				TEST_HOST = "$(BUNDLE_LOADER)";
+				WRAPPER_EXTENSION = octest;
+			};
+			name = Debug;
+		};
+		DDD3D4D81810D9A400E378A2 /* Release */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = 88668587A9354D3F91D80BDF /* Pods-ClassyTests.xcconfig */;
+			buildSettings = {
+				ARCHS = "$(ARCHS_STANDARD_INCLUDING_64_BIT)";
+				BUNDLE_LOADER = "$(BUILT_PRODUCTS_DIR)/ClassyTestsLoader.app/ClassyTestsLoader";
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(SDKROOT)/Developer/Library/Frameworks",
+					"$(inherited)",
+					"$(DEVELOPER_FRAMEWORKS_DIR)",
+				);
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = "ClassyTests-Prefix.pch";
+				INFOPLIST_FILE = "ClassyTests-Info.plist";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				TEST_HOST = "$(BUNDLE_LOADER)";
+				WRAPPER_EXTENSION = octest;
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		DDD3D4841810D6DA00E378A2 /* Build configuration list for PBXProject "ClassyTests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				DDD3D4B31810D6DA00E378A2 /* Debug */,
+				DDD3D4B41810D6DA00E378A2 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		DDD3D4B51810D6DA00E378A2 /* Build configuration list for PBXNativeTarget "ClassyTestsLoader" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				DDD3D4B61810D6DA00E378A2 /* Debug */,
+				DDD3D4B71810D6DA00E378A2 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		DDD3D4D61810D9A400E378A2 /* Build configuration list for PBXNativeTarget "ClassyTests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				DDD3D4D71810D9A400E378A2 /* Debug */,
+				DDD3D4D81810D9A400E378A2 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+/* End XCConfigurationList section */
+	};
+	rootObject = DDD3D4811810D6DA00E378A2 /* Project object */;
+}

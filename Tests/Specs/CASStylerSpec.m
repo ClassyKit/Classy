@@ -13,7 +13,6 @@
 #import <objc/runtime.h>
 #import "CASExampleView.h"
 #import "UITextField+CASAdditions.h"
-#import "CASSpecHelpers.h"
 
 @interface CASStyler ()
 @property (nonatomic, strong) NSMutableArray *styles;
@@ -133,9 +132,7 @@ describe(@"apply properties", ^{
         expect(view.cas_fontName).to.equal(@"Avenir-Heavy");
         expect(view.cas_fontSize).to.equal(12);
         expect(view.textColor.cas_hexValue).to.equal(@"a0a0a0");
-        //TODO doesnt work in CI builds, because of UIKit is not loaded properly.
-        //switch to fake app bundle
-        //expect(view.textAlignment).to.equal(NSTextAlignmentNatural);
+        expect(view.textAlignment).to.equal(NSTextAlignmentNatural);
         expect(view.contentVerticalAlignment).to.equal(UIControlContentVerticalAlignmentBottom);
         expect(view.borderStyle).to.equal(UITextBorderStyleLine);
         expect(view.background).notTo.beNil();
