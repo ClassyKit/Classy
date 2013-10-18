@@ -132,7 +132,7 @@ describe(@"apply properties", ^{
         expect(view.cas_fontName).to.equal(@"Avenir-Heavy");
         expect(view.cas_fontSize).to.equal(12);
         expect(view.textColor.cas_hexValue).to.equal(@"a0a0a0");
-        expect(view.textAlignment).to.equal(NSTextAlignmentNatural);
+        expect(view.textAlignment).to.equal(NSTextAlignmentRight);
         expect(view.contentVerticalAlignment).to.equal(UIControlContentVerticalAlignmentBottom);
         expect(view.borderStyle).to.equal(UITextBorderStyleLine);
         expect(view.background).notTo.beNil();

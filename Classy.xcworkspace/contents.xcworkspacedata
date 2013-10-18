@@ -1,1 +1,140 @@
-<?xml version='1.0' encoding='UTF-8'?><Workspace version='1.0'><FileRef location='group:Tests/ClassyTests.xcodeproj'/><FileRef location='group:Tests/Pods/Pods.xcodeproj'/></Workspace>
+<?xml version="1.0" encoding="UTF-8"?>
+<Workspace
+   version = "1.0">
+   <Group
+      location = "container:"
+      name = "Classy">
+      <FileRef
+         location = "group:Classy/Classy.h">
+      </FileRef>
+      <FileRef
+         location = "group:Classy/CASLog.h">
+      </FileRef>
+      <Group
+         location = "container:"
+         name = "Parser">
+         <FileRef
+            location = "group:Classy/CASExpressionSolver.h">
+         </FileRef>
+         <FileRef
+            location = "group:Classy/CASExpressionSolver.m">
+         </FileRef>
+         <FileRef
+            location = "group:Classy/CASLexer.h">
+         </FileRef>
+         <FileRef
+            location = "group:Classy/CASLexer.m">
+         </FileRef>
+         <FileRef
+            location = "group:Classy/CASParser.h">
+         </FileRef>
+         <FileRef
+            location = "group:Classy/CASParser.m">
+         </FileRef>
+         <FileRef
+            location = "group:Classy/CASStyleNode.h">
+         </FileRef>
+         <FileRef
+            location = "group:Classy/CASStyleNode.m">
+         </FileRef>
+         <FileRef
+            location = "group:Classy/CASStyleProperty.h">
+         </FileRef>
+         <FileRef
+            location = "group:Classy/CASStyleProperty.m">
+         </FileRef>
+         <FileRef
+            location = "group:Classy/CASStyler.h">
+         </FileRef>
+         <FileRef
+            location = "group:Classy/CASStyler.m">
+         </FileRef>
+         <FileRef
+            location = "group:Classy/CASStyleSelector.h">
+         </FileRef>
+         <FileRef
+            location = "group:Classy/CASStyleSelector.m">
+         </FileRef>
+         <FileRef
+            location = "group:Classy/CASToken.h">
+         </FileRef>
+         <FileRef
+            location = "group:Classy/CASToken.m">
+         </FileRef>
+      </Group>
+      <Group
+         location = "container:"
+         name = "Reflection">
+         <FileRef
+            location = "group:Classy/CASRuntimeExtensions.h">
+         </FileRef>
+         <FileRef
+            location = "group:Classy/CASRuntimeExtensions.m">
+         </FileRef>
+         <FileRef
+            location = "group:Classy/CASArgumentDescriptor.h">
+         </FileRef>
+         <FileRef
+            location = "group:Classy/CASArgumentDescriptor.m">
+         </FileRef>
+         <FileRef
+            location = "group:Classy/CASPropertyDescriptor.h">
+         </FileRef>
+         <FileRef
+            location = "group:Classy/CASPropertyDescriptor.m">
+         </FileRef>
+         <FileRef
+            location = "group:Classy/CASViewClassDescriptor.h">
+         </FileRef>
+         <FileRef
+            location = "group:Classy/CASViewClassDescriptor.m">
+         </FileRef>
+      </Group>
+      <Group
+         location = "container:"
+         name = "Additions">
+         <FileRef
+            location = "group:Classy/NSObject+CASSwizzle.h">
+         </FileRef>
+         <FileRef
+            location = "group:Classy/NSObject+CASSwizzle.m">
+         </FileRef>
+         <FileRef
+            location = "group:Classy/NSRegularExpression+CASAdditions.h">
+         </FileRef>
+         <FileRef
+            location = "group:Classy/NSRegularExpression+CASAdditions.m">
+         </FileRef>
+         <FileRef
+            location = "group:Classy/NSString+CASAdditions.h">
+         </FileRef>
+         <FileRef
+            location = "group:Classy/NSString+CASAdditions.m">
+         </FileRef>
+         <FileRef
+            location = "group:Classy/UIColor+CASAdditions.h">
+         </FileRef>
+         <FileRef
+            location = "group:Classy/UIColor+CASAdditions.m">
+         </FileRef>
+         <FileRef
+            location = "group:Classy/UITextField+CASAdditions.h">
+         </FileRef>
+         <FileRef
+            location = "group:Classy/UITextField+CASAdditions.m">
+         </FileRef>
+         <FileRef
+            location = "group:Classy/UIView+CASAdditions.h">
+         </FileRef>
+         <FileRef
+            location = "group:Classy/UIView+CASAdditions.m">
+         </FileRef>
+      </Group>
+   </Group>
+   <FileRef
+      location = "group:Tests/ClassyTests.xcodeproj">
+   </FileRef>
+   <FileRef
+      location = "group:Tests/Pods/Pods.xcodeproj">
+   </FileRef>
+</Workspace>

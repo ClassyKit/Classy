@@ -32,6 +32,7 @@
 		DDD3D4FE1810DF1800E378A2 /* UIView-Basic.cas in Resources */ = {isa = PBXBuildFile; fileRef = DDD3D4F81810DF1800E378A2 /* UIView-Basic.cas */; };
 		DDD3D5001810DF7C00E378A2 /* bg_textfield.png in Resources */ = {isa = PBXBuildFile; fileRef = DDD3D4FF1810DF7C00E378A2 /* bg_textfield.png */; };
 		DDD3D5021810E02F00E378A2 /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DDD3D5011810E02F00E378A2 /* QuartzCore.framework */; };
+		DDD3D5031810E61600E378A2 /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DDD3D48E1810D6DA00E378A2 /* CoreGraphics.framework */; };
 		F34D3EB9A0B442619C2BC824 /* libPods-ClassyTests.a in Frameworks */ = {isa = PBXBuildFile; fileRef = C594C855E67D4ABAAB9D8034 /* libPods-ClassyTests.a */; };
 /* End PBXBuildFile section */
 
@@ -96,6 +97,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				DDD3D5031810E61600E378A2 /* CoreGraphics.framework in Frameworks */,
 				DDD3D5021810E02F00E378A2 /* QuartzCore.framework in Frameworks */,
 				DDD3D4C81810D9A400E378A2 /* SenTestingKit.framework in Frameworks */,
 				DDD3D4CA1810D9A400E378A2 /* UIKit.framework in Frameworks */,
