@@ -18,12 +18,12 @@ it(@"should return token name", ^{
     expect([MODToken stringForType:MODTokenTypeSemiColon]).to.equal(@"semicolon");
     expect([MODToken stringForType:MODTokenTypeCarat]).to.equal(@"carat");
     expect([MODToken stringForType:MODTokenTypeNewline]).to.equal(@"newline");
-    expect([MODToken stringForType:MODTokenTypeLeftSquareBrace]).to.equal(@"[");
-    expect([MODToken stringForType:MODTokenTypeRightSquareBrace]).to.equal(@"]");
-    expect([MODToken stringForType:MODTokenTypeLeftCurlyBrace]).to.equal(@"{");
-    expect([MODToken stringForType:MODTokenTypeRightCurlyBrace]).to.equal(@"}");
-    expect([MODToken stringForType:MODTokenTypeLeftRoundBrace]).to.equal(@"(");
-    expect([MODToken stringForType:MODTokenTypeRightRoundBrace]).to.equal(@")");
+    expect([MODToken stringForType:MODTokenTypeLeftSquareBrace]).to.equal(@"left square brace");
+    expect([MODToken stringForType:MODTokenTypeRightSquareBrace]).to.equal(@"right square brace");
+    expect([MODToken stringForType:MODTokenTypeLeftCurlyBrace]).to.equal(@"left curly brace");
+    expect([MODToken stringForType:MODTokenTypeRightCurlyBrace]).to.equal(@"right curly brace");
+    expect([MODToken stringForType:MODTokenTypeLeftRoundBrace]).to.equal(@"left round brace");
+    expect([MODToken stringForType:MODTokenTypeRightRoundBrace]).to.equal(@"right round brace");
     expect([MODToken stringForType:MODTokenTypeColor]).to.equal(@"color");
     expect([MODToken stringForType:MODTokenTypeString]).to.equal(@"string");
     expect([MODToken stringForType:MODTokenTypeUnit]).to.equal(@"unit");

@@ -35,17 +35,17 @@
         case MODTokenTypeNewline:
             return @"newline";
         case MODTokenTypeLeftSquareBrace:
-            return @"[";
+            return @"left square brace";
         case MODTokenTypeRightSquareBrace:
-            return @"]";
+            return @"right square brace";
         case MODTokenTypeLeftCurlyBrace:
-            return @"{";
+            return @"left curly brace";
         case MODTokenTypeRightCurlyBrace:
-            return @"}";
+            return @"right curly brace";
         case MODTokenTypeLeftRoundBrace:
-            return @"(";
+            return @"left round brace";
         case MODTokenTypeRightRoundBrace:
-            return @")";
+            return @"right round brace";
         case MODTokenTypeColor:
             return @"color";
         case MODTokenTypeString:

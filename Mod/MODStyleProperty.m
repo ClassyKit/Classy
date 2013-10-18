@@ -8,6 +8,7 @@
 
 #import "MODStyleProperty.h"
 #import "NSString+MODAdditions.h"
+#import "MODExpressionSolver.h"
 
 @interface MODStyleProperty ()
 
@@ -131,132 +132,11 @@
 
     if (!hasOperator) return;
 
-    //TODO refactor, this is fragile and convuluted.
-    NSInteger braceCounter = 0;
-    BOOL needsCloseTuple;
-    NSMutableArray *tokenStack = NSMutableArray.new;
-    NSMutableArray *expressionStack = NSMutableArray.new;
-    NSMutableDictionary *tupleMap = NSMutableDictionary.new;
+    MODExpressionSolver *solver = MODExpressionSolver.new;
+    solver.tokens = [self.valueTokens mutableCopy];
 
-    MODToken *prevNonWhitespaceToken;
-
-    for (MODToken *token in self.valueTokens) {
-        BOOL isFunctionKeyword = [self.class.acceptableExpressionKeywords containsObject:token.value];
-        if (token.isPossiblyExpression || isFunctionKeyword) {
-            if (token.isWhitespace && !expressionStack.count) {
-                [tokenStack addObject:token];
-                continue;
-            }
-
-            if (token.type == MODTokenTypeLeftRoundBrace) {
-                braceCounter++;
-            } else if (token.type == MODTokenTypeRightRoundBrace) {
-                braceCounter--;
-            }
-            BOOL breakToken = prevNonWhitespaceToken != nil && (
-                   (prevNonWhitespaceToken.type == MODTokenTypeUnit
-                    && token.type == MODTokenTypeLeftRoundBrace)
-                || (prevNonWhitespaceToken.type == MODTokenTypeRightRoundBrace
-                    && token.type == MODTokenTypeUnit)
-                || (prevNonWhitespaceToken.type == MODTokenTypeUnit
-                    && token.type == MODTokenTypeUnit));
-
-            BOOL split = [token valueIsEqualTo:@","] || breakToken;
-            if (split) {
-                if (braceCounter > 0 && token.type != MODTokenTypeLeftRoundBrace) {
-                    if (!tupleMap.count) {
-                        needsCloseTuple = YES;
-                        [tokenStack addObject:[MODToken tokenOfType:MODTokenTypeLeftRoundBrace value:@"("]];
-                    }
-
-                    [tokenStack addObject:NSNull.null];
-                    [expressionStack addObject:[MODToken tokenOfType:MODTokenTypeRightRoundBrace value:@")"]];
-                    tupleMap[@(tokenStack.count-1)] = expressionStack;
-
-                    [tokenStack addObject:[MODToken tokenOfType:MODTokenTypeOperator value:@","]];
-                    expressionStack = NSMutableArray.new;
-                    if (token.type != MODTokenTypeLeftRoundBrace) {
-                        [expressionStack addObject:[MODToken tokenOfType:MODTokenTypeLeftRoundBrace value:@"("]];
-                    }
-                    if (![token valueIsEqualTo:@","]) {
-                        [expressionStack addObject:token];
-                    }
-                } else {
-                    MODToken *token = [self reduceTokens:expressionStack];
-                    [tokenStack addObject:token];
-                    expressionStack = NSMutableArray.new;
-                }
-                prevNonWhitespaceToken= nil;
-            } else {
-                if (braceCounter == 0 && tupleMap.count) {
-                    if (needsCloseTuple) {
-                        [tokenStack addObject:NSNull.null];
-                        [expressionStack addObject:[MODToken tokenOfType:MODTokenTypeRightRoundBrace value:@")"]];
-                        tupleMap[@(tokenStack.count-1)] = expressionStack;
-                        expressionStack = NSMutableArray.new;
-
-                        [tokenStack addObject:[MODToken tokenOfType:MODTokenTypeRightRoundBrace value:@")"]];
-                    } else {
-                        for (NSMutableArray *expressionStack in tupleMap.allValues) {
-                            [expressionStack addObject:token];
-                        }
-                    }
-
-                    needsCloseTuple = NO;
-                } else {
-                    [expressionStack addObject:token];
-                }
-            }
-
-            
-            if (!token.isWhitespace) {
-                prevNonWhitespaceToken = token;
-            }
-        } else {
-            [tokenStack addObject:token];
-        }
-    }
-
-    [tupleMap enumerateKeysAndObjectsUsingBlock:^(NSNumber *key, NSMutableArray *expressionStack, BOOL *stop) {
-        MODToken *token = [self reduceTokens:expressionStack];
-        [tokenStack replaceObjectAtIndex:[key integerValue] withObject:token];
-        [expressionStack removeAllObjects];
-    }];
-
-    if (expressionStack.count) {
-        MODToken *token = [self reduceTokens:expressionStack];
-        [tokenStack addObject:token];
-    }
-    self.valueTokens = tokenStack;
+    self.valueTokens = [solver reduceTokens];
     self.values = nil;
-}
-
-+ (NSSet *)acceptableExpressionKeywords {
-    //not a complete list but added ones that seemed useful
-    static NSSet * _acceptableExpressionKeywords = nil;
-    static dispatch_once_t onceToken;
-    dispatch_once(&onceToken, ^{
-        _acceptableExpressionKeywords = [[NSSet alloc] initWithArray:@[
-            @"floor", @"abs", @"random", @"ceiling", @"abs", @"uppercase", @"lowercase", @"log"
-        ]];
-    });
-
-    return _acceptableExpressionKeywords;
-}
-
-- (MODToken *)reduceTokens:(NSArray *)tokens {
-    if (tokens.count == 1) {
-        return tokens.lastObject;
-    }
-
-    NSMutableArray *values = NSMutableArray.new;
-    for (MODToken *token in tokens) {
-        [values addObject:token.stringValue];
-    }
-
-    NSExpression *expression = [NSExpression expressionWithFormat:[values componentsJoinedByString:@""]];
-    id value = [expression expressionValueWithObject:nil context:nil];
-    return [MODToken tokenOfType:MODTokenTypeUnit value:value];
 }
 
 @end

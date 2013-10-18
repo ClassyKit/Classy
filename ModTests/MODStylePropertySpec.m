@@ -112,7 +112,7 @@ it(@"should resolve 2-tuple", ^{
     expect([prop.values componentsJoinedByString:@""]).to.equal(@"(22.5,10)");
 });
 
-xit(@"should resolve 2-tuple forwards", ^{
+it(@"should resolve 2-tuple forwards", ^{
     NSArray *valueTokens = @[
         [MODToken tokenOfType:MODTokenTypeUnit value:@5],
         [MODToken tokenOfType:MODTokenTypeOperator value:@"*"],
@@ -154,7 +154,7 @@ it(@"should resolve 4-tuple", ^{
     expect([prop.values componentsJoinedByString:@""]).to.equal(@"(3,5,6,4)");
 });
 
-xit(@"should solve mixed expression", ^{
+it(@"should solve mixed expression", ^{
     NSArray *valueTokens = @[
         [MODToken tokenOfType:MODTokenTypeRef value:@"tiger"],
         [MODToken tokenOfType:MODTokenTypeSpace value:@" "],
@@ -195,7 +195,7 @@ xit(@"should solve mixed expression", ^{
     MODStyleProperty *prop = [[MODStyleProperty alloc] initWithNameToken:nil valueTokens:valueTokens];
     expect([prop.values componentsJoinedByString:@""]).to.equal(@"tiger place 2 + 2 (1 + (2 * 3) 3 + 0.5) * 2 / 5");
     [prop resolveExpressions];
-    expect([prop.values componentsJoinedByString:@""]).to.equal(@"tiger place 4(2,1.4) ");
+    expect([prop.values componentsJoinedByString:@""]).to.equal(@"tiger place 4(2,1.4)");
 });
 
 SpecEnd
