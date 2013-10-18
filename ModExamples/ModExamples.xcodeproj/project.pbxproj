@@ -12,7 +12,7 @@
 		DDA2FD1C17E6468A00237125 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DDA2FD1B17E6468A00237125 /* UIKit.framework */; };
 		DDA2FD2217E6468A00237125 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = DDA2FD2017E6468A00237125 /* InfoPlist.strings */; };
 		DDA2FD2417E6468A00237125 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = DDA2FD2317E6468A00237125 /* main.m */; };
-		DDA2FD2817E6468A00237125 /* MODAppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = DDA2FD2717E6468A00237125 /* MODAppDelegate.m */; };
+		DDA2FD2817E6468A00237125 /* CASAppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = DDA2FD2717E6468A00237125 /* CASAppDelegate.m */; };
 		DDA2FD2A17E6468A00237125 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = DDA2FD2917E6468A00237125 /* Images.xcassets */; };
 /* End PBXBuildFile section */
 
@@ -25,8 +25,8 @@
 		DDA2FD2117E6468A00237125 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		DDA2FD2317E6468A00237125 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
 		DDA2FD2517E6468A00237125 /* ModExamples-Prefix.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "ModExamples-Prefix.pch"; sourceTree = "<group>"; };
-		DDA2FD2617E6468A00237125 /* MODAppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MODAppDelegate.h; sourceTree = "<group>"; };
-		DDA2FD2717E6468A00237125 /* MODAppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = MODAppDelegate.m; sourceTree = "<group>"; };
+		DDA2FD2617E6468A00237125 /* CASAppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CASAppDelegate.h; sourceTree = "<group>"; };
+		DDA2FD2717E6468A00237125 /* CASAppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = CASAppDelegate.m; sourceTree = "<group>"; };
 		DDA2FD2917E6468A00237125 /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Images.xcassets; sourceTree = "<group>"; };
 		DDA2FD3017E6468A00237125 /* XCTest.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = XCTest.framework; path = Library/Frameworks/XCTest.framework; sourceTree = DEVELOPER_DIR; };
 /* End PBXFileReference section */
@@ -76,8 +76,8 @@
 		DDA2FD1D17E6468A00237125 /* ModExamples */ = {
 			isa = PBXGroup;
 			children = (
-				DDA2FD2617E6468A00237125 /* MODAppDelegate.h */,
-				DDA2FD2717E6468A00237125 /* MODAppDelegate.m */,
+				DDA2FD2617E6468A00237125 /* CASAppDelegate.h */,
+				DDA2FD2717E6468A00237125 /* CASAppDelegate.m */,
 				DDA2FD2917E6468A00237125 /* Images.xcassets */,
 				DDA2FD1E17E6468A00237125 /* Supporting Files */,
 			);
@@ -121,7 +121,7 @@
 		DDA2FD0C17E6468A00237125 /* Project object */ = {
 			isa = PBXProject;
 			attributes = {
-				CLASSPREFIX = MOD;
+				CLASSPREFIX = CAS;
 				LastUpgradeCheck = 0500;
 				ORGANIZATIONNAME = cloudling;
 			};
@@ -160,7 +160,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				DDA2FD2417E6468A00237125 /* main.m in Sources */,
-				DDA2FD2817E6468A00237125 /* MODAppDelegate.m in Sources */,
+				DDA2FD2817E6468A00237125 /* CASAppDelegate.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -185,7 +185,7 @@
 				ARCHS = "$(ARCHS_STANDARD_INCLUDING_64_BIT)";
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
 				CLANG_CXX_LIBRARY = "libc++";
-				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_CASULES = YES;
 				CLANG_ENABLE_OBJC_ARC = YES;
 				CLANG_WARN_BOOL_CONVERSION = YES;
 				CLANG_WARN_CONSTANT_CONVERSION = YES;
@@ -225,7 +225,7 @@
 				ARCHS = "$(ARCHS_STANDARD_INCLUDING_64_BIT)";
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
 				CLANG_CXX_LIBRARY = "libc++";
-				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_CASULES = YES;
 				CLANG_ENABLE_OBJC_ARC = YES;
 				CLANG_WARN_BOOL_CONVERSION = YES;
 				CLANG_WARN_CONSTANT_CONVERSION = YES;

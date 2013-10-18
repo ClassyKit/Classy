@@ -8,50 +8,50 @@
 
 /* Begin PBXBuildFile section */
 		68F011DBD64A4843B4FDBD35 /* libPods-ModTests.a in Frameworks */ = {isa = PBXBuildFile; fileRef = A8118E4244BB4C60AA546E0D /* libPods-ModTests.a */; };
-		DD01AE9D1808DD8900F6CB8E /* MODArgumentDescriptor.m in Sources */ = {isa = PBXBuildFile; fileRef = DD01AE9C1808DD8900F6CB8E /* MODArgumentDescriptor.m */; };
-		DD01AEA01809139F00F6CB8E /* MODPropertyDescriptor.m in Sources */ = {isa = PBXBuildFile; fileRef = DD01AE9F1809139F00F6CB8E /* MODPropertyDescriptor.m */; };
+		DD01AE9D1808DD8900F6CB8E /* CASArgumentDescriptor.m in Sources */ = {isa = PBXBuildFile; fileRef = DD01AE9C1808DD8900F6CB8E /* CASArgumentDescriptor.m */; };
+		DD01AEA01809139F00F6CB8E /* CASPropertyDescriptor.m in Sources */ = {isa = PBXBuildFile; fileRef = DD01AE9F1809139F00F6CB8E /* CASPropertyDescriptor.m */; };
 		DD05C3F817E68181009AEAFE /* libMod.a in Frameworks */ = {isa = PBXBuildFile; fileRef = DDA2FCC217E6453B00237125 /* libMod.a */; };
-		DD05C40317E69A44009AEAFE /* Selectors-Basic.mod in Resources */ = {isa = PBXBuildFile; fileRef = DD05C40217E69A44009AEAFE /* Selectors-Basic.mod */; };
-		DD0911D3180B538B0085F902 /* MODRuntimeExtensions.m in Sources */ = {isa = PBXBuildFile; fileRef = DD0911D2180B538B0085F902 /* MODRuntimeExtensions.m */; };
-		DD0F891517F79A4400DED62D /* MODStyleSelector.m in Sources */ = {isa = PBXBuildFile; fileRef = DD0F891417F79A4400DED62D /* MODStyleSelector.m */; };
-		DD27D48E1807A66600322ED1 /* UIView-Basic.mod in Resources */ = {isa = PBXBuildFile; fileRef = DD27D48D1807A66600322ED1 /* UIView-Basic.mod */; };
-		DD27D4911807AEE700322ED1 /* MODExampleView.m in Sources */ = {isa = PBXBuildFile; fileRef = DD27D4901807AEE700322ED1 /* MODExampleView.m */; };
-		DD2B3E3D17F2D98900C71ED9 /* Selectors-Complex.mod in Resources */ = {isa = PBXBuildFile; fileRef = DD2B3E3C17F2D98900C71ED9 /* Selectors-Complex.mod */; };
-		DD33C3C0180BB8E80058A681 /* UITextField+MODAdditions.m in Sources */ = {isa = PBXBuildFile; fileRef = DD33C3BF180BB8E80058A681 /* UITextField+MODAdditions.m */; };
-		DD3796A017F91ADF003FE21C /* UIView+MODAdditions.m in Sources */ = {isa = PBXBuildFile; fileRef = DD37969F17F91ADE003FE21C /* UIView+MODAdditions.m */; };
-		DD407BF217F13ED400B2F49D /* MODTokenSpec.m in Sources */ = {isa = PBXBuildFile; fileRef = DD407BF117F13ED400B2F49D /* MODTokenSpec.m */; };
-		DD4C8945180E95CD0006EB50 /* MODArgumentDescriptorSpec.m in Sources */ = {isa = PBXBuildFile; fileRef = DD4C8944180E95CD0006EB50 /* MODArgumentDescriptorSpec.m */; };
-		DD58C42817E6BEE900B3173C /* MODStyler.m in Sources */ = {isa = PBXBuildFile; fileRef = DD58C42717E6BEE900B3173C /* MODStyler.m */; };
-		DD58C42A17E6BF5B00B3173C /* MODStylerSpec.m in Sources */ = {isa = PBXBuildFile; fileRef = DD58C42917E6BF5B00B3173C /* MODStylerSpec.m */; };
-		DD58C42D17E6C22E00B3173C /* UIColor+MODAdditions.m in Sources */ = {isa = PBXBuildFile; fileRef = DD58C42C17E6C22E00B3173C /* UIColor+MODAdditions.m */; };
-		DD5FB4A6180E383C00E5B035 /* MODStylePropertySpec.m in Sources */ = {isa = PBXBuildFile; fileRef = DD5FB4A5180E383C00E5B035 /* MODStylePropertySpec.m */; };
+		DD05C40317E69A44009AEAFE /* Selectors-Basic.cas in Resources */ = {isa = PBXBuildFile; fileRef = DD05C40217E69A44009AEAFE /* Selectors-Basic.cas */; };
+		DD0911D3180B538B0085F902 /* CASRuntimeExtensions.m in Sources */ = {isa = PBXBuildFile; fileRef = DD0911D2180B538B0085F902 /* CASRuntimeExtensions.m */; };
+		DD0F891517F79A4400DED62D /* CASStyleSelector.m in Sources */ = {isa = PBXBuildFile; fileRef = DD0F891417F79A4400DED62D /* CASStyleSelector.m */; };
+		DD27D48E1807A66600322ED1 /* UIView-Basic.cas in Resources */ = {isa = PBXBuildFile; fileRef = DD27D48D1807A66600322ED1 /* UIView-Basic.cas */; };
+		DD27D4911807AEE700322ED1 /* CASExampleView.m in Sources */ = {isa = PBXBuildFile; fileRef = DD27D4901807AEE700322ED1 /* CASExampleView.m */; };
+		DD2B3E3D17F2D98900C71ED9 /* Selectors-Complex.cas in Resources */ = {isa = PBXBuildFile; fileRef = DD2B3E3C17F2D98900C71ED9 /* Selectors-Complex.cas */; };
+		DD33C3C0180BB8E80058A681 /* UITextField+CASAdditions.m in Sources */ = {isa = PBXBuildFile; fileRef = DD33C3BF180BB8E80058A681 /* UITextField+CASAdditions.m */; };
+		DD3796A017F91ADF003FE21C /* UIView+CASAdditions.m in Sources */ = {isa = PBXBuildFile; fileRef = DD37969F17F91ADE003FE21C /* UIView+CASAdditions.m */; };
+		DD407BF217F13ED400B2F49D /* CASTokenSpec.m in Sources */ = {isa = PBXBuildFile; fileRef = DD407BF117F13ED400B2F49D /* CASTokenSpec.m */; };
+		DD4C8945180E95CD0006EB50 /* CASArgumentDescriptorSpec.m in Sources */ = {isa = PBXBuildFile; fileRef = DD4C8944180E95CD0006EB50 /* CASArgumentDescriptorSpec.m */; };
+		DD58C42817E6BEE900B3173C /* CASStyler.m in Sources */ = {isa = PBXBuildFile; fileRef = DD58C42717E6BEE900B3173C /* CASStyler.m */; };
+		DD58C42A17E6BF5B00B3173C /* CASStylerSpec.m in Sources */ = {isa = PBXBuildFile; fileRef = DD58C42917E6BF5B00B3173C /* CASStylerSpec.m */; };
+		DD58C42D17E6C22E00B3173C /* UIColor+CASAdditions.m in Sources */ = {isa = PBXBuildFile; fileRef = DD58C42C17E6C22E00B3173C /* UIColor+CASAdditions.m */; };
+		DD5FB4A6180E383C00E5B035 /* CASStylePropertySpec.m in Sources */ = {isa = PBXBuildFile; fileRef = DD5FB4A5180E383C00E5B035 /* CASStylePropertySpec.m */; };
 		DD60E0C117E7C5CD004A171E /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DD60E0C017E7C5CD004A171E /* CoreGraphics.framework */; };
 		DD60E0C217E7C5FC004A171E /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DD60E0C017E7C5CD004A171E /* CoreGraphics.framework */; };
-		DD7A63A617F427AF00AC6DBA /* Selectors-Indentation.mod in Resources */ = {isa = PBXBuildFile; fileRef = DD7A63A517F427AF00AC6DBA /* Selectors-Indentation.mod */; };
-		DD7A63A817F427D300AC6DBA /* Properties-Basic.mod in Resources */ = {isa = PBXBuildFile; fileRef = DD7A63A717F427D300AC6DBA /* Properties-Basic.mod */; };
-		DD92491F180CA98400F34FC7 /* MODSpecHelpers.m in Sources */ = {isa = PBXBuildFile; fileRef = DD92491E180CA98400F34FC7 /* MODSpecHelpers.m */; };
-		DD924925180CC86400F34FC7 /* MODRuntimeExtensionsSpec.m in Sources */ = {isa = PBXBuildFile; fileRef = DD924924180CC86400F34FC7 /* MODRuntimeExtensionsSpec.m */; };
-		DD924928180CDFF000F34FC7 /* NSObject+MODSwizzle.m in Sources */ = {isa = PBXBuildFile; fileRef = DD924927180CDFEF00F34FC7 /* NSObject+MODSwizzle.m */; };
+		DD7A63A617F427AF00AC6DBA /* Selectors-Indentation.cas in Resources */ = {isa = PBXBuildFile; fileRef = DD7A63A517F427AF00AC6DBA /* Selectors-Indentation.cas */; };
+		DD7A63A817F427D300AC6DBA /* Properties-Basic.cas in Resources */ = {isa = PBXBuildFile; fileRef = DD7A63A717F427D300AC6DBA /* Properties-Basic.cas */; };
+		DD92491F180CA98400F34FC7 /* CASSpecHelpers.m in Sources */ = {isa = PBXBuildFile; fileRef = DD92491E180CA98400F34FC7 /* CASSpecHelpers.m */; };
+		DD924925180CC86400F34FC7 /* CASRuntimeExtensionsSpec.m in Sources */ = {isa = PBXBuildFile; fileRef = DD924924180CC86400F34FC7 /* CASRuntimeExtensionsSpec.m */; };
+		DD924928180CDFF000F34FC7 /* NSObject+CASSwizzle.m in Sources */ = {isa = PBXBuildFile; fileRef = DD924927180CDFEF00F34FC7 /* NSObject+CASSwizzle.m */; };
 		DDA2FCC617E6453B00237125 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DDA2FCC517E6453B00237125 /* Foundation.framework */; };
 		DDA2FCCB17E6453B00237125 /* Mod.h in CopyFiles */ = {isa = PBXBuildFile; fileRef = DDA2FCCA17E6453B00237125 /* Mod.h */; };
 		DDA2FCF117E6455700237125 /* SenTestingKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DDA2FCF017E6455700237125 /* SenTestingKit.framework */; };
 		DDA2FCF217E6455700237125 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DDA2FCC517E6453B00237125 /* Foundation.framework */; };
 		DDA2FCF917E6455700237125 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = DDA2FCF717E6455700237125 /* InfoPlist.strings */; };
-		DDA2FD0417E6458E00237125 /* MODParserSpec.m in Sources */ = {isa = PBXBuildFile; fileRef = DDA2FD0317E6458E00237125 /* MODParserSpec.m */; };
-		DDA2FD0917E645C700237125 /* MODLexer.m in Sources */ = {isa = PBXBuildFile; fileRef = DDA2FD0617E645C700237125 /* MODLexer.m */; };
-		DDA2FD0A17E645C700237125 /* MODParser.m in Sources */ = {isa = PBXBuildFile; fileRef = DDA2FD0817E645C700237125 /* MODParser.m */; };
-		DDB9204617E70E4A00280D47 /* MODToken.m in Sources */ = {isa = PBXBuildFile; fileRef = DDB9204517E70E4A00280D47 /* MODToken.m */; };
-		DDB9204817E78A4000280D47 /* MODLexerSpec.m in Sources */ = {isa = PBXBuildFile; fileRef = DDB9204717E78A4000280D47 /* MODLexerSpec.m */; };
-		DDB9204B17E78B5B00280D47 /* NSRegularExpression+MODAdditions.m in Sources */ = {isa = PBXBuildFile; fileRef = DDB9204A17E78B5B00280D47 /* NSRegularExpression+MODAdditions.m */; };
+		DDA2FD0417E6458E00237125 /* CASParserSpec.m in Sources */ = {isa = PBXBuildFile; fileRef = DDA2FD0317E6458E00237125 /* CASParserSpec.m */; };
+		DDA2FD0917E645C700237125 /* CASLexer.m in Sources */ = {isa = PBXBuildFile; fileRef = DDA2FD0617E645C700237125 /* CASLexer.m */; };
+		DDA2FD0A17E645C700237125 /* CASParser.m in Sources */ = {isa = PBXBuildFile; fileRef = DDA2FD0817E645C700237125 /* CASParser.m */; };
+		DDB9204617E70E4A00280D47 /* CASToken.m in Sources */ = {isa = PBXBuildFile; fileRef = DDB9204517E70E4A00280D47 /* CASToken.m */; };
+		DDB9204817E78A4000280D47 /* CASLexerSpec.m in Sources */ = {isa = PBXBuildFile; fileRef = DDB9204717E78A4000280D47 /* CASLexerSpec.m */; };
+		DDB9204B17E78B5B00280D47 /* NSRegularExpression+CASAdditions.m in Sources */ = {isa = PBXBuildFile; fileRef = DDB9204A17E78B5B00280D47 /* NSRegularExpression+CASAdditions.m */; };
 		DDC5F87E1807E87000471A44 /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DD82B9B917E79771000CD9DD /* QuartzCore.framework */; };
-		DDCA963217F92BFC00A0EAB7 /* MODViewClassDescriptor.m in Sources */ = {isa = PBXBuildFile; fileRef = DDCA963117F92BFC00A0EAB7 /* MODViewClassDescriptor.m */; };
-		DDD0B90F180BEF3B001861D6 /* NSString+MODAdditions.m in Sources */ = {isa = PBXBuildFile; fileRef = DDD0B90E180BEF3B001861D6 /* NSString+MODAdditions.m */; };
-		DDD3D3FD18109E7700E378A2 /* MODExpressionSolver.m in Sources */ = {isa = PBXBuildFile; fileRef = DDD3D3FC18109E7700E378A2 /* MODExpressionSolver.m */; };
+		DDCA963217F92BFC00A0EAB7 /* CASViewClassDescriptor.m in Sources */ = {isa = PBXBuildFile; fileRef = DDCA963117F92BFC00A0EAB7 /* CASViewClassDescriptor.m */; };
+		DDD0B90F180BEF3B001861D6 /* NSString+CASAdditions.m in Sources */ = {isa = PBXBuildFile; fileRef = DDD0B90E180BEF3B001861D6 /* NSString+CASAdditions.m */; };
+		DDD3D3FD18109E7700E378A2 /* CASExpressionSolver.m in Sources */ = {isa = PBXBuildFile; fileRef = DDD3D3FC18109E7700E378A2 /* CASExpressionSolver.m */; };
 		DDE391B917E7079F00C8BBD1 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DDE391B817E7079F00C8BBD1 /* UIKit.framework */; };
-		DDE76FF317F2ADE6003DF205 /* MODStyleNode.m in Sources */ = {isa = PBXBuildFile; fileRef = DDE76FF217F2ADE6003DF205 /* MODStyleNode.m */; };
-		DDE76FF617F2ADFB003DF205 /* MODStyleProperty.m in Sources */ = {isa = PBXBuildFile; fileRef = DDE76FF517F2ADFB003DF205 /* MODStyleProperty.m */; };
+		DDE76FF317F2ADE6003DF205 /* CASStyleNode.m in Sources */ = {isa = PBXBuildFile; fileRef = DDE76FF217F2ADE6003DF205 /* CASStyleNode.m */; };
+		DDE76FF617F2ADFB003DF205 /* CASStyleProperty.m in Sources */ = {isa = PBXBuildFile; fileRef = DDE76FF517F2ADFB003DF205 /* CASStyleProperty.m */; };
 		DDF8E9DB17E797F400E2DE34 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DDE391B817E7079F00C8BBD1 /* UIKit.framework */; };
-		DDF974CB17FA386800B15F9A /* Selectors-Hierarchy.mod in Resources */ = {isa = PBXBuildFile; fileRef = DDF974CA17FA386800B15F9A /* Selectors-Hierarchy.mod */; };
+		DDF974CB17FA386800B15F9A /* Selectors-Hierarchy.cas in Resources */ = {isa = PBXBuildFile; fileRef = DDF974CA17FA386800B15F9A /* Selectors-Hierarchy.cas */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -80,40 +80,40 @@
 /* Begin PBXFileReference section */
 		7E07F99CDCA64122B2E37628 /* Pods-ModTests.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-ModTests.xcconfig"; path = "Pods/Pods-ModTests.xcconfig"; sourceTree = "<group>"; };
 		A8118E4244BB4C60AA546E0D /* libPods-ModTests.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-ModTests.a"; sourceTree = BUILT_PRODUCTS_DIR; };
-		DD01AE9B1808DD8900F6CB8E /* MODArgumentDescriptor.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MODArgumentDescriptor.h; sourceTree = "<group>"; };
-		DD01AE9C1808DD8900F6CB8E /* MODArgumentDescriptor.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MODArgumentDescriptor.m; sourceTree = "<group>"; };
-		DD01AE9E1809139F00F6CB8E /* MODPropertyDescriptor.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MODPropertyDescriptor.h; sourceTree = "<group>"; };
-		DD01AE9F1809139F00F6CB8E /* MODPropertyDescriptor.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MODPropertyDescriptor.m; sourceTree = "<group>"; };
-		DD05C40217E69A44009AEAFE /* Selectors-Basic.mod */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = "Selectors-Basic.mod"; sourceTree = "<group>"; };
-		DD0911D1180B538B0085F902 /* MODRuntimeExtensions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MODRuntimeExtensions.h; sourceTree = "<group>"; };
-		DD0911D2180B538B0085F902 /* MODRuntimeExtensions.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MODRuntimeExtensions.m; sourceTree = "<group>"; };
-		DD0F891317F79A4400DED62D /* MODStyleSelector.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MODStyleSelector.h; sourceTree = "<group>"; };
-		DD0F891417F79A4400DED62D /* MODStyleSelector.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MODStyleSelector.m; sourceTree = "<group>"; };
-		DD27D48D1807A66600322ED1 /* UIView-Basic.mod */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = "UIView-Basic.mod"; sourceTree = "<group>"; };
-		DD27D48F1807AEE700322ED1 /* MODExampleView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MODExampleView.h; sourceTree = "<group>"; };
-		DD27D4901807AEE700322ED1 /* MODExampleView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MODExampleView.m; sourceTree = "<group>"; };
-		DD2B3E3C17F2D98900C71ED9 /* Selectors-Complex.mod */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = "Selectors-Complex.mod"; sourceTree = "<group>"; };
-		DD33C3BE180BB8E80058A681 /* UITextField+MODAdditions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UITextField+MODAdditions.h"; sourceTree = "<group>"; };
-		DD33C3BF180BB8E80058A681 /* UITextField+MODAdditions.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UITextField+MODAdditions.m"; sourceTree = "<group>"; };
-		DD37969E17F91ADE003FE21C /* UIView+MODAdditions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIView+MODAdditions.h"; sourceTree = "<group>"; };
-		DD37969F17F91ADE003FE21C /* UIView+MODAdditions.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIView+MODAdditions.m"; sourceTree = "<group>"; };
-		DD407BF117F13ED400B2F49D /* MODTokenSpec.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MODTokenSpec.m; sourceTree = "<group>"; };
-		DD4C8944180E95CD0006EB50 /* MODArgumentDescriptorSpec.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MODArgumentDescriptorSpec.m; sourceTree = "<group>"; };
-		DD58C42617E6BEE900B3173C /* MODStyler.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MODStyler.h; sourceTree = "<group>"; };
-		DD58C42717E6BEE900B3173C /* MODStyler.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MODStyler.m; sourceTree = "<group>"; };
-		DD58C42917E6BF5B00B3173C /* MODStylerSpec.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MODStylerSpec.m; sourceTree = "<group>"; };
-		DD58C42B17E6C22E00B3173C /* UIColor+MODAdditions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIColor+MODAdditions.h"; sourceTree = "<group>"; };
-		DD58C42C17E6C22E00B3173C /* UIColor+MODAdditions.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIColor+MODAdditions.m"; sourceTree = "<group>"; };
-		DD5FB4A5180E383C00E5B035 /* MODStylePropertySpec.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MODStylePropertySpec.m; sourceTree = "<group>"; };
+		DD01AE9B1808DD8900F6CB8E /* CASArgumentDescriptor.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CASArgumentDescriptor.h; sourceTree = "<group>"; };
+		DD01AE9C1808DD8900F6CB8E /* CASArgumentDescriptor.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CASArgumentDescriptor.m; sourceTree = "<group>"; };
+		DD01AE9E1809139F00F6CB8E /* CASPropertyDescriptor.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CASPropertyDescriptor.h; sourceTree = "<group>"; };
+		DD01AE9F1809139F00F6CB8E /* CASPropertyDescriptor.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CASPropertyDescriptor.m; sourceTree = "<group>"; };
+		DD05C40217E69A44009AEAFE /* Selectors-Basic.cas */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = "Selectors-Basic.cas"; sourceTree = "<group>"; };
+		DD0911D1180B538B0085F902 /* CASRuntimeExtensions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CASRuntimeExtensions.h; sourceTree = "<group>"; };
+		DD0911D2180B538B0085F902 /* CASRuntimeExtensions.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CASRuntimeExtensions.m; sourceTree = "<group>"; };
+		DD0F891317F79A4400DED62D /* CASStyleSelector.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CASStyleSelector.h; sourceTree = "<group>"; };
+		DD0F891417F79A4400DED62D /* CASStyleSelector.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CASStyleSelector.m; sourceTree = "<group>"; };
+		DD27D48D1807A66600322ED1 /* UIView-Basic.cas */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = "UIView-Basic.cas"; sourceTree = "<group>"; };
+		DD27D48F1807AEE700322ED1 /* CASExampleView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CASExampleView.h; sourceTree = "<group>"; };
+		DD27D4901807AEE700322ED1 /* CASExampleView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CASExampleView.m; sourceTree = "<group>"; };
+		DD2B3E3C17F2D98900C71ED9 /* Selectors-Complex.cas */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = "Selectors-Complex.cas"; sourceTree = "<group>"; };
+		DD33C3BE180BB8E80058A681 /* UITextField+CASAdditions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UITextField+CASAdditions.h"; sourceTree = "<group>"; };
+		DD33C3BF180BB8E80058A681 /* UITextField+CASAdditions.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UITextField+CASAdditions.m"; sourceTree = "<group>"; };
+		DD37969E17F91ADE003FE21C /* UIView+CASAdditions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIView+CASAdditions.h"; sourceTree = "<group>"; };
+		DD37969F17F91ADE003FE21C /* UIView+CASAdditions.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIView+CASAdditions.m"; sourceTree = "<group>"; };
+		DD407BF117F13ED400B2F49D /* CASTokenSpec.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CASTokenSpec.m; sourceTree = "<group>"; };
+		DD4C8944180E95CD0006EB50 /* CASArgumentDescriptorSpec.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CASArgumentDescriptorSpec.m; sourceTree = "<group>"; };
+		DD58C42617E6BEE900B3173C /* CASStyler.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CASStyler.h; sourceTree = "<group>"; };
+		DD58C42717E6BEE900B3173C /* CASStyler.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CASStyler.m; sourceTree = "<group>"; };
+		DD58C42917E6BF5B00B3173C /* CASStylerSpec.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CASStylerSpec.m; sourceTree = "<group>"; };
+		DD58C42B17E6C22E00B3173C /* UIColor+CASAdditions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIColor+CASAdditions.h"; sourceTree = "<group>"; };
+		DD58C42C17E6C22E00B3173C /* UIColor+CASAdditions.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIColor+CASAdditions.m"; sourceTree = "<group>"; };
+		DD5FB4A5180E383C00E5B035 /* CASStylePropertySpec.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CASStylePropertySpec.m; sourceTree = "<group>"; };
 		DD60E0C017E7C5CD004A171E /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = System/Library/Frameworks/CoreGraphics.framework; sourceTree = SDKROOT; };
-		DD7A63A517F427AF00AC6DBA /* Selectors-Indentation.mod */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = "Selectors-Indentation.mod"; sourceTree = "<group>"; };
-		DD7A63A717F427D300AC6DBA /* Properties-Basic.mod */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = "Properties-Basic.mod"; sourceTree = "<group>"; };
+		DD7A63A517F427AF00AC6DBA /* Selectors-Indentation.cas */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = "Selectors-Indentation.cas"; sourceTree = "<group>"; };
+		DD7A63A717F427D300AC6DBA /* Properties-Basic.cas */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = "Properties-Basic.cas"; sourceTree = "<group>"; };
 		DD82B9B917E79771000CD9DD /* QuartzCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = QuartzCore.framework; path = System/Library/Frameworks/QuartzCore.framework; sourceTree = SDKROOT; };
-		DD92491D180CA98400F34FC7 /* MODSpecHelpers.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MODSpecHelpers.h; sourceTree = "<group>"; };
-		DD92491E180CA98400F34FC7 /* MODSpecHelpers.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MODSpecHelpers.m; sourceTree = "<group>"; };
-		DD924924180CC86400F34FC7 /* MODRuntimeExtensionsSpec.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MODRuntimeExtensionsSpec.m; sourceTree = "<group>"; };
-		DD924926180CDFEF00F34FC7 /* NSObject+MODSwizzle.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSObject+MODSwizzle.h"; sourceTree = "<group>"; };
-		DD924927180CDFEF00F34FC7 /* NSObject+MODSwizzle.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSObject+MODSwizzle.m"; sourceTree = "<group>"; };
+		DD92491D180CA98400F34FC7 /* CASSpecHelpers.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CASSpecHelpers.h; sourceTree = "<group>"; };
+		DD92491E180CA98400F34FC7 /* CASSpecHelpers.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CASSpecHelpers.m; sourceTree = "<group>"; };
+		DD924924180CC86400F34FC7 /* CASRuntimeExtensionsSpec.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CASRuntimeExtensionsSpec.m; sourceTree = "<group>"; };
+		DD924926180CDFEF00F34FC7 /* NSObject+CASSwizzle.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSObject+CASSwizzle.h"; sourceTree = "<group>"; };
+		DD924927180CDFEF00F34FC7 /* NSObject+CASSwizzle.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSObject+CASSwizzle.m"; sourceTree = "<group>"; };
 		DDA2FCC217E6453B00237125 /* libMod.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libMod.a; sourceTree = BUILT_PRODUCTS_DIR; };
 		DDA2FCC517E6453B00237125 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
 		DDA2FCC917E6453B00237125 /* Mod-Prefix.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "Mod-Prefix.pch"; sourceTree = "<group>"; };
@@ -123,29 +123,29 @@
 		DDA2FCF617E6455700237125 /* ModTests-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "ModTests-Info.plist"; sourceTree = "<group>"; };
 		DDA2FCF817E6455700237125 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		DDA2FCFC17E6455700237125 /* ModTests-Prefix.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "ModTests-Prefix.pch"; sourceTree = "<group>"; };
-		DDA2FD0317E6458E00237125 /* MODParserSpec.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MODParserSpec.m; sourceTree = "<group>"; };
-		DDA2FD0517E645C700237125 /* MODLexer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MODLexer.h; sourceTree = "<group>"; };
-		DDA2FD0617E645C700237125 /* MODLexer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MODLexer.m; sourceTree = "<group>"; };
-		DDA2FD0717E645C700237125 /* MODParser.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MODParser.h; sourceTree = "<group>"; };
-		DDA2FD0817E645C700237125 /* MODParser.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MODParser.m; sourceTree = "<group>"; };
-		DDB9204417E70E4A00280D47 /* MODToken.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MODToken.h; sourceTree = "<group>"; };
-		DDB9204517E70E4A00280D47 /* MODToken.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MODToken.m; sourceTree = "<group>"; };
-		DDB9204717E78A4000280D47 /* MODLexerSpec.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MODLexerSpec.m; sourceTree = "<group>"; };
-		DDB9204917E78B5B00280D47 /* NSRegularExpression+MODAdditions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSRegularExpression+MODAdditions.h"; sourceTree = "<group>"; };
-		DDB9204A17E78B5B00280D47 /* NSRegularExpression+MODAdditions.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSRegularExpression+MODAdditions.m"; sourceTree = "<group>"; };
-		DDCA963017F92BFC00A0EAB7 /* MODViewClassDescriptor.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MODViewClassDescriptor.h; sourceTree = "<group>"; };
-		DDCA963117F92BFC00A0EAB7 /* MODViewClassDescriptor.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MODViewClassDescriptor.m; sourceTree = "<group>"; };
-		DDD0B90D180BEF3B001861D6 /* NSString+MODAdditions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSString+MODAdditions.h"; sourceTree = "<group>"; };
-		DDD0B90E180BEF3B001861D6 /* NSString+MODAdditions.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSString+MODAdditions.m"; sourceTree = "<group>"; };
-		DDD3D3FB18109E7700E378A2 /* MODExpressionSolver.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MODExpressionSolver.h; sourceTree = "<group>"; };
-		DDD3D3FC18109E7700E378A2 /* MODExpressionSolver.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MODExpressionSolver.m; sourceTree = "<group>"; };
-		DDD77AF817F3A8BD0009923A /* MODLog.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MODLog.h; sourceTree = "<group>"; };
+		DDA2FD0317E6458E00237125 /* CASParserSpec.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CASParserSpec.m; sourceTree = "<group>"; };
+		DDA2FD0517E645C700237125 /* CASLexer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CASLexer.h; sourceTree = "<group>"; };
+		DDA2FD0617E645C700237125 /* CASLexer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CASLexer.m; sourceTree = "<group>"; };
+		DDA2FD0717E645C700237125 /* CASParser.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CASParser.h; sourceTree = "<group>"; };
+		DDA2FD0817E645C700237125 /* CASParser.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CASParser.m; sourceTree = "<group>"; };
+		DDB9204417E70E4A00280D47 /* CASToken.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CASToken.h; sourceTree = "<group>"; };
+		DDB9204517E70E4A00280D47 /* CASToken.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CASToken.m; sourceTree = "<group>"; };
+		DDB9204717E78A4000280D47 /* CASLexerSpec.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CASLexerSpec.m; sourceTree = "<group>"; };
+		DDB9204917E78B5B00280D47 /* NSRegularExpression+CASAdditions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSRegularExpression+CASAdditions.h"; sourceTree = "<group>"; };
+		DDB9204A17E78B5B00280D47 /* NSRegularExpression+CASAdditions.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSRegularExpression+CASAdditions.m"; sourceTree = "<group>"; };
+		DDCA963017F92BFC00A0EAB7 /* CASViewClassDescriptor.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CASViewClassDescriptor.h; sourceTree = "<group>"; };
+		DDCA963117F92BFC00A0EAB7 /* CASViewClassDescriptor.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CASViewClassDescriptor.m; sourceTree = "<group>"; };
+		DDD0B90D180BEF3B001861D6 /* NSString+CASAdditions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSString+CASAdditions.h"; sourceTree = "<group>"; };
+		DDD0B90E180BEF3B001861D6 /* NSString+CASAdditions.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSString+CASAdditions.m"; sourceTree = "<group>"; };
+		DDD3D3FB18109E7700E378A2 /* CASExpressionSolver.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CASExpressionSolver.h; sourceTree = "<group>"; };
+		DDD3D3FC18109E7700E378A2 /* CASExpressionSolver.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CASExpressionSolver.m; sourceTree = "<group>"; };
+		DDD77AF817F3A8BD0009923A /* CASLog.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CASLog.h; sourceTree = "<group>"; };
 		DDE391B817E7079F00C8BBD1 /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
-		DDE76FF117F2ADE6003DF205 /* MODStyleNode.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MODStyleNode.h; sourceTree = "<group>"; };
-		DDE76FF217F2ADE6003DF205 /* MODStyleNode.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MODStyleNode.m; sourceTree = "<group>"; };
-		DDE76FF417F2ADFB003DF205 /* MODStyleProperty.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MODStyleProperty.h; sourceTree = "<group>"; };
-		DDE76FF517F2ADFB003DF205 /* MODStyleProperty.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MODStyleProperty.m; sourceTree = "<group>"; };
-		DDF974CA17FA386800B15F9A /* Selectors-Hierarchy.mod */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = "Selectors-Hierarchy.mod"; sourceTree = "<group>"; };
+		DDE76FF117F2ADE6003DF205 /* CASStyleNode.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CASStyleNode.h; sourceTree = "<group>"; };
+		DDE76FF217F2ADE6003DF205 /* CASStyleNode.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CASStyleNode.m; sourceTree = "<group>"; };
+		DDE76FF417F2ADFB003DF205 /* CASStyleProperty.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CASStyleProperty.h; sourceTree = "<group>"; };
+		DDE76FF517F2ADFB003DF205 /* CASStyleProperty.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CASStyleProperty.m; sourceTree = "<group>"; };
+		DDF974CA17FA386800B15F9A /* Selectors-Hierarchy.cas */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = "Selectors-Hierarchy.cas"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -179,12 +179,12 @@
 		DD05C40117E69A44009AEAFE /* Stylesheets */ = {
 			isa = PBXGroup;
 			children = (
-				DD27D48D1807A66600322ED1 /* UIView-Basic.mod */,
-				DD7A63A717F427D300AC6DBA /* Properties-Basic.mod */,
-				DD05C40217E69A44009AEAFE /* Selectors-Basic.mod */,
-				DD2B3E3C17F2D98900C71ED9 /* Selectors-Complex.mod */,
-				DD7A63A517F427AF00AC6DBA /* Selectors-Indentation.mod */,
-				DDF974CA17FA386800B15F9A /* Selectors-Hierarchy.mod */,
+				DD27D48D1807A66600322ED1 /* UIView-Basic.cas */,
+				DD7A63A717F427D300AC6DBA /* Properties-Basic.cas */,
+				DD05C40217E69A44009AEAFE /* Selectors-Basic.cas */,
+				DD2B3E3C17F2D98900C71ED9 /* Selectors-Complex.cas */,
+				DD7A63A517F427AF00AC6DBA /* Selectors-Indentation.cas */,
+				DDF974CA17FA386800B15F9A /* Selectors-Hierarchy.cas */,
 			);
 			path = Stylesheets;
 			sourceTree = "<group>";
@@ -192,31 +192,31 @@
 		DD57497617E981B000E2945E /* Modules */ = {
 			isa = PBXGroup;
 			children = (
-				DDD77AF817F3A8BD0009923A /* MODLog.h */,
-				DDB9204417E70E4A00280D47 /* MODToken.h */,
-				DDB9204517E70E4A00280D47 /* MODToken.m */,
-				DDA2FD0517E645C700237125 /* MODLexer.h */,
-				DDA2FD0617E645C700237125 /* MODLexer.m */,
-				DDA2FD0717E645C700237125 /* MODParser.h */,
-				DDA2FD0817E645C700237125 /* MODParser.m */,
-				DD58C42617E6BEE900B3173C /* MODStyler.h */,
-				DD58C42717E6BEE900B3173C /* MODStyler.m */,
-				DD01AE9B1808DD8900F6CB8E /* MODArgumentDescriptor.h */,
-				DD01AE9C1808DD8900F6CB8E /* MODArgumentDescriptor.m */,
-				DD01AE9E1809139F00F6CB8E /* MODPropertyDescriptor.h */,
-				DD01AE9F1809139F00F6CB8E /* MODPropertyDescriptor.m */,
-				DDCA963017F92BFC00A0EAB7 /* MODViewClassDescriptor.h */,
-				DDCA963117F92BFC00A0EAB7 /* MODViewClassDescriptor.m */,
-				DD0F891317F79A4400DED62D /* MODStyleSelector.h */,
-				DD0F891417F79A4400DED62D /* MODStyleSelector.m */,
-				DDE76FF117F2ADE6003DF205 /* MODStyleNode.h */,
-				DDE76FF217F2ADE6003DF205 /* MODStyleNode.m */,
-				DDE76FF417F2ADFB003DF205 /* MODStyleProperty.h */,
-				DDE76FF517F2ADFB003DF205 /* MODStyleProperty.m */,
-				DDD3D3FB18109E7700E378A2 /* MODExpressionSolver.h */,
-				DDD3D3FC18109E7700E378A2 /* MODExpressionSolver.m */,
-				DD0911D1180B538B0085F902 /* MODRuntimeExtensions.h */,
-				DD0911D2180B538B0085F902 /* MODRuntimeExtensions.m */,
+				DDD77AF817F3A8BD0009923A /* CASLog.h */,
+				DDB9204417E70E4A00280D47 /* CASToken.h */,
+				DDB9204517E70E4A00280D47 /* CASToken.m */,
+				DDA2FD0517E645C700237125 /* CASLexer.h */,
+				DDA2FD0617E645C700237125 /* CASLexer.m */,
+				DDA2FD0717E645C700237125 /* CASParser.h */,
+				DDA2FD0817E645C700237125 /* CASParser.m */,
+				DD58C42617E6BEE900B3173C /* CASStyler.h */,
+				DD58C42717E6BEE900B3173C /* CASStyler.m */,
+				DD01AE9B1808DD8900F6CB8E /* CASArgumentDescriptor.h */,
+				DD01AE9C1808DD8900F6CB8E /* CASArgumentDescriptor.m */,
+				DD01AE9E1809139F00F6CB8E /* CASPropertyDescriptor.h */,
+				DD01AE9F1809139F00F6CB8E /* CASPropertyDescriptor.m */,
+				DDCA963017F92BFC00A0EAB7 /* CASViewClassDescriptor.h */,
+				DDCA963117F92BFC00A0EAB7 /* CASViewClassDescriptor.m */,
+				DD0F891317F79A4400DED62D /* CASStyleSelector.h */,
+				DD0F891417F79A4400DED62D /* CASStyleSelector.m */,
+				DDE76FF117F2ADE6003DF205 /* CASStyleNode.h */,
+				DDE76FF217F2ADE6003DF205 /* CASStyleNode.m */,
+				DDE76FF417F2ADFB003DF205 /* CASStyleProperty.h */,
+				DDE76FF517F2ADFB003DF205 /* CASStyleProperty.m */,
+				DDD3D3FB18109E7700E378A2 /* CASExpressionSolver.h */,
+				DDD3D3FC18109E7700E378A2 /* CASExpressionSolver.m */,
+				DD0911D1180B538B0085F902 /* CASRuntimeExtensions.h */,
+				DD0911D2180B538B0085F902 /* CASRuntimeExtensions.m */,
 			);
 			name = Modules;
 			sourceTree = "<group>";
@@ -224,18 +224,18 @@
 		DD57497717E9828D00E2945E /* Additions */ = {
 			isa = PBXGroup;
 			children = (
-				DD58C42B17E6C22E00B3173C /* UIColor+MODAdditions.h */,
-				DD58C42C17E6C22E00B3173C /* UIColor+MODAdditions.m */,
-				DDB9204917E78B5B00280D47 /* NSRegularExpression+MODAdditions.h */,
-				DDB9204A17E78B5B00280D47 /* NSRegularExpression+MODAdditions.m */,
-				DD37969E17F91ADE003FE21C /* UIView+MODAdditions.h */,
-				DD37969F17F91ADE003FE21C /* UIView+MODAdditions.m */,
-				DD33C3BE180BB8E80058A681 /* UITextField+MODAdditions.h */,
-				DD33C3BF180BB8E80058A681 /* UITextField+MODAdditions.m */,
-				DDD0B90D180BEF3B001861D6 /* NSString+MODAdditions.h */,
-				DDD0B90E180BEF3B001861D6 /* NSString+MODAdditions.m */,
-				DD924926180CDFEF00F34FC7 /* NSObject+MODSwizzle.h */,
-				DD924927180CDFEF00F34FC7 /* NSObject+MODSwizzle.m */,
+				DD58C42B17E6C22E00B3173C /* UIColor+CASAdditions.h */,
+				DD58C42C17E6C22E00B3173C /* UIColor+CASAdditions.m */,
+				DDB9204917E78B5B00280D47 /* NSRegularExpression+CASAdditions.h */,
+				DDB9204A17E78B5B00280D47 /* NSRegularExpression+CASAdditions.m */,
+				DD37969E17F91ADE003FE21C /* UIView+CASAdditions.h */,
+				DD37969F17F91ADE003FE21C /* UIView+CASAdditions.m */,
+				DD33C3BE180BB8E80058A681 /* UITextField+CASAdditions.h */,
+				DD33C3BF180BB8E80058A681 /* UITextField+CASAdditions.m */,
+				DDD0B90D180BEF3B001861D6 /* NSString+CASAdditions.h */,
+				DDD0B90E180BEF3B001861D6 /* NSString+CASAdditions.m */,
+				DD924926180CDFEF00F34FC7 /* NSObject+CASSwizzle.h */,
+				DD924927180CDFEF00F34FC7 /* NSObject+CASSwizzle.m */,
 			);
 			name = Additions;
 			sourceTree = "<group>";
@@ -305,10 +305,10 @@
 		DDA2FCF517E6455700237125 /* Supporting Files */ = {
 			isa = PBXGroup;
 			children = (
-				DD92491D180CA98400F34FC7 /* MODSpecHelpers.h */,
-				DD92491E180CA98400F34FC7 /* MODSpecHelpers.m */,
-				DD27D48F1807AEE700322ED1 /* MODExampleView.h */,
-				DD27D4901807AEE700322ED1 /* MODExampleView.m */,
+				DD92491D180CA98400F34FC7 /* CASSpecHelpers.h */,
+				DD92491E180CA98400F34FC7 /* CASSpecHelpers.m */,
+				DD27D48F1807AEE700322ED1 /* CASExampleView.h */,
+				DD27D4901807AEE700322ED1 /* CASExampleView.m */,
 				DDA2FCF617E6455700237125 /* ModTests-Info.plist */,
 				DDA2FCF717E6455700237125 /* InfoPlist.strings */,
 				DDA2FCFC17E6455700237125 /* ModTests-Prefix.pch */,
@@ -319,13 +319,13 @@
 		DDA2FD0217E6457200237125 /* Specs */ = {
 			isa = PBXGroup;
 			children = (
-				DDA2FD0317E6458E00237125 /* MODParserSpec.m */,
-				DD58C42917E6BF5B00B3173C /* MODStylerSpec.m */,
-				DDB9204717E78A4000280D47 /* MODLexerSpec.m */,
-				DD407BF117F13ED400B2F49D /* MODTokenSpec.m */,
-				DD924924180CC86400F34FC7 /* MODRuntimeExtensionsSpec.m */,
-				DD4C8944180E95CD0006EB50 /* MODArgumentDescriptorSpec.m */,
-				DD5FB4A5180E383C00E5B035 /* MODStylePropertySpec.m */,
+				DDA2FD0317E6458E00237125 /* CASParserSpec.m */,
+				DD58C42917E6BF5B00B3173C /* CASStylerSpec.m */,
+				DDB9204717E78A4000280D47 /* CASLexerSpec.m */,
+				DD407BF117F13ED400B2F49D /* CASTokenSpec.m */,
+				DD924924180CC86400F34FC7 /* CASRuntimeExtensionsSpec.m */,
+				DD4C8944180E95CD0006EB50 /* CASArgumentDescriptorSpec.m */,
+				DD5FB4A5180E383C00E5B035 /* CASStylePropertySpec.m */,
 			);
 			name = Specs;
 			sourceTree = "<group>";
@@ -408,13 +408,13 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				DD05C40317E69A44009AEAFE /* Selectors-Basic.mod in Resources */,
-				DD7A63A617F427AF00AC6DBA /* Selectors-Indentation.mod in Resources */,
-				DD7A63A817F427D300AC6DBA /* Properties-Basic.mod in Resources */,
-				DDF974CB17FA386800B15F9A /* Selectors-Hierarchy.mod in Resources */,
+				DD05C40317E69A44009AEAFE /* Selectors-Basic.cas in Resources */,
+				DD7A63A617F427AF00AC6DBA /* Selectors-Indentation.cas in Resources */,
+				DD7A63A817F427D300AC6DBA /* Properties-Basic.cas in Resources */,
+				DDF974CB17FA386800B15F9A /* Selectors-Hierarchy.cas in Resources */,
 				DDA2FCF917E6455700237125 /* InfoPlist.strings in Resources */,
-				DD2B3E3D17F2D98900C71ED9 /* Selectors-Complex.mod in Resources */,
-				DD27D48E1807A66600322ED1 /* UIView-Basic.mod in Resources */,
+				DD2B3E3D17F2D98900C71ED9 /* Selectors-Complex.cas in Resources */,
+				DD27D48E1807A66600322ED1 /* UIView-Basic.cas in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -471,24 +471,24 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				DDE76FF317F2ADE6003DF205 /* MODStyleNode.m in Sources */,
-				DD33C3C0180BB8E80058A681 /* UITextField+MODAdditions.m in Sources */,
-				DD3796A017F91ADF003FE21C /* UIView+MODAdditions.m in Sources */,
-				DD01AE9D1808DD8900F6CB8E /* MODArgumentDescriptor.m in Sources */,
-				DDD0B90F180BEF3B001861D6 /* NSString+MODAdditions.m in Sources */,
-				DDCA963217F92BFC00A0EAB7 /* MODViewClassDescriptor.m in Sources */,
-				DDA2FD0917E645C700237125 /* MODLexer.m in Sources */,
-				DD0911D3180B538B0085F902 /* MODRuntimeExtensions.m in Sources */,
-				DDB9204B17E78B5B00280D47 /* NSRegularExpression+MODAdditions.m in Sources */,
-				DDD3D3FD18109E7700E378A2 /* MODExpressionSolver.m in Sources */,
-				DD58C42D17E6C22E00B3173C /* UIColor+MODAdditions.m in Sources */,
-				DD924928180CDFF000F34FC7 /* NSObject+MODSwizzle.m in Sources */,
-				DD0F891517F79A4400DED62D /* MODStyleSelector.m in Sources */,
-				DDE76FF617F2ADFB003DF205 /* MODStyleProperty.m in Sources */,
-				DD01AEA01809139F00F6CB8E /* MODPropertyDescriptor.m in Sources */,
-				DDA2FD0A17E645C700237125 /* MODParser.m in Sources */,
-				DD58C42817E6BEE900B3173C /* MODStyler.m in Sources */,
-				DDB9204617E70E4A00280D47 /* MODToken.m in Sources */,
+				DDE76FF317F2ADE6003DF205 /* CASStyleNode.m in Sources */,
+				DD33C3C0180BB8E80058A681 /* UITextField+CASAdditions.m in Sources */,
+				DD3796A017F91ADF003FE21C /* UIView+CASAdditions.m in Sources */,
+				DD01AE9D1808DD8900F6CB8E /* CASArgumentDescriptor.m in Sources */,
+				DDD0B90F180BEF3B001861D6 /* NSString+CASAdditions.m in Sources */,
+				DDCA963217F92BFC00A0EAB7 /* CASViewClassDescriptor.m in Sources */,
+				DDA2FD0917E645C700237125 /* CASLexer.m in Sources */,
+				DD0911D3180B538B0085F902 /* CASRuntimeExtensions.m in Sources */,
+				DDB9204B17E78B5B00280D47 /* NSRegularExpression+CASAdditions.m in Sources */,
+				DDD3D3FD18109E7700E378A2 /* CASExpressionSolver.m in Sources */,
+				DD58C42D17E6C22E00B3173C /* UIColor+CASAdditions.m in Sources */,
+				DD924928180CDFF000F34FC7 /* NSObject+CASSwizzle.m in Sources */,
+				DD0F891517F79A4400DED62D /* CASStyleSelector.m in Sources */,
+				DDE76FF617F2ADFB003DF205 /* CASStyleProperty.m in Sources */,
+				DD01AEA01809139F00F6CB8E /* CASPropertyDescriptor.m in Sources */,
+				DDA2FD0A17E645C700237125 /* CASParser.m in Sources */,
+				DD58C42817E6BEE900B3173C /* CASStyler.m in Sources */,
+				DDB9204617E70E4A00280D47 /* CASToken.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -496,15 +496,15 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				DD58C42A17E6BF5B00B3173C /* MODStylerSpec.m in Sources */,
-				DD924925180CC86400F34FC7 /* MODRuntimeExtensionsSpec.m in Sources */,
-				DD5FB4A6180E383C00E5B035 /* MODStylePropertySpec.m in Sources */,
-				DD92491F180CA98400F34FC7 /* MODSpecHelpers.m in Sources */,
-				DD4C8945180E95CD0006EB50 /* MODArgumentDescriptorSpec.m in Sources */,
-				DD407BF217F13ED400B2F49D /* MODTokenSpec.m in Sources */,
-				DDB9204817E78A4000280D47 /* MODLexerSpec.m in Sources */,
-				DD27D4911807AEE700322ED1 /* MODExampleView.m in Sources */,
-				DDA2FD0417E6458E00237125 /* MODParserSpec.m in Sources */,
+				DD58C42A17E6BF5B00B3173C /* CASStylerSpec.m in Sources */,
+				DD924925180CC86400F34FC7 /* CASRuntimeExtensionsSpec.m in Sources */,
+				DD5FB4A6180E383C00E5B035 /* CASStylePropertySpec.m in Sources */,
+				DD92491F180CA98400F34FC7 /* CASSpecHelpers.m in Sources */,
+				DD4C8945180E95CD0006EB50 /* CASArgumentDescriptorSpec.m in Sources */,
+				DD407BF217F13ED400B2F49D /* CASTokenSpec.m in Sources */,
+				DDB9204817E78A4000280D47 /* CASLexerSpec.m in Sources */,
+				DD27D4911807AEE700322ED1 /* CASExampleView.m in Sources */,
+				DDA2FD0417E6458E00237125 /* CASParserSpec.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -537,7 +537,7 @@
 				ARCHS = "$(ARCHS_STANDARD_INCLUDING_64_BIT)";
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
 				CLANG_CXX_LIBRARY = "libc++";
-				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_CASULES = YES;
 				CLANG_ENABLE_OBJC_ARC = YES;
 				CLANG_WARN_BOOL_CONVERSION = YES;
 				CLANG_WARN_CONSTANT_CONVERSION = YES;
@@ -575,7 +575,7 @@
 				ARCHS = "$(ARCHS_STANDARD_INCLUDING_64_BIT)";
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
 				CLANG_CXX_LIBRARY = "libc++";
-				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_CASULES = YES;
 				CLANG_ENABLE_OBJC_ARC = YES;
 				CLANG_WARN_BOOL_CONVERSION = YES;
 				CLANG_WARN_CONSTANT_CONVERSION = YES;
