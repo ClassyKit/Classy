@@ -4,9 +4,7 @@ Alpha
 
 ###TODO
 
-- apply styles to views!
-- variables
-- equations
+- better equation/expression support
 - property lookup
 - @media queries
 - @version queries
