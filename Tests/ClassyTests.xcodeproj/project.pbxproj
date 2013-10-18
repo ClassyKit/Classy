@@ -7,24 +7,24 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		DD43DAB21810F63E0058FBC1 /* CASArgumentDescriptor.m in Sources */ = {isa = PBXBuildFile; fileRef = DD43DA8D1810F63E0058FBC1 /* CASArgumentDescriptor.m */; };
-		DD43DAB31810F63E0058FBC1 /* CASExpressionSolver.m in Sources */ = {isa = PBXBuildFile; fileRef = DD43DA8F1810F63E0058FBC1 /* CASExpressionSolver.m */; };
-		DD43DAB41810F63E0058FBC1 /* CASLexer.m in Sources */ = {isa = PBXBuildFile; fileRef = DD43DA911810F63E0058FBC1 /* CASLexer.m */; };
-		DD43DAB51810F63E0058FBC1 /* CASParser.m in Sources */ = {isa = PBXBuildFile; fileRef = DD43DA941810F63E0058FBC1 /* CASParser.m */; };
-		DD43DAB61810F63E0058FBC1 /* CASPropertyDescriptor.m in Sources */ = {isa = PBXBuildFile; fileRef = DD43DA961810F63E0058FBC1 /* CASPropertyDescriptor.m */; };
-		DD43DAB71810F63E0058FBC1 /* CASRuntimeExtensions.m in Sources */ = {isa = PBXBuildFile; fileRef = DD43DA981810F63E0058FBC1 /* CASRuntimeExtensions.m */; };
-		DD43DAB81810F63E0058FBC1 /* CASStyleNode.m in Sources */ = {isa = PBXBuildFile; fileRef = DD43DA9A1810F63E0058FBC1 /* CASStyleNode.m */; };
-		DD43DAB91810F63E0058FBC1 /* CASStyleProperty.m in Sources */ = {isa = PBXBuildFile; fileRef = DD43DA9C1810F63E0058FBC1 /* CASStyleProperty.m */; };
-		DD43DABA1810F63E0058FBC1 /* CASStyler.m in Sources */ = {isa = PBXBuildFile; fileRef = DD43DA9E1810F63E0058FBC1 /* CASStyler.m */; };
-		DD43DABB1810F63E0058FBC1 /* CASStyleSelector.m in Sources */ = {isa = PBXBuildFile; fileRef = DD43DAA01810F63E0058FBC1 /* CASStyleSelector.m */; };
-		DD43DABC1810F63E0058FBC1 /* CASToken.m in Sources */ = {isa = PBXBuildFile; fileRef = DD43DAA21810F63E0058FBC1 /* CASToken.m */; };
-		DD43DABD1810F63E0058FBC1 /* CASViewClassDescriptor.m in Sources */ = {isa = PBXBuildFile; fileRef = DD43DAA41810F63E0058FBC1 /* CASViewClassDescriptor.m */; };
-		DD43DABE1810F63E0058FBC1 /* NSObject+CASSwizzle.m in Sources */ = {isa = PBXBuildFile; fileRef = DD43DAA71810F63E0058FBC1 /* NSObject+CASSwizzle.m */; };
-		DD43DABF1810F63E0058FBC1 /* NSRegularExpression+CASAdditions.m in Sources */ = {isa = PBXBuildFile; fileRef = DD43DAA91810F63E0058FBC1 /* NSRegularExpression+CASAdditions.m */; };
-		DD43DAC01810F63E0058FBC1 /* NSString+CASAdditions.m in Sources */ = {isa = PBXBuildFile; fileRef = DD43DAAB1810F63E0058FBC1 /* NSString+CASAdditions.m */; };
-		DD43DAC11810F63E0058FBC1 /* UIColor+CASAdditions.m in Sources */ = {isa = PBXBuildFile; fileRef = DD43DAAD1810F63E0058FBC1 /* UIColor+CASAdditions.m */; };
-		DD43DAC21810F63E0058FBC1 /* UITextField+CASAdditions.m in Sources */ = {isa = PBXBuildFile; fileRef = DD43DAAF1810F63E0058FBC1 /* UITextField+CASAdditions.m */; };
-		DD43DAC31810F63E0058FBC1 /* UIView+CASAdditions.m in Sources */ = {isa = PBXBuildFile; fileRef = DD43DAB11810F63E0058FBC1 /* UIView+CASAdditions.m */; };
+		DD04A438181109450099FEA5 /* CASArgumentDescriptor.m in Sources */ = {isa = PBXBuildFile; fileRef = DD04A413181109450099FEA5 /* CASArgumentDescriptor.m */; };
+		DD04A439181109450099FEA5 /* CASExpressionSolver.m in Sources */ = {isa = PBXBuildFile; fileRef = DD04A415181109450099FEA5 /* CASExpressionSolver.m */; };
+		DD04A43A181109450099FEA5 /* CASLexer.m in Sources */ = {isa = PBXBuildFile; fileRef = DD04A417181109450099FEA5 /* CASLexer.m */; };
+		DD04A43B181109450099FEA5 /* CASParser.m in Sources */ = {isa = PBXBuildFile; fileRef = DD04A41A181109450099FEA5 /* CASParser.m */; };
+		DD04A43C181109450099FEA5 /* CASPropertyDescriptor.m in Sources */ = {isa = PBXBuildFile; fileRef = DD04A41C181109450099FEA5 /* CASPropertyDescriptor.m */; };
+		DD04A43D181109450099FEA5 /* CASRuntimeExtensions.m in Sources */ = {isa = PBXBuildFile; fileRef = DD04A41E181109450099FEA5 /* CASRuntimeExtensions.m */; };
+		DD04A43E181109450099FEA5 /* CASStyleNode.m in Sources */ = {isa = PBXBuildFile; fileRef = DD04A420181109450099FEA5 /* CASStyleNode.m */; };
+		DD04A43F181109450099FEA5 /* CASStyleProperty.m in Sources */ = {isa = PBXBuildFile; fileRef = DD04A422181109450099FEA5 /* CASStyleProperty.m */; };
+		DD04A440181109450099FEA5 /* CASStyler.m in Sources */ = {isa = PBXBuildFile; fileRef = DD04A424181109450099FEA5 /* CASStyler.m */; };
+		DD04A441181109450099FEA5 /* CASStyleSelector.m in Sources */ = {isa = PBXBuildFile; fileRef = DD04A426181109450099FEA5 /* CASStyleSelector.m */; };
+		DD04A442181109450099FEA5 /* CASToken.m in Sources */ = {isa = PBXBuildFile; fileRef = DD04A428181109450099FEA5 /* CASToken.m */; };
+		DD04A443181109450099FEA5 /* CASViewClassDescriptor.m in Sources */ = {isa = PBXBuildFile; fileRef = DD04A42A181109450099FEA5 /* CASViewClassDescriptor.m */; };
+		DD04A444181109450099FEA5 /* NSObject+CASSwizzle.m in Sources */ = {isa = PBXBuildFile; fileRef = DD04A42D181109450099FEA5 /* NSObject+CASSwizzle.m */; };
+		DD04A445181109450099FEA5 /* NSRegularExpression+CASAdditions.m in Sources */ = {isa = PBXBuildFile; fileRef = DD04A42F181109450099FEA5 /* NSRegularExpression+CASAdditions.m */; };
+		DD04A446181109450099FEA5 /* NSString+CASAdditions.m in Sources */ = {isa = PBXBuildFile; fileRef = DD04A431181109450099FEA5 /* NSString+CASAdditions.m */; };
+		DD04A447181109450099FEA5 /* UIColor+CASAdditions.m in Sources */ = {isa = PBXBuildFile; fileRef = DD04A433181109450099FEA5 /* UIColor+CASAdditions.m */; };
+		DD04A448181109450099FEA5 /* UITextField+CASAdditions.m in Sources */ = {isa = PBXBuildFile; fileRef = DD04A435181109450099FEA5 /* UITextField+CASAdditions.m */; };
+		DD04A449181109450099FEA5 /* UIView+CASAdditions.m in Sources */ = {isa = PBXBuildFile; fileRef = DD04A437181109450099FEA5 /* UIView+CASAdditions.m */; };
 		DDD3D48D1810D6DA00E378A2 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DDD3D48C1810D6DA00E378A2 /* Foundation.framework */; };
 		DDD3D48F1810D6DA00E378A2 /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DDD3D48E1810D6DA00E378A2 /* CoreGraphics.framework */; };
 		DDD3D4911810D6DA00E378A2 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DDD3D4901810D6DA00E378A2 /* UIKit.framework */; };
@@ -66,46 +66,45 @@
 /* Begin PBXFileReference section */
 		88668587A9354D3F91D80BDF /* Pods-ClassyTests.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-ClassyTests.xcconfig"; path = "Pods/Pods-ClassyTests.xcconfig"; sourceTree = "<group>"; };
 		C594C855E67D4ABAAB9D8034 /* libPods-ClassyTests.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-ClassyTests.a"; sourceTree = BUILT_PRODUCTS_DIR; };
-		D2EB520A6E364581AD17C325 /* libPods.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libPods.a; sourceTree = BUILT_PRODUCTS_DIR; };
+		DD04A412181109450099FEA5 /* CASArgumentDescriptor.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CASArgumentDescriptor.h; sourceTree = "<group>"; };
+		DD04A413181109450099FEA5 /* CASArgumentDescriptor.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CASArgumentDescriptor.m; sourceTree = "<group>"; };
+		DD04A414181109450099FEA5 /* CASExpressionSolver.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CASExpressionSolver.h; sourceTree = "<group>"; };
+		DD04A415181109450099FEA5 /* CASExpressionSolver.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CASExpressionSolver.m; sourceTree = "<group>"; };
+		DD04A416181109450099FEA5 /* CASLexer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CASLexer.h; sourceTree = "<group>"; };
+		DD04A417181109450099FEA5 /* CASLexer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CASLexer.m; sourceTree = "<group>"; };
+		DD04A418181109450099FEA5 /* CASLog.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CASLog.h; sourceTree = "<group>"; };
+		DD04A419181109450099FEA5 /* CASParser.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CASParser.h; sourceTree = "<group>"; };
+		DD04A41A181109450099FEA5 /* CASParser.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CASParser.m; sourceTree = "<group>"; };
+		DD04A41B181109450099FEA5 /* CASPropertyDescriptor.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CASPropertyDescriptor.h; sourceTree = "<group>"; };
+		DD04A41C181109450099FEA5 /* CASPropertyDescriptor.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CASPropertyDescriptor.m; sourceTree = "<group>"; };
+		DD04A41D181109450099FEA5 /* CASRuntimeExtensions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CASRuntimeExtensions.h; sourceTree = "<group>"; };
+		DD04A41E181109450099FEA5 /* CASRuntimeExtensions.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CASRuntimeExtensions.m; sourceTree = "<group>"; };
+		DD04A41F181109450099FEA5 /* CASStyleNode.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CASStyleNode.h; sourceTree = "<group>"; };
+		DD04A420181109450099FEA5 /* CASStyleNode.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CASStyleNode.m; sourceTree = "<group>"; };
+		DD04A421181109450099FEA5 /* CASStyleProperty.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CASStyleProperty.h; sourceTree = "<group>"; };
+		DD04A422181109450099FEA5 /* CASStyleProperty.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CASStyleProperty.m; sourceTree = "<group>"; };
+		DD04A423181109450099FEA5 /* CASStyler.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CASStyler.h; sourceTree = "<group>"; };
+		DD04A424181109450099FEA5 /* CASStyler.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CASStyler.m; sourceTree = "<group>"; };
+		DD04A425181109450099FEA5 /* CASStyleSelector.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CASStyleSelector.h; sourceTree = "<group>"; };
+		DD04A426181109450099FEA5 /* CASStyleSelector.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CASStyleSelector.m; sourceTree = "<group>"; };
+		DD04A427181109450099FEA5 /* CASToken.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CASToken.h; sourceTree = "<group>"; };
+		DD04A428181109450099FEA5 /* CASToken.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CASToken.m; sourceTree = "<group>"; };
+		DD04A429181109450099FEA5 /* CASViewClassDescriptor.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CASViewClassDescriptor.h; sourceTree = "<group>"; };
+		DD04A42A181109450099FEA5 /* CASViewClassDescriptor.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CASViewClassDescriptor.m; sourceTree = "<group>"; };
+		DD04A42B181109450099FEA5 /* Classy.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Classy.h; sourceTree = "<group>"; };
+		DD04A42C181109450099FEA5 /* NSObject+CASSwizzle.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSObject+CASSwizzle.h"; sourceTree = "<group>"; };
+		DD04A42D181109450099FEA5 /* NSObject+CASSwizzle.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSObject+CASSwizzle.m"; sourceTree = "<group>"; };
+		DD04A42E181109450099FEA5 /* NSRegularExpression+CASAdditions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSRegularExpression+CASAdditions.h"; sourceTree = "<group>"; };
+		DD04A42F181109450099FEA5 /* NSRegularExpression+CASAdditions.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSRegularExpression+CASAdditions.m"; sourceTree = "<group>"; };
+		DD04A430181109450099FEA5 /* NSString+CASAdditions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSString+CASAdditions.h"; sourceTree = "<group>"; };
+		DD04A431181109450099FEA5 /* NSString+CASAdditions.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSString+CASAdditions.m"; sourceTree = "<group>"; };
+		DD04A432181109450099FEA5 /* UIColor+CASAdditions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIColor+CASAdditions.h"; sourceTree = "<group>"; };
+		DD04A433181109450099FEA5 /* UIColor+CASAdditions.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIColor+CASAdditions.m"; sourceTree = "<group>"; };
+		DD04A434181109450099FEA5 /* UITextField+CASAdditions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UITextField+CASAdditions.h"; sourceTree = "<group>"; };
+		DD04A435181109450099FEA5 /* UITextField+CASAdditions.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UITextField+CASAdditions.m"; sourceTree = "<group>"; };
+		DD04A436181109450099FEA5 /* UIView+CASAdditions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIView+CASAdditions.h"; sourceTree = "<group>"; };
+		DD04A437181109450099FEA5 /* UIView+CASAdditions.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIView+CASAdditions.m"; sourceTree = "<group>"; };
 		DD43DA8A1810F5D40058FBC1 /* Classy-Prefix.pch */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "Classy-Prefix.pch"; sourceTree = "<group>"; };
-		DD43DA8C1810F63E0058FBC1 /* CASArgumentDescriptor.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CASArgumentDescriptor.h; sourceTree = "<group>"; };
-		DD43DA8D1810F63E0058FBC1 /* CASArgumentDescriptor.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CASArgumentDescriptor.m; sourceTree = "<group>"; };
-		DD43DA8E1810F63E0058FBC1 /* CASExpressionSolver.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CASExpressionSolver.h; sourceTree = "<group>"; };
-		DD43DA8F1810F63E0058FBC1 /* CASExpressionSolver.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CASExpressionSolver.m; sourceTree = "<group>"; };
-		DD43DA901810F63E0058FBC1 /* CASLexer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CASLexer.h; sourceTree = "<group>"; };
-		DD43DA911810F63E0058FBC1 /* CASLexer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CASLexer.m; sourceTree = "<group>"; };
-		DD43DA921810F63E0058FBC1 /* CASLog.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CASLog.h; sourceTree = "<group>"; };
-		DD43DA931810F63E0058FBC1 /* CASParser.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CASParser.h; sourceTree = "<group>"; };
-		DD43DA941810F63E0058FBC1 /* CASParser.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CASParser.m; sourceTree = "<group>"; };
-		DD43DA951810F63E0058FBC1 /* CASPropertyDescriptor.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CASPropertyDescriptor.h; sourceTree = "<group>"; };
-		DD43DA961810F63E0058FBC1 /* CASPropertyDescriptor.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CASPropertyDescriptor.m; sourceTree = "<group>"; };
-		DD43DA971810F63E0058FBC1 /* CASRuntimeExtensions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CASRuntimeExtensions.h; sourceTree = "<group>"; };
-		DD43DA981810F63E0058FBC1 /* CASRuntimeExtensions.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CASRuntimeExtensions.m; sourceTree = "<group>"; };
-		DD43DA991810F63E0058FBC1 /* CASStyleNode.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CASStyleNode.h; sourceTree = "<group>"; };
-		DD43DA9A1810F63E0058FBC1 /* CASStyleNode.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CASStyleNode.m; sourceTree = "<group>"; };
-		DD43DA9B1810F63E0058FBC1 /* CASStyleProperty.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CASStyleProperty.h; sourceTree = "<group>"; };
-		DD43DA9C1810F63E0058FBC1 /* CASStyleProperty.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CASStyleProperty.m; sourceTree = "<group>"; };
-		DD43DA9D1810F63E0058FBC1 /* CASStyler.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CASStyler.h; sourceTree = "<group>"; };
-		DD43DA9E1810F63E0058FBC1 /* CASStyler.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CASStyler.m; sourceTree = "<group>"; };
-		DD43DA9F1810F63E0058FBC1 /* CASStyleSelector.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CASStyleSelector.h; sourceTree = "<group>"; };
-		DD43DAA01810F63E0058FBC1 /* CASStyleSelector.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CASStyleSelector.m; sourceTree = "<group>"; };
-		DD43DAA11810F63E0058FBC1 /* CASToken.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CASToken.h; sourceTree = "<group>"; };
-		DD43DAA21810F63E0058FBC1 /* CASToken.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CASToken.m; sourceTree = "<group>"; };
-		DD43DAA31810F63E0058FBC1 /* CASViewClassDescriptor.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CASViewClassDescriptor.h; sourceTree = "<group>"; };
-		DD43DAA41810F63E0058FBC1 /* CASViewClassDescriptor.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CASViewClassDescriptor.m; sourceTree = "<group>"; };
-		DD43DAA51810F63E0058FBC1 /* Classy.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Classy.h; sourceTree = "<group>"; };
-		DD43DAA61810F63E0058FBC1 /* NSObject+CASSwizzle.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSObject+CASSwizzle.h"; sourceTree = "<group>"; };
-		DD43DAA71810F63E0058FBC1 /* NSObject+CASSwizzle.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSObject+CASSwizzle.m"; sourceTree = "<group>"; };
-		DD43DAA81810F63E0058FBC1 /* NSRegularExpression+CASAdditions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSRegularExpression+CASAdditions.h"; sourceTree = "<group>"; };
-		DD43DAA91810F63E0058FBC1 /* NSRegularExpression+CASAdditions.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSRegularExpression+CASAdditions.m"; sourceTree = "<group>"; };
-		DD43DAAA1810F63E0058FBC1 /* NSString+CASAdditions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSString+CASAdditions.h"; sourceTree = "<group>"; };
-		DD43DAAB1810F63E0058FBC1 /* NSString+CASAdditions.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSString+CASAdditions.m"; sourceTree = "<group>"; };
-		DD43DAAC1810F63E0058FBC1 /* UIColor+CASAdditions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIColor+CASAdditions.h"; sourceTree = "<group>"; };
-		DD43DAAD1810F63E0058FBC1 /* UIColor+CASAdditions.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIColor+CASAdditions.m"; sourceTree = "<group>"; };
-		DD43DAAE1810F63E0058FBC1 /* UITextField+CASAdditions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UITextField+CASAdditions.h"; sourceTree = "<group>"; };
-		DD43DAAF1810F63E0058FBC1 /* UITextField+CASAdditions.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UITextField+CASAdditions.m"; sourceTree = "<group>"; };
-		DD43DAB01810F63E0058FBC1 /* UIView+CASAdditions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIView+CASAdditions.h"; sourceTree = "<group>"; };
-		DD43DAB11810F63E0058FBC1 /* UIView+CASAdditions.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIView+CASAdditions.m"; sourceTree = "<group>"; };
 		DDD3D4891810D6DA00E378A2 /* ClassyTestsLoader.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = ClassyTestsLoader.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		DDD3D48C1810D6DA00E378A2 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
 		DDD3D48E1810D6DA00E378A2 /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = System/Library/Frameworks/CoreGraphics.framework; sourceTree = SDKROOT; };
@@ -134,7 +133,6 @@
 		DDD3D4F81810DF1800E378A2 /* UIView-Basic.cas */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = "UIView-Basic.cas"; sourceTree = "<group>"; };
 		DDD3D4FF1810DF7C00E378A2 /* bg_textfield.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = bg_textfield.png; sourceTree = "<group>"; };
 		DDD3D5011810E02F00E378A2 /* QuartzCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = QuartzCore.framework; path = System/Library/Frameworks/QuartzCore.framework; sourceTree = SDKROOT; };
-		ED5C5AF728124C198887B50C /* Pods.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.xcconfig; path = Pods/Pods.xcconfig; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -164,47 +162,47 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
-		DD43DA8B1810F63E0058FBC1 /* Classy */ = {
+		DD04A411181109450099FEA5 /* Classy */ = {
 			isa = PBXGroup;
 			children = (
-				DD43DA8C1810F63E0058FBC1 /* CASArgumentDescriptor.h */,
-				DD43DA8D1810F63E0058FBC1 /* CASArgumentDescriptor.m */,
-				DD43DA8E1810F63E0058FBC1 /* CASExpressionSolver.h */,
-				DD43DA8F1810F63E0058FBC1 /* CASExpressionSolver.m */,
-				DD43DA901810F63E0058FBC1 /* CASLexer.h */,
-				DD43DA911810F63E0058FBC1 /* CASLexer.m */,
-				DD43DA921810F63E0058FBC1 /* CASLog.h */,
-				DD43DA931810F63E0058FBC1 /* CASParser.h */,
-				DD43DA941810F63E0058FBC1 /* CASParser.m */,
-				DD43DA951810F63E0058FBC1 /* CASPropertyDescriptor.h */,
-				DD43DA961810F63E0058FBC1 /* CASPropertyDescriptor.m */,
-				DD43DA971810F63E0058FBC1 /* CASRuntimeExtensions.h */,
-				DD43DA981810F63E0058FBC1 /* CASRuntimeExtensions.m */,
-				DD43DA991810F63E0058FBC1 /* CASStyleNode.h */,
-				DD43DA9A1810F63E0058FBC1 /* CASStyleNode.m */,
-				DD43DA9B1810F63E0058FBC1 /* CASStyleProperty.h */,
-				DD43DA9C1810F63E0058FBC1 /* CASStyleProperty.m */,
-				DD43DA9D1810F63E0058FBC1 /* CASStyler.h */,
-				DD43DA9E1810F63E0058FBC1 /* CASStyler.m */,
-				DD43DA9F1810F63E0058FBC1 /* CASStyleSelector.h */,
-				DD43DAA01810F63E0058FBC1 /* CASStyleSelector.m */,
-				DD43DAA11810F63E0058FBC1 /* CASToken.h */,
-				DD43DAA21810F63E0058FBC1 /* CASToken.m */,
-				DD43DAA31810F63E0058FBC1 /* CASViewClassDescriptor.h */,
-				DD43DAA41810F63E0058FBC1 /* CASViewClassDescriptor.m */,
-				DD43DAA51810F63E0058FBC1 /* Classy.h */,
-				DD43DAA61810F63E0058FBC1 /* NSObject+CASSwizzle.h */,
-				DD43DAA71810F63E0058FBC1 /* NSObject+CASSwizzle.m */,
-				DD43DAA81810F63E0058FBC1 /* NSRegularExpression+CASAdditions.h */,
-				DD43DAA91810F63E0058FBC1 /* NSRegularExpression+CASAdditions.m */,
-				DD43DAAA1810F63E0058FBC1 /* NSString+CASAdditions.h */,
-				DD43DAAB1810F63E0058FBC1 /* NSString+CASAdditions.m */,
-				DD43DAAC1810F63E0058FBC1 /* UIColor+CASAdditions.h */,
-				DD43DAAD1810F63E0058FBC1 /* UIColor+CASAdditions.m */,
-				DD43DAAE1810F63E0058FBC1 /* UITextField+CASAdditions.h */,
-				DD43DAAF1810F63E0058FBC1 /* UITextField+CASAdditions.m */,
-				DD43DAB01810F63E0058FBC1 /* UIView+CASAdditions.h */,
-				DD43DAB11810F63E0058FBC1 /* UIView+CASAdditions.m */,
+				DD04A412181109450099FEA5 /* CASArgumentDescriptor.h */,
+				DD04A413181109450099FEA5 /* CASArgumentDescriptor.m */,
+				DD04A414181109450099FEA5 /* CASExpressionSolver.h */,
+				DD04A415181109450099FEA5 /* CASExpressionSolver.m */,
+				DD04A416181109450099FEA5 /* CASLexer.h */,
+				DD04A417181109450099FEA5 /* CASLexer.m */,
+				DD04A418181109450099FEA5 /* CASLog.h */,
+				DD04A419181109450099FEA5 /* CASParser.h */,
+				DD04A41A181109450099FEA5 /* CASParser.m */,
+				DD04A41B181109450099FEA5 /* CASPropertyDescriptor.h */,
+				DD04A41C181109450099FEA5 /* CASPropertyDescriptor.m */,
+				DD04A41D181109450099FEA5 /* CASRuntimeExtensions.h */,
+				DD04A41E181109450099FEA5 /* CASRuntimeExtensions.m */,
+				DD04A41F181109450099FEA5 /* CASStyleNode.h */,
+				DD04A420181109450099FEA5 /* CASStyleNode.m */,
+				DD04A421181109450099FEA5 /* CASStyleProperty.h */,
+				DD04A422181109450099FEA5 /* CASStyleProperty.m */,
+				DD04A423181109450099FEA5 /* CASStyler.h */,
+				DD04A424181109450099FEA5 /* CASStyler.m */,
+				DD04A425181109450099FEA5 /* CASStyleSelector.h */,
+				DD04A426181109450099FEA5 /* CASStyleSelector.m */,
+				DD04A427181109450099FEA5 /* CASToken.h */,
+				DD04A428181109450099FEA5 /* CASToken.m */,
+				DD04A429181109450099FEA5 /* CASViewClassDescriptor.h */,
+				DD04A42A181109450099FEA5 /* CASViewClassDescriptor.m */,
+				DD04A42B181109450099FEA5 /* Classy.h */,
+				DD04A42C181109450099FEA5 /* NSObject+CASSwizzle.h */,
+				DD04A42D181109450099FEA5 /* NSObject+CASSwizzle.m */,
+				DD04A42E181109450099FEA5 /* NSRegularExpression+CASAdditions.h */,
+				DD04A42F181109450099FEA5 /* NSRegularExpression+CASAdditions.m */,
+				DD04A430181109450099FEA5 /* NSString+CASAdditions.h */,
+				DD04A431181109450099FEA5 /* NSString+CASAdditions.m */,
+				DD04A432181109450099FEA5 /* UIColor+CASAdditions.h */,
+				DD04A433181109450099FEA5 /* UIColor+CASAdditions.m */,
+				DD04A434181109450099FEA5 /* UITextField+CASAdditions.h */,
+				DD04A435181109450099FEA5 /* UITextField+CASAdditions.m */,
+				DD04A436181109450099FEA5 /* UIView+CASAdditions.h */,
+				DD04A437181109450099FEA5 /* UIView+CASAdditions.m */,
 			);
 			name = Classy;
 			path = ../../Classy;
@@ -219,7 +217,6 @@
 				DDD3D48B1810D6DA00E378A2 /* Frameworks */,
 				DDD3D48A1810D6DA00E378A2 /* Products */,
 				88668587A9354D3F91D80BDF /* Pods-ClassyTests.xcconfig */,
-				ED5C5AF728124C198887B50C /* Pods.xcconfig */,
 			);
 			sourceTree = "<group>";
 		};
@@ -241,7 +238,6 @@
 				DDD3D4901810D6DA00E378A2 /* UIKit.framework */,
 				DDD3D4C71810D9A400E378A2 /* SenTestingKit.framework */,
 				C594C855E67D4ABAAB9D8034 /* libPods-ClassyTests.a */,
-				D2EB520A6E364581AD17C325 /* libPods.a */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";
@@ -249,7 +245,7 @@
 		DDD3D4BB1810D8B100E378A2 /* ClassyTestsLoader */ = {
 			isa = PBXGroup;
 			children = (
-				DD43DA8B1810F63E0058FBC1 /* Classy */,
+				DD04A411181109450099FEA5 /* Classy */,
 				DDD3D4FF1810DF7C00E378A2 /* bg_textfield.png */,
 				DDD3D4BC1810D8B100E378A2 /* ClassyTestsLoader-Info.plist */,
 				DDD3D4BD1810D8B100E378A2 /* Images.xcassets */,
@@ -305,11 +301,9 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = DDD3D4B51810D6DA00E378A2 /* Build configuration list for PBXNativeTarget "ClassyTestsLoader" */;
 			buildPhases = (
-				2884B0B1F45F49E891674381 /* Check Pods Manifest.lock */,
 				DDD3D4851810D6DA00E378A2 /* Sources */,
 				DDD3D4861810D6DA00E378A2 /* Frameworks */,
 				DDD3D4871810D6DA00E378A2 /* Resources */,
-				578C6D5D43CC478FAEE55CD2 /* Copy Pods Resources */,
 				DDD3D5051810F0ED00E378A2 /* ShellScript */,
 			);
 			buildRules = (
@@ -415,21 +409,6 @@
 			shellScript = "\"${SRCROOT}/Pods/Pods-ClassyTests-resources.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
-		2884B0B1F45F49E891674381 /* Check Pods Manifest.lock */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputPaths = (
-			);
-			name = "Check Pods Manifest.lock";
-			outputPaths = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "diff \"${PODS_ROOT}/../Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [[ $? != 0 ]] ; then\n    cat << EOM\nerror: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\nEOM\n    exit 1\nfi\n";
-			showEnvVarsInLog = 0;
-		};
 		2CD9F490D31E4BDBADD92D9F /* Check Pods Manifest.lock */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
@@ -443,21 +422,6 @@
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
 			shellScript = "diff \"${PODS_ROOT}/../Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [[ $? != 0 ]] ; then\n    cat << EOM\nerror: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\nEOM\n    exit 1\nfi\n";
-			showEnvVarsInLog = 0;
-		};
-		578C6D5D43CC478FAEE55CD2 /* Copy Pods Resources */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputPaths = (
-			);
-			name = "Copy Pods Resources";
-			outputPaths = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "\"${SRCROOT}/Pods/Pods-resources.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
 		DDD3D5051810F0ED00E378A2 /* ShellScript */ = {
@@ -480,25 +444,25 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				DD43DAB51810F63E0058FBC1 /* CASParser.m in Sources */,
-				DD43DABB1810F63E0058FBC1 /* CASStyleSelector.m in Sources */,
-				DD43DAB41810F63E0058FBC1 /* CASLexer.m in Sources */,
-				DD43DABD1810F63E0058FBC1 /* CASViewClassDescriptor.m in Sources */,
-				DD43DABE1810F63E0058FBC1 /* NSObject+CASSwizzle.m in Sources */,
+				DD04A43B181109450099FEA5 /* CASParser.m in Sources */,
+				DD04A441181109450099FEA5 /* CASStyleSelector.m in Sources */,
+				DD04A43A181109450099FEA5 /* CASLexer.m in Sources */,
+				DD04A443181109450099FEA5 /* CASViewClassDescriptor.m in Sources */,
+				DD04A444181109450099FEA5 /* NSObject+CASSwizzle.m in Sources */,
 				DDD3D4C11810D8B100E378A2 /* main.m in Sources */,
-				DD43DAB91810F63E0058FBC1 /* CASStyleProperty.m in Sources */,
-				DD43DABC1810F63E0058FBC1 /* CASToken.m in Sources */,
-				DD43DAB61810F63E0058FBC1 /* CASPropertyDescriptor.m in Sources */,
-				DD43DABF1810F63E0058FBC1 /* NSRegularExpression+CASAdditions.m in Sources */,
-				DD43DAB21810F63E0058FBC1 /* CASArgumentDescriptor.m in Sources */,
-				DD43DAC21810F63E0058FBC1 /* UITextField+CASAdditions.m in Sources */,
-				DD43DAC01810F63E0058FBC1 /* NSString+CASAdditions.m in Sources */,
-				DD43DAC31810F63E0058FBC1 /* UIView+CASAdditions.m in Sources */,
-				DD43DABA1810F63E0058FBC1 /* CASStyler.m in Sources */,
-				DD43DAB71810F63E0058FBC1 /* CASRuntimeExtensions.m in Sources */,
-				DD43DAB31810F63E0058FBC1 /* CASExpressionSolver.m in Sources */,
-				DD43DAB81810F63E0058FBC1 /* CASStyleNode.m in Sources */,
-				DD43DAC11810F63E0058FBC1 /* UIColor+CASAdditions.m in Sources */,
+				DD04A43F181109450099FEA5 /* CASStyleProperty.m in Sources */,
+				DD04A442181109450099FEA5 /* CASToken.m in Sources */,
+				DD04A43C181109450099FEA5 /* CASPropertyDescriptor.m in Sources */,
+				DD04A445181109450099FEA5 /* NSRegularExpression+CASAdditions.m in Sources */,
+				DD04A438181109450099FEA5 /* CASArgumentDescriptor.m in Sources */,
+				DD04A448181109450099FEA5 /* UITextField+CASAdditions.m in Sources */,
+				DD04A446181109450099FEA5 /* NSString+CASAdditions.m in Sources */,
+				DD04A449181109450099FEA5 /* UIView+CASAdditions.m in Sources */,
+				DD04A440181109450099FEA5 /* CASStyler.m in Sources */,
+				DD04A43D181109450099FEA5 /* CASRuntimeExtensions.m in Sources */,
+				DD04A439181109450099FEA5 /* CASExpressionSolver.m in Sources */,
+				DD04A43E181109450099FEA5 /* CASStyleNode.m in Sources */,
+				DD04A447181109450099FEA5 /* UIColor+CASAdditions.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -604,7 +568,6 @@
 		};
 		DDD3D4B61810D6DA00E378A2 /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = ED5C5AF728124C198887B50C /* Pods.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
@@ -618,7 +581,6 @@
 		};
 		DDD3D4B71810D6DA00E378A2 /* Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = ED5C5AF728124C198887B50C /* Pods.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
