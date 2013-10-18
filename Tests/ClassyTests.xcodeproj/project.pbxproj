@@ -25,36 +25,34 @@
 		DD04A447181109450099FEA5 /* UIColor+CASAdditions.m in Sources */ = {isa = PBXBuildFile; fileRef = DD04A433181109450099FEA5 /* UIColor+CASAdditions.m */; };
 		DD04A448181109450099FEA5 /* UITextField+CASAdditions.m in Sources */ = {isa = PBXBuildFile; fileRef = DD04A435181109450099FEA5 /* UITextField+CASAdditions.m */; };
 		DD04A449181109450099FEA5 /* UIView+CASAdditions.m in Sources */ = {isa = PBXBuildFile; fileRef = DD04A437181109450099FEA5 /* UIView+CASAdditions.m */; };
+		DDBF583418113BC10059B8D3 /* XCTest.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DDBF582518112ECA0059B8D3 /* XCTest.framework */; };
+		DDBF583518113BC10059B8D3 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DDD3D48C1810D6DA00E378A2 /* Foundation.framework */; };
+		DDBF583618113BC10059B8D3 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DDD3D4901810D6DA00E378A2 /* UIKit.framework */; };
+		DDBF586718113FCC0059B8D3 /* CASArgumentDescriptorSpec.m in Sources */ = {isa = PBXBuildFile; fileRef = DDBF585E18113FCC0059B8D3 /* CASArgumentDescriptorSpec.m */; };
+		DDBF586818113FCC0059B8D3 /* CASExampleView.m in Sources */ = {isa = PBXBuildFile; fileRef = DDBF586018113FCC0059B8D3 /* CASExampleView.m */; };
+		DDBF586918113FCC0059B8D3 /* CASLexerSpec.m in Sources */ = {isa = PBXBuildFile; fileRef = DDBF586118113FCC0059B8D3 /* CASLexerSpec.m */; };
+		DDBF586A18113FCC0059B8D3 /* CASParserSpec.m in Sources */ = {isa = PBXBuildFile; fileRef = DDBF586218113FCC0059B8D3 /* CASParserSpec.m */; };
+		DDBF586B18113FCC0059B8D3 /* CASRuntimeExtensionsSpec.m in Sources */ = {isa = PBXBuildFile; fileRef = DDBF586318113FCC0059B8D3 /* CASRuntimeExtensionsSpec.m */; };
+		DDBF586C18113FCC0059B8D3 /* CASStylePropertySpec.m in Sources */ = {isa = PBXBuildFile; fileRef = DDBF586418113FCC0059B8D3 /* CASStylePropertySpec.m */; };
+		DDBF586D18113FCC0059B8D3 /* CASStylerSpec.m in Sources */ = {isa = PBXBuildFile; fileRef = DDBF586518113FCC0059B8D3 /* CASStylerSpec.m */; };
+		DDBF586E18113FCC0059B8D3 /* CASTokenSpec.m in Sources */ = {isa = PBXBuildFile; fileRef = DDBF586618113FCC0059B8D3 /* CASTokenSpec.m */; };
+		DDBF5876181145760059B8D3 /* Properties-Basic.cas in Resources */ = {isa = PBXBuildFile; fileRef = DDBF5870181145760059B8D3 /* Properties-Basic.cas */; };
+		DDBF5877181145760059B8D3 /* Selectors-Basic.cas in Resources */ = {isa = PBXBuildFile; fileRef = DDBF5871181145760059B8D3 /* Selectors-Basic.cas */; };
+		DDBF5878181145760059B8D3 /* Selectors-Complex.cas in Resources */ = {isa = PBXBuildFile; fileRef = DDBF5872181145760059B8D3 /* Selectors-Complex.cas */; };
+		DDBF5879181145760059B8D3 /* Selectors-Hierarchy.cas in Resources */ = {isa = PBXBuildFile; fileRef = DDBF5873181145760059B8D3 /* Selectors-Hierarchy.cas */; };
+		DDBF587A181145760059B8D3 /* Selectors-Indentation.cas in Resources */ = {isa = PBXBuildFile; fileRef = DDBF5874181145760059B8D3 /* Selectors-Indentation.cas */; };
+		DDBF587B181145760059B8D3 /* UIView-Basic.cas in Resources */ = {isa = PBXBuildFile; fileRef = DDBF5875181145760059B8D3 /* UIView-Basic.cas */; };
 		DDD3D48D1810D6DA00E378A2 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DDD3D48C1810D6DA00E378A2 /* Foundation.framework */; };
 		DDD3D48F1810D6DA00E378A2 /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DDD3D48E1810D6DA00E378A2 /* CoreGraphics.framework */; };
 		DDD3D4911810D6DA00E378A2 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DDD3D4901810D6DA00E378A2 /* UIKit.framework */; };
 		DDD3D4C01810D8B100E378A2 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = DDD3D4BD1810D8B100E378A2 /* Images.xcassets */; };
 		DDD3D4C11810D8B100E378A2 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = DDD3D4BE1810D8B100E378A2 /* main.m */; };
-		DDD3D4C81810D9A400E378A2 /* SenTestingKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DDD3D4C71810D9A400E378A2 /* SenTestingKit.framework */; };
-		DDD3D4C91810D9A400E378A2 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DDD3D48C1810D6DA00E378A2 /* Foundation.framework */; };
-		DDD3D4CA1810D9A400E378A2 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DDD3D4901810D6DA00E378A2 /* UIKit.framework */; };
-		DDD3D4E61810DB0000E378A2 /* CASArgumentDescriptorSpec.m in Sources */ = {isa = PBXBuildFile; fileRef = DDD3D4DD1810DB0000E378A2 /* CASArgumentDescriptorSpec.m */; };
-		DDD3D4E71810DB0000E378A2 /* CASExampleView.m in Sources */ = {isa = PBXBuildFile; fileRef = DDD3D4DF1810DB0000E378A2 /* CASExampleView.m */; };
-		DDD3D4E81810DB0000E378A2 /* CASLexerSpec.m in Sources */ = {isa = PBXBuildFile; fileRef = DDD3D4E01810DB0000E378A2 /* CASLexerSpec.m */; };
-		DDD3D4E91810DB0000E378A2 /* CASParserSpec.m in Sources */ = {isa = PBXBuildFile; fileRef = DDD3D4E11810DB0000E378A2 /* CASParserSpec.m */; };
-		DDD3D4EA1810DB0000E378A2 /* CASRuntimeExtensionsSpec.m in Sources */ = {isa = PBXBuildFile; fileRef = DDD3D4E21810DB0000E378A2 /* CASRuntimeExtensionsSpec.m */; };
-		DDD3D4EB1810DB0000E378A2 /* CASStylePropertySpec.m in Sources */ = {isa = PBXBuildFile; fileRef = DDD3D4E31810DB0000E378A2 /* CASStylePropertySpec.m */; };
-		DDD3D4EC1810DB0000E378A2 /* CASStylerSpec.m in Sources */ = {isa = PBXBuildFile; fileRef = DDD3D4E41810DB0000E378A2 /* CASStylerSpec.m */; };
-		DDD3D4ED1810DB0000E378A2 /* CASTokenSpec.m in Sources */ = {isa = PBXBuildFile; fileRef = DDD3D4E51810DB0000E378A2 /* CASTokenSpec.m */; };
-		DDD3D4F91810DF1800E378A2 /* Properties-Basic.cas in Resources */ = {isa = PBXBuildFile; fileRef = DDD3D4F31810DF1800E378A2 /* Properties-Basic.cas */; };
-		DDD3D4FA1810DF1800E378A2 /* Selectors-Basic.cas in Resources */ = {isa = PBXBuildFile; fileRef = DDD3D4F41810DF1800E378A2 /* Selectors-Basic.cas */; };
-		DDD3D4FB1810DF1800E378A2 /* Selectors-Complex.cas in Resources */ = {isa = PBXBuildFile; fileRef = DDD3D4F51810DF1800E378A2 /* Selectors-Complex.cas */; };
-		DDD3D4FC1810DF1800E378A2 /* Selectors-Hierarchy.cas in Resources */ = {isa = PBXBuildFile; fileRef = DDD3D4F61810DF1800E378A2 /* Selectors-Hierarchy.cas */; };
-		DDD3D4FD1810DF1800E378A2 /* Selectors-Indentation.cas in Resources */ = {isa = PBXBuildFile; fileRef = DDD3D4F71810DF1800E378A2 /* Selectors-Indentation.cas */; };
-		DDD3D4FE1810DF1800E378A2 /* UIView-Basic.cas in Resources */ = {isa = PBXBuildFile; fileRef = DDD3D4F81810DF1800E378A2 /* UIView-Basic.cas */; };
 		DDD3D5001810DF7C00E378A2 /* bg_textfield.png in Resources */ = {isa = PBXBuildFile; fileRef = DDD3D4FF1810DF7C00E378A2 /* bg_textfield.png */; };
-		DDD3D5021810E02F00E378A2 /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DDD3D5011810E02F00E378A2 /* QuartzCore.framework */; };
-		DDD3D5031810E61600E378A2 /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DDD3D48E1810D6DA00E378A2 /* CoreGraphics.framework */; };
-		F34D3EB9A0B442619C2BC824 /* libPods-ClassyTests.a in Frameworks */ = {isa = PBXBuildFile; fileRef = C594C855E67D4ABAAB9D8034 /* libPods-ClassyTests.a */; };
+		FE7CD9C7A6594F9CAAAE0519 /* libPods-ClassyTests.a in Frameworks */ = {isa = PBXBuildFile; fileRef = C594C855E67D4ABAAB9D8034 /* libPods-ClassyTests.a */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
-		DDD3D4D41810D9A400E378A2 /* PBXContainerItemProxy */ = {
+		DDBF584018113BC10059B8D3 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = DDD3D4811810D6DA00E378A2 /* Project object */;
 			proxyType = 1;
@@ -105,6 +103,26 @@
 		DD04A436181109450099FEA5 /* UIView+CASAdditions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIView+CASAdditions.h"; sourceTree = "<group>"; };
 		DD04A437181109450099FEA5 /* UIView+CASAdditions.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIView+CASAdditions.m"; sourceTree = "<group>"; };
 		DD43DA8A1810F5D40058FBC1 /* Classy-Prefix.pch */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "Classy-Prefix.pch"; sourceTree = "<group>"; };
+		DDBF582518112ECA0059B8D3 /* XCTest.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = XCTest.framework; path = Library/Frameworks/XCTest.framework; sourceTree = DEVELOPER_DIR; };
+		DDBF583318113BC10059B8D3 /* ClassyTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = ClassyTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		DDBF585018113C750059B8D3 /* XCTest+Spec.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "XCTest+Spec.h"; sourceTree = "<group>"; };
+		DDBF585B18113C980059B8D3 /* ClassyTests-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "ClassyTests-Info.plist"; sourceTree = SOURCE_ROOT; };
+		DDBF585C18113C980059B8D3 /* ClassyTests-Prefix.pch */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "ClassyTests-Prefix.pch"; sourceTree = SOURCE_ROOT; };
+		DDBF585E18113FCC0059B8D3 /* CASArgumentDescriptorSpec.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CASArgumentDescriptorSpec.m; sourceTree = "<group>"; };
+		DDBF585F18113FCC0059B8D3 /* CASExampleView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CASExampleView.h; sourceTree = "<group>"; };
+		DDBF586018113FCC0059B8D3 /* CASExampleView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CASExampleView.m; sourceTree = "<group>"; };
+		DDBF586118113FCC0059B8D3 /* CASLexerSpec.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CASLexerSpec.m; sourceTree = "<group>"; };
+		DDBF586218113FCC0059B8D3 /* CASParserSpec.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CASParserSpec.m; sourceTree = "<group>"; };
+		DDBF586318113FCC0059B8D3 /* CASRuntimeExtensionsSpec.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CASRuntimeExtensionsSpec.m; sourceTree = "<group>"; };
+		DDBF586418113FCC0059B8D3 /* CASStylePropertySpec.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CASStylePropertySpec.m; sourceTree = "<group>"; };
+		DDBF586518113FCC0059B8D3 /* CASStylerSpec.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CASStylerSpec.m; sourceTree = "<group>"; };
+		DDBF586618113FCC0059B8D3 /* CASTokenSpec.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CASTokenSpec.m; sourceTree = "<group>"; };
+		DDBF5870181145760059B8D3 /* Properties-Basic.cas */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = "Properties-Basic.cas"; sourceTree = "<group>"; };
+		DDBF5871181145760059B8D3 /* Selectors-Basic.cas */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = "Selectors-Basic.cas"; sourceTree = "<group>"; };
+		DDBF5872181145760059B8D3 /* Selectors-Complex.cas */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = "Selectors-Complex.cas"; sourceTree = "<group>"; };
+		DDBF5873181145760059B8D3 /* Selectors-Hierarchy.cas */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = "Selectors-Hierarchy.cas"; sourceTree = "<group>"; };
+		DDBF5874181145760059B8D3 /* Selectors-Indentation.cas */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = "Selectors-Indentation.cas"; sourceTree = "<group>"; };
+		DDBF5875181145760059B8D3 /* UIView-Basic.cas */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = "UIView-Basic.cas"; sourceTree = "<group>"; };
 		DDD3D4891810D6DA00E378A2 /* ClassyTestsLoader.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = ClassyTestsLoader.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		DDD3D48C1810D6DA00E378A2 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
 		DDD3D48E1810D6DA00E378A2 /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = System/Library/Frameworks/CoreGraphics.framework; sourceTree = SDKROOT; };
@@ -112,30 +130,23 @@
 		DDD3D4BC1810D8B100E378A2 /* ClassyTestsLoader-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "ClassyTestsLoader-Info.plist"; sourceTree = "<group>"; };
 		DDD3D4BD1810D8B100E378A2 /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Images.xcassets; sourceTree = "<group>"; };
 		DDD3D4BE1810D8B100E378A2 /* main.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
-		DDD3D4C61810D9A400E378A2 /* ClassyTests.octest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = ClassyTests.octest; sourceTree = BUILT_PRODUCTS_DIR; };
 		DDD3D4C71810D9A400E378A2 /* SenTestingKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SenTestingKit.framework; path = Library/Frameworks/SenTestingKit.framework; sourceTree = DEVELOPER_DIR; };
-		DDD3D4DD1810DB0000E378A2 /* CASArgumentDescriptorSpec.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CASArgumentDescriptorSpec.m; sourceTree = "<group>"; };
-		DDD3D4DE1810DB0000E378A2 /* CASExampleView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CASExampleView.h; sourceTree = "<group>"; };
-		DDD3D4DF1810DB0000E378A2 /* CASExampleView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CASExampleView.m; sourceTree = "<group>"; };
-		DDD3D4E01810DB0000E378A2 /* CASLexerSpec.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CASLexerSpec.m; sourceTree = "<group>"; };
-		DDD3D4E11810DB0000E378A2 /* CASParserSpec.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CASParserSpec.m; sourceTree = "<group>"; };
-		DDD3D4E21810DB0000E378A2 /* CASRuntimeExtensionsSpec.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CASRuntimeExtensionsSpec.m; sourceTree = "<group>"; };
-		DDD3D4E31810DB0000E378A2 /* CASStylePropertySpec.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CASStylePropertySpec.m; sourceTree = "<group>"; };
-		DDD3D4E41810DB0000E378A2 /* CASStylerSpec.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CASStylerSpec.m; sourceTree = "<group>"; };
-		DDD3D4E51810DB0000E378A2 /* CASTokenSpec.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CASTokenSpec.m; sourceTree = "<group>"; };
-		DDD3D4EF1810DB4300E378A2 /* ClassyTests-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "ClassyTests-Info.plist"; sourceTree = "<group>"; };
-		DDD3D4F01810DB4300E378A2 /* ClassyTests-Prefix.pch */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "ClassyTests-Prefix.pch"; sourceTree = "<group>"; };
-		DDD3D4F31810DF1800E378A2 /* Properties-Basic.cas */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = "Properties-Basic.cas"; sourceTree = "<group>"; };
-		DDD3D4F41810DF1800E378A2 /* Selectors-Basic.cas */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = "Selectors-Basic.cas"; sourceTree = "<group>"; };
-		DDD3D4F51810DF1800E378A2 /* Selectors-Complex.cas */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = "Selectors-Complex.cas"; sourceTree = "<group>"; };
-		DDD3D4F61810DF1800E378A2 /* Selectors-Hierarchy.cas */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = "Selectors-Hierarchy.cas"; sourceTree = "<group>"; };
-		DDD3D4F71810DF1800E378A2 /* Selectors-Indentation.cas */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = "Selectors-Indentation.cas"; sourceTree = "<group>"; };
-		DDD3D4F81810DF1800E378A2 /* UIView-Basic.cas */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = "UIView-Basic.cas"; sourceTree = "<group>"; };
 		DDD3D4FF1810DF7C00E378A2 /* bg_textfield.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = bg_textfield.png; sourceTree = "<group>"; };
 		DDD3D5011810E02F00E378A2 /* QuartzCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = QuartzCore.framework; path = System/Library/Frameworks/QuartzCore.framework; sourceTree = SDKROOT; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
+		DDBF583018113BC10059B8D3 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				DDBF583418113BC10059B8D3 /* XCTest.framework in Frameworks */,
+				DDBF583618113BC10059B8D3 /* UIKit.framework in Frameworks */,
+				DDBF583518113BC10059B8D3 /* Foundation.framework in Frameworks */,
+				FE7CD9C7A6594F9CAAAE0519 /* libPods-ClassyTests.a in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		DDD3D4861810D6DA00E378A2 /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
@@ -143,19 +154,6 @@
 				DDD3D48F1810D6DA00E378A2 /* CoreGraphics.framework in Frameworks */,
 				DDD3D4911810D6DA00E378A2 /* UIKit.framework in Frameworks */,
 				DDD3D48D1810D6DA00E378A2 /* Foundation.framework in Frameworks */,
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
-		DDD3D4C31810D9A400E378A2 /* Frameworks */ = {
-			isa = PBXFrameworksBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-				DDD3D5031810E61600E378A2 /* CoreGraphics.framework in Frameworks */,
-				DDD3D5021810E02F00E378A2 /* QuartzCore.framework in Frameworks */,
-				DDD3D4C81810D9A400E378A2 /* SenTestingKit.framework in Frameworks */,
-				DDD3D4CA1810D9A400E378A2 /* UIKit.framework in Frameworks */,
-				DDD3D4C91810D9A400E378A2 /* Foundation.framework in Frameworks */,
-				F34D3EB9A0B442619C2BC824 /* libPods-ClassyTests.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -208,11 +206,51 @@
 			path = ../../Classy;
 			sourceTree = "<group>";
 		};
+		DDBF584518113C750059B8D3 /* Specs */ = {
+			isa = PBXGroup;
+			children = (
+				DDBF585E18113FCC0059B8D3 /* CASArgumentDescriptorSpec.m */,
+				DDBF586118113FCC0059B8D3 /* CASLexerSpec.m */,
+				DDBF586218113FCC0059B8D3 /* CASParserSpec.m */,
+				DDBF586318113FCC0059B8D3 /* CASRuntimeExtensionsSpec.m */,
+				DDBF586418113FCC0059B8D3 /* CASStylePropertySpec.m */,
+				DDBF586518113FCC0059B8D3 /* CASStylerSpec.m */,
+				DDBF586618113FCC0059B8D3 /* CASTokenSpec.m */,
+				DDBF585A18113C850059B8D3 /* Supporting Files */,
+			);
+			path = Specs;
+			sourceTree = "<group>";
+		};
+		DDBF585A18113C850059B8D3 /* Supporting Files */ = {
+			isa = PBXGroup;
+			children = (
+				DDBF585F18113FCC0059B8D3 /* CASExampleView.h */,
+				DDBF586018113FCC0059B8D3 /* CASExampleView.m */,
+				DDBF585018113C750059B8D3 /* XCTest+Spec.h */,
+				DDBF585B18113C980059B8D3 /* ClassyTests-Info.plist */,
+				DDBF585C18113C980059B8D3 /* ClassyTests-Prefix.pch */,
+			);
+			name = "Supporting Files";
+			sourceTree = "<group>";
+		};
+		DDBF586F181145760059B8D3 /* Stylesheets */ = {
+			isa = PBXGroup;
+			children = (
+				DDBF5870181145760059B8D3 /* Properties-Basic.cas */,
+				DDBF5871181145760059B8D3 /* Selectors-Basic.cas */,
+				DDBF5872181145760059B8D3 /* Selectors-Complex.cas */,
+				DDBF5873181145760059B8D3 /* Selectors-Hierarchy.cas */,
+				DDBF5874181145760059B8D3 /* Selectors-Indentation.cas */,
+				DDBF5875181145760059B8D3 /* UIView-Basic.cas */,
+			);
+			path = Stylesheets;
+			sourceTree = "<group>";
+		};
 		DDD3D4801810D6DA00E378A2 = {
 			isa = PBXGroup;
 			children = (
-				DDD3D4F21810DF1800E378A2 /* Stylesheets */,
-				DDD3D4DC1810DB0000E378A2 /* Specs */,
+				DDBF586F181145760059B8D3 /* Stylesheets */,
+				DDBF584518113C750059B8D3 /* Specs */,
 				DDD3D4BB1810D8B100E378A2 /* ClassyTestsLoader */,
 				DDD3D48B1810D6DA00E378A2 /* Frameworks */,
 				DDD3D48A1810D6DA00E378A2 /* Products */,
@@ -224,7 +262,7 @@
 			isa = PBXGroup;
 			children = (
 				DDD3D4891810D6DA00E378A2 /* ClassyTestsLoader.app */,
-				DDD3D4C61810D9A400E378A2 /* ClassyTests.octest */,
+				DDBF583318113BC10059B8D3 /* ClassyTests.xctest */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -232,6 +270,7 @@
 		DDD3D48B1810D6DA00E378A2 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				DDBF582518112ECA0059B8D3 /* XCTest.framework */,
 				DDD3D5011810E02F00E378A2 /* QuartzCore.framework */,
 				DDD3D48C1810D6DA00E378A2 /* Foundation.framework */,
 				DDD3D48E1810D6DA00E378A2 /* CoreGraphics.framework */,
@@ -255,48 +294,29 @@
 			path = ClassyTestsLoader;
 			sourceTree = "<group>";
 		};
-		DDD3D4DC1810DB0000E378A2 /* Specs */ = {
-			isa = PBXGroup;
-			children = (
-				DDD3D4DD1810DB0000E378A2 /* CASArgumentDescriptorSpec.m */,
-				DDD3D4DE1810DB0000E378A2 /* CASExampleView.h */,
-				DDD3D4DF1810DB0000E378A2 /* CASExampleView.m */,
-				DDD3D4E01810DB0000E378A2 /* CASLexerSpec.m */,
-				DDD3D4E11810DB0000E378A2 /* CASParserSpec.m */,
-				DDD3D4E21810DB0000E378A2 /* CASRuntimeExtensionsSpec.m */,
-				DDD3D4E31810DB0000E378A2 /* CASStylePropertySpec.m */,
-				DDD3D4E41810DB0000E378A2 /* CASStylerSpec.m */,
-				DDD3D4E51810DB0000E378A2 /* CASTokenSpec.m */,
-				DDD3D4EE1810DB0500E378A2 /* Supporting Files */,
-			);
-			path = Specs;
-			sourceTree = "<group>";
-		};
-		DDD3D4EE1810DB0500E378A2 /* Supporting Files */ = {
-			isa = PBXGroup;
-			children = (
-				DDD3D4EF1810DB4300E378A2 /* ClassyTests-Info.plist */,
-				DDD3D4F01810DB4300E378A2 /* ClassyTests-Prefix.pch */,
-			);
-			name = "Supporting Files";
-			sourceTree = "<group>";
-		};
-		DDD3D4F21810DF1800E378A2 /* Stylesheets */ = {
-			isa = PBXGroup;
-			children = (
-				DDD3D4F31810DF1800E378A2 /* Properties-Basic.cas */,
-				DDD3D4F41810DF1800E378A2 /* Selectors-Basic.cas */,
-				DDD3D4F51810DF1800E378A2 /* Selectors-Complex.cas */,
-				DDD3D4F61810DF1800E378A2 /* Selectors-Hierarchy.cas */,
-				DDD3D4F71810DF1800E378A2 /* Selectors-Indentation.cas */,
-				DDD3D4F81810DF1800E378A2 /* UIView-Basic.cas */,
-			);
-			path = Stylesheets;
-			sourceTree = "<group>";
-		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
+		DDBF583218113BC10059B8D3 /* ClassyTests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = DDBF584218113BC10059B8D3 /* Build configuration list for PBXNativeTarget "ClassyTests" */;
+			buildPhases = (
+				9161B205F77745B1B5A8118E /* Check Pods Manifest.lock */,
+				DDBF582F18113BC10059B8D3 /* Sources */,
+				DDBF583018113BC10059B8D3 /* Frameworks */,
+				DDBF583118113BC10059B8D3 /* Resources */,
+				3AB7AA08C2614090B1F9F9B3 /* Copy Pods Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				DDBF584118113BC10059B8D3 /* PBXTargetDependency */,
+			);
+			name = ClassyTests;
+			productName = ClassyTests;
+			productReference = DDBF583318113BC10059B8D3 /* ClassyTests.xctest */;
+			productType = "com.apple.product-type.bundle.unit-test";
+		};
 		DDD3D4881810D6DA00E378A2 /* ClassyTestsLoader */ = {
 			isa = PBXNativeTarget;
 			buildConfigurationList = DDD3D4B51810D6DA00E378A2 /* Build configuration list for PBXNativeTarget "ClassyTestsLoader" */;
@@ -315,26 +335,6 @@
 			productReference = DDD3D4891810D6DA00E378A2 /* ClassyTestsLoader.app */;
 			productType = "com.apple.product-type.application";
 		};
-		DDD3D4C51810D9A400E378A2 /* ClassyTests */ = {
-			isa = PBXNativeTarget;
-			buildConfigurationList = DDD3D4D61810D9A400E378A2 /* Build configuration list for PBXNativeTarget "ClassyTests" */;
-			buildPhases = (
-				2CD9F490D31E4BDBADD92D9F /* Check Pods Manifest.lock */,
-				DDD3D4C21810D9A400E378A2 /* Sources */,
-				DDD3D4C31810D9A400E378A2 /* Frameworks */,
-				DDD3D4C41810D9A400E378A2 /* Resources */,
-				170AC70AAB67457A972677ED /* Copy Pods Resources */,
-			);
-			buildRules = (
-			);
-			dependencies = (
-				DDD3D4D51810D9A400E378A2 /* PBXTargetDependency */,
-			);
-			name = ClassyTests;
-			productName = ClassyTests;
-			productReference = DDD3D4C61810D9A400E378A2 /* ClassyTests.octest */;
-			productType = "com.apple.product-type.bundle";
-		};
 /* End PBXNativeTarget section */
 
 /* Begin PBXProject section */
@@ -345,7 +345,7 @@
 				LastUpgradeCheck = 0500;
 				ORGANIZATIONNAME = "Jonas Budelmann";
 				TargetAttributes = {
-					DDD3D4C51810D9A400E378A2 = {
+					DDBF583218113BC10059B8D3 = {
 						TestTargetID = DDD3D4881810D6DA00E378A2;
 					};
 				};
@@ -363,12 +363,25 @@
 			projectRoot = "";
 			targets = (
 				DDD3D4881810D6DA00E378A2 /* ClassyTestsLoader */,
-				DDD3D4C51810D9A400E378A2 /* ClassyTests */,
+				DDBF583218113BC10059B8D3 /* ClassyTests */,
 			);
 		};
 /* End PBXProject section */
 
 /* Begin PBXResourcesBuildPhase section */
+		DDBF583118113BC10059B8D3 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				DDBF5879181145760059B8D3 /* Selectors-Hierarchy.cas in Resources */,
+				DDBF587A181145760059B8D3 /* Selectors-Indentation.cas in Resources */,
+				DDBF5876181145760059B8D3 /* Properties-Basic.cas in Resources */,
+				DDBF5877181145760059B8D3 /* Selectors-Basic.cas in Resources */,
+				DDBF5878181145760059B8D3 /* Selectors-Complex.cas in Resources */,
+				DDBF587B181145760059B8D3 /* UIView-Basic.cas in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		DDD3D4871810D6DA00E378A2 /* Resources */ = {
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
@@ -378,23 +391,10 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
-		DDD3D4C41810D9A400E378A2 /* Resources */ = {
-			isa = PBXResourcesBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-				DDD3D4FC1810DF1800E378A2 /* Selectors-Hierarchy.cas in Resources */,
-				DDD3D4FE1810DF1800E378A2 /* UIView-Basic.cas in Resources */,
-				DDD3D4F91810DF1800E378A2 /* Properties-Basic.cas in Resources */,
-				DDD3D4FA1810DF1800E378A2 /* Selectors-Basic.cas in Resources */,
-				DDD3D4FD1810DF1800E378A2 /* Selectors-Indentation.cas in Resources */,
-				DDD3D4FB1810DF1800E378A2 /* Selectors-Complex.cas in Resources */,
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXShellScriptBuildPhase section */
-		170AC70AAB67457A972677ED /* Copy Pods Resources */ = {
+		3AB7AA08C2614090B1F9F9B3 /* Copy Pods Resources */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -409,7 +409,7 @@
 			shellScript = "\"${SRCROOT}/Pods/Pods-ClassyTests-resources.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
-		2CD9F490D31E4BDBADD92D9F /* Check Pods Manifest.lock */ = {
+		9161B205F77745B1B5A8118E /* Check Pods Manifest.lock */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -440,6 +440,21 @@
 /* End PBXShellScriptBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
+		DDBF582F18113BC10059B8D3 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				DDBF586718113FCC0059B8D3 /* CASArgumentDescriptorSpec.m in Sources */,
+				DDBF586A18113FCC0059B8D3 /* CASParserSpec.m in Sources */,
+				DDBF586818113FCC0059B8D3 /* CASExampleView.m in Sources */,
+				DDBF586C18113FCC0059B8D3 /* CASStylePropertySpec.m in Sources */,
+				DDBF586E18113FCC0059B8D3 /* CASTokenSpec.m in Sources */,
+				DDBF586D18113FCC0059B8D3 /* CASStylerSpec.m in Sources */,
+				DDBF586918113FCC0059B8D3 /* CASLexerSpec.m in Sources */,
+				DDBF586B18113FCC0059B8D3 /* CASRuntimeExtensionsSpec.m in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		DDD3D4851810D6DA00E378A2 /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
@@ -466,32 +481,61 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
-		DDD3D4C21810D9A400E378A2 /* Sources */ = {
-			isa = PBXSourcesBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-				DDD3D4E61810DB0000E378A2 /* CASArgumentDescriptorSpec.m in Sources */,
-				DDD3D4E91810DB0000E378A2 /* CASParserSpec.m in Sources */,
-				DDD3D4E71810DB0000E378A2 /* CASExampleView.m in Sources */,
-				DDD3D4EB1810DB0000E378A2 /* CASStylePropertySpec.m in Sources */,
-				DDD3D4ED1810DB0000E378A2 /* CASTokenSpec.m in Sources */,
-				DDD3D4EC1810DB0000E378A2 /* CASStylerSpec.m in Sources */,
-				DDD3D4E81810DB0000E378A2 /* CASLexerSpec.m in Sources */,
-				DDD3D4EA1810DB0000E378A2 /* CASRuntimeExtensionsSpec.m in Sources */,
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
 /* End PBXSourcesBuildPhase section */
 
 /* Begin PBXTargetDependency section */
-		DDD3D4D51810D9A400E378A2 /* PBXTargetDependency */ = {
+		DDBF584118113BC10059B8D3 /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
 			target = DDD3D4881810D6DA00E378A2 /* ClassyTestsLoader */;
-			targetProxy = DDD3D4D41810D9A400E378A2 /* PBXContainerItemProxy */;
+			targetProxy = DDBF584018113BC10059B8D3 /* PBXContainerItemProxy */;
 		};
 /* End PBXTargetDependency section */
 
 /* Begin XCBuildConfiguration section */
+		DDBF584318113BC10059B8D3 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = 88668587A9354D3F91D80BDF /* Pods-ClassyTests.xcconfig */;
+			buildSettings = {
+				ARCHS = "$(ARCHS_STANDARD_INCLUDING_64_BIT)";
+				BUNDLE_LOADER = "$(BUILT_PRODUCTS_DIR)/ClassyTestsLoader.app/ClassyTestsLoader";
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(SDKROOT)/Developer/Library/Frameworks",
+					"$(inherited)",
+					"$(DEVELOPER_FRAMEWORKS_DIR)",
+				);
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = "ClassyTests-Prefix.pch";
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				INFOPLIST_FILE = "ClassyTests-Info.plist";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				TEST_HOST = "$(BUNDLE_LOADER)";
+				WRAPPER_EXTENSION = xctest;
+			};
+			name = Debug;
+		};
+		DDBF584418113BC10059B8D3 /* Release */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = 88668587A9354D3F91D80BDF /* Pods-ClassyTests.xcconfig */;
+			buildSettings = {
+				ARCHS = "$(ARCHS_STANDARD_INCLUDING_64_BIT)";
+				BUNDLE_LOADER = "$(BUILT_PRODUCTS_DIR)/ClassyTestsLoader.app/ClassyTestsLoader";
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(SDKROOT)/Developer/Library/Frameworks",
+					"$(inherited)",
+					"$(DEVELOPER_FRAMEWORKS_DIR)",
+				);
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = "ClassyTests-Prefix.pch";
+				INFOPLIST_FILE = "ClassyTests-Info.plist";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				TEST_HOST = "$(BUNDLE_LOADER)";
+				WRAPPER_EXTENSION = xctest;
+			};
+			name = Release;
+		};
 		DDD3D4B31810D6DA00E378A2 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
@@ -592,53 +636,18 @@
 			};
 			name = Release;
 		};
-		DDD3D4D71810D9A400E378A2 /* Debug */ = {
-			isa = XCBuildConfiguration;
-			baseConfigurationReference = 88668587A9354D3F91D80BDF /* Pods-ClassyTests.xcconfig */;
-			buildSettings = {
-				ARCHS = "$(ARCHS_STANDARD_INCLUDING_64_BIT)";
-				BUNDLE_LOADER = "$(BUILT_PRODUCTS_DIR)/ClassyTestsLoader.app/ClassyTestsLoader";
-				FRAMEWORK_SEARCH_PATHS = (
-					"$(SDKROOT)/Developer/Library/Frameworks",
-					"$(inherited)",
-					"$(DEVELOPER_FRAMEWORKS_DIR)",
-				);
-				GCC_PRECOMPILE_PREFIX_HEADER = YES;
-				GCC_PREFIX_HEADER = "ClassyTests-Prefix.pch";
-				GCC_PREPROCESSOR_DEFINITIONS = (
-					"DEBUG=1",
-					"$(inherited)",
-				);
-				INFOPLIST_FILE = "ClassyTests-Info.plist";
-				PRODUCT_NAME = "$(TARGET_NAME)";
-				TEST_HOST = "$(BUNDLE_LOADER)";
-				WRAPPER_EXTENSION = octest;
-			};
-			name = Debug;
-		};
-		DDD3D4D81810D9A400E378A2 /* Release */ = {
-			isa = XCBuildConfiguration;
-			baseConfigurationReference = 88668587A9354D3F91D80BDF /* Pods-ClassyTests.xcconfig */;
-			buildSettings = {
-				ARCHS = "$(ARCHS_STANDARD_INCLUDING_64_BIT)";
-				BUNDLE_LOADER = "$(BUILT_PRODUCTS_DIR)/ClassyTestsLoader.app/ClassyTestsLoader";
-				FRAMEWORK_SEARCH_PATHS = (
-					"$(SDKROOT)/Developer/Library/Frameworks",
-					"$(inherited)",
-					"$(DEVELOPER_FRAMEWORKS_DIR)",
-				);
-				GCC_PRECOMPILE_PREFIX_HEADER = YES;
-				GCC_PREFIX_HEADER = "ClassyTests-Prefix.pch";
-				INFOPLIST_FILE = "ClassyTests-Info.plist";
-				PRODUCT_NAME = "$(TARGET_NAME)";
-				TEST_HOST = "$(BUNDLE_LOADER)";
-				WRAPPER_EXTENSION = octest;
-			};
-			name = Release;
-		};
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
+		DDBF584218113BC10059B8D3 /* Build configuration list for PBXNativeTarget "ClassyTests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				DDBF584318113BC10059B8D3 /* Debug */,
+				DDBF584418113BC10059B8D3 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
 		DDD3D4841810D6DA00E378A2 /* Build configuration list for PBXProject "ClassyTests" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
@@ -653,15 +662,6 @@
 			buildConfigurations = (
 				DDD3D4B61810D6DA00E378A2 /* Debug */,
 				DDD3D4B71810D6DA00E378A2 /* Release */,
-			);
-			defaultConfigurationIsVisible = 0;
-			defaultConfigurationName = Release;
-		};
-		DDD3D4D61810D9A400E378A2 /* Build configuration list for PBXNativeTarget "ClassyTests" */ = {
-			isa = XCConfigurationList;
-			buildConfigurations = (
-				DDD3D4D71810D9A400E378A2 /* Debug */,
-				DDD3D4D81810D9A400E378A2 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;

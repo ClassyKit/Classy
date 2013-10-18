@@ -32,8 +32,8 @@
             skipped = "NO">
             <BuildableReference
                BuildableIdentifier = "primary"
-               BlueprintIdentifier = "DDD3D4C51810D9A400E378A2"
-               BuildableName = "ClassyTests.octest"
+               BlueprintIdentifier = "DDBF583218113BC10059B8D3"
+               BuildableName = "ClassyTests.xctest"
                BlueprintName = "ClassyTests"
                ReferencedContainer = "container:ClassyTests.xcodeproj">
             </BuildableReference>
