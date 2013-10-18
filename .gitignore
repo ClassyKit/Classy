@@ -13,9 +13,6 @@ profile
 *.moved-aside
 # Desktop Servies
 .DS_Store
-Podfile.lock
-/Pods/
+/Tests/Podfile.lock
 /Tests/Pods/
 /script/env.sh
-/Mod.xcodeproj/project.xcworkspace/xcshareddata/Mod.xccheckout
-/Mod.xcworkspace/xcshareddata/Mod.xccheckout
