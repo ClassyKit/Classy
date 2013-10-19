@@ -10,7 +10,7 @@
 
 SpecBegin(CASToken)
 
-it(should_return_token_name, ^{
+- (void)testReturnTokenName {
     expect([CASToken stringForType:CASTokenTypeUnknown]).to.equal(@"unknown");
     expect([CASToken stringForType:CASTokenTypeIndent]).to.equal(@"indent");
     expect([CASToken stringForType:CASTokenTypeOutdent]).to.equal(@"outdent");
@@ -32,19 +32,19 @@ it(should_return_token_name, ^{
     expect([CASToken stringForType:CASTokenTypeOperator]).to.equal(@"operator");
     expect([CASToken stringForType:CASTokenTypeSpace]).to.equal(@"space");
     expect([CASToken stringForType:CASTokenTypeSelector]).to.equal(@"selector");
-})
+}
 
-it(should_return_token_description_with_value, ^{
+- (void)testReturnTokenDescriptionWithValue {
     CASToken *token = [CASToken tokenOfType:CASTokenTypeColor];
     token.value = @"#456456";
 
     expect([token description]).to.equal(@"color #456456");
-})
+}
 
-it(should_return_token_description, ^{
+- (void)testReturnTokenDescription {
     CASToken *token = [CASToken tokenOfType:CASTokenTypeColor];
     
     expect([token description]).to.equal(@"color");
-})
+}
 
 SpecEnd

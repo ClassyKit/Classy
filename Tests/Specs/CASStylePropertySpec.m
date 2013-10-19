@@ -10,7 +10,7 @@
 
 SpecBegin(CASStyleProperty)
 
-it(should_not_parse_zero_units, ^{
+- (void)testNotParseZeroUnits {
     NSArray *valueTokens = (@[
         [CASToken tokenOfType:CASTokenTypeRef value:@3],
     ]);
@@ -24,10 +24,10 @@ it(should_not_parse_zero_units, ^{
     __block UIEdgeInsets insets = UIEdgeInsetsZero;
     expect([prop transformValuesToUIEdgeInsets:&insets]).to.beFalsy();
     expect(insets).to.equal(UIEdgeInsetsZero);
-})
+}
 
 
-it(should_parse_one_unit, ^{
+- (void)testParseOneUnit {
     NSArray *valueTokens = (@[
         [CASToken tokenOfType:CASTokenTypeUnit value:@3],
     ]);
@@ -41,9 +41,9 @@ it(should_parse_one_unit, ^{
     __block UIEdgeInsets insets = UIEdgeInsetsZero;
     expect([prop transformValuesToUIEdgeInsets:&insets]).to.beTruthy();
     expect(insets).to.equal(UIEdgeInsetsMake(3, 3, 3, 3));
-})
+}
 
-it(should_parse_two_units, ^{
+- (void)testParseTwoUnits {
     NSArray *valueTokens = (@[
         [CASToken tokenOfType:CASTokenTypeUnit value:@3],
         [CASToken tokenOfType:CASTokenTypeUnit value:@34],
@@ -58,9 +58,9 @@ it(should_parse_two_units, ^{
     __block UIEdgeInsets insets = UIEdgeInsetsZero;
     expect([prop transformValuesToUIEdgeInsets:&insets]).to.beTruthy();
     expect(insets).to.equal(UIEdgeInsetsMake(34, 3, 34, 3));
-})
+}
 
-it(should_resolve_simple_expression, ^{
+- (void)testResolveSimpleExpression {
     NSArray *valueTokens = (@[
         [CASToken tokenOfType:CASTokenTypeUnit value:@3],
         [CASToken tokenOfType:CASTokenTypeOperator value:@"*"],
@@ -73,9 +73,9 @@ it(should_resolve_simple_expression, ^{
     expect([prop.values componentsJoinedByString:@""]).to.equal(@"3*2+5");
     [prop resolveExpressions];
     expect([prop.values componentsJoinedByString:@""]).to.equal(@"11");
-})
+}
 
-it(should_resolve_expression_with_function, ^{
+- (void)testResolveExpressionWithFunction {
     NSArray *valueTokens = (@[
         [CASToken tokenOfType:CASTokenTypeRef value:@"floor"],
         [CASToken tokenOfType:CASTokenTypeSpace value:@"  "],
@@ -94,9 +94,9 @@ it(should_resolve_expression_with_function, ^{
     expect([prop.values componentsJoinedByString:@""]).to.equal(@"floor  (4.5)* 2 +5");
     [prop resolveExpressions];
     expect([prop.values componentsJoinedByString:@""]).to.equal(@"13");
-})
+}
 
-it(should_resolve_two_tuple, ^{
+- (void)testResolveTwoTuple {
     NSArray *valueTokens = (@[
         [CASToken tokenOfType:CASTokenTypeLeftRoundBrace value:@"("],
         [CASToken tokenOfType:CASTokenTypeUnit value:@4.5],
@@ -111,9 +111,9 @@ it(should_resolve_two_tuple, ^{
     expect([prop.values componentsJoinedByString:@""]).to.equal(@"(4.5,2)*5");
     [prop resolveExpressions];
     expect([prop.values componentsJoinedByString:@""]).to.equal(@"(22.5,10)");
-})
+}
 
-it(should_resolve_two_tuple_forwards, ^{
+- (void)testResolveTwoTupleForwards {
     NSArray *valueTokens = (@[
         [CASToken tokenOfType:CASTokenTypeUnit value:@5],
         [CASToken tokenOfType:CASTokenTypeOperator value:@"*"],
@@ -128,9 +128,9 @@ it(should_resolve_two_tuple_forwards, ^{
     expect([prop.values componentsJoinedByString:@""]).to.equal(@"5*(4.5,2)");
     [prop resolveExpressions];
     expect([prop.values componentsJoinedByString:@""]).to.equal(@"(22.5,10)");
-})
+}
 
-it(should_resolve_quad_tuple, ^{
+- (void)testResolveQuadTuple {
     NSArray *valueTokens = (@[
         [CASToken tokenOfType:CASTokenTypeLeftRoundBrace value:@"("],
         [CASToken tokenOfType:CASTokenTypeSpace value:@" "],
@@ -153,9 +153,9 @@ it(should_resolve_quad_tuple, ^{
     expect([prop.values componentsJoinedByString:@""]).to.equal(@"( 6, 10 12, 8 ) / 2");
     [prop resolveExpressions];
     expect([prop.values componentsJoinedByString:@""]).to.equal(@"(3,5,6,4)");
-})
+}
 
-it(should_solve_mixed_expression, ^{
+- (void)testSolveMixedExpression {
     NSArray *valueTokens = (@[
         [CASToken tokenOfType:CASTokenTypeRef value:@"tiger"],
         [CASToken tokenOfType:CASTokenTypeSpace value:@" "],
@@ -197,6 +197,6 @@ it(should_solve_mixed_expression, ^{
     expect([prop.values componentsJoinedByString:@""]).to.equal(@"tiger place 2 + 2 (1 + (2 * 3) 3 + 0.5) * 2 / 5");
     [prop resolveExpressions];
     expect([prop.values componentsJoinedByString:@""]).to.equal(@"tiger place 4(2,1.4)");
-})
+}
 
 SpecEnd

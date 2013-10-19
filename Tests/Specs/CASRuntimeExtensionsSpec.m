@@ -44,7 +44,7 @@
 
 SpecBegin(CASRuntimeExtensions)
 
-it(should_get_property_attributes_for_BOOL, ^{
+- (void)testGetPropertyAttributesForBOOL {
     objc_property_t property = class_getProperty([RuntimeTestClass class], "normalBool");
     NSLog(@"property attributes: %s", property_getAttributes(property));
 
@@ -72,9 +72,9 @@ it(should_get_property_attributes_for_BOOL, ^{
     XCTAssertNil(attributes->objectClass, @"");
     
     free(attributes);
-})
+}
 
-it(should_get_property_attributes_for_array, ^{
+- (void)testGetPropertyAttributesForArray {
     objc_property_t property = class_getProperty([RuntimeTestClass class], "array");
     NSLog(@"property attributes: %s", property_getAttributes(property));
 
@@ -101,9 +101,9 @@ it(should_get_property_attributes_for_array, ^{
     XCTAssertEqualObjects(attributes->objectClass, [NSArray class], @"");
 
     free(attributes);
-})
+}
 
-it(should_get_property_attributes_for_normal_string, ^{
+- (void)testGetPropertyAttributesForNormalString {
     objc_property_t property = class_getProperty([RuntimeTestClass class], "normalString");
     NSLog(@"property attributes: %s", property_getAttributes(property));
 
@@ -130,9 +130,9 @@ it(should_get_property_attributes_for_normal_string, ^{
     XCTAssertEqualObjects(attributes->objectClass, [NSString class], @"");
 
     free(attributes);
-})
+}
 
-it(should_get_property_attributes_for_untyped_object, ^{
+- (void)testGetPropertyAttributesForUntypedObject {
     objc_property_t property = class_getProperty([RuntimeTestClass class], "untypedObject");
     NSLog(@"property attributes: %s", property_getAttributes(property));
 
@@ -160,9 +160,9 @@ it(should_get_property_attributes_for_untyped_object, ^{
     XCTAssertNil(attributes->objectClass, @"");
 
     free(attributes);
-})
+}
 
-it(should_get_property_attributes_for_weak_object, ^{
+- (void)testGetPropertyAttributesForWeakObject {
     objc_property_t property = class_getProperty([RuntimeTestClass class], "weakObject");
     NSLog(@"property attributes: %s", property_getAttributes(property));
 
@@ -189,6 +189,6 @@ it(should_get_property_attributes_for_weak_object, ^{
     XCTAssertEqualObjects(attributes->objectClass, [NSObject class], @"");
 
     free(attributes);
-})
+}
 
 SpecEnd

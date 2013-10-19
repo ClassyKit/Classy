@@ -15,29 +15,29 @@
 
 SpecBegin(CASLexer)
 
-it(should_clean_up_carriage_returns, ^{
+- (void)testCleanUpCarriageReturns {
     CASLexer *lexer = [[CASLexer alloc] initWithString:@"hello \r\n world \r"];
     expect(lexer.str).to.equal(@"hello \n world\n");
-})
+}
 
-it(should_clean_up_end_of_string, ^{
+- (void)testCleanUpEndOfString {
     CASLexer *lexer = [[CASLexer alloc] initWithString:@"hello \r\n  \r  \n   "];
     expect(lexer.str).to.equal(@"hello\n");
-})
+}
 
-it(should_return_EOS, ^{
+- (void)testReturnEOS {
     CASLexer *lexer = [[CASLexer alloc] initWithString:@""];
     expect([lexer lookaheadByCount:100].type).to.equal(CASTokenTypeEOS);
-})
+}
 
-it(should_return_error, ^{
+- (void)testReturnError {
     CASLexer *lexer = [[CASLexer alloc] initWithString:@"†"];
     expect(lexer.nextToken).to.beNil();
     expect(lexer.error.domain).to.equal(CASParseErrorDomain);
     expect(lexer.error.localizedDescription).to.equal(@"Invalid style string");
-})
+}
 
-it(should_return_seperator, ^{
+- (void)testReturnSeperator {
     CASLexer *lexer = [[CASLexer alloc] initWithString:@";  \t    hello"];
     expect(lexer.peekToken.type).to.equal(CASTokenTypeSemiColon);
     expect(lexer.str).to.equal(@"hello");
@@ -45,15 +45,15 @@ it(should_return_seperator, ^{
     lexer = [[CASLexer alloc] initWithString:@";;  world hello"];
     expect(lexer.peekToken.type).to.equal(CASTokenTypeSemiColon);
     expect(lexer.str).to.equal(@";  world hello");
-})
+}
 
-it(should_return_space, ^{
+- (void)testReturnSpace {
     CASLexer *lexer = [[CASLexer alloc] initWithString:@"    \t   hello"];
     expect(lexer.peekToken.type).to.equal(CASTokenTypeSpace);
     expect(lexer.str).to.equal(@"hello");
-})
+}
 
-it(should_return_curly_brace, ^{
+- (void)testReturnCurlyBrace {
     CASLexer *lexer = [[CASLexer alloc] initWithString:@"{  \t    hello"];
     expect(lexer.peekToken.type).to.equal(CASTokenTypeLeftCurlyBrace);
     expect(lexer.peekToken.value).to.equal(@"{");
@@ -63,9 +63,9 @@ it(should_return_curly_brace, ^{
     expect(lexer.peekToken.type).to.equal(CASTokenTypeRightCurlyBrace);
     expect(lexer.peekToken.value).to.equal(@"}");
     expect(lexer.str).to.equal(@"{  world hello");
-})
+}
 
-it(should_return_square_brace, ^{
+- (void)testReturnSquareBrace {
     CASLexer *lexer = [[CASLexer alloc] initWithString:@"[  \t    hello"];
     expect(lexer.peekToken.type).to.equal(CASTokenTypeLeftSquareBrace);
     expect(lexer.peekToken.value).to.equal(@"[");
@@ -75,9 +75,9 @@ it(should_return_square_brace, ^{
     expect(lexer.peekToken.type).to.equal(CASTokenTypeRightSquareBrace);
     expect(lexer.peekToken.value).to.equal(@"]");
     expect(lexer.str).to.equal(@"[  world hello");
-})
+}
 
-it(should_return_round_braces, ^{
+- (void)testReturnRoundBraces {
     CASLexer *lexer = [[CASLexer alloc] initWithString:@"size(1,2,3,4)"];
     CASToken *token = lexer.nextToken;
     expect(token.type).to.equal(CASTokenTypeRef);
@@ -93,30 +93,30 @@ it(should_return_round_braces, ^{
     expect(token.type).to.equal(CASTokenTypeRightRoundBrace);
     expect(token.value).to.equal(@")");
     expect(lexer.str).to.equal(@"");
-})
+}
 
-it(should_return_rgb_UIColor, ^{
+- (void)testReturnRgbUIColor {
     CASLexer *lexer = [[CASLexer alloc] initWithString:@"#fff   \t   hello"];
     expect(lexer.peekToken.type).to.equal(CASTokenTypeColor);
     expect([lexer.peekToken.value cas_hexValue]).to.equal(@"ffffff");
     expect(lexer.str).to.equal(@"hello");
-})
+}
 
-it(should_return_rrggbb_UIColor, ^{
+- (void)testReturnRrggbbUIColor {
     CASLexer *lexer = [[CASLexer alloc] initWithString:@"#ffffff   \t   hello"];
     expect(lexer.peekToken.type).to.equal(CASTokenTypeColor);
     expect([lexer.peekToken.value cas_hexValue]).to.equal(@"ffffff");
     expect(lexer.str).to.equal(@"hello");
-})
+}
 
-it(should_return_rrggbbaa_UIColor, ^{
+- (void)testReturnRrggbbaaUIColor {
     CASLexer *lexer = [[CASLexer alloc] initWithString:@"#ffffffff   \t   hello"];
     expect(lexer.peekToken.type).to.equal(CASTokenTypeColor);
     expect([lexer.peekToken.value cas_hexValue]).to.equal(@"ffffff");
     expect(lexer.str).to.equal(@"hello");
-})
+}
 
-it(should_return_string, ^{
+- (void)testReturnString {
     CASLexer *lexer = [[CASLexer alloc] initWithString:@"\"    blah\"   '\"hello"];
     expect(lexer.peekToken.type).to.equal(CASTokenTypeString);
     expect(lexer.peekToken.value).to.equal(@"    blah");
@@ -131,9 +131,9 @@ it(should_return_string, ^{
     expect(lexer.peekToken.type).to.equal(CASTokenTypeString);
     expect(lexer.peekToken.value).to.equal(@"");
     expect(lexer.str).to.equal(@"a hello");
-})
+}
 
-it(should_return_unit, ^{
+- (void)testReturnUnit {
     CASLexer *lexer = [[CASLexer alloc] initWithString:@"1.5px   hello"];
     expect(lexer.peekToken.type).to.equal(CASTokenTypeUnit);
     expect(lexer.peekToken.value).to.equal(@1.5);
@@ -148,9 +148,9 @@ it(should_return_unit, ^{
     expect(lexer.peekToken.type).to.equal(CASTokenTypeUnit);
     expect(lexer.peekToken.value).to.equal(@-20.5);
     expect(lexer.str).to.equal(@"hello");
-})
+}
 
-it(should_return_boolean, ^{
+- (void)testReturnBoolean {
     CASLexer *lexer = [[CASLexer alloc] initWithString:@"YES   hello"];
     expect(lexer.peekToken.type).to.equal(CASTokenTypeBoolean);
     expect(lexer.peekToken.value).to.equal(@YES);
@@ -170,18 +170,18 @@ it(should_return_boolean, ^{
     expect(lexer.peekToken.type).to.equal(CASTokenTypeBoolean);
     expect(lexer.peekToken.value).to.equal(@NO);
     expect(lexer.str).to.equal(@"hello");
-})
+}
 
-it(should_return_selector, ^{
+- (void)testReturnSelector {
     // any character except `\n` | `{` | `,` | whitespace
 
     CASLexer *lexer = [[CASLexer alloc] initWithString:@".hello    world     {"];
     expect(lexer.peekToken.type).to.equal(CASTokenTypeSelector);
     expect(lexer.peekToken.value).to.equal(@".hello");
     expect(lexer.str).to.equal(@"    world     {");
-})
+}
 
-it(should_return_ref, ^{
+- (void)testReturnRef {
     CASLexer *lexer = [[CASLexer alloc] initWithString:@"@background-color   hello"];
     expect(lexer.peekToken.type).to.equal(CASTokenTypeRef);
     expect(lexer.peekToken.value).to.equal(@"@background-color");
@@ -201,9 +201,9 @@ it(should_return_ref, ^{
     expect(lexer.peekToken.type).to.equal(CASTokenTypeRef);
     expect(lexer.peekToken.value).to.equal(@"@_background-_color");
     expect(lexer.str).to.equal(@"   hello");
-})
+}
 
-it(should_skip_comments, ^{
+- (void)testSkipComments {
     CASLexer *lexer = [[CASLexer alloc] initWithString:@"//hello world   \n   \n stuff"];
     expect(lexer.peekToken.type).to.equal(CASTokenTypeIndent);
     expect(lexer.peekToken.value).to.equal(nil);
@@ -228,9 +228,9 @@ it(should_skip_comments, ^{
     expect(lexer.peekToken.value).to.equal(nil);
     expect(lexer.peekToken.lineNumber).to.equal(1);
     expect(lexer.str).to.equal(@"");
-})
+}
 
-it(should_return_ident, ^{
+- (void)testReturnIdent {
     NSString *string = @"UIView\n"
                         "  asdf";
 
@@ -242,9 +242,9 @@ it(should_return_ident, ^{
     expect(token.value).to.equal(nil);
     expect(token.lineNumber).to.equal(2);
     expect(lexer.str).to.equal(@"asdf");
-})
+}
 
-it(should_complain_when_mixing_indentation_types, ^{
+- (void)testComplainWhenMixingIndentationTypes {
     NSString *string = @"UIView\n"
                         "  spaces:2;\n"
                         "\ttabs:1;";
@@ -258,9 +258,9 @@ it(should_complain_when_mixing_indentation_types, ^{
     expect(lexer.error.code).to.equal(CASParseErrorInvalidIndentation);
     expect(lexer.error.userInfo[CASParseFailingLineNumberErrorKey]).to.equal(@3);
     expect(lexer.error.userInfo[CASParseFailingStringErrorKey]).to.equal(@"\"\ttabs:1;\"");
-})
+}
 
-it(should_return_outdent, ^{
+- (void)testReturnOutdent {
     NSString *string = @"UIView{\n  asdf 1\n}";
 
     CASLexer *lexer = [[CASLexer alloc] initWithString:string];
@@ -276,13 +276,13 @@ it(should_return_outdent, ^{
     expect(token.value).to.equal(nil);
     expect(token.lineNumber).to.equal(3);
     expect(lexer.str).to.equal(@"}");
-})
+}
 
-it(should_return_Operator, ^{
+- (void)testReturnOperator {
     CASLexer *lexer = [[CASLexer alloc] initWithString:@",   hello"];
     expect(lexer.peekToken.type).to.equal(CASTokenTypeOperator);
     expect(lexer.peekToken.value).to.equal(@",");
     expect(lexer.str).to.equal(@"hello");
-})
+}
 
 SpecEnd

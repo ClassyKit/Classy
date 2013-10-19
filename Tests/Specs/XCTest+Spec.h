@@ -14,12 +14,6 @@
 @interface name##Spec : XCTestCase @end \
 @implementation name##Spec
 
-// test method
-#define it(name, block)   \
-- (void)test_##name {     \
-    block();              \
-}                         \
-
 // close XCTestCase
 #define SpecEnd \
 @end

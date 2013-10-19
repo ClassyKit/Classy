@@ -20,7 +20,7 @@
 
 SpecBegin(CASStyler)
 
-it(should_get_view_descriptor, ^{
+- (void)testGetViewDescriptor {
     NSString *filePath = [[NSBundle bundleForClass:self.class] pathForResource:@"UIView-Basic.cas" ofType:nil];
     CASStyler *styler = [[CASStyler alloc] initWithFilePath:filePath error:nil];
 
@@ -33,9 +33,9 @@ it(should_get_view_descriptor, ^{
     descriptor = [styler viewClassDescriptorForClass:UIView.class];
     expect(descriptor.viewClass).to.equal(UIView.class);
     expect(descriptor.parent).to.beNil();
-})
+}
 
-it(should_sort_selectors_by_precedence, ^{
+- (void)testSortSelectorsByPrecedence {
     NSError *error = nil;
     NSString *filePath = [[NSBundle bundleForClass:self.class] pathForResource:@"Properties-Basic.cas" ofType:nil];
     CASStyler *styler = [[CASStyler alloc] initWithFilePath:filePath error:&error];
@@ -46,9 +46,9 @@ it(should_sort_selectors_by_precedence, ^{
     expect([styler.styles[2] stringValue]).to.equal(@"UIButton[state:selected] UIControl");
     expect([styler.styles[3] stringValue]).to.equal(@"UINavigationBar UIButton");
     expect([styler.styles[4] stringValue]).to.equal(@"UISlider");
-})
+}
 
-it(should_select_view_with_styleClass, ^{
+- (void)testSelectViewWithStyleClass {
     NSString *filePath = [[NSBundle bundleForClass:self.class] pathForResource:@"Properties-Basic.cas" ofType:nil];
     CASStyler *styler = [[CASStyler alloc] initWithFilePath:filePath error:nil];
 
@@ -59,9 +59,9 @@ it(should_select_view_with_styleClass, ^{
     UIView *view = UIView.new;
     view.cas_styleClass = @"bordered";
     expect([selector shouldSelectView:view]).to.beTruthy();
-})
+}
 
-it(should_select_indirect_superview, ^{
+- (void)testSelectIndirectSuperview {
     NSString *filePath = [[NSBundle bundleForClass:self.class] pathForResource:@"Properties-Basic.cas" ofType:nil];
     CASStyler *styler = [[CASStyler alloc] initWithFilePath:filePath error:nil];
 
@@ -82,18 +82,18 @@ it(should_select_indirect_superview, ^{
     [imageView addSubview:button];
     [navigationBar addSubview:imageView];
     expect([selector shouldSelectView:button]).to.beTruthy();
-})
+}
 
-it(should_select_subclasses, ^{
+- (void)testSelectSubclasses {
     CASStyleSelector *selector = CASStyleSelector.new;
     selector.viewClass = UIControl.class;
     selector.shouldSelectSubclasses = YES;
     expect([selector shouldSelectView:UIControl.new]).to.equal(YES);
     expect([selector shouldSelectView:UIView.new]).to.equal(NO);
     expect([selector shouldSelectView:UIButton.new]).to.equal(YES);
-})
+}
 
-it(should_set_basic_properties, ^{
+- (void)testSetBasicProperties {
     NSString *filePath = [[NSBundle bundleForClass:self.class] pathForResource:@"UIView-Basic.cas" ofType:nil];
     CASStyler *styler = [[CASStyler alloc] initWithFilePath:filePath error:nil];
     UISlider *view = UISlider.new;
@@ -110,9 +110,9 @@ it(should_set_basic_properties, ^{
     expect(view.cas_shadowRadius).to.equal(4);
 
     expect(view.contentMode).to.equal(UIViewContentModeScaleAspectFill);
-})
+}
 
-it(should_set_UITextField_properties, ^{
+- (void)testSetUITextFieldProperties {
     NSString *filePath = [[NSBundle bundleForClass:self.class] pathForResource:@"UIView-Basic.cas" ofType:nil];
     CASStyler *styler = [[CASStyler alloc] initWithFilePath:filePath error:nil];
     UITextField *view = UITextField.new;
@@ -132,9 +132,9 @@ it(should_set_UITextField_properties, ^{
     expect(view.borderStyle).to.equal(UITextBorderStyleLine);
     expect(view.background).notTo.beNil();
     expect(view.background.capInsets).to.equal(UIEdgeInsetsMake(1, 2, 3, 4));
-})
+}
 
-it(should_set_custom_properties, ^{
+- (void)testSetCustomProperties {
     NSString *filePath = [[NSBundle bundleForClass:self.class] pathForResource:@"UIView-Basic.cas" ofType:nil];
     CASStyler *styler = [[CASStyler alloc] initWithFilePath:filePath error:nil];
     CASExampleView *exampleView = CASExampleView.new;
@@ -145,6 +145,6 @@ it(should_set_custom_properties, ^{
     expect(exampleView.testNSInteger).to.equal(-999);
     expect(exampleView.testNSUInteger).to.equal(1000);
     expect(exampleView.testInt).to.equal(345);
-})
+}
 
 SpecEnd

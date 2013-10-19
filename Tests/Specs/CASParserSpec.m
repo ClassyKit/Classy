@@ -18,7 +18,7 @@
 
 SpecBegin(CASParser)
 
-it(should_error_when_no_file, ^{
+- (void)testErrorWhenNoFile {
     NSError *error = nil;
 
     NSArray *styles = [CASParser stylesFromFilePath:@"dummy.txt" error:&error];
@@ -29,18 +29,18 @@ it(should_error_when_no_file, ^{
     expect(underlyingError.domain).to.equal(NSCocoaErrorDomain);
 //    expect(underlyingError.code).to.equal(NSFileReadNoSuchFileError);
     expect(styles).to.beNil();
-})
+}
 
-it(should_load_file, ^{
+- (void)testLoadFile {
     NSString *filePath = [[NSBundle bundleForClass:self.class] pathForResource:@"Selectors-Basic.cas" ofType:nil];
     NSError *error = nil;
 
     NSArray *styles = [CASParser stylesFromFilePath:filePath error:&error];
     expect(styles).notTo.beNil();
     expect(error).to.beNil();
-})
+}
 
-it(should_parse_basic, ^{
+- (void)testParseBasic {
     NSString *filePath = [[NSBundle bundleForClass:self.class] pathForResource:@"Selectors-Basic.cas" ofType:nil];
     NSArray *styles = [CASParser stylesFromFilePath:filePath error:nil];
 
@@ -73,9 +73,9 @@ it(should_parse_basic, ^{
     CASStyleSelector *selector7 = styles[6];
     expect(selector7.stringValue).to.equal(@"UITabBar");
     expect(selector7.node).notTo.beIdenticalTo(selector6.node);
-})
+}
 
-it(should_parse_complex, ^{
+- (void)testParseComplex {
     NSString *filePath = [[NSBundle bundleForClass:self.class] pathForResource:@"Selectors-Complex.cas" ofType:nil];
     NSArray *styles = [CASParser stylesFromFilePath:filePath error:nil];
 
@@ -92,9 +92,9 @@ it(should_parse_complex, ^{
     expect([styles[4] stringValue]).to.equal(@"UISlider");
 
     expect([styles[5] stringValue]).to.equal(@"UINavigationBar.videoNavBar UIButton[state:highlighted]");
-})
+}
 
-it(should_parse_without_braces, ^{
+- (void)testParseWithoutBraces {
     NSString *filePath = [[NSBundle bundleForClass:self.class] pathForResource:@"Selectors-Indentation.cas" ofType:nil];
     NSArray *styles = [CASParser stylesFromFilePath:filePath error:nil];
 
@@ -117,9 +117,9 @@ it(should_parse_without_braces, ^{
 
     expect([styles[5] stringValue]).to.equal(@"UINavigationBar.videoNavBar UIButton[state:highlighted]");
     expect([styles[5] precedence]).to.equal(1006);
-})
+}
 
-it(should_parse_direct_descendant, ^{
+- (void)testParseDirectDescendant {
     NSError *error = nil;
     NSString *filePath = [[NSBundle bundleForClass:self.class] pathForResource:@"Selectors-Hierarchy.cas" ofType:nil];
     NSArray *styles = [CASParser stylesFromFilePath:filePath error:&error];
@@ -139,9 +139,9 @@ it(should_parse_direct_descendant, ^{
 
     expect([styles[3] stringValue]).to.equal(@"^UIView[state:selected] > UIImageView");
     expect([styles[3] precedence]).to.equal(5);
-})
+}
 
-it(should_parse_properties, ^{
+- (void)testParseProperties {
     NSString *filePath = [[NSBundle bundleForClass:self.class] pathForResource:@"Properties-Basic.cas" ofType:nil];
     NSArray *styles = [CASParser stylesFromFilePath:filePath error:nil];
 
@@ -172,6 +172,6 @@ it(should_parse_properties, ^{
     expect([node.styleProperties[1] values]).to.equal((@[@40, @50]));
     expect([node.styleProperties[2] name]).to.equal(@"textColor");
     expect([node.styleProperties[2] values]).to.equal(@[[UIColor cas_colorWithHex:@"#444"]]);
-})
+}
 
 SpecEnd
