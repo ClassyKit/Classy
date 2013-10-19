@@ -9,17 +9,17 @@
 #import <XCTest/XCTest.h>
 #import <Foundation/Foundation.h>
 
-#define SpecBegin(name) \
-@interface Spec_##name : XCTestCase @end \
-@implementation Spec_##name
+// declare XCTestCase subclass interface and implementation
+#define SpecBegin(name)                 \
+@interface name##Spec : XCTestCase @end \
+@implementation name##Spec
 
+// test method
+#define it(name, block)   \
+- (void)test_##name {     \
+    block();              \
+}                         \
+
+// close XCTestCase
 #define SpecEnd \
 @end
-
-#define it(name, block) \
-- (void)test##name { \
-    block(); \
-}\
-
-//this makes above work! bizzaro
-#define stuff(...)

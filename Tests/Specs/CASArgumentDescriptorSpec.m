@@ -31,7 +31,7 @@ it(should_return_double, ^{
     expect([CASArgumentDescriptor argWithObjCType:@encode(double)].primitiveType).to.equal(CASPrimitiveTypeDouble);
     expect([CASArgumentDescriptor argWithObjCType:@encode(float)].primitiveType).to.equal(CASPrimitiveTypeDouble);
     expect([CASArgumentDescriptor argWithObjCType:@encode(CGFloat)].primitiveType).to.equal(CASPrimitiveTypeDouble);
-});
+})
 
 it(should_return_CGSize, ^{
     expect([CASArgumentDescriptor argWithObjCType:@encode(CGSize)].primitiveType).to.equal(CASPrimitiveTypeCGSize);
