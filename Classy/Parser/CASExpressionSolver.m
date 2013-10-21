@@ -11,22 +11,16 @@
 
 @interface CASExpressionSolver ()
 
+@property (nonatomic, strong) NSMutableArray *tokens;
 @property (nonatomic, strong) NSMutableDictionary *tupleByIndex;
 
 @end
 
 @implementation CASExpressionSolver
 
-- (id)init {
-    self = [super init];
-    if (!self) return nil;
-
+- (NSArray *)tokensByReducingTokens:(NSArray *)tokens {
+    self.tokens = tokens.mutableCopy;
     self.tupleByIndex = NSMutableDictionary.new;
-
-    return self;
-}
-
-- (NSArray *)reduceTokens {
     [self extractTuples];
 
     NSMutableArray *tokenStack = NSMutableArray.new;
@@ -86,6 +80,8 @@
 
     return tokenStack;
 }
+
+#pragma mark - private
 
 - (void)extractTuples {
     NSArray *tokens = [self.tokens copy];

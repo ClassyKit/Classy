@@ -10,8 +10,12 @@
 
 @interface CASExpressionSolver : NSObject
 
-@property (nonatomic, strong) NSMutableArray *tokens;
-
-- (NSArray *)reduceTokens;
+/**
+ *  Takes an array of tokens and reduces any expressions contained within to a numerical value.
+ *  Skips tokens which cannot be evaluated in a expression
+ *
+ *  @return a NSArray of tokens
+ */
+- (NSArray *)tokensByReducingTokens:(NSArray *)tokens;
 
 @end

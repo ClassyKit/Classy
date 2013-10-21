@@ -133,9 +133,7 @@
     if (!hasOperator) return;
 
     CASExpressionSolver *solver = CASExpressionSolver.new;
-    solver.tokens = [self.valueTokens mutableCopy];
-
-    self.valueTokens = [solver reduceTokens];
+    self.valueTokens = [solver tokensByReducingTokens:self.valueTokens];
     self.values = nil;
 }
 
