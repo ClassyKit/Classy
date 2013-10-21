@@ -15,6 +15,9 @@
 		DDAB25771814BBBB00F3DAAE /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = DDAB25761814BBBB00F3DAAE /* main.m */; };
 		DDAB257B1814BBBB00F3DAAE /* CASAppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = DDAB257A1814BBBB00F3DAAE /* CASAppDelegate.m */; };
 		DDAB257D1814BBBB00F3DAAE /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = DDAB257C1814BBBB00F3DAAE /* Images.xcassets */; };
+		DDFE54A51814EBBC003BF9C6 /* CASRootViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = DDFE54A41814EBBC003BF9C6 /* CASRootViewController.m */; };
+		DDFE54A81814EF07003BF9C6 /* CASSimpleFormViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = DDFE54A71814EF07003BF9C6 /* CASSimpleFormViewController.m */; };
+		DDFE54AB1814EF41003BF9C6 /* CASCatalogViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = DDFE54AA1814EF41003BF9C6 /* CASCatalogViewController.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -31,6 +34,12 @@
 		DDAB257A1814BBBB00F3DAAE /* CASAppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = CASAppDelegate.m; sourceTree = "<group>"; };
 		DDAB257C1814BBBB00F3DAAE /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Images.xcassets; sourceTree = "<group>"; };
 		DDAB25831814BBBB00F3DAAE /* XCTest.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = XCTest.framework; path = Library/Frameworks/XCTest.framework; sourceTree = DEVELOPER_DIR; };
+		DDFE54A31814EBBC003BF9C6 /* CASRootViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CASRootViewController.h; sourceTree = "<group>"; };
+		DDFE54A41814EBBC003BF9C6 /* CASRootViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CASRootViewController.m; sourceTree = "<group>"; };
+		DDFE54A61814EF07003BF9C6 /* CASSimpleFormViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CASSimpleFormViewController.h; sourceTree = "<group>"; };
+		DDFE54A71814EF07003BF9C6 /* CASSimpleFormViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CASSimpleFormViewController.m; sourceTree = "<group>"; };
+		DDFE54A91814EF41003BF9C6 /* CASCatalogViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CASCatalogViewController.h; sourceTree = "<group>"; };
+		DDFE54AA1814EF41003BF9C6 /* CASCatalogViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CASCatalogViewController.m; sourceTree = "<group>"; };
 		E9C8ED2DF59B45B2A38549AB /* libPods-ClassyExample.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-ClassyExample.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
@@ -84,6 +93,12 @@
 			children = (
 				DDAB25791814BBBB00F3DAAE /* CASAppDelegate.h */,
 				DDAB257A1814BBBB00F3DAAE /* CASAppDelegate.m */,
+				DDFE54A31814EBBC003BF9C6 /* CASRootViewController.h */,
+				DDFE54A41814EBBC003BF9C6 /* CASRootViewController.m */,
+				DDFE54A61814EF07003BF9C6 /* CASSimpleFormViewController.h */,
+				DDFE54A71814EF07003BF9C6 /* CASSimpleFormViewController.m */,
+				DDFE54A91814EF41003BF9C6 /* CASCatalogViewController.h */,
+				DDFE54AA1814EF41003BF9C6 /* CASCatalogViewController.m */,
 				DDAB257C1814BBBB00F3DAAE /* Images.xcassets */,
 				DDAB25711814BBBB00F3DAAE /* Supporting Files */,
 			);
@@ -200,8 +215,11 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				DDFE54AB1814EF41003BF9C6 /* CASCatalogViewController.m in Sources */,
+				DDFE54A81814EF07003BF9C6 /* CASSimpleFormViewController.m in Sources */,
 				DDAB257B1814BBBB00F3DAAE /* CASAppDelegate.m in Sources */,
 				DDAB25771814BBBB00F3DAAE /* main.m in Sources */,
+				DDFE54A51814EBBC003BF9C6 /* CASRootViewController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
