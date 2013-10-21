@@ -2,7 +2,6 @@ language: objective-c
 
 before_install:
   - sudo easy_install cpp-coveralls
-  - cd Tests && pod install && cd $TRAVIS_BUILD_DIR
 
 script:
   - xctool -workspace 'Classy.xcworkspace' -scheme 'ClassyTests' -configuration Debug -sdk iphonesimulator clean build test ARCHS=i386 VALID_ARCHS=i386 ONLY_ACTIVE_ARCH=NO GCC_INSTRUMENT_PROGRAM_FLOW_ARCS=YES GCC_GENERATE_TEST_COVERAGE_FILES=YES

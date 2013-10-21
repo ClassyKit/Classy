@@ -13,6 +13,8 @@ profile
 *.moved-aside
 # Desktop Servies
 .DS_Store
-/Tests/Podfile.lock
-/Tests/Pods/
 /script/env.sh
+/Pods/
+/Podfile.lock
+
+/Classy.xcworkspace/xcshareddata/Classy.xccheckout

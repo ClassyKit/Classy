@@ -9,8 +9,23 @@
 #import "UIView+CASAdditions.h"
 #import <objc/runtime.h>
 #import <QuartzCore/QuartzCore.h>
+#import "NSObject+CASSwizzle.h"
 
 @implementation UIView (CASAdditions)
+
++ (void)load {
+    [self cas_swizzleInstanceSelector:@selector(didMoveToWindow)
+                      withNewSelector:@selector(cas_didMoveToWindow)];
+}
+
+- (void)cas_didMoveToWindow {
+    if (!self.cas_styleApplied) {
+        //TODO apply style
+        self.cas_styleApplied = YES;
+    }
+
+    [self cas_didMoveToWindow];
+}
 
 #pragma mark - associated properties
 
@@ -19,7 +34,15 @@
 }
 
 - (void)setCas_styleClass:(NSString *)styleClass {
-    objc_setAssociatedObject(self, @selector(cas_styleClass),styleClass, OBJC_ASSOCIATION_RETAIN_NONATOMIC);
+    objc_setAssociatedObject(self, @selector(cas_styleClass), styleClass, OBJC_ASSOCIATION_RETAIN_NONATOMIC);
+}
+
+- (BOOL)cas_styleApplied {
+    return [objc_getAssociatedObject(self, @selector(cas_styleApplied)) boolValue];
+}
+
+- (void)setCas_styleApplied:(BOOL)styleApplied {
+    objc_setAssociatedObject(self, @selector(cas_styleApplied), @(styleApplied), OBJC_ASSOCIATION_RETAIN_NONATOMIC);
 }
 
 #pragma mark - border properties

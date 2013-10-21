@@ -12,7 +12,7 @@ Pod::Spec.new do |s|
     Elegant style sheets your iOS app.
   }
 
-  s.source_files = 'Classy/*.{h,m}'
+  s.source_files = 'Classy/**/*.{h,m}'
 
   s.ios.frameworks = 'Foundation', 'UIKit', 'QuartzCore'
 

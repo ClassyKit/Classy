@@ -1,24 +1,34 @@
-xcodeproj 'ClassyTests'
-workspace '../Classy'
+workspace 'Classy'
 
 platform :ios, '6.0'
 
-pod 'Classy', :path => '../'
+xcodeproj 'Example/ClassyExample'
+  
+target 'ClassyExample', :exclusive => true do
+  pod 'Classy', :path => './'
+end
+
+target 'ClassyTestsLoader', :exclusive => true do
+  xcodeproj 'Tests/ClassyTests'
+  pod 'Classy', :path => './'
+end
 
 target 'ClassyTests', :exclusive => true do
+  xcodeproj 'Tests/ClassyTests'
   pod 'Expecta'
 end
 
 # add settings needed to generate test coverage data
 post_install do |installer|
 
+  COV_TARGET_NAME = "Pods-ClassyTestsLoader-Classy"
   EXPORT_ENV_PHASE_NAME = "Export Environment Vars"
   EXPORT_ENV_PHASE_SCRIPT = "export | egrep '( BUILT_PRODUCTS_DIR)|(CURRENT_ARCH)|(OBJECT_FILE_DIR_normal)|(SRCROOT)|(OBJROOT)' > ../../script/env.sh"
   
   # find target
-  classy_pods_target = installer.project.targets.find{ |target| target.name == 'Pods-Classy' }
+  classy_pods_target = installer.project.targets.find{ |target| target.name == COV_TARGET_NAME }
   unless classy_pods_target
-   raise ::Pod::Informative, "Failed to find 'Pods-Classy' target"
+   raise ::Pod::Informative, "Failed to find '" + COV_TARGET_NAME + "' target"
   end
        
   # add build settings
