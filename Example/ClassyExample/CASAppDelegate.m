@@ -8,14 +8,14 @@
 
 #import "CASAppDelegate.h"
 #import "CASRootViewController.h"
-#import "CASStyler.h"
+#import "Classy.h"
 
 @implementation CASAppDelegate
 
-- (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
-{
+- (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
+    
 #ifdef DEBUG
-    [CASStyler defaultStyler].watchFilePath = @"/Users/jonas/Projects/Classy/Example/ClassyExample/Stylesheets/stylesheet.cas";
+    [CASStyler defaultStyler].watchFilePath = CASAbsoluteFilePath(@"Stylesheets/stylesheet.cas");
 #endif
 
     self.window = [[UIWindow alloc] initWithFrame:UIScreen.mainScreen.bounds];

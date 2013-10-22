@@ -7,9 +7,6 @@
       <FileRef
          location = "group:Classy.h">
       </FileRef>
-      <FileRef
-         location = "group:CASLog.h">
-      </FileRef>
       <Group
          location = "group:Parser"
          name = "Parser">
@@ -60,6 +57,12 @@
          </FileRef>
          <FileRef
             location = "group:CASToken.m">
+         </FileRef>
+         <FileRef
+            location = "group:CASUtilities.h">
+         </FileRef>
+         <FileRef
+            location = "group:CASUtilities.m">
          </FileRef>
       </Group>
       <Group

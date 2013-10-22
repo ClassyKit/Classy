@@ -10,7 +10,7 @@
 #import "CASLexer.h"
 #import "CASStyleNode.h"
 #import "CASToken.h"
-#import "CASLog.h"
+#import "CASUtilities.h"
 #import "CASStyleProperty.h"
 #import "CASStyleSelector.h"
 #import "NSString+CASAdditions.h"

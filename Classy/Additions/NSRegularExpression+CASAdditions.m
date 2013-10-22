@@ -7,7 +7,7 @@
 //
 
 #import "NSRegularExpression+CASAdditions.h"
-#import "CASLog.h"
+#import "CASUtilities.h"
 
 extern NSRegularExpression *CASRegex(NSString *patternFormat, ...) {
     va_list args;

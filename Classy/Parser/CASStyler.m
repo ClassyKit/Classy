@@ -12,7 +12,7 @@
 #import "CASPropertyDescriptor.h"
 #import "UIView+CASAdditions.h"
 #import "UITextField+CASAdditions.h"
-#import "CASLog.h"
+#import "CASUtilities.h"
 
 @interface CASStyler ()
 
