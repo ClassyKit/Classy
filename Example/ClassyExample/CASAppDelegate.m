@@ -8,11 +8,16 @@
 
 #import "CASAppDelegate.h"
 #import "CASRootViewController.h"
+#import "CASStyler.h"
 
 @implementation CASAppDelegate
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
 {
+#ifdef DEBUG
+    [CASStyler defaultStyler].watchFilePath = @"/Users/jonas/Projects/Classy/Example/ClassyExample/Stylesheets/stylesheet.cas";
+#endif
+
     self.window = [[UIWindow alloc] initWithFrame:UIScreen.mainScreen.bounds];
     self.window.backgroundColor = UIColor.whiteColor;
     UINavigationController *navigationController = [[UINavigationController alloc] initWithRootViewController:CASRootViewController.new];

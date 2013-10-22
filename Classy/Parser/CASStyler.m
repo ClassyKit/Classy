@@ -23,11 +23,59 @@
 
 @implementation CASStyler
 
-- (id)initWithFilePath:(NSString *)filePath error:(NSError **)error {
++ (instancetype)defaultStyler {
+    static CASStyler * _defaultStyler = nil;
+    static dispatch_once_t onceToken;
+    dispatch_once(&onceToken, ^{
+        _defaultStyler = CASStyler.new;
+    });
+    
+    return _defaultStyler;
+}
+
+- (id)init {
     self = [super init];
     if (!self) return nil;
 
+    self.viewClassDescriptorCache = NSMapTable.strongToStrongObjectsMapTable;
+    [self setupViewClassDescriptors];
+
+    return self;
+}
+
+- (void)styleView:(UIView *)view {
+    if (!self.filePath) {
+        // load default style file
+        self.filePath = [[NSBundle mainBundle] pathForResource:@"stylesheet.cas" ofType:nil];
+    }
+    // TODO style lookup table to improve speed.
+
+    for (CASStyleSelector *styleSelector in self.styles.reverseObjectEnumerator) {
+        if ([styleSelector shouldSelectView:view]) {
+            // apply style nodes
+            for (CASStyleProperty *styleProperty in styleSelector.node.properties) {
+                [styleProperty.invocation invokeWithTarget:view];
+            }
+        }
+    }
+}
+
+- (void)setFilePath:(NSString *)filePath {
+    NSError *error = nil;
+    [self setFilePath:filePath error:&error];
+    if (error) {
+        CASLog(@"Error: %@", error);
+    }
+}
+
+- (void)setFilePath:(NSString *)filePath error:(NSError **)error {
+    if ([_filePath isEqualToString:filePath]) return;
+    _filePath = filePath;
+
     self.styles = [[CASParser stylesFromFilePath:filePath error:error] mutableCopy];
+    if (!self.styles.count) {
+        return;
+    }
 
     // order descending by precedence
     [self.styles sortWithOptions:NSSortStable usingComparator:^NSComparisonResult(CASStyleSelector *s1, CASStyleSelector *s2) {
@@ -35,9 +83,6 @@
         if (s1.precedence <  s2.precedence) return NSOrderedDescending;
         return NSOrderedAscending;
     }];
-
-    self.viewClassDescriptorCache = NSMapTable.strongToStrongObjectsMapTable;
-    [self setupViewClassDescriptors];
 
     // precompute values
     for (CASStyleSelector *styleSelector in self.styles.reverseObjectEnumerator) {
@@ -112,12 +157,11 @@
             styleProperty.invocation = invocation;
         }
     }
-
-    return self;
 }
 
-- (void)setupViewClassDescriptors {
+#pragma mark - private
 
+- (void)setupViewClassDescriptors {
     // UIView
     CASViewClassDescriptor *viewClassDescriptor = [self viewClassDescriptorForClass:UIView.class];
     viewClassDescriptor.propertyKeyAliases = @{
@@ -207,19 +251,6 @@
                                   forKey:@cas_propertykey(UIControl, contentHorizontalAlignment)];
 }
 
-- (void)styleView:(UIView *)view {
-    // TODO style lookup table to improve speed.
-
-    for (CASStyleSelector *styleSelector in self.styles.reverseObjectEnumerator) {
-        if ([styleSelector shouldSelectView:view]) {
-            // apply style nodes
-            for (CASStyleProperty *styleProperty in styleSelector.node.properties) {
-                [styleProperty.invocation invokeWithTarget:view];
-            }
-        }
-    }
-}
-
 - (CASViewClassDescriptor *)viewClassDescriptorForClass:(Class)class {
     CASViewClassDescriptor *viewClassDescriptor = [self.viewClassDescriptorCache objectForKey:class];
     if (!viewClassDescriptor) {
@@ -230,6 +261,54 @@
         [self.viewClassDescriptorCache setObject:viewClassDescriptor forKey:class];
     }
     return viewClassDescriptor;
+}
+
+#pragma mark - file watcher
+
+- (void)setWatchFilePath:(NSString *)watchFilePath {
+    _watchFilePath = watchFilePath;
+    self.filePath = watchFilePath;
+
+    [self.class watchForChangesToFilePath:watchFilePath withCallback:^{
+        dispatch_async(dispatch_get_main_queue(), ^{
+            // reload styles
+            _filePath = nil;
+            self.filePath = watchFilePath;
+
+            // reapply styles
+            for (UIWindow *window in [UIApplication sharedApplication].windows) {
+                [self styleSubviewsOfView:window];
+            }
+        });
+    }];
+}
+
+- (void)styleSubviewsOfView:(UIView *)view {
+    for (UIView *subview in view.subviews) {
+        [self styleView:subview];
+        [self styleSubviewsOfView:subview];
+    }
+}
+
++ (void)watchForChangesToFilePath:(NSString *)filePath withCallback:(dispatch_block_t)callback {
+    dispatch_queue_t queue = dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0);
+    int fileDescriptor = open([filePath UTF8String], O_EVTONLY);
+
+    __block dispatch_source_t source = dispatch_source_create(DISPATCH_SOURCE_TYPE_VNODE, fileDescriptor,
+                                                              DISPATCH_VNODE_DELETE | DISPATCH_VNODE_WRITE | DISPATCH_VNODE_EXTEND,
+                                                              queue);
+    dispatch_source_set_event_handler(source, ^{
+        unsigned long flags = dispatch_source_get_data(source);
+        if (flags) {
+            dispatch_source_cancel(source);
+            callback();
+            [self watchForChangesToFilePath:filePath withCallback:callback];
+        }
+    });
+    dispatch_source_set_cancel_handler(source, ^(void){
+        close(fileDescriptor);
+    });
+    dispatch_resume(source);
 }
 
 @end

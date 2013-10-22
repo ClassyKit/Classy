@@ -21,8 +21,8 @@
 SpecBegin(CASStyler)
 
 - (void)testGetViewDescriptor {
-    NSString *filePath = [[NSBundle bundleForClass:self.class] pathForResource:@"UIView-Basic.cas" ofType:nil];
-    CASStyler *styler = [[CASStyler alloc] initWithFilePath:filePath error:nil];
+    CASStyler *styler = CASStyler.new;
+    styler.filePath = [[NSBundle bundleForClass:self.class] pathForResource:@"UIView-Basic.cas" ofType:nil];
 
     CASViewClassDescriptor *descriptor = [styler viewClassDescriptorForClass:UISlider.class];
     expect(descriptor.viewClass).to.equal(UISlider.class);
@@ -38,7 +38,8 @@ SpecBegin(CASStyler)
 - (void)testSortSelectorsByPrecedence {
     NSError *error = nil;
     NSString *filePath = [[NSBundle bundleForClass:self.class] pathForResource:@"Properties-Basic.cas" ofType:nil];
-    CASStyler *styler = [[CASStyler alloc] initWithFilePath:filePath error:&error];
+    CASStyler *styler = CASStyler.new;
+    [styler setFilePath:filePath error:&error];
     expect(error).to.beNil();
 
     expect([styler.styles[0] stringValue]).to.equal(@"UIView.bordered");
@@ -49,8 +50,8 @@ SpecBegin(CASStyler)
 }
 
 - (void)testSelectViewWithStyleClass {
-    NSString *filePath = [[NSBundle bundleForClass:self.class] pathForResource:@"Properties-Basic.cas" ofType:nil];
-    CASStyler *styler = [[CASStyler alloc] initWithFilePath:filePath error:nil];
+    CASStyler *styler = CASStyler.new;
+    styler.filePath = [[NSBundle bundleForClass:self.class] pathForResource:@"Properties-Basic.cas" ofType:nil];
 
     CASStyleSelector *selector = styler.styles[0];
     expect([selector stringValue]).to.equal(@"UIView.bordered");
@@ -62,8 +63,8 @@ SpecBegin(CASStyler)
 }
 
 - (void)testSelectIndirectSuperview {
-    NSString *filePath = [[NSBundle bundleForClass:self.class] pathForResource:@"Properties-Basic.cas" ofType:nil];
-    CASStyler *styler = [[CASStyler alloc] initWithFilePath:filePath error:nil];
+    CASStyler *styler = CASStyler.new;
+    styler.filePath = [[NSBundle bundleForClass:self.class] pathForResource:@"Properties-Basic.cas" ofType:nil];
 
     CASStyleSelector *selector = styler.styles[3];
     expect([selector stringValue]).to.equal(@"UINavigationBar UIButton");
@@ -94,8 +95,9 @@ SpecBegin(CASStyler)
 }
 
 - (void)testSetBasicProperties {
-    NSString *filePath = [[NSBundle bundleForClass:self.class] pathForResource:@"UIView-Basic.cas" ofType:nil];
-    CASStyler *styler = [[CASStyler alloc] initWithFilePath:filePath error:nil];
+    CASStyler *styler = CASStyler.new;
+    styler.filePath = [[NSBundle bundleForClass:self.class] pathForResource:@"UIView-Basic.cas" ofType:nil];
+
     UISlider *view = UISlider.new;
     [styler styleView:view];
 
@@ -113,8 +115,8 @@ SpecBegin(CASStyler)
 }
 
 - (void)testSetUITextFieldProperties {
-    NSString *filePath = [[NSBundle bundleForClass:self.class] pathForResource:@"UIView-Basic.cas" ofType:nil];
-    CASStyler *styler = [[CASStyler alloc] initWithFilePath:filePath error:nil];
+    CASStyler *styler = CASStyler.new;
+    styler.filePath = [[NSBundle bundleForClass:self.class] pathForResource:@"UIView-Basic.cas" ofType:nil];
     UITextField *view = UITextField.new;
 
     expect(view.cas_textEdgeInsets).to.equal(UIEdgeInsetsZero);
@@ -135,8 +137,8 @@ SpecBegin(CASStyler)
 }
 
 - (void)testSetCustomProperties {
-    NSString *filePath = [[NSBundle bundleForClass:self.class] pathForResource:@"UIView-Basic.cas" ofType:nil];
-    CASStyler *styler = [[CASStyler alloc] initWithFilePath:filePath error:nil];
+    CASStyler *styler = CASStyler.new;
+    styler.filePath = [[NSBundle bundleForClass:self.class] pathForResource:@"UIView-Basic.cas" ofType:nil];
     CASExampleView *exampleView = CASExampleView.new;
     [styler styleView:exampleView];
 

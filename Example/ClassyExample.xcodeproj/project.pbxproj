@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		BA23251D9EB84FA09338B05C /* libPods-ClassyExample.a in Frameworks */ = {isa = PBXBuildFile; fileRef = E9C8ED2DF59B45B2A38549AB /* libPods-ClassyExample.a */; };
+		DD61F4441816370F004A8777 /* stylesheet.cas in Resources */ = {isa = PBXBuildFile; fileRef = DD61F4431816370F004A8777 /* stylesheet.cas */; };
 		DDAB256B1814BBBB00F3DAAE /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DDAB256A1814BBBB00F3DAAE /* Foundation.framework */; };
 		DDAB256D1814BBBB00F3DAAE /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DDAB256C1814BBBB00F3DAAE /* CoreGraphics.framework */; };
 		DDAB256F1814BBBB00F3DAAE /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DDAB256E1814BBBB00F3DAAE /* UIKit.framework */; };
@@ -22,6 +23,7 @@
 
 /* Begin PBXFileReference section */
 		136384E66419452BA007511C /* Pods-ClassyExample.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-ClassyExample.xcconfig"; path = "../Pods/Pods-ClassyExample.xcconfig"; sourceTree = "<group>"; };
+		DD61F4431816370F004A8777 /* stylesheet.cas */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = stylesheet.cas; sourceTree = "<group>"; };
 		DDAB25671814BBBB00F3DAAE /* ClassyExample.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = ClassyExample.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		DDAB256A1814BBBB00F3DAAE /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
 		DDAB256C1814BBBB00F3DAAE /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = System/Library/Frameworks/CoreGraphics.framework; sourceTree = SDKROOT; };
@@ -58,6 +60,14 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		DD61F4421816370F004A8777 /* Stylesheets */ = {
+			isa = PBXGroup;
+			children = (
+				DD61F4431816370F004A8777 /* stylesheet.cas */,
+			);
+			path = Stylesheets;
+			sourceTree = "<group>";
+		};
 		DDAB255E1814BBBB00F3DAAE = {
 			isa = PBXGroup;
 			children = (
@@ -100,6 +110,7 @@
 				DDFE54A91814EF41003BF9C6 /* CASCatalogViewController.h */,
 				DDFE54AA1814EF41003BF9C6 /* CASCatalogViewController.m */,
 				DDAB257C1814BBBB00F3DAAE /* Images.xcassets */,
+				DD61F4421816370F004A8777 /* Stylesheets */,
 				DDAB25711814BBBB00F3DAAE /* Supporting Files */,
 			);
 			path = ClassyExample;
@@ -172,6 +183,7 @@
 			files = (
 				DDAB25751814BBBB00F3DAAE /* InfoPlist.strings in Resources */,
 				DDAB257D1814BBBB00F3DAAE /* Images.xcassets in Resources */,
+				DD61F4441816370F004A8777 /* stylesheet.cas in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

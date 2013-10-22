@@ -10,6 +10,7 @@
 #import <objc/runtime.h>
 #import <QuartzCore/QuartzCore.h>
 #import "NSObject+CASSwizzle.h"
+#import "CASStyler.h"
 
 @implementation UIView (CASAdditions)
 
@@ -20,7 +21,7 @@
 
 - (void)cas_didMoveToWindow {
     if (!self.cas_styleApplied) {
-        //TODO apply style
+        [CASStyler.defaultStyler styleView:self];
         self.cas_styleApplied = YES;
     }
 

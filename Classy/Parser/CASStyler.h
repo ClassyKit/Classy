@@ -12,9 +12,28 @@
 @interface CASStyler : NSObject
 
 /**
- *  Create styler with filePath
+ *  Singleton instance
  */
-- (id)initWithFilePath:(NSString *)filePath error:(NSError **)error;
++ (instancetype)defaultStyler;
+
+/**
+ *  File path which contains style data
+ */
+@property (nonatomic, copy) NSString *filePath;
+
+/**
+ *  File path to watch for changes.
+ *  Only use for debugging on simulator
+ */
+@property (nonatomic, copy) NSString *watchFilePath;
+
+/**
+ *  Set file path location of styling data and report any errors
+ *
+ *  @param filePath The location of the style data
+ *  @param error    The error that occurred while parsing the filePath
+ */
+- (void)setFilePath:(NSString *)filePath error:(NSError **)error;
 
 /**
  *  Apply any applicable styles to view instance, from low to high precendence
