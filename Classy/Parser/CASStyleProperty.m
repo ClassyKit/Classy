@@ -83,7 +83,7 @@
     return tokens;
 }
 
-#pragma - primitive values
+#pragma - value transformation
 
 - (BOOL)transformValuesToCGSize:(CGSize *)size {
     NSArray *unitTokens = [self valuesOfTokenType:CASTokenTypeUnit];
@@ -116,6 +116,43 @@
     }
     if (unitTokens.count == 4) {
         *insets = UIEdgeInsetsMake([unitTokens[0] doubleValue], [unitTokens[1] doubleValue], [unitTokens[2] doubleValue], [unitTokens[3] doubleValue]);
+        return YES;
+    }
+    return NO;
+}
+
+- (BOOL)transformValuesToUIColor:(UIColor **)color {
+    UIColor *colorValue = [self valueOfTokenType:CASTokenTypeColor];
+    if (colorValue) {
+        *color = colorValue;
+        return YES;
+    }
+
+    NSString *value = [self valueOfTokenType:CASTokenTypeRef]
+        ?: [self valueOfTokenType:CASTokenTypeSelector]
+        ?: [self valueOfTokenType:CASTokenTypeString];
+
+    SEL selector = NSSelectorFromString([NSString stringWithFormat:@"%@Color", value]);
+    if (selector && [UIColor.class respondsToSelector:selector]) {
+#pragma clang diagnostic push
+#pragma clang diagnostic ignored "-Warc-performSelector-leaks"
+        *color = [UIColor.class performSelector:selector];
+#pragma clang diagnostic pop
+        return YES;
+    }
+}
+
+- (BOOL)transformValuesToUIImage:(UIImage **)image {
+    UIEdgeInsets insets;
+    BOOL hasInsets = [self transformValuesToUIEdgeInsets:&insets];
+
+    NSString *imageName = [self valueOfTokenType:CASTokenTypeString] ?: [self valueOfTokenType:CASTokenTypeRef];
+    UIImage *imageValue = [UIImage imageNamed:imageName];
+    if (hasInsets) {
+        imageValue = [imageValue resizableImageWithCapInsets:insets];
+    }
+    if (imageValue) {
+        *image = imageValue;
         return YES;
     }
     return NO;

@@ -79,6 +79,24 @@
 - (BOOL)transformValuesToUIEdgeInsets:(UIEdgeInsets *)insets;
 
 /**
+ *  Attempts to extract a UIColor from the valueTokens
+ *
+ *  @param color UIColor pointer
+ *
+ *  @return whether the extraction succeeded
+ */
+- (BOOL)transformValuesToUIColor:(UIColor **)color;
+
+/**
+ *  Attempts to extract a UIImage from the valueTokens
+ *
+ *  @param image UIImage pointer
+ *
+ *  @return whether the extraction succeeded
+ */
+- (BOOL)transformValuesToUIImage:(UIImage **)image;
+
+/**
  *  Replace any detected expressions/equations with a numerical value
  */
 - (void)resolveExpressions;

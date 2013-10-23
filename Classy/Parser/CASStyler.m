@@ -91,75 +91,75 @@
 
             // ensure we dont do same node twice
             if (styleProperty.invocation) continue;
-
-            CASViewClassDescriptor *viewClassDescriptor = [self viewClassDescriptorForClass:styleSelector.viewClass];
-            CASPropertyDescriptor *propertyDescriptor = [viewClassDescriptor propertyDescriptorForKey:styleProperty.name];
-
-            NSInvocation *invocation = [viewClassDescriptor invocationForPropertyDescriptor:propertyDescriptor];
-            [invocation retainArguments];
-            [propertyDescriptor.argumentDescriptors enumerateObjectsUsingBlock:^(CASArgumentDescriptor *argDescriptor, NSUInteger idx, BOOL *stop) {
-                NSInteger argIndex = 2 + idx;
-                switch (argDescriptor.primitiveType) {
-                    case CASPrimitiveTypeBOOL: {
-                        BOOL value = [[styleProperty valueOfTokenType:CASTokenTypeBoolean] boolValue];
-                        [invocation setArgument:&value atIndex:argIndex];
-                        break;
-                    }
-                    case CASPrimitiveTypeInteger: {
-                        NSInteger value;
-                        if (argDescriptor.valuesByName) {
-                            NSString *valueName = [styleProperty valueOfTokenType:CASTokenTypeRef];
-                            value = [argDescriptor.valuesByName[valueName] integerValue];
-                        } else {
-                            value = [[styleProperty valueOfTokenType:CASTokenTypeUnit] integerValue];
-                        }
-                        [invocation setArgument:&value atIndex:argIndex];
-                        break;
-                    }
-                    case CASPrimitiveTypeDouble: {
-                        CGFloat value = [[styleProperty valueOfTokenType:CASTokenTypeUnit] doubleValue];
-                        [invocation setArgument:&value atIndex:argIndex];
-                        break;
-                    }
-                    case CASPrimitiveTypeCGSize: {
-                        CGSize size;
-                        [styleProperty transformValuesToCGSize:&size];
-                        [invocation setArgument:&size atIndex:argIndex];
-                        break;
-                    }
-                    case CASPrimitiveTypeUIEdgeInsets: {
-                        UIEdgeInsets insets;
-                        [styleProperty transformValuesToUIEdgeInsets:&insets];
-                        [invocation setArgument:&insets atIndex:argIndex];
-                        break;
-                    }
-                    default:
-                        break;
-                }
-
-                if (argDescriptor.argumentClass == UIImage.class) {
-                    UIEdgeInsets insets;
-                    BOOL hasInsets = [styleProperty transformValuesToUIEdgeInsets:&insets];
-
-                    NSString *imageName = [styleProperty valueOfTokenType:CASTokenTypeString] ?: [styleProperty valueOfTokenType:CASTokenTypeRef];
-                    UIImage *image = [UIImage imageNamed:imageName];
-                    if (hasInsets) {
-                        image = [image resizableImageWithCapInsets:insets];
-                    }
-                    if (image) {
-                        [invocation setArgument:&image atIndex:argIndex];
-                    }
-                } else if (argDescriptor.argumentClass) {
-                    id value = styleProperty.values.count ? styleProperty.values[0] : nil;
-                    [invocation setArgument:&value atIndex:argIndex];
-                }
-            }];
+            NSInvocation *invocation = [self invocationForClass:styleSelector.viewClass styleProperty:styleProperty];
             styleProperty.invocation = invocation;
         }
     }
 }
 
 #pragma mark - private
+
+- (NSInvocation *)invocationForClass:(Class)class styleProperty:(CASStyleProperty *)styleProperty {
+    CASViewClassDescriptor *viewClassDescriptor = [self viewClassDescriptorForClass:class];
+    CASPropertyDescriptor *propertyDescriptor = [viewClassDescriptor propertyDescriptorForKey:styleProperty.name];
+
+    NSInvocation *invocation = [viewClassDescriptor invocationForPropertyDescriptor:propertyDescriptor];
+    [invocation retainArguments];
+    [propertyDescriptor.argumentDescriptors enumerateObjectsUsingBlock:^(CASArgumentDescriptor *argDescriptor, NSUInteger idx, BOOL *stop) {
+        NSInteger argIndex = 2 + idx;
+        switch (argDescriptor.primitiveType) {
+            case CASPrimitiveTypeBOOL: {
+                BOOL value = [[styleProperty valueOfTokenType:CASTokenTypeBoolean] boolValue];
+                [invocation setArgument:&value atIndex:argIndex];
+                break;
+            }
+            case CASPrimitiveTypeInteger: {
+                NSInteger value;
+                if (argDescriptor.valuesByName) {
+                    NSString *valueName = [styleProperty valueOfTokenType:CASTokenTypeRef];
+                    value = [argDescriptor.valuesByName[valueName] integerValue];
+                } else {
+                    value = [[styleProperty valueOfTokenType:CASTokenTypeUnit] integerValue];
+                }
+                [invocation setArgument:&value atIndex:argIndex];
+                break;
+            }
+            case CASPrimitiveTypeDouble: {
+                CGFloat value = [[styleProperty valueOfTokenType:CASTokenTypeUnit] doubleValue];
+                [invocation setArgument:&value atIndex:argIndex];
+                break;
+            }
+            case CASPrimitiveTypeCGSize: {
+                CGSize size;
+                [styleProperty transformValuesToCGSize:&size];
+                [invocation setArgument:&size atIndex:argIndex];
+                break;
+            }
+            case CASPrimitiveTypeUIEdgeInsets: {
+                UIEdgeInsets insets;
+                [styleProperty transformValuesToUIEdgeInsets:&insets];
+                [invocation setArgument:&insets atIndex:argIndex];
+                break;
+            }
+            default:
+                break;
+        }
+
+        if (argDescriptor.argumentClass == UIImage.class) {
+            UIImage *image = nil;
+            [styleProperty transformValuesToUIImage:&image];
+            [invocation setArgument:&image atIndex:argIndex];
+        } else if (argDescriptor.argumentClass  == UIColor.class) {
+            UIColor *color = nil;
+            [styleProperty transformValuesToUIColor:&color];
+            [invocation setArgument:&color atIndex:argIndex];
+        } else if (argDescriptor.argumentClass) {
+            id firstValue = styleProperty.values.count ? styleProperty.values[0] : nil;
+            [invocation setArgument:&firstValue atIndex:argIndex];
+        }
+    }];
+    return invocation;
+}
 
 - (void)setupViewClassDescriptors {
     // UIView
