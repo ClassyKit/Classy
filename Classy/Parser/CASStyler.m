@@ -276,7 +276,7 @@
             self.filePath = watchFilePath;
 
             // reapply styles
-            for (UIWindow *window in [UIApplication sharedApplication].windows) {
+            for (UIWindow *window in UIApplication.sharedApplication.windows) {
                 [self styleSubviewsOfView:window];
             }
         });
@@ -293,6 +293,8 @@
 + (void)watchForChangesToFilePath:(NSString *)filePath withCallback:(dispatch_block_t)callback {
     dispatch_queue_t queue = dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0);
     int fileDescriptor = open([filePath UTF8String], O_EVTONLY);
+
+    NSAssert(fileDescriptor > 0, @"Error could subscribe to events for file at path: %@", filePath);
 
     __block dispatch_source_t source = dispatch_source_create(DISPATCH_SOURCE_TYPE_VNODE, fileDescriptor,
                                                               DISPATCH_VNODE_DELETE | DISPATCH_VNODE_WRITE | DISPATCH_VNODE_EXTEND,

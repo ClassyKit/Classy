@@ -1,11 +1,11 @@
 
-UIButton[state:selected, coolness:alot].command , UIButton UIImageView .starImage  {
+UIButton[state:selected, coolness:alot].command , UIButton UIImageView.starImage  {
     background-color:#ffffff;
     border-width 1
 }
 
 
-UIView.bordered, .panel {
+UIView.bordered, UIView.panel {
     background-color:#ffffff;
     border-width: 2;
 }

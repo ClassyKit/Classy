@@ -1,5 +1,5 @@
 
-UIButton > UIImageView .starImage  {
+UIButton > UIImageView.starImage  {
     background-color:#ffffff;
 }
 
@@ -7,7 +7,7 @@ UIButton > UIImageView .starImage  {
     background-color:#ffffff;
 
 
-UIView.bordered > .panel {
+UIView.bordered > UIView.panel {
     background-color:#ffffff;
 }
 

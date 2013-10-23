@@ -23,6 +23,7 @@ NSInteger const CASParseErrorFileContents = 2;
 @property (nonatomic, strong) CASLexer *lexer;
 @property (nonatomic, strong) NSMutableArray *styleSelectors;
 @property (nonatomic, strong) NSMutableDictionary *styleVars;
+@property (nonatomic, strong) NSError *error;
 
 @end
 
@@ -91,6 +92,10 @@ NSInteger const CASParseErrorFileContents = 2;
     return styles;
 }
 
+- (NSError *)error {
+    return _error ?: self.lexer.error;
+}
+
 - (NSArray *)parseString:(NSString *)string error:(NSError **)error {
     self.lexer = [[CASLexer alloc] initWithString:string];
     self.styleSelectors = NSMutableArray.new;
@@ -98,17 +103,26 @@ NSInteger const CASParseErrorFileContents = 2;
 
     NSArray *currentNodes = nil;
     while (self.peekToken.type != CASTokenTypeEOS) {
-        if (self.lexer.error) {
-            if (error) {
-                *error = self.lexer.error;
-            }
+        if (self.error) {
+            if (error) *error = self.error;
             return nil;
         }
 
         CASStyleProperty *styleVar = [self nextStyleVar];
+        if (self.error) {
+            if (error) *error = self.error;
+            return nil;
+        }
+
         if (styleVar) {
             if (currentNodes.count) {
-                //TODO error can't have vars inside styleNOdes
+                // can't have vars inside styleNodes
+                if (error) {
+                    *error = [self.lexer errorWithDescription:@"Variables cannot be declared inside style selectors"
+                                                       reason:[NSString stringWithFormat:@"Variable: %@", styleVar]
+                                                         code:CASParseErrorFileContents];
+                }
+                return nil;
             }
             [styleVar resolveExpressions];
             self.styleVars[styleVar.nameToken.value] = styleVar;
@@ -119,6 +133,11 @@ NSInteger const CASParseErrorFileContents = 2;
         }
 
         NSArray *styleNodes = [self nextStyleNodes];
+        if (self.error) {
+            if (error) *error = self.error;
+            return nil;
+        }
+
         if (styleNodes.count) {
             currentNodes = styleNodes;
             [self consumeTokenOfType:CASTokenTypeLeftCurlyBrace];
@@ -128,6 +147,11 @@ NSInteger const CASParseErrorFileContents = 2;
 
         // not a style group therefore must be a property
         CASStyleProperty *styleProperty = [self nextStyleProperty];
+        if (self.error) {
+            if (error) *error = self.error;
+            return nil;
+        }
+
         if (styleProperty) {
             if (!currentNodes.count) {
                 if (error) {
@@ -220,7 +244,9 @@ NSInteger const CASParseErrorFileContents = 2;
     }
 
     if ([refToken.value hasPrefix:@"@"]) {
-        //TODO error `@` is reserved for property lookup
+        self.error = [self.lexer errorWithDescription:@"Variables cannot begin with `@` character"
+                                               reason:@"`@` is reserved for @media, @version and property lookup"
+                                                 code:CASParseErrorFileContents];
     }
 
     if (hasEqualsSign && refToken) {
@@ -267,7 +293,6 @@ NSInteger const CASParseErrorFileContents = 2;
         token = [self nextToken];
 
         if (argumentListMode) {
-            // TODO refactor
             if (token.type == CASTokenTypeRightSquareBrace) {
                 argumentListMode = NO;
             } else if (token.type == CASTokenTypeSelector || token.type == CASTokenTypeRef) {
@@ -309,13 +334,18 @@ NSInteger const CASParseErrorFileContents = 2;
             }
 
             styleSelector.shouldSelectSubclasses = shouldSelectSubclasses;
-            
-            // TODO error if viewClass is nil
 
             if ([tokenValue hasPrefix:@"."]) {
                 styleSelector.styleClass = [tokenValue substringFromIndex:1];
             } else {
                 styleSelector.viewClass = NSClassFromString(tokenValue);
+            }
+
+            if (!styleSelector.viewClass) {
+                self.error = [self.lexer errorWithDescription:[NSString stringWithFormat:@"Invalid class name `%@`", tokenValue]
+                                                       reason:@"Every selector must have a viewClass"
+                                                         code:CASParseErrorFileContents];
+                return nil;
             }
 
             // reset state

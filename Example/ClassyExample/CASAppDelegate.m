@@ -15,7 +15,9 @@
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
     
 #ifdef DEBUG
-    [CASStyler defaultStyler].watchFilePath = CASAbsoluteFilePath(@"Stylesheets/stylesheet.cas");
+    // get absolute file path of stylesheet, using relative path
+    NSString *absoluteFilePath = CASAbsoluteFilePath(@"Stylesheets/stylesheet.cas");
+    [CASStyler defaultStyler].watchFilePath = absoluteFilePath;
 #endif
 
     self.window = [[UIWindow alloc] initWithFrame:UIScreen.mainScreen.bounds];

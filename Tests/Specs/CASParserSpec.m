@@ -83,11 +83,11 @@ SpecBegin(CASParser)
 
     expect([styles[0] stringValue]).to.equal(@"UIButton[coolness:alot, state:selected].command");
     
-    expect([styles[1] stringValue]).to.equal(@"UIButton UIImageView .starImage");
+    expect([styles[1] stringValue]).to.equal(@"UIButton UIImageView.starImage");
 
     expect([styles[2] stringValue]).to.equal(@"UIView.bordered");
 
-    expect([styles[3] stringValue]).to.equal(@".panel");
+    expect([styles[3] stringValue]).to.equal(@"UIView.panel");
 
     expect([styles[4] stringValue]).to.equal(@"UISlider");
 
@@ -103,14 +103,14 @@ SpecBegin(CASParser)
     expect([styles[0] stringValue]).to.equal(@"UIButton[state:selected] UIControl");
     expect([styles[0] precedence]).to.equal(6);
 
-    expect([styles[1] stringValue]).to.equal(@"UIButton UIImageView .starImage");
-    expect([styles[1] precedence]).to.equal(3004);
+    expect([styles[1] stringValue]).to.equal(@"UIButton UIImageView.starImage");
+    expect([styles[1] precedence]).to.equal(3006);
 
     expect([styles[2] stringValue]).to.equal(@"UIView.bordered");
     expect([styles[2] precedence]).to.equal(3004);
 
-    expect([styles[3] stringValue]).to.equal(@".panel");
-    expect([styles[3] precedence]).to.equal(3000);
+    expect([styles[3] stringValue]).to.equal(@"UIView.panel");
+    expect([styles[3] precedence]).to.equal(3004);
 
     expect([styles[4] stringValue]).to.equal(@"UISlider");
     expect([styles[4] precedence]).to.equal(4);
@@ -127,15 +127,15 @@ SpecBegin(CASParser)
     expect(error).to.beNil();
     expect(styles.count).to.equal(4);
     
-    expect([styles[0] stringValue]).to.equal(@"UIButton > UIImageView .starImage");
-    expect([styles[0] precedence]).to.equal(3005);
+    expect([styles[0] stringValue]).to.equal(@"UIButton > UIImageView.starImage");
+    expect([styles[0] precedence]).to.equal(3007);
 
     expect([styles[1] stringValue]).to.equal(@"^UIView > UINavigationBar");
     expect([styles[1] precedence]).to.equal(5);
 
-    expect([styles[2] stringValue]).to.equal(@"UIView.bordered > .panel");
+    expect([styles[2] stringValue]).to.equal(@"UIView.bordered > UIView.panel");
     expect([styles[2] parentSelector]).notTo.beNil();
-    expect([styles[2] precedence]).to.equal(5003);
+    expect([styles[2] precedence]).to.equal(5007);
 
     expect([styles[3] stringValue]).to.equal(@"^UIView[state:selected] > UIImageView");
     expect([styles[3] precedence]).to.equal(5);
