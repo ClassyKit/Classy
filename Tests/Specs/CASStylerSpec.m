@@ -96,9 +96,9 @@ SpecBegin(CASStyler)
 
 - (void)testSetBasicProperties {
     CASStyler *styler = CASStyler.new;
-    styler.filePath = [[NSBundle bundleForClass:self.class] pathForResource:@"UIView-Basic.cas" ofType:nil];
+    styler.filePath = [[NSBundle bundleForClass:self.class] pathForResource:@"UIKit-Basic.cas" ofType:nil];
 
-    UISlider *view = UISlider.new;
+    UIView *view = UIView.new;
     [styler styleView:view];
 
     expect(view.cas_borderColor.cas_hexValue).to.equal(@"a1a1a1");
@@ -116,7 +116,7 @@ SpecBegin(CASStyler)
 
 - (void)testSetUITextFieldProperties {
     CASStyler *styler = CASStyler.new;
-    styler.filePath = [[NSBundle bundleForClass:self.class] pathForResource:@"UIView-Basic.cas" ofType:nil];
+    styler.filePath = [[NSBundle bundleForClass:self.class] pathForResource:@"UIKit-Basic.cas" ofType:nil];
     UITextField *view = UITextField.new;
 
     expect(view.cas_textEdgeInsets).to.equal(UIEdgeInsetsZero);
@@ -138,7 +138,7 @@ SpecBegin(CASStyler)
 
 - (void)testSetCustomProperties {
     CASStyler *styler = CASStyler.new;
-    styler.filePath = [[NSBundle bundleForClass:self.class] pathForResource:@"UIView-Basic.cas" ofType:nil];
+    styler.filePath = [[NSBundle bundleForClass:self.class] pathForResource:@"CustomView-Basic.cas" ofType:nil];
     CASExampleView *exampleView = CASExampleView.new;
     [styler styleView:exampleView];
 

@@ -1,5 +1,6 @@
 
-UIButton[state:selected] UIControl, UIButton UIImageView.starImage
+// `{` and `}` are optional
+UIButton UIControl, UIButton UIImageView.starImage
       background-color:#ffffff;
       border-width 1
 
@@ -10,7 +11,7 @@ UIView.bordered, UIView.panel
 
 UISlider,
 UINavigationBar.videoNavBar
-UIButton [state:highlighted]
+UIButton
 
  background-color #ffffff
  border-width: 3;

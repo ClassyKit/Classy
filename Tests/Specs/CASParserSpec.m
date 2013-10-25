@@ -32,7 +32,7 @@ SpecBegin(CASParser)
 }
 
 - (void)testLoadFile {
-    NSString *filePath = [[NSBundle bundleForClass:self.class] pathForResource:@"Selectors-Basic.cas" ofType:nil];
+    NSString *filePath = [[NSBundle bundleForClass:self.class] pathForResource:@"Selectors-Messy.cas" ofType:nil];
     NSError *error = nil;
 
     NSArray *styles = [CASParser stylesFromFilePath:filePath error:&error];
@@ -41,7 +41,7 @@ SpecBegin(CASParser)
 }
 
 - (void)testParseBasic {
-    NSString *filePath = [[NSBundle bundleForClass:self.class] pathForResource:@"Selectors-Basic.cas" ofType:nil];
+    NSString *filePath = [[NSBundle bundleForClass:self.class] pathForResource:@"Selectors-Messy.cas" ofType:nil];
     NSArray *styles = [CASParser stylesFromFilePath:filePath error:nil];
 
     expect(styles.count).to.equal(7);
@@ -100,7 +100,7 @@ SpecBegin(CASParser)
 
     expect(styles.count).to.equal(6);
 
-    expect([styles[0] stringValue]).to.equal(@"UIButton[state:selected] UIControl");
+    expect([styles[0] stringValue]).to.equal(@"UIButton UIControl");
     expect([styles[0] precedence]).to.equal(6);
 
     expect([styles[1] stringValue]).to.equal(@"UIButton UIImageView.starImage");
@@ -115,7 +115,7 @@ SpecBegin(CASParser)
     expect([styles[4] stringValue]).to.equal(@"UISlider");
     expect([styles[4] precedence]).to.equal(4);
 
-    expect([styles[5] stringValue]).to.equal(@"UINavigationBar.videoNavBar UIButton[state:highlighted]");
+    expect([styles[5] stringValue]).to.equal(@"UINavigationBar.videoNavBar UIButton");
     expect([styles[5] precedence]).to.equal(1006);
 }
 

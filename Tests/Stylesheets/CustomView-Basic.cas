@@ -1,0 +1,9 @@
+// You can set properties on your custom UIView subclasses. No config required
+
+CASExampleView {
+  testCGFloat: 4.5;
+  testBOOL true
+  testNSUInteger 1000
+  testNSInteger -999
+  testInt 345
+}

@@ -49,7 +49,7 @@
     if (!self.type.length) return CASPrimitiveTypeNone;
 
     // if char type assume it's a BOOL, since chars aren't very useful for styling
-    BOOL isBOOL = self.type.length == 1 && [self.type isEqualToString:@"c"];
+    BOOL isBOOL = self.type.length == 1 && ([self.type isEqualToString:@"c"] || [self.type isEqualToString:@"B"]);
     if (isBOOL) return CASPrimitiveTypeBOOL;
 
     // check for integer

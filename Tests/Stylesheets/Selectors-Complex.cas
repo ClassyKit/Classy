@@ -1,4 +1,5 @@
 
+// KVO on some properties such as UIControlState maybe support in future
 UIButton[state:selected, coolness:alot].command , UIButton UIImageView.starImage  {
     background-color:#ffffff;
     border-width 1

@@ -1,11 +1,12 @@
-
+// `>` means select only if UIButton is direct superview.
+// leaving this out means UIButton can be an indirect superview (ancestor) 
 UIButton > UIImageView.starImage  {
     background-color:#ffffff;
 }
 
+// `^` makes this selector match UIView and any class that inherits from UIView
 ^UIView>UINavigationBar
     background-color:#ffffff;
-
 
 UIView.bordered > UIView.panel {
     background-color:#ffffff;

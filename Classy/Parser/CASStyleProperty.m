@@ -140,6 +140,8 @@
 #pragma clang diagnostic pop
         return YES;
     }
+
+    return NO;
 }
 
 - (BOOL)transformValuesToUIImage:(UIImage **)image {

@@ -9,6 +9,14 @@
 /* Begin PBXBuildFile section */
 		9980D2916D344434ACF1CB78 /* libPods-ClassyTests.a in Frameworks */ = {isa = PBXBuildFile; fileRef = C594C855E67D4ABAAB9D8034 /* libPods-ClassyTests.a */; };
 		BDABE4F7F7AD42D589D779BD /* libPods-ClassyTestsLoader.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 13B648C088D7485783343464 /* libPods-ClassyTestsLoader.a */; };
+		DD10AD361819FA6800A5B71D /* CustomView-Basic.cas in Resources */ = {isa = PBXBuildFile; fileRef = DD10AD2E1819FA6800A5B71D /* CustomView-Basic.cas */; };
+		DD10AD371819FA6800A5B71D /* Properties-Basic.cas in Resources */ = {isa = PBXBuildFile; fileRef = DD10AD2F1819FA6800A5B71D /* Properties-Basic.cas */; };
+		DD10AD381819FA6800A5B71D /* Selectors-Messy.cas in Resources */ = {isa = PBXBuildFile; fileRef = DD10AD301819FA6800A5B71D /* Selectors-Messy.cas */; };
+		DD10AD391819FA6800A5B71D /* Selectors-Complex.cas in Resources */ = {isa = PBXBuildFile; fileRef = DD10AD311819FA6800A5B71D /* Selectors-Complex.cas */; };
+		DD10AD3A1819FA6800A5B71D /* Selectors-Hierarchy.cas in Resources */ = {isa = PBXBuildFile; fileRef = DD10AD321819FA6800A5B71D /* Selectors-Hierarchy.cas */; };
+		DD10AD3B1819FA6800A5B71D /* Selectors-Indentation.cas in Resources */ = {isa = PBXBuildFile; fileRef = DD10AD331819FA6800A5B71D /* Selectors-Indentation.cas */; };
+		DD10AD3C1819FA6800A5B71D /* UIAppearance-Basic.cas in Resources */ = {isa = PBXBuildFile; fileRef = DD10AD341819FA6800A5B71D /* UIAppearance-Basic.cas */; };
+		DD10AD3D1819FA6800A5B71D /* UIKit-Basic.cas in Resources */ = {isa = PBXBuildFile; fileRef = DD10AD351819FA6800A5B71D /* UIKit-Basic.cas */; };
 		DDBF583418113BC10059B8D3 /* XCTest.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DDBF582518112ECA0059B8D3 /* XCTest.framework */; };
 		DDBF583518113BC10059B8D3 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DDD3D48C1810D6DA00E378A2 /* Foundation.framework */; };
 		DDBF583618113BC10059B8D3 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DDD3D4901810D6DA00E378A2 /* UIKit.framework */; };
@@ -20,12 +28,6 @@
 		DDBF586C18113FCC0059B8D3 /* CASStylePropertySpec.m in Sources */ = {isa = PBXBuildFile; fileRef = DDBF586418113FCC0059B8D3 /* CASStylePropertySpec.m */; };
 		DDBF586D18113FCC0059B8D3 /* CASStylerSpec.m in Sources */ = {isa = PBXBuildFile; fileRef = DDBF586518113FCC0059B8D3 /* CASStylerSpec.m */; };
 		DDBF586E18113FCC0059B8D3 /* CASTokenSpec.m in Sources */ = {isa = PBXBuildFile; fileRef = DDBF586618113FCC0059B8D3 /* CASTokenSpec.m */; };
-		DDBF5876181145760059B8D3 /* Properties-Basic.cas in Resources */ = {isa = PBXBuildFile; fileRef = DDBF5870181145760059B8D3 /* Properties-Basic.cas */; };
-		DDBF5877181145760059B8D3 /* Selectors-Basic.cas in Resources */ = {isa = PBXBuildFile; fileRef = DDBF5871181145760059B8D3 /* Selectors-Basic.cas */; };
-		DDBF5878181145760059B8D3 /* Selectors-Complex.cas in Resources */ = {isa = PBXBuildFile; fileRef = DDBF5872181145760059B8D3 /* Selectors-Complex.cas */; };
-		DDBF5879181145760059B8D3 /* Selectors-Hierarchy.cas in Resources */ = {isa = PBXBuildFile; fileRef = DDBF5873181145760059B8D3 /* Selectors-Hierarchy.cas */; };
-		DDBF587A181145760059B8D3 /* Selectors-Indentation.cas in Resources */ = {isa = PBXBuildFile; fileRef = DDBF5874181145760059B8D3 /* Selectors-Indentation.cas */; };
-		DDBF587B181145760059B8D3 /* UIView-Basic.cas in Resources */ = {isa = PBXBuildFile; fileRef = DDBF5875181145760059B8D3 /* UIView-Basic.cas */; };
 		DDD3D48D1810D6DA00E378A2 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DDD3D48C1810D6DA00E378A2 /* Foundation.framework */; };
 		DDD3D48F1810D6DA00E378A2 /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DDD3D48E1810D6DA00E378A2 /* CoreGraphics.framework */; };
 		DDD3D4911810D6DA00E378A2 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DDD3D4901810D6DA00E378A2 /* UIKit.framework */; };
@@ -49,6 +51,14 @@
 		34BACA8D71A54943A4505935 /* Pods-ClassyTestsLoader.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-ClassyTestsLoader.xcconfig"; path = "../Pods/Pods-ClassyTestsLoader.xcconfig"; sourceTree = "<group>"; };
 		5548B765C39C4F0FA776C911 /* Pods-ClassyTests.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-ClassyTests.xcconfig"; path = "../Pods/Pods-ClassyTests.xcconfig"; sourceTree = "<group>"; };
 		C594C855E67D4ABAAB9D8034 /* libPods-ClassyTests.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-ClassyTests.a"; sourceTree = BUILT_PRODUCTS_DIR; };
+		DD10AD2E1819FA6800A5B71D /* CustomView-Basic.cas */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = "CustomView-Basic.cas"; sourceTree = "<group>"; };
+		DD10AD2F1819FA6800A5B71D /* Properties-Basic.cas */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = "Properties-Basic.cas"; sourceTree = "<group>"; };
+		DD10AD301819FA6800A5B71D /* Selectors-Messy.cas */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = "Selectors-Messy.cas"; sourceTree = "<group>"; };
+		DD10AD311819FA6800A5B71D /* Selectors-Complex.cas */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = "Selectors-Complex.cas"; sourceTree = "<group>"; };
+		DD10AD321819FA6800A5B71D /* Selectors-Hierarchy.cas */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = "Selectors-Hierarchy.cas"; sourceTree = "<group>"; };
+		DD10AD331819FA6800A5B71D /* Selectors-Indentation.cas */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = "Selectors-Indentation.cas"; sourceTree = "<group>"; };
+		DD10AD341819FA6800A5B71D /* UIAppearance-Basic.cas */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = "UIAppearance-Basic.cas"; sourceTree = "<group>"; };
+		DD10AD351819FA6800A5B71D /* UIKit-Basic.cas */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = "UIKit-Basic.cas"; sourceTree = "<group>"; };
 		DD43DA8A1810F5D40058FBC1 /* Classy-Prefix.pch */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "Classy-Prefix.pch"; sourceTree = "<group>"; };
 		DDBF582518112ECA0059B8D3 /* XCTest.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = XCTest.framework; path = Library/Frameworks/XCTest.framework; sourceTree = DEVELOPER_DIR; };
 		DDBF583318113BC10059B8D3 /* ClassyTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = ClassyTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -64,12 +74,6 @@
 		DDBF586418113FCC0059B8D3 /* CASStylePropertySpec.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CASStylePropertySpec.m; sourceTree = "<group>"; };
 		DDBF586518113FCC0059B8D3 /* CASStylerSpec.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CASStylerSpec.m; sourceTree = "<group>"; };
 		DDBF586618113FCC0059B8D3 /* CASTokenSpec.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CASTokenSpec.m; sourceTree = "<group>"; };
-		DDBF5870181145760059B8D3 /* Properties-Basic.cas */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = "Properties-Basic.cas"; sourceTree = "<group>"; };
-		DDBF5871181145760059B8D3 /* Selectors-Basic.cas */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = "Selectors-Basic.cas"; sourceTree = "<group>"; };
-		DDBF5872181145760059B8D3 /* Selectors-Complex.cas */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = "Selectors-Complex.cas"; sourceTree = "<group>"; };
-		DDBF5873181145760059B8D3 /* Selectors-Hierarchy.cas */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = "Selectors-Hierarchy.cas"; sourceTree = "<group>"; };
-		DDBF5874181145760059B8D3 /* Selectors-Indentation.cas */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = "Selectors-Indentation.cas"; sourceTree = "<group>"; };
-		DDBF5875181145760059B8D3 /* UIView-Basic.cas */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = "UIView-Basic.cas"; sourceTree = "<group>"; };
 		DDD3D4891810D6DA00E378A2 /* ClassyTestsLoader.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = ClassyTestsLoader.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		DDD3D48C1810D6DA00E378A2 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
 		DDD3D48E1810D6DA00E378A2 /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = System/Library/Frameworks/CoreGraphics.framework; sourceTree = SDKROOT; };
@@ -138,12 +142,14 @@
 		DDBF586F181145760059B8D3 /* Stylesheets */ = {
 			isa = PBXGroup;
 			children = (
-				DDBF5870181145760059B8D3 /* Properties-Basic.cas */,
-				DDBF5871181145760059B8D3 /* Selectors-Basic.cas */,
-				DDBF5872181145760059B8D3 /* Selectors-Complex.cas */,
-				DDBF5873181145760059B8D3 /* Selectors-Hierarchy.cas */,
-				DDBF5874181145760059B8D3 /* Selectors-Indentation.cas */,
-				DDBF5875181145760059B8D3 /* UIView-Basic.cas */,
+				DD10AD2E1819FA6800A5B71D /* CustomView-Basic.cas */,
+				DD10AD2F1819FA6800A5B71D /* Properties-Basic.cas */,
+				DD10AD301819FA6800A5B71D /* Selectors-Messy.cas */,
+				DD10AD311819FA6800A5B71D /* Selectors-Complex.cas */,
+				DD10AD321819FA6800A5B71D /* Selectors-Hierarchy.cas */,
+				DD10AD331819FA6800A5B71D /* Selectors-Indentation.cas */,
+				DD10AD341819FA6800A5B71D /* UIAppearance-Basic.cas */,
+				DD10AD351819FA6800A5B71D /* UIKit-Basic.cas */,
 			);
 			path = Stylesheets;
 			sourceTree = "<group>";
@@ -277,12 +283,14 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				DDBF5879181145760059B8D3 /* Selectors-Hierarchy.cas in Resources */,
-				DDBF587A181145760059B8D3 /* Selectors-Indentation.cas in Resources */,
-				DDBF5876181145760059B8D3 /* Properties-Basic.cas in Resources */,
-				DDBF5877181145760059B8D3 /* Selectors-Basic.cas in Resources */,
-				DDBF5878181145760059B8D3 /* Selectors-Complex.cas in Resources */,
-				DDBF587B181145760059B8D3 /* UIView-Basic.cas in Resources */,
+				DD10AD3A1819FA6800A5B71D /* Selectors-Hierarchy.cas in Resources */,
+				DD10AD3D1819FA6800A5B71D /* UIKit-Basic.cas in Resources */,
+				DD10AD361819FA6800A5B71D /* CustomView-Basic.cas in Resources */,
+				DD10AD371819FA6800A5B71D /* Properties-Basic.cas in Resources */,
+				DD10AD381819FA6800A5B71D /* Selectors-Messy.cas in Resources */,
+				DD10AD3C1819FA6800A5B71D /* UIAppearance-Basic.cas in Resources */,
+				DD10AD3B1819FA6800A5B71D /* Selectors-Indentation.cas in Resources */,
+				DD10AD391819FA6800A5B71D /* Selectors-Complex.cas in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

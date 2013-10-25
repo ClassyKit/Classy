@@ -1,15 +1,15 @@
-
+// KVO on some properties such as UIControlState maybe support in future
 UIButton[state:selected] UIControl {
     background-color:#ffffff;
     border-inset 1
 }
-
 
 UIView.bordered, UIControl.border {
     font-color:#ffffff;
     border-width: 2;
 }
 
+// you can seperate selectors on newlines
 UISlider,
 UINavigationBar
 UIButton
