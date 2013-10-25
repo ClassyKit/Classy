@@ -10,12 +10,6 @@
 #import "UIView+CASAdditions.h"
 #import "NSString+CASAdditions.h"
 
-@interface CASStyleSelector ()
-
-@property (nonatomic, strong) NSMutableDictionary *arguments;
-
-@end
-
 @implementation CASStyleSelector
 
 - (id)init {
@@ -75,15 +69,6 @@
     }
 
     return YES;
-}
-
-- (void)setArgumentValue:(CASToken *)argumentValue forName:(CASToken *)name {
-    if (!self.arguments) {
-        self.arguments = NSMutableDictionary.new;
-    }
-    NSString *argValue = [argumentValue.value cas_stringByTrimmingWhitespace];
-    NSString *argName = [name.value cas_stringByTrimmingWhitespace];
-    [self.arguments setObject:argValue forKey:argName];
 }
 
 - (NSString *)stringValue {

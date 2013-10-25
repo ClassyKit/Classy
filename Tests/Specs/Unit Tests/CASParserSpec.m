@@ -174,4 +174,23 @@ SpecBegin(CASParser)
     expect([node.styleProperties[2] values]).to.equal(@[[UIColor cas_colorWithHex:@"#444"]]);
 }
 
+- (void)testParsePropertyArguments {
+    NSString *filePath = [[NSBundle bundleForClass:self.class] pathForResource:@"Properties-Args.cas" ofType:nil];
+    NSArray *styles = [CASParser stylesFromFilePath:filePath error:nil];
+
+    expect(styles.count).to.equal(1);
+    CASStyleNode *node = [styles[0] node];
+    expect(node.styleProperties).to.haveCountOf(3);
+
+    expect([node.styleProperties[0] name]).to.equal(@"backgroundColor");
+    expect([node.styleProperties[0] values]).to.equal(@[[UIColor cas_colorWithHex:@"#ffffff"]]);
+    expect([node.styleProperties[0] arguments]).to.equal(@{ @"state" : @"selected" });
+    expect([node.styleProperties[1] name]).to.equal(@"fontName");
+    expect([node.styleProperties[1] values]).to.equal(@[@"helvetica"]);
+    expect([node.styleProperties[1] arguments]).to.equal(@{ @"state" : @"highlighted" });
+    expect([node.styleProperties[2] name]).to.equal(@"fontSize");
+    expect([node.styleProperties[2] values]).to.equal(@[@14]);
+    expect([node.styleProperties[2] arguments]).to.equal(@{ @"state" : @"disabled" });
+}
+
 SpecEnd

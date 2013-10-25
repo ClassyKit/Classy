@@ -17,17 +17,21 @@
 		DD10AD3B1819FA6800A5B71D /* Selectors-Indentation.cas in Resources */ = {isa = PBXBuildFile; fileRef = DD10AD331819FA6800A5B71D /* Selectors-Indentation.cas */; };
 		DD10AD3C1819FA6800A5B71D /* UIAppearance-Basic.cas in Resources */ = {isa = PBXBuildFile; fileRef = DD10AD341819FA6800A5B71D /* UIAppearance-Basic.cas */; };
 		DD10AD3D1819FA6800A5B71D /* UIKit-Basic.cas in Resources */ = {isa = PBXBuildFile; fileRef = DD10AD351819FA6800A5B71D /* UIKit-Basic.cas */; };
+		DD10AD47181A16EA00A5B71D /* CASArgumentDescriptorSpec.m in Sources */ = {isa = PBXBuildFile; fileRef = DD10AD40181A16EA00A5B71D /* CASArgumentDescriptorSpec.m */; };
+		DD10AD48181A16EA00A5B71D /* CASLexerSpec.m in Sources */ = {isa = PBXBuildFile; fileRef = DD10AD41181A16EA00A5B71D /* CASLexerSpec.m */; };
+		DD10AD49181A16EA00A5B71D /* CASParserSpec.m in Sources */ = {isa = PBXBuildFile; fileRef = DD10AD42181A16EA00A5B71D /* CASParserSpec.m */; };
+		DD10AD4A181A16EA00A5B71D /* CASRuntimeExtensionsSpec.m in Sources */ = {isa = PBXBuildFile; fileRef = DD10AD43181A16EA00A5B71D /* CASRuntimeExtensionsSpec.m */; };
+		DD10AD4B181A16EA00A5B71D /* CASStylePropertySpec.m in Sources */ = {isa = PBXBuildFile; fileRef = DD10AD44181A16EA00A5B71D /* CASStylePropertySpec.m */; };
+		DD10AD4C181A16EA00A5B71D /* CASStylerSpec.m in Sources */ = {isa = PBXBuildFile; fileRef = DD10AD45181A16EA00A5B71D /* CASStylerSpec.m */; };
+		DD10AD4D181A16EA00A5B71D /* CASTokenSpec.m in Sources */ = {isa = PBXBuildFile; fileRef = DD10AD46181A16EA00A5B71D /* CASTokenSpec.m */; };
+		DD10AD4F181A172F00A5B71D /* CASUIKitSpec.m in Sources */ = {isa = PBXBuildFile; fileRef = DD10AD4E181A172F00A5B71D /* CASUIKitSpec.m */; };
+		DD10AD51181A174A00A5B71D /* CASUIAppearanceSpec.m in Sources */ = {isa = PBXBuildFile; fileRef = DD10AD50181A174A00A5B71D /* CASUIAppearanceSpec.m */; };
+		DD10AD53181A176000A5B71D /* CASCustomViewSpec.m in Sources */ = {isa = PBXBuildFile; fileRef = DD10AD52181A176000A5B71D /* CASCustomViewSpec.m */; };
+		DD10AD55181A1C9100A5B71D /* Properties-Args.cas in Resources */ = {isa = PBXBuildFile; fileRef = DD10AD54181A1C9100A5B71D /* Properties-Args.cas */; };
 		DDBF583418113BC10059B8D3 /* XCTest.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DDBF582518112ECA0059B8D3 /* XCTest.framework */; };
 		DDBF583518113BC10059B8D3 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DDD3D48C1810D6DA00E378A2 /* Foundation.framework */; };
 		DDBF583618113BC10059B8D3 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DDD3D4901810D6DA00E378A2 /* UIKit.framework */; };
-		DDBF586718113FCC0059B8D3 /* CASArgumentDescriptorSpec.m in Sources */ = {isa = PBXBuildFile; fileRef = DDBF585E18113FCC0059B8D3 /* CASArgumentDescriptorSpec.m */; };
 		DDBF586818113FCC0059B8D3 /* CASExampleView.m in Sources */ = {isa = PBXBuildFile; fileRef = DDBF586018113FCC0059B8D3 /* CASExampleView.m */; };
-		DDBF586918113FCC0059B8D3 /* CASLexerSpec.m in Sources */ = {isa = PBXBuildFile; fileRef = DDBF586118113FCC0059B8D3 /* CASLexerSpec.m */; };
-		DDBF586A18113FCC0059B8D3 /* CASParserSpec.m in Sources */ = {isa = PBXBuildFile; fileRef = DDBF586218113FCC0059B8D3 /* CASParserSpec.m */; };
-		DDBF586B18113FCC0059B8D3 /* CASRuntimeExtensionsSpec.m in Sources */ = {isa = PBXBuildFile; fileRef = DDBF586318113FCC0059B8D3 /* CASRuntimeExtensionsSpec.m */; };
-		DDBF586C18113FCC0059B8D3 /* CASStylePropertySpec.m in Sources */ = {isa = PBXBuildFile; fileRef = DDBF586418113FCC0059B8D3 /* CASStylePropertySpec.m */; };
-		DDBF586D18113FCC0059B8D3 /* CASStylerSpec.m in Sources */ = {isa = PBXBuildFile; fileRef = DDBF586518113FCC0059B8D3 /* CASStylerSpec.m */; };
-		DDBF586E18113FCC0059B8D3 /* CASTokenSpec.m in Sources */ = {isa = PBXBuildFile; fileRef = DDBF586618113FCC0059B8D3 /* CASTokenSpec.m */; };
 		DDD3D48D1810D6DA00E378A2 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DDD3D48C1810D6DA00E378A2 /* Foundation.framework */; };
 		DDD3D48F1810D6DA00E378A2 /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DDD3D48E1810D6DA00E378A2 /* CoreGraphics.framework */; };
 		DDD3D4911810D6DA00E378A2 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DDD3D4901810D6DA00E378A2 /* UIKit.framework */; };
@@ -59,21 +63,25 @@
 		DD10AD331819FA6800A5B71D /* Selectors-Indentation.cas */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = "Selectors-Indentation.cas"; sourceTree = "<group>"; };
 		DD10AD341819FA6800A5B71D /* UIAppearance-Basic.cas */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = "UIAppearance-Basic.cas"; sourceTree = "<group>"; };
 		DD10AD351819FA6800A5B71D /* UIKit-Basic.cas */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = "UIKit-Basic.cas"; sourceTree = "<group>"; };
+		DD10AD40181A16EA00A5B71D /* CASArgumentDescriptorSpec.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CASArgumentDescriptorSpec.m; sourceTree = "<group>"; };
+		DD10AD41181A16EA00A5B71D /* CASLexerSpec.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CASLexerSpec.m; sourceTree = "<group>"; };
+		DD10AD42181A16EA00A5B71D /* CASParserSpec.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CASParserSpec.m; sourceTree = "<group>"; };
+		DD10AD43181A16EA00A5B71D /* CASRuntimeExtensionsSpec.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CASRuntimeExtensionsSpec.m; sourceTree = "<group>"; };
+		DD10AD44181A16EA00A5B71D /* CASStylePropertySpec.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CASStylePropertySpec.m; sourceTree = "<group>"; };
+		DD10AD45181A16EA00A5B71D /* CASStylerSpec.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CASStylerSpec.m; sourceTree = "<group>"; };
+		DD10AD46181A16EA00A5B71D /* CASTokenSpec.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CASTokenSpec.m; sourceTree = "<group>"; };
+		DD10AD4E181A172F00A5B71D /* CASUIKitSpec.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CASUIKitSpec.m; sourceTree = "<group>"; };
+		DD10AD50181A174A00A5B71D /* CASUIAppearanceSpec.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CASUIAppearanceSpec.m; sourceTree = "<group>"; };
+		DD10AD52181A176000A5B71D /* CASCustomViewSpec.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CASCustomViewSpec.m; sourceTree = "<group>"; };
+		DD10AD54181A1C9100A5B71D /* Properties-Args.cas */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = "Properties-Args.cas"; sourceTree = "<group>"; };
 		DD43DA8A1810F5D40058FBC1 /* Classy-Prefix.pch */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "Classy-Prefix.pch"; sourceTree = "<group>"; };
 		DDBF582518112ECA0059B8D3 /* XCTest.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = XCTest.framework; path = Library/Frameworks/XCTest.framework; sourceTree = DEVELOPER_DIR; };
 		DDBF583318113BC10059B8D3 /* ClassyTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = ClassyTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		DDBF585018113C750059B8D3 /* XCTest+Spec.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "XCTest+Spec.h"; sourceTree = "<group>"; };
 		DDBF585B18113C980059B8D3 /* ClassyTests-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "ClassyTests-Info.plist"; sourceTree = SOURCE_ROOT; };
 		DDBF585C18113C980059B8D3 /* ClassyTests-Prefix.pch */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "ClassyTests-Prefix.pch"; sourceTree = SOURCE_ROOT; };
-		DDBF585E18113FCC0059B8D3 /* CASArgumentDescriptorSpec.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CASArgumentDescriptorSpec.m; sourceTree = "<group>"; };
 		DDBF585F18113FCC0059B8D3 /* CASExampleView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CASExampleView.h; sourceTree = "<group>"; };
 		DDBF586018113FCC0059B8D3 /* CASExampleView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CASExampleView.m; sourceTree = "<group>"; };
-		DDBF586118113FCC0059B8D3 /* CASLexerSpec.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CASLexerSpec.m; sourceTree = "<group>"; };
-		DDBF586218113FCC0059B8D3 /* CASParserSpec.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CASParserSpec.m; sourceTree = "<group>"; };
-		DDBF586318113FCC0059B8D3 /* CASRuntimeExtensionsSpec.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CASRuntimeExtensionsSpec.m; sourceTree = "<group>"; };
-		DDBF586418113FCC0059B8D3 /* CASStylePropertySpec.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CASStylePropertySpec.m; sourceTree = "<group>"; };
-		DDBF586518113FCC0059B8D3 /* CASStylerSpec.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CASStylerSpec.m; sourceTree = "<group>"; };
-		DDBF586618113FCC0059B8D3 /* CASTokenSpec.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CASTokenSpec.m; sourceTree = "<group>"; };
 		DDD3D4891810D6DA00E378A2 /* ClassyTestsLoader.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = ClassyTestsLoader.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		DDD3D48C1810D6DA00E378A2 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
 		DDD3D48E1810D6DA00E378A2 /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = System/Library/Frameworks/CoreGraphics.framework; sourceTree = SDKROOT; };
@@ -112,16 +120,35 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		DD10AD3E181A16EA00A5B71D /* Integration Tests */ = {
+			isa = PBXGroup;
+			children = (
+				DD10AD4E181A172F00A5B71D /* CASUIKitSpec.m */,
+				DD10AD50181A174A00A5B71D /* CASUIAppearanceSpec.m */,
+				DD10AD52181A176000A5B71D /* CASCustomViewSpec.m */,
+			);
+			path = "Integration Tests";
+			sourceTree = "<group>";
+		};
+		DD10AD3F181A16EA00A5B71D /* Unit Tests */ = {
+			isa = PBXGroup;
+			children = (
+				DD10AD40181A16EA00A5B71D /* CASArgumentDescriptorSpec.m */,
+				DD10AD41181A16EA00A5B71D /* CASLexerSpec.m */,
+				DD10AD42181A16EA00A5B71D /* CASParserSpec.m */,
+				DD10AD43181A16EA00A5B71D /* CASRuntimeExtensionsSpec.m */,
+				DD10AD44181A16EA00A5B71D /* CASStylePropertySpec.m */,
+				DD10AD45181A16EA00A5B71D /* CASStylerSpec.m */,
+				DD10AD46181A16EA00A5B71D /* CASTokenSpec.m */,
+			);
+			path = "Unit Tests";
+			sourceTree = "<group>";
+		};
 		DDBF584518113C750059B8D3 /* Specs */ = {
 			isa = PBXGroup;
 			children = (
-				DDBF585E18113FCC0059B8D3 /* CASArgumentDescriptorSpec.m */,
-				DDBF586118113FCC0059B8D3 /* CASLexerSpec.m */,
-				DDBF586218113FCC0059B8D3 /* CASParserSpec.m */,
-				DDBF586318113FCC0059B8D3 /* CASRuntimeExtensionsSpec.m */,
-				DDBF586418113FCC0059B8D3 /* CASStylePropertySpec.m */,
-				DDBF586518113FCC0059B8D3 /* CASStylerSpec.m */,
-				DDBF586618113FCC0059B8D3 /* CASTokenSpec.m */,
+				DD10AD3E181A16EA00A5B71D /* Integration Tests */,
+				DD10AD3F181A16EA00A5B71D /* Unit Tests */,
 				DDBF585A18113C850059B8D3 /* Supporting Files */,
 			);
 			path = Specs;
@@ -143,6 +170,7 @@
 			isa = PBXGroup;
 			children = (
 				DD10AD2E1819FA6800A5B71D /* CustomView-Basic.cas */,
+				DD10AD54181A1C9100A5B71D /* Properties-Args.cas */,
 				DD10AD2F1819FA6800A5B71D /* Properties-Basic.cas */,
 				DD10AD301819FA6800A5B71D /* Selectors-Messy.cas */,
 				DD10AD311819FA6800A5B71D /* Selectors-Complex.cas */,
@@ -284,6 +312,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				DD10AD3A1819FA6800A5B71D /* Selectors-Hierarchy.cas in Resources */,
+				DD10AD55181A1C9100A5B71D /* Properties-Args.cas in Resources */,
 				DD10AD3D1819FA6800A5B71D /* UIKit-Basic.cas in Resources */,
 				DD10AD361819FA6800A5B71D /* CustomView-Basic.cas in Resources */,
 				DD10AD371819FA6800A5B71D /* Properties-Basic.cas in Resources */,
@@ -373,14 +402,17 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				DDBF586718113FCC0059B8D3 /* CASArgumentDescriptorSpec.m in Sources */,
-				DDBF586A18113FCC0059B8D3 /* CASParserSpec.m in Sources */,
+				DD10AD51181A174A00A5B71D /* CASUIAppearanceSpec.m in Sources */,
+				DD10AD47181A16EA00A5B71D /* CASArgumentDescriptorSpec.m in Sources */,
+				DD10AD49181A16EA00A5B71D /* CASParserSpec.m in Sources */,
+				DD10AD53181A176000A5B71D /* CASCustomViewSpec.m in Sources */,
 				DDBF586818113FCC0059B8D3 /* CASExampleView.m in Sources */,
-				DDBF586C18113FCC0059B8D3 /* CASStylePropertySpec.m in Sources */,
-				DDBF586E18113FCC0059B8D3 /* CASTokenSpec.m in Sources */,
-				DDBF586D18113FCC0059B8D3 /* CASStylerSpec.m in Sources */,
-				DDBF586918113FCC0059B8D3 /* CASLexerSpec.m in Sources */,
-				DDBF586B18113FCC0059B8D3 /* CASRuntimeExtensionsSpec.m in Sources */,
+				DD10AD4F181A172F00A5B71D /* CASUIKitSpec.m in Sources */,
+				DD10AD4B181A16EA00A5B71D /* CASStylePropertySpec.m in Sources */,
+				DD10AD4D181A16EA00A5B71D /* CASTokenSpec.m in Sources */,
+				DD10AD4C181A16EA00A5B71D /* CASStylerSpec.m in Sources */,
+				DD10AD48181A16EA00A5B71D /* CASLexerSpec.m in Sources */,
+				DD10AD4A181A16EA00A5B71D /* CASRuntimeExtensionsSpec.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

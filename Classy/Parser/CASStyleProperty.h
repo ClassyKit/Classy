@@ -33,6 +33,12 @@
 @property (nonatomic, strong, readonly) NSArray *valueTokens;
 
 /**
+ *  Provides support for properties that have extra arguments such as
+ *  - setTitle:forState:
+ */
+@property (nonatomic, strong) NSDictionary *arguments;
+
+/**
  *  NSInvocation to apply to appropriate view
  */
 @property (nonatomic, strong) NSInvocation *invocation;

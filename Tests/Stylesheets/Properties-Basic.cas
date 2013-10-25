@@ -1,5 +1,8 @@
-// KVO on some properties such as UIControlState maybe support in future
-UIButton[state:selected] UIControl {
+// [state:selected] has no effect at present
+// may allow setting property arguments for all properties in a selector at once in future
+// instead of having todo on each property ie Properties-Args.cas
+
+UIButton UIControl[state:selected] {
     background-color:#ffffff;
     border-inset 1
 }

@@ -10,3 +10,7 @@
 
 #import "CASStyler.h"
 #import "CASUtilities.h"
+
+#import "UIColor+CASAdditions.h"
+#import "UITextField+CASAdditions.h"
+#import "UIView+CASAdditions.h"

@@ -281,6 +281,7 @@ NSInteger const CASParseErrorFileContents = 2;
     }
 
     NSMutableArray *styleNodes = NSMutableArray.new;
+    NSMutableDictionary *arguments;
     CASStyleSelector *styleSelector;
     CASToken *previousToken, *argNameToken, *argValueToken;
     token = nil;
@@ -294,7 +295,9 @@ NSInteger const CASParseErrorFileContents = 2;
 
         if (argumentListMode) {
             if (token.type == CASTokenTypeRightSquareBrace) {
+                styleSelector.arguments = [arguments copy];
                 argumentListMode = NO;
+                arguments = nil;
             } else if (token.type == CASTokenTypeSelector || token.type == CASTokenTypeRef) {
                 if (!argNameToken) {
                     argNameToken = token;
@@ -303,7 +306,13 @@ NSInteger const CASParseErrorFileContents = 2;
                 }
 
                 if (argNameToken && argValueToken) {
-                    [styleSelector setArgumentValue:argValueToken forName:argNameToken];
+                    if (!arguments) {
+                        arguments = NSMutableDictionary.new;
+                    }
+                    NSString *argValue = [argValueToken.value cas_stringByTrimmingWhitespace];
+                    NSString *argName = [argNameToken.value cas_stringByTrimmingWhitespace];
+                    [arguments setObject:argValue forKey:argName];
+
                     argValueToken = nil;
                     argNameToken = nil;
                 }
@@ -375,9 +384,9 @@ NSInteger const CASParseErrorFileContents = 2;
 
 - (CASStyleProperty *)nextStyleProperty {
     NSInteger i = 1;
-    CASToken *nameToken;
-    NSMutableArray *valueTokens = NSMutableArray.new;
 
+    BOOL hasValues = NO;
+    CASToken *nameToken;
     CASToken *token = [self lookaheadByCount:i];
     while (token && token.type != CASTokenTypeNewline
            && token.type != CASTokenTypeLeftCurlyBrace
@@ -396,7 +405,53 @@ NSInteger const CASParseErrorFileContents = 2;
         if (!nameToken) {
             nameToken = token;
         } else {
-            if (token.type == CASTokenTypeRef) {
+            hasValues = YES;
+        }
+        token = [self lookaheadByCount:++i];
+    }
+
+    if (nameToken.value && hasValues) {
+        NSMutableArray *valueTokens = NSMutableArray.new;
+        NSMutableDictionary *arguments;
+        CASToken *argNameToken, *argValueToken;
+        BOOL argumentListMode = NO;
+
+        // consume tokens
+        token = [self nextToken];
+        while (--i > 0) {
+            token = [self nextToken];
+
+            if (argumentListMode) {
+                if (token.type == CASTokenTypeRightSquareBrace) {
+                    argumentListMode = NO;
+                } else if (token.type == CASTokenTypeSelector || token.type == CASTokenTypeRef) {
+                    if (!argNameToken) {
+                        argNameToken = token;
+                    } else if (!argValueToken) {
+                        argValueToken = token;
+                    }
+
+                    if (argNameToken && argValueToken) {
+                        if (!arguments) {
+                            arguments = NSMutableDictionary.new;
+                        }
+                        NSString *argValue = [argValueToken.value cas_stringByTrimmingWhitespace];
+                        NSString *argName = [argNameToken.value cas_stringByTrimmingWhitespace];
+                        [arguments setObject:argValue forKey:argName];
+
+                        argValueToken = nil;
+                        argNameToken = nil;
+                    }
+                }
+                continue;
+            }
+
+            if (token.isWhitespace || [token valueIsEqualTo:@":"]) {
+                continue;
+            }
+            if (token.type == CASTokenTypeLeftSquareBrace) {
+                argumentListMode = YES;
+            } else if (token.type == CASTokenTypeRef) {
                 CASStyleProperty *styleVar = self.styleVars[token.value];
                 if (styleVar) {
                     [valueTokens addObjectsFromArray:styleVar.valueTokens];
@@ -407,15 +462,9 @@ NSInteger const CASParseErrorFileContents = 2;
                 [valueTokens addObject:token];
             }
         }
-        token = [self lookaheadByCount:++i];
-    }
-
-    if (nameToken.value && valueTokens.count) {
-        // consume tokens
-        while (--i > 0) {
-            [self nextToken];
-        }
-        return [[CASStyleProperty alloc] initWithNameToken:nameToken valueTokens:valueTokens];
+        CASStyleProperty *styleProperty = [[CASStyleProperty alloc] initWithNameToken:nameToken valueTokens:valueTokens];
+        styleProperty.arguments = [arguments copy];
+        return styleProperty;
     }
 
     return nil;

@@ -32,6 +32,12 @@
 @property (nonatomic, assign) BOOL shouldSelectDescendants;
 
 /**
+ *  Provides support for properties that have extra arguments such as
+ *  - setTitle:forState:
+ */
+@property (nonatomic, strong) NSDictionary *arguments;
+
+/**
  *  The style node linked to this selector
  */
 @property (nonatomic, strong) CASStyleNode *node;
@@ -77,12 +83,6 @@
  *  @return `YES` if all selectors including parent selectors match the view
  */
 - (BOOL)shouldSelectView:(UIView *)view;
-
-/**
- *  Provides support for properties that have extra arguments such as
- *  - setTitle:forState:
- */
-- (void)setArgumentValue:(CASToken *)argumentValue forName:(CASToken *)name;
 
 /**
  *  String representation of receiver

@@ -1,0 +1,5 @@
+UIButton {
+    background-color[state:selected] : #ffffff;
+    font-name [ state : highlighted ] helvetica
+    font-size[state: disabled] 14
+}

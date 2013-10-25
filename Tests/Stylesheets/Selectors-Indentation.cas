@@ -1,5 +1,5 @@
-
 // `{` and `}` are optional
+
 UIButton UIControl, UIButton UIImageView.starImage
       background-color:#ffffff;
       border-width 1
