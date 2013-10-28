@@ -139,14 +139,25 @@ NSInteger const CASParseErrorFileContents = 2;
         }
 
         if (styleNodes.count) {
-            NSMutableArray *flattenStyleNodes = NSMutableArray.new;
+            NSMutableArray *flattenStyleNodes = styleNodesStack.count ? NSMutableArray.new : nil;
             for (CASStyleNode *parentNode in styleNodesStack.lastObject) {
                 for (CASStyleNode *styleNode in styleNodes) {
                     CASStyleNode *flattenStyleNode = CASStyleNode.new;
                     CASStyleSelector *parentSelector = [parentNode.styleSelector copy];
                     parentSelector.parent = YES;
-                    flattenStyleNode.styleSelector = [styleNode.styleSelector copy];
-                    flattenStyleNode.styleSelector.lastSelector.parentSelector = parentSelector;
+                    if (styleNode.styleSelector.lastSelector.shouldConcatToParent) {
+                        CASStyleSelector *styleSelector = styleNode.styleSelector;
+                        if (styleSelector.styleClass) {
+                            parentSelector.styleClass = styleSelector.styleClass;
+                        }
+                        if (styleSelector.arguments) {
+                            parentSelector.arguments = styleSelector.arguments;
+                        }
+                        flattenStyleNode.styleSelector = parentSelector;
+                    } else {
+                        flattenStyleNode.styleSelector = [styleNode.styleSelector copy];
+                        flattenStyleNode.styleSelector.lastSelector.parentSelector = parentSelector;
+                    }
                     [flattenStyleNodes addObject:flattenStyleNode];
                 }
             }
@@ -309,6 +320,7 @@ NSInteger const CASParseErrorFileContents = 2;
     BOOL shouldSelectSubclasses = NO;
     BOOL shouldSelectIndirectSuperview = YES;
     BOOL argumentListMode = NO;
+    BOOL shouldConcatToParent = NO;
 
     while (--i > 0) {
         previousToken = token;
@@ -355,6 +367,7 @@ NSInteger const CASParseErrorFileContents = 2;
                 if (styleSelector) {
                     CASStyleSelector *childSelector = CASStyleSelector.new;
                     childSelector.shouldSelectIndirectSuperview = shouldSelectIndirectSuperview;
+                    childSelector.shouldConcatToParent = shouldConcatToParent;
                     childSelector.parentSelector = styleSelector;
                     styleSelector.parent = YES;
 
@@ -362,6 +375,7 @@ NSInteger const CASParseErrorFileContents = 2;
                 } else {
                     styleSelector = CASStyleSelector.new;
                     styleSelector.shouldSelectIndirectSuperview = shouldSelectIndirectSuperview;
+                    styleSelector.shouldConcatToParent = shouldConcatToParent;
                 }
             }
 
@@ -373,7 +387,7 @@ NSInteger const CASParseErrorFileContents = 2;
                 styleSelector.viewClass = NSClassFromString(tokenValue);
             }
 
-            if (!styleSelector.viewClass) {
+            if (!styleSelector.viewClass && !shouldConcatToParent) {
                 self.error = [self.lexer errorWithDescription:[NSString stringWithFormat:@"Invalid class name `%@`", tokenValue]
                                                        reason:@"Every selector must have a viewClass"
                                                          code:CASParseErrorFileContents];
@@ -383,8 +397,11 @@ NSInteger const CASParseErrorFileContents = 2;
             // reset state
             shouldSelectSubclasses = NO;
             shouldSelectIndirectSuperview = YES;
+            shouldConcatToParent = NO;
         } else if (token.type == CASTokenTypeLeftSquareBrace) {
             argumentListMode = YES;
+        } else if ([token valueIsEqualTo:@"&"]) {
+            shouldConcatToParent = YES;
         } else if([token valueIsEqualTo:@">"]) {
             shouldSelectIndirectSuperview = NO;
         } else if ([token valueIsEqualTo:@","]) {

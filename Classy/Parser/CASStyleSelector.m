@@ -30,6 +30,7 @@
     newSelector.styleClass = self.styleClass;
     newSelector.shouldSelectSubclasses = self.shouldSelectSubclasses;
     newSelector.shouldSelectIndirectSuperview = self.shouldSelectIndirectSuperview;
+    newSelector.shouldConcatToParent = self.shouldConcatToParent;
     newSelector.arguments = [self.arguments copy];
     newSelector.parentSelector = [self.parentSelector copy];
 

@@ -15,7 +15,9 @@ UIView
   border-color: #ddd
 
 UITabBar.nice, UISegmentedControl.nice {
-  UITextField.nicer {
+  UITextField {
     border-width 2
+    &.nicer
+      border-width 3
   }
 }

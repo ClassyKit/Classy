@@ -127,10 +127,13 @@ SpecBegin(CASParser)
 }
 
 - (void)testParseNestedSelectors {
+    NSError *error = nil;
     NSString *filePath = [[NSBundle bundleForClass:self.class] pathForResource:@"Selectors-Nested.cas" ofType:nil];
-    NSArray *styles = [CASParser stylesFromFilePath:filePath error:nil];
+    NSArray *styles = [CASParser stylesFromFilePath:filePath error:&error];
 
-    expect(styles.count).to.equal(10);
+    expect(error).to.beNil();
+
+    expect(styles.count).to.equal(12);
     expect([styles[0] styleSelector].stringValue).to.equal(@"UIButton");
     expect([styles[1] styleSelector].stringValue).to.equal(@"UIButton > UIControl");
     expect([styles[2] styleSelector].stringValue).to.equal(@"UIButton UISlider");
@@ -139,8 +142,10 @@ SpecBegin(CASParser)
     expect([styles[5] styleSelector].stringValue).to.equal(@"UIView UINavigationBar > UIView");
     expect([styles[6] styleSelector].stringValue).to.equal(@"UITabBar.nice");
     expect([styles[7] styleSelector].stringValue).to.equal(@"UISegmentedControl.nice");
-    expect([styles[8] styleSelector].stringValue).to.equal(@"UITabBar.nice UITextField.nicer");
-    expect([styles[9] styleSelector].stringValue).to.equal(@"UISegmentedControl.nice UITextField.nicer");
+    expect([styles[8] styleSelector].stringValue).to.equal(@"UITabBar.nice UITextField");
+    expect([styles[9] styleSelector].stringValue).to.equal(@"UISegmentedControl.nice UITextField");
+    expect([styles[10] styleSelector].stringValue).to.equal(@"UITabBar.nice UITextField.nicer");
+    expect([styles[11] styleSelector].stringValue).to.equal(@"UISegmentedControl.nice UITextField.nicer");
 
     // group 1
     CASStyleNode *node = styles[0];
@@ -198,6 +203,17 @@ SpecBegin(CASParser)
     expect([node.styleProperties[0] name]).to.equal(@"borderWidth");
     expect([node.styleProperties[0] values]).to.equal(@[@2]);
 
+    // group 11
+    node = styles[10];
+    expect(node.styleProperties).to.haveCountOf(1);
+    expect([node.styleProperties[0] name]).to.equal(@"borderWidth");
+    expect([node.styleProperties[0] values]).to.equal(@[@3]);
+
+    // group 11
+    node = styles[11];
+    expect(node.styleProperties).to.haveCountOf(1);
+    expect([node.styleProperties[0] name]).to.equal(@"borderWidth");
+    expect([node.styleProperties[0] values]).to.equal(@[@3]);
 }
 
 - (void)testParseProperties {

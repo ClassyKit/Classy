@@ -35,6 +35,12 @@
  */
 @property (nonatomic, assign, getter = isParent) BOOL parent;
 
+
+/**
+ *  Whether or not this selector should be concatenated
+ */
+@property (nonatomic, assign) BOOL shouldConcatToParent;
+
 /**
  *  Provides support for properties that have extra arguments such as
  *  - setTitle:forState:
