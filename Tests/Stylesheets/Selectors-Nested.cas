@@ -1,0 +1,21 @@
+// nesting! use indentation or { }
+
+UIButton
+  background-color:#fff;
+  border-width 1
+  > UIControl
+    amazing 23
+  UISlider
+    another 34
+
+UIView
+  UINavigationBar
+    > UIView
+      background-color:#eee
+  border-color: #ddd
+
+UITabBar.nice, UISegmentedControl.nice {
+  UITextField.nicer {
+    border-width 2
+  }
+}

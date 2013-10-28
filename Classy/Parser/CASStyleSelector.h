@@ -7,9 +7,8 @@
 //
 
 #import <UIKit/UIKit.h>
-#import "CASStyleNode.h"
 
-@interface CASStyleSelector : NSObject
+@interface CASStyleSelector : NSObject <NSCopying>
 
 /**
  *  Class of View to match
@@ -19,7 +18,7 @@
 /**
  *  If not nil checks the view's cas_styleClass property
  */
-@property (nonatomic, strong) NSString *styleClass;
+@property (nonatomic, copy) NSString *styleClass;
 
 /**
  *  Whether or not to do strict matching against viewClass
@@ -27,9 +26,14 @@
 @property (nonatomic, assign) BOOL shouldSelectSubclasses;
 
 /**
- *  Whether or not view has to be a direct subview or can be a descendant
+ *  Whether or not parent selector can be an indirect superview
  */
-@property (nonatomic, assign) BOOL shouldSelectDescendants;
+@property (nonatomic, assign) BOOL shouldSelectIndirectSuperview;
+
+/**
+ *  Whether or not this selector is a parent
+ */
+@property (nonatomic, assign, getter = isParent) BOOL parent;
 
 /**
  *  Provides support for properties that have extra arguments such as
@@ -38,19 +42,14 @@
 @property (nonatomic, strong) NSDictionary *arguments;
 
 /**
- *  The style node linked to this selector
- */
-@property (nonatomic, strong) CASStyleNode *node;
-
-/**
  *  Parent selector
  */
 @property (nonatomic, strong) CASStyleSelector *parentSelector;
 
 /**
- *  Child selector
+ *  Last selector in heirachy
  */
-@property (nonatomic, weak) CASStyleSelector *childSelector;
+@property (nonatomic, readonly) CASStyleSelector *lastSelector;
 
 /**
  *  Returns a integer representation of how specific this selector is.

@@ -9,11 +9,17 @@ UIButton > UIImageView.starImage  {
 
 ^UIView>UINavigationBar
     background-color:#ffffff;
+    background-color:#ffffff;
 
 UIView.bordered > UIView.panel {
+    background-color:#ffffff;
+    background-color:#ffffff;
     background-color:#ffffff;
 }
 
 ^UIView[state:selected] > UIImageView {
+    background-color:#ffffff;
+    background-color:#ffffff;
+    background-color:#ffffff;
     background-color:#ffffff;
 }

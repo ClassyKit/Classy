@@ -46,33 +46,13 @@ SpecBegin(CASParser)
 
     expect(styles.count).to.equal(7);
 
-    CASStyleSelector *selector1 = styles[0];
-    expect(selector1.stringValue).to.equal(@"UIView");
-    expect(selector1.node).toNot.beNil();
-
-    CASStyleSelector *selector2 = styles[1];
-    expect(selector2.stringValue).to.equal(@"UIControl");
-    expect(selector2.node).toNot.beNil();
-
-    CASStyleSelector *selector3 = styles[2];
-    expect(selector3.stringValue).to.equal(@"UIView");
-    expect(selector3.node).toNot.beNil();
-
-    CASStyleSelector *selector4 = styles[3];
-    expect(selector4.stringValue).to.equal(@"UIButton");
-    expect(selector4.node).notTo.beIdenticalTo(selector3.node);
-
-    CASStyleSelector *selector5 = styles[4];
-    expect(selector5.stringValue).to.equal(@"UITabBar");
-    expect(selector5.node).notTo.beIdenticalTo(selector3.node);
-
-    CASStyleSelector *selector6 = styles[5];
-    expect(selector6.stringValue).to.equal(@"UIView");
-    expect(selector6.node).toNot.beNil();
-
-    CASStyleSelector *selector7 = styles[6];
-    expect(selector7.stringValue).to.equal(@"UITabBar");
-    expect(selector7.node).notTo.beIdenticalTo(selector6.node);
+    expect([styles[0] styleSelector].stringValue).to.equal(@"UIView");
+    expect([styles[1] styleSelector].stringValue).to.equal(@"UIControl");
+    expect([styles[2] styleSelector].stringValue).to.equal(@"UIView");
+    expect([styles[3] styleSelector].stringValue).to.equal(@"UIButton");
+    expect([styles[4] styleSelector].stringValue).to.equal(@"UITabBar");
+    expect([styles[5] styleSelector].stringValue).to.equal(@"UIView");
+    expect([styles[6] styleSelector].stringValue).to.equal(@"UITabBar");
 }
 
 - (void)testParseComplex {
@@ -81,17 +61,12 @@ SpecBegin(CASParser)
 
     expect(styles.count).to.equal(6);
 
-    expect([styles[0] stringValue]).to.equal(@"UIButton[coolness:alot, state:selected].command");
-    
-    expect([styles[1] stringValue]).to.equal(@"UIButton UIImageView.starImage");
-
-    expect([styles[2] stringValue]).to.equal(@"UIView.bordered");
-
-    expect([styles[3] stringValue]).to.equal(@"UIView.panel");
-
-    expect([styles[4] stringValue]).to.equal(@"UISlider");
-
-    expect([styles[5] stringValue]).to.equal(@"UINavigationBar.videoNavBar UIButton[state:highlighted]");
+    expect([styles[0] styleSelector].stringValue).to.equal(@"UIButton[coolness:alot, state:selected].command");
+    expect([styles[1] styleSelector].stringValue).to.equal(@"UIButton UIImageView.starImage");
+    expect([styles[2] styleSelector].stringValue).to.equal(@"UIView.bordered");
+    expect([styles[3] styleSelector].stringValue).to.equal(@"UIView.panel");
+    expect([styles[4] styleSelector].stringValue).to.equal(@"UISlider");
+    expect([styles[5] styleSelector].stringValue).to.equal(@"UINavigationBar.videoNavBar UIButton[state:highlighted]");
 }
 
 - (void)testParseWithoutBraces {
@@ -100,23 +75,29 @@ SpecBegin(CASParser)
 
     expect(styles.count).to.equal(6);
 
-    expect([styles[0] stringValue]).to.equal(@"UIButton UIControl");
-    expect([styles[0] precedence]).to.equal(6);
+    expect([styles[0] styleSelector].stringValue).to.equal(@"UIButton UIControl");
+    expect([styles[0] styleProperties]).to.haveCountOf(2);
+    expect([styles[0] styleSelector].precedence).to.equal(6);
 
-    expect([styles[1] stringValue]).to.equal(@"UIButton UIImageView.starImage");
-    expect([styles[1] precedence]).to.equal(3006);
+    expect([styles[1] styleSelector].stringValue).to.equal(@"UIButton UIImageView.starImage");
+    expect([styles[1] styleProperties]).to.haveCountOf(2);
+    expect([styles[1] styleSelector].precedence).to.equal(3006);
 
-    expect([styles[2] stringValue]).to.equal(@"UIView.bordered");
-    expect([styles[2] precedence]).to.equal(3004);
+    expect([styles[2] styleSelector].stringValue).to.equal(@"UIView.bordered");
+    expect([styles[2] styleProperties]).to.haveCountOf(3);
+    expect([styles[2] styleSelector].precedence).to.equal(3004);
 
-    expect([styles[3] stringValue]).to.equal(@"UIView.panel");
-    expect([styles[3] precedence]).to.equal(3004);
+    expect([styles[3] styleSelector].stringValue).to.equal(@"UIView.panel");
+    expect([styles[3] styleProperties]).to.haveCountOf(3);
+    expect([styles[3] styleSelector].precedence).to.equal(3004);
 
-    expect([styles[4] stringValue]).to.equal(@"UISlider");
-    expect([styles[4] precedence]).to.equal(4);
+    expect([styles[4] styleSelector].stringValue).to.equal(@"UISlider");
+    expect([styles[4] styleProperties]).to.haveCountOf(4);
+    expect([styles[4] styleSelector].precedence).to.equal(4);
 
-    expect([styles[5] stringValue]).to.equal(@"UINavigationBar.videoNavBar UIButton");
-    expect([styles[5] precedence]).to.equal(1006);
+    expect([styles[5] styleSelector].stringValue).to.equal(@"UINavigationBar.videoNavBar UIButton");
+    expect([styles[5] styleProperties]).to.haveCountOf(4);
+    expect([styles[5] styleSelector].precedence).to.equal(1006);
 }
 
 - (void)testParseDirectDescendant {
@@ -127,18 +108,96 @@ SpecBegin(CASParser)
     expect(error).to.beNil();
     expect(styles.count).to.equal(4);
     
-    expect([styles[0] stringValue]).to.equal(@"UIButton > UIImageView.starImage");
-    expect([styles[0] precedence]).to.equal(3007);
+    expect([styles[0] styleSelector].stringValue).to.equal(@"UIButton > UIImageView.starImage");
+    expect([styles[0] styleSelector].precedence).to.equal(3006);
+    expect([styles[0] styleProperties]).to.haveCountOf(1);
 
-    expect([styles[1] stringValue]).to.equal(@"^UIView > UINavigationBar");
-    expect([styles[1] precedence]).to.equal(5);
+    expect([styles[1] styleSelector].stringValue).to.equal(@"^UIView > UINavigationBar");
+    expect([styles[1] styleSelector].precedence).to.equal(4);
+    expect([styles[1] styleProperties]).to.haveCountOf(2);
 
-    expect([styles[2] stringValue]).to.equal(@"UIView.bordered > UIView.panel");
-    expect([styles[2] parentSelector]).notTo.beNil();
-    expect([styles[2] precedence]).to.equal(5007);
+    expect([styles[2] styleSelector].stringValue).to.equal(@"UIView.bordered > UIView.panel");
+    expect([styles[2] styleSelector].parentSelector).notTo.beNil();
+    expect([styles[2] styleSelector].precedence).to.equal(4006);
+    expect([styles[2] styleProperties]).to.haveCountOf(3);
 
-    expect([styles[3] stringValue]).to.equal(@"^UIView[state:selected] > UIImageView");
-    expect([styles[3] precedence]).to.equal(5);
+    expect([styles[3] styleSelector].stringValue).to.equal(@"^UIView[state:selected] > UIImageView");
+    expect([styles[3] styleSelector].precedence).to.equal(4);
+    expect([styles[3] styleProperties]).to.haveCountOf(4);
+}
+
+- (void)testParseNestedSelectors {
+    NSString *filePath = [[NSBundle bundleForClass:self.class] pathForResource:@"Selectors-Nested.cas" ofType:nil];
+    NSArray *styles = [CASParser stylesFromFilePath:filePath error:nil];
+
+    expect(styles.count).to.equal(10);
+    expect([styles[0] styleSelector].stringValue).to.equal(@"UIButton");
+    expect([styles[1] styleSelector].stringValue).to.equal(@"UIButton > UIControl");
+    expect([styles[2] styleSelector].stringValue).to.equal(@"UIButton UISlider");
+    expect([styles[3] styleSelector].stringValue).to.equal(@"UIView");
+    expect([styles[4] styleSelector].stringValue).to.equal(@"UIView UINavigationBar");
+    expect([styles[5] styleSelector].stringValue).to.equal(@"UIView UINavigationBar > UIView");
+    expect([styles[6] styleSelector].stringValue).to.equal(@"UITabBar.nice");
+    expect([styles[7] styleSelector].stringValue).to.equal(@"UISegmentedControl.nice");
+    expect([styles[8] styleSelector].stringValue).to.equal(@"UITabBar.nice UITextField.nicer");
+    expect([styles[9] styleSelector].stringValue).to.equal(@"UISegmentedControl.nice UITextField.nicer");
+
+    // group 1
+    CASStyleNode *node = styles[0];
+    expect(node.styleProperties).to.haveCountOf(2);
+    expect([node.styleProperties[0] name]).to.equal(@"backgroundColor");
+    expect([node.styleProperties[0] values]).to.equal(@[[UIColor cas_colorWithHex:@"#ffffff"]]);
+    expect([node.styleProperties[1] name]).to.equal(@"borderWidth");
+    expect([node.styleProperties[1] values]).to.equal(@[@1]);
+
+    // group 2
+    node = styles[1];
+    expect(node.styleProperties).to.haveCountOf(1);
+    expect([node.styleProperties[0] name]).to.equal(@"amazing");
+    expect([node.styleProperties[0] values]).to.equal(@[@23]);
+
+    // group 3
+    node = styles[2];
+    expect(node.styleProperties).to.haveCountOf(1);
+    expect([node.styleProperties[0] name]).to.equal(@"another");
+    expect([node.styleProperties[0] values]).to.equal((@[@34]));
+
+    // group 4
+    node = styles[3];
+    expect(node.styleProperties).to.haveCountOf(1);
+    expect([node.styleProperties[0] name]).to.equal(@"borderColor");
+    expect([node.styleProperties[0] values]).to.equal((@[[UIColor cas_colorWithHex:@"#ddd"]]));
+
+    // group 5
+    node = styles[4];
+    expect(node.styleProperties).to.haveCountOf(0);
+
+    // group 6
+    node = styles[5];
+    expect(node.styleProperties).to.haveCountOf(1);
+    expect([node.styleProperties[0] name]).to.equal(@"backgroundColor");
+    expect([node.styleProperties[0] values]).to.equal((@[[UIColor cas_colorWithHex:@"#eee"]]));
+
+    // group 7
+    node = styles[6];
+    expect(node.styleProperties).to.haveCountOf(0);
+
+    // group 8
+    node = styles[7];
+    expect(node.styleProperties).to.haveCountOf(0);
+
+    // group 9
+    node = styles[8];
+    expect(node.styleProperties).to.haveCountOf(1);
+    expect([node.styleProperties[0] name]).to.equal(@"borderWidth");
+    expect([node.styleProperties[0] values]).to.equal(@[@2]);
+
+    // group 10
+    node = styles[9];
+    expect(node.styleProperties).to.haveCountOf(1);
+    expect([node.styleProperties[0] name]).to.equal(@"borderWidth");
+    expect([node.styleProperties[0] values]).to.equal(@[@2]);
+
 }
 
 - (void)testParseProperties {
@@ -148,7 +207,7 @@ SpecBegin(CASParser)
     expect(styles.count).to.equal(5);
 
     // group 1
-    CASStyleNode *node = [styles[0] node];
+    CASStyleNode *node = styles[0];
     expect(node.styleProperties).to.haveCountOf(2);
     expect([node.styleProperties[0] name]).to.equal(@"backgroundColor");
     expect([node.styleProperties[0] values]).to.equal(@[[UIColor cas_colorWithHex:@"#ffffff"]]);
@@ -156,7 +215,7 @@ SpecBegin(CASParser)
     expect([node.styleProperties[1] values]).to.equal(@[@1]);
 
     // group 2
-    node = [styles[2] node];
+    node = styles[2];
     expect(node.styleProperties).to.haveCountOf(2);
     expect([node.styleProperties[0] name]).to.equal(@"fontColor");
     expect([node.styleProperties[0] values]).to.equal(@[[UIColor cas_colorWithHex:@"#ffffff"]]);
@@ -164,7 +223,7 @@ SpecBegin(CASParser)
     expect([node.styleProperties[1] values]).to.equal(@[@2]);
 
     // group 3
-    node = [styles[3] node];
+    node = styles[3];
     expect(node.styleProperties).to.haveCountOf(3);
     expect([node.styleProperties[0] name]).to.equal(@"fontName");
     expect([node.styleProperties[0] values]).to.equal(@[@"helvetica"]);
@@ -179,7 +238,7 @@ SpecBegin(CASParser)
     NSArray *styles = [CASParser stylesFromFilePath:filePath error:nil];
 
     expect(styles.count).to.equal(1);
-    CASStyleNode *node = [styles[0] node];
+    CASStyleNode *node = styles[0];
     expect(node.styleProperties).to.haveCountOf(3);
 
     expect([node.styleProperties[0] name]).to.equal(@"backgroundColor");

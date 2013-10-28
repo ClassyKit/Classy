@@ -8,15 +8,15 @@
 
 #import "CASStyler.h"
 #import "CASParser.h"
-#import "CASStyleSelector.h"
 #import "CASPropertyDescriptor.h"
 #import "UIView+CASAdditions.h"
 #import "UITextField+CASAdditions.h"
 #import "CASUtilities.h"
+#import "CASStyleNode.h"
 
 @interface CASStyler ()
 
-@property (nonatomic, strong) NSMutableArray *styles;
+@property (nonatomic, strong) NSMutableArray *styleNodes;
 @property (nonatomic, strong) NSMapTable *viewClassDescriptorCache;
 
 @end
@@ -50,10 +50,10 @@
     }
     // TODO style lookup table to improve speed.
 
-    for (CASStyleSelector *styleSelector in self.styles.reverseObjectEnumerator) {
-        if ([styleSelector shouldSelectView:view]) {
+    for (CASStyleNode *styleNode in self.styleNodes.reverseObjectEnumerator) {
+        if ([styleNode.styleSelector shouldSelectView:view]) {
             // apply style nodes
-            for (CASStyleProperty *styleProperty in styleSelector.node.properties) {
+            for (CASStyleProperty *styleProperty in styleNode.properties) {
                 [styleProperty.invocation invokeWithTarget:view];
             }
         }
@@ -72,26 +72,26 @@
     if ([_filePath isEqualToString:filePath]) return;
     _filePath = filePath;
 
-    self.styles = [[CASParser stylesFromFilePath:filePath error:error] mutableCopy];
-    if (!self.styles.count) {
+    self.styleNodes = [[CASParser stylesFromFilePath:filePath error:error] mutableCopy];
+    if (!self.styleNodes.count) {
         return;
     }
 
     // order descending by precedence
-    [self.styles sortWithOptions:NSSortStable usingComparator:^NSComparisonResult(CASStyleSelector *s1, CASStyleSelector *s2) {
-        if (s1.precedence == s2.precedence) return NSOrderedSame;
-        if (s1.precedence <  s2.precedence) return NSOrderedDescending;
+    [self.styleNodes sortWithOptions:NSSortStable usingComparator:^NSComparisonResult(CASStyleNode *n1, CASStyleNode *n2) {
+        if (n1.styleSelector.precedence == n2.styleSelector.precedence) return NSOrderedSame;
+        if (n1.styleSelector.precedence <  n2.styleSelector.precedence) return NSOrderedDescending;
         return NSOrderedAscending;
     }];
 
     // precompute values
-    for (CASStyleSelector *styleSelector in self.styles.reverseObjectEnumerator) {
-        for (CASStyleProperty *styleProperty in styleSelector.node.properties) {
+    for (CASStyleNode *styleNode in self.styleNodes.reverseObjectEnumerator) {
+        for (CASStyleProperty *styleProperty in styleNode.properties) {
             // TODO type checking and throw errors
 
             // ensure we dont do same node twice
             if (styleProperty.invocation) continue;
-            NSInvocation *invocation = [self invocationForClass:styleSelector.viewClass styleProperty:styleProperty];
+            NSInvocation *invocation = [self invocationForClass:styleNode.styleSelector.viewClass styleProperty:styleProperty];
             styleProperty.invocation = invocation;
         }
     }

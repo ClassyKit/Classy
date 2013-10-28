@@ -261,21 +261,42 @@ SpecBegin(CASLexer)
 }
 
 - (void)testReturnOutdent {
-    NSString *string = @"UIView{\n  asdf 1\n}";
+    NSString *string =
+    @"UIButton\n"
+    "  background-color\n"
+    "  border-width 1\n"
+    "  > UIControl\n"
+    "    amazing 23\n"
+    "  UISlider\n"
+    "    another 34\n"
+    "b";
 
     CASLexer *lexer = [[CASLexer alloc] initWithString:string];
-    [lexer nextToken];
-    [lexer nextToken];
-    [lexer nextToken];
-    [lexer nextToken];
-    [lexer nextToken];
-    [lexer nextToken];
-    CASToken *token = lexer.nextToken;
+    expect([[lexer lookaheadByCount:1] value]).to.equal(@"UIButton");
+    expect([[lexer lookaheadByCount:2] type]).to.equal(CASTokenTypeIndent);
+    expect([[lexer lookaheadByCount:3] value]).to.equal(@"background-color");
+    expect([[lexer lookaheadByCount:4] type]).to.equal(CASTokenTypeNewline);
+    expect([[lexer lookaheadByCount:5] value]).to.equal(@"border-width");
+    expect([[lexer lookaheadByCount:6] type]).to.equal(CASTokenTypeSpace);
+    expect([[lexer lookaheadByCount:7] value]).to.equal(@1);
+    expect([[lexer lookaheadByCount:8] type]).to.equal(CASTokenTypeNewline);
+    expect([[lexer lookaheadByCount:9] value]).to.equal(@">");
+    expect([[lexer lookaheadByCount:10] value]).to.equal(@"UIControl");
+    expect([[lexer lookaheadByCount:11] type]).to.equal(CASTokenTypeIndent);
+    expect([[lexer lookaheadByCount:12] value]).to.equal(@"amazing");
+    expect([[lexer lookaheadByCount:13] type]).to.equal(CASTokenTypeSpace);
+    expect([[lexer lookaheadByCount:14] value]).to.equal(@23);
+    expect([[lexer lookaheadByCount:15] type]).to.equal(CASTokenTypeOutdent);
+    expect([[lexer lookaheadByCount:16] value]).to.equal(@"UISlider");
+    expect([[lexer lookaheadByCount:17] type]).to.equal(CASTokenTypeIndent);
+    expect([[lexer lookaheadByCount:18] value]).to.equal(@"another");
+    expect([[lexer lookaheadByCount:19] type]).to.equal(CASTokenTypeSpace);
+    expect([[lexer lookaheadByCount:20] value]).to.equal(@34);
+    expect([[lexer lookaheadByCount:21] type]).to.equal(CASTokenTypeOutdent);
+    expect([[lexer lookaheadByCount:22] type]).to.equal(CASTokenTypeOutdent);
+    expect([[lexer lookaheadByCount:23] value]).to.equal(@"b");
+    expect([[lexer lookaheadByCount:24] type]).to.equal(CASTokenTypeEOS);
 
-    expect(token.type).to.equal(CASTokenTypeOutdent);
-    expect(token.value).to.equal(nil);
-    expect(token.lineNumber).to.equal(3);
-    expect(lexer.str).to.equal(@"}");
 }
 
 - (void)testReturnOperator {

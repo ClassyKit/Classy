@@ -8,10 +8,13 @@ UIButton UIControl, UIButton UIImageView.starImage
 UIView.bordered, UIView.panel 
     background-color:#ffffff;
     border-width: 2;
+    border-thickness: 2;
 
 UISlider,
 UINavigationBar.videoNavBar
 UIButton
 
+ background-color #ffffff
+ border-width: 3;
  background-color #ffffff
  border-width: 3;

@@ -21,7 +21,6 @@ NSInteger const CASParseErrorFileContents = 2;
 @interface CASParser ()
 
 @property (nonatomic, strong) CASLexer *lexer;
-@property (nonatomic, strong) NSMutableArray *styleSelectors;
 @property (nonatomic, strong) NSMutableDictionary *styleVars;
 @property (nonatomic, strong) NSError *error;
 
@@ -98,10 +97,11 @@ NSInteger const CASParseErrorFileContents = 2;
 
 - (NSArray *)parseString:(NSString *)string error:(NSError **)error {
     self.lexer = [[CASLexer alloc] initWithString:string];
-    self.styleSelectors = NSMutableArray.new;
     self.styleVars = NSMutableDictionary.new;
 
-    NSArray *currentNodes = nil;
+    NSMutableArray *allStyleNodes = NSMutableArray.new;
+    NSMutableArray *styleNodesStack = NSMutableArray.new;
+
     while (self.peekToken.type != CASTokenTypeEOS) {
         if (self.error) {
             if (error) *error = self.error;
@@ -115,7 +115,7 @@ NSInteger const CASParseErrorFileContents = 2;
         }
 
         if (styleVar) {
-            if (currentNodes.count) {
+            if (styleNodesStack.count) {
                 // can't have vars inside styleNodes
                 if (error) {
                     *error = [self.lexer errorWithDescription:@"Variables cannot be declared inside style selectors"
@@ -127,7 +127,7 @@ NSInteger const CASParseErrorFileContents = 2;
             [styleVar resolveExpressions];
             self.styleVars[styleVar.nameToken.value] = styleVar;
             [self consumeTokensMatching:^BOOL(CASToken *token) {
-                return token.isWhitespace || token.type == CASTokenTypeSemiColon;
+                return token.type == CASTokenTypeSpace || token.type == CASTokenTypeSemiColon;
             }];
             continue;
         }
@@ -139,7 +139,23 @@ NSInteger const CASParseErrorFileContents = 2;
         }
 
         if (styleNodes.count) {
-            currentNodes = styleNodes;
+            NSMutableArray *flattenStyleNodes = NSMutableArray.new;
+            for (CASStyleNode *parentNode in styleNodesStack.lastObject) {
+                for (CASStyleNode *styleNode in styleNodes) {
+                    CASStyleNode *flattenStyleNode = CASStyleNode.new;
+                    CASStyleSelector *parentSelector = [parentNode.styleSelector copy];
+                    parentSelector.parent = YES;
+                    flattenStyleNode.styleSelector = [styleNode.styleSelector copy];
+                    flattenStyleNode.styleSelector.lastSelector.parentSelector = parentSelector;
+                    [flattenStyleNodes addObject:flattenStyleNode];
+                }
+            }
+            if (flattenStyleNodes.count) {
+                styleNodes = flattenStyleNodes;
+            }
+
+            [allStyleNodes addObjectsFromArray:styleNodes];
+            [styleNodesStack addObject:styleNodes];
             [self consumeTokenOfType:CASTokenTypeLeftCurlyBrace];
             [self consumeTokenOfType:CASTokenTypeIndent];
             continue;
@@ -153,7 +169,7 @@ NSInteger const CASParseErrorFileContents = 2;
         }
 
         if (styleProperty) {
-            if (!currentNodes.count) {
+            if (!styleNodesStack.count) {
                 if (error) {
                     *error = [self.lexer errorWithDescription:@"Invalid style property"
                                                        reason:@"Needs to be within a style node"
@@ -162,20 +178,25 @@ NSInteger const CASParseErrorFileContents = 2;
                 return nil;
             }
             [styleProperty resolveExpressions];
-            for (CASStyleNode *node in currentNodes) {
+            for (CASStyleNode *node in styleNodesStack.lastObject) {
                 [node addStyleProperty:styleProperty];
             }
             continue;
         }
 
         BOOL closeNode = [self consumeTokensMatching:^BOOL(CASToken *token) {
-            return token.type == CASTokenTypeOutdent || token.type == CASTokenTypeRightCurlyBrace;
+            BOOL consumable = token.type == CASTokenTypeOutdent || token.type == CASTokenTypeRightCurlyBrace;
+            if (consumable && styleNodesStack.count) {
+                [styleNodesStack removeObjectAtIndex:styleNodesStack.count-1];
+            }
+
+            return consumable;
         }];
-        if (closeNode) {
-            currentNodes = nil;
-        }
 
         BOOL acceptableToken = [self consumeTokensMatching:^BOOL(CASToken *token) {
+            if (token.type == CASTokenTypeOutdent && styleNodesStack.count) {
+                [styleNodesStack removeObjectAtIndex:styleNodesStack.count-1];
+            }
             return token.isWhitespace || token.type == CASTokenTypeSemiColon;
         }];
         if (!acceptableToken && !closeNode) {
@@ -189,7 +210,7 @@ NSInteger const CASParseErrorFileContents = 2;
         }
     }
 
-    return self.styleSelectors;
+    return allStyleNodes;
 }
 
 #pragma mark - token helpers
@@ -286,7 +307,7 @@ NSInteger const CASParseErrorFileContents = 2;
     CASToken *previousToken, *argNameToken, *argValueToken;
     token = nil;
     BOOL shouldSelectSubclasses = NO;
-    BOOL shouldSelectDescendants = YES;
+    BOOL shouldSelectIndirectSuperview = YES;
     BOOL argumentListMode = NO;
 
     while (--i > 0) {
@@ -333,12 +354,14 @@ NSInteger const CASParseErrorFileContents = 2;
             if (shouldSpawn) {
                 if (styleSelector) {
                     CASStyleSelector *childSelector = CASStyleSelector.new;
-                    styleSelector.shouldSelectDescendants = shouldSelectDescendants;
-                    styleSelector.childSelector = childSelector;
+                    childSelector.shouldSelectIndirectSuperview = shouldSelectIndirectSuperview;
+                    childSelector.parentSelector = styleSelector;
+                    styleSelector.parent = YES;
 
                     styleSelector = childSelector;
                 } else {
                     styleSelector = CASStyleSelector.new;
+                    styleSelector.shouldSelectIndirectSuperview = shouldSelectIndirectSuperview;
                 }
             }
 
@@ -359,34 +382,33 @@ NSInteger const CASParseErrorFileContents = 2;
 
             // reset state
             shouldSelectSubclasses = NO;
-            shouldSelectDescendants = YES;
+            shouldSelectIndirectSuperview = YES;
         } else if (token.type == CASTokenTypeLeftSquareBrace) {
             argumentListMode = YES;
         } else if([token valueIsEqualTo:@">"]) {
-            shouldSelectDescendants = NO;
+            shouldSelectIndirectSuperview = NO;
         } else if ([token valueIsEqualTo:@","]) {
             if (styleSelector) {
-                [styleNodes addObject:CASStyleNode.new];
-                styleSelector.node = styleNodes.lastObject;
-                [self.styleSelectors addObject:styleSelector];
+                CASStyleNode *node = CASStyleNode.new;
+                node.styleSelector = styleSelector;
+                [styleNodes addObject:node];
             }
             styleSelector = nil;
         }
     }
     if (styleSelector) {
-        [styleNodes addObject:CASStyleNode.new];
-        styleSelector.node = styleNodes.lastObject;
-        [self.styleSelectors addObject:styleSelector];
+        CASStyleNode *node = CASStyleNode.new;
+        node.styleSelector = styleSelector;
+        [styleNodes addObject:node];
     }
-    
+
     return styleNodes;
 }
 
 - (CASStyleProperty *)nextStyleProperty {
     NSInteger i = 1;
 
-    BOOL hasValues = NO;
-    CASToken *nameToken;
+    BOOL hasName = NO, hasValues = NO;
     CASToken *token = [self lookaheadByCount:i];
     while (token && token.type != CASTokenTypeNewline
            && token.type != CASTokenTypeLeftCurlyBrace
@@ -402,24 +424,29 @@ NSInteger const CASParseErrorFileContents = 2;
             continue;
         }
 
-        if (!nameToken) {
-            nameToken = token;
+        if (!hasName && token.value) {
+            hasName = YES;
         } else {
             hasValues = YES;
         }
         token = [self lookaheadByCount:++i];
     }
 
-    if (nameToken.value && hasValues) {
+    if (hasName && hasValues) {
+        CASToken *nameToken;
         NSMutableArray *valueTokens = NSMutableArray.new;
         NSMutableDictionary *arguments;
         CASToken *argNameToken, *argValueToken;
         BOOL argumentListMode = NO;
 
         // consume tokens
-        token = [self nextToken];
         while (--i > 0) {
             token = [self nextToken];
+
+            if (!nameToken && token.value) {
+                nameToken = token;
+                continue;
+            }
 
             if (argumentListMode) {
                 if (token.type == CASTokenTypeRightSquareBrace) {

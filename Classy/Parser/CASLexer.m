@@ -109,10 +109,11 @@ NSString * const CASParseFailingStringErrorKey = @"CASParseFailingStringErrorKey
 - (CASToken *)lookaheadByCount:(NSUInteger)count {
     NSAssert(count > 0, @"Invalid lookahead. Count `%d` must be >= 1", count);
     NSInteger fetch = count - self.stash.count;
-    while (fetch-- > 0) {
+    while (fetch > 0) {
         CASToken *token = self.advanceToken;
         [self attachDebugInfoForToken:token];
         [self.stash addObject:token];
+        fetch = count - self.stash.count;
     }
     return self.stash[count-1];
 }
@@ -279,21 +280,20 @@ NSString * const CASParseFailingStringErrorKey = @"CASParseFailingStringErrorKey
     }
 
     NSInteger indents = [match rangeAtIndex:1].length;
-    CASToken *token;
     if (self.indentStack.count && indents < [self.indentStack[0] integerValue]) {
         while (self.indentStack.count && [self.indentStack[0] integerValue] > indents) {
-            [self.stash insertObject:[CASToken tokenOfType:CASTokenTypeOutdent] atIndex:0];
+            [self.stash addObject:[CASToken tokenOfType:CASTokenTypeOutdent]];
             [self.indentStack removeObjectAtIndex:0];
         }
-        token = [self popToken];
+        return [self advanceToken];
     } else if (indents && indents != (self.indentStack.count ? [self.indentStack[0] integerValue] : 0)) {
         [self.indentStack insertObject:@(indents) atIndex:0];
-        token = [CASToken tokenOfType:CASTokenTypeIndent];
+        return [CASToken tokenOfType:CASTokenTypeIndent];
     } else {
-        token = [CASToken tokenOfType:CASTokenTypeNewline];
+        return [CASToken tokenOfType:CASTokenTypeNewline];
     }
-    
-    return token;
+
+    return self.advanceToken;
 }
 
 - (CASToken *)squareBrace {

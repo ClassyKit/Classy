@@ -17,16 +17,29 @@
     if (!self) return nil;
 
     self.shouldSelectSubclasses = NO;
-    self.shouldSelectDescendants = YES;
+    self.shouldSelectIndirectSuperview = YES;
 
     return self;
 }
 
+- (id)copyWithZone:(NSZone *)zone {
+    CASStyleSelector *newSelector = [[self.class allocWithZone:zone] init];
+    if (!newSelector) return nil;
+
+    newSelector.viewClass = self.viewClass;
+    newSelector.styleClass = self.styleClass;
+    newSelector.shouldSelectSubclasses = self.shouldSelectSubclasses;
+    newSelector.shouldSelectIndirectSuperview = self.shouldSelectIndirectSuperview;
+    newSelector.arguments = [self.arguments copy];
+    newSelector.parentSelector = [self.parentSelector copy];
+
+    return newSelector;
+}
+
 #pragma mark - properties
 
-- (void)setChildSelector:(CASStyleSelector *)childSelector {
-    _childSelector = childSelector;
-    _childSelector.parentSelector = self;
+- (CASStyleSelector *)lastSelector {
+    return self.parentSelector.lastSelector ?: self;
 }
 
 #pragma mark - public
@@ -35,7 +48,7 @@
     NSInteger precedence = 0;
     if (self.viewClass) {
         if (self.isParent) {
-            precedence += self.shouldSelectDescendants ? 2 : 3;
+            precedence += self.shouldSelectIndirectSuperview ? 2 : 3;
         } else {
             precedence += 4;
         }
@@ -46,7 +59,7 @@
 
     if (self.styleClass) {
         if (self.isParent) {
-            precedence += self.shouldSelectDescendants ? 1000 : 2000;
+            precedence += self.shouldSelectIndirectSuperview ? 1000 : 2000;
         } else {
             precedence += 3000;
         }
@@ -63,9 +76,11 @@
 
     UIView *ancestorView;
 
+    BOOL traverse = self.shouldSelectIndirectSuperview;
 	for (CASStyleSelector *parent = self.parentSelector; parent != nil; parent = parent.parentSelector) {
-        ancestorView = [parent firstSelectableAncestorOfView:ancestorView ?: view];
+        ancestorView = [parent firstSelectableAncestorOfView:ancestorView ?: view traverse:traverse];
         if (!ancestorView) return NO;
+        traverse = parent.shouldSelectIndirectSuperview;
     }
 
     return YES;
@@ -74,7 +89,7 @@
 - (NSString *)stringValue {
     NSMutableString *stringValue = NSMutableString.new;
     if (self.parentSelector) {
-        [stringValue appendFormat:self.parentSelector.shouldSelectDescendants ? @"%@ " : @"%@ > ", [self.parentSelector stringValue]];
+        [stringValue appendFormat:self.shouldSelectIndirectSuperview ? @"%@ " : @"%@ > ", [self.parentSelector stringValue]];
     }
     if (self.shouldSelectSubclasses) {
         [stringValue appendString:@"^"];
@@ -101,14 +116,10 @@
 
 #pragma mark - private
 
-- (BOOL)isParent {
-    return self.childSelector != nil;
-}
-
-- (UIView *)firstSelectableAncestorOfView:(UIView *)view {
+- (UIView *)firstSelectableAncestorOfView:(UIView *)view traverse:(BOOL)traverse {
 	for (UIView *ancestor = view.superview; ancestor != nil; ancestor = ancestor.superview) {
         if ([self shouldSelectSingleView:ancestor]) return ancestor;
-        if (!self.shouldSelectDescendants) return nil;
+        if (!traverse) return nil;
 	}
 	return nil;
 }

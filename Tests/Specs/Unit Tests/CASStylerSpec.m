@@ -13,9 +13,10 @@
 #import <objc/runtime.h>
 #import "CASExampleView.h"
 #import "UITextField+CASAdditions.h"
+#import "CASStyleNode.h"
 
 @interface CASStyler ()
-@property (nonatomic, strong) NSMutableArray *styles;
+@property (nonatomic, strong) NSMutableArray *styleNodes;
 @end
 
 SpecBegin(CASStyler)
@@ -42,18 +43,18 @@ SpecBegin(CASStyler)
     [styler setFilePath:filePath error:&error];
     expect(error).to.beNil();
 
-    expect([styler.styles[0] stringValue]).to.equal(@"UIView.bordered");
-    expect([styler.styles[1] stringValue]).to.equal(@"UIControl.border");
-    expect([styler.styles[2] stringValue]).to.equal(@"UIButton UIControl[state:selected]");
-    expect([styler.styles[3] stringValue]).to.equal(@"UINavigationBar UIButton");
-    expect([styler.styles[4] stringValue]).to.equal(@"UISlider");
+    expect([[styler.styleNodes[0] styleSelector] stringValue]).to.equal(@"UIView.bordered");
+    expect([[styler.styleNodes[1] styleSelector] stringValue]).to.equal(@"UIControl.border");
+    expect([[styler.styleNodes[2] styleSelector] stringValue]).to.equal(@"UIButton UIControl[state:selected]");
+    expect([[styler.styleNodes[3] styleSelector] stringValue]).to.equal(@"UINavigationBar UIButton");
+    expect([[styler.styleNodes[4] styleSelector] stringValue]).to.equal(@"UISlider");
 }
 
 - (void)testSelectViewWithStyleClass {
     CASStyler *styler = CASStyler.new;
     styler.filePath = [[NSBundle bundleForClass:self.class] pathForResource:@"Properties-Basic.cas" ofType:nil];
 
-    CASStyleSelector *selector = styler.styles[0];
+    CASStyleSelector *selector = [styler.styleNodes[0] styleSelector];
     expect([selector stringValue]).to.equal(@"UIView.bordered");
     expect([selector shouldSelectView:UIView.new]).to.beFalsy();
 
@@ -66,7 +67,7 @@ SpecBegin(CASStyler)
     CASStyler *styler = CASStyler.new;
     styler.filePath = [[NSBundle bundleForClass:self.class] pathForResource:@"Properties-Basic.cas" ofType:nil];
 
-    CASStyleSelector *selector = styler.styles[3];
+    CASStyleSelector *selector = [styler.styleNodes[3] styleSelector];
     expect([selector stringValue]).to.equal(@"UINavigationBar UIButton");
     expect([selector shouldSelectView:UIButton.new]).to.beFalsy();
 
