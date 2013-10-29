@@ -71,17 +71,12 @@
 }
 
 - (BOOL)shouldSelectView:(UIView *)view {
-    if (![self shouldSelectSingleView:view]) {
+    if (![self matchesView:view]) {
         return NO;
     }
 
-    UIView *ancestorView;
-
-    BOOL traverse = self.shouldSelectIndirectSuperview;
-	for (CASStyleSelector *parent = self.parentSelector; parent != nil; parent = parent.parentSelector) {
-        ancestorView = [parent firstSelectableAncestorOfView:ancestorView ?: view traverse:traverse];
-        if (!ancestorView) return NO;
-        traverse = parent.shouldSelectIndirectSuperview;
+    if (self.parentSelector) {
+        return [self.parentSelector matchesAncestorsOfView:view traverse:self.shouldSelectIndirectSuperview];
     }
 
     return YES;
@@ -117,15 +112,20 @@
 
 #pragma mark - private
 
-- (UIView *)firstSelectableAncestorOfView:(UIView *)view traverse:(BOOL)traverse {
-	for (UIView *ancestor = view.superview; ancestor != nil; ancestor = ancestor.superview) {
-        if ([self shouldSelectSingleView:ancestor]) return ancestor;
-        if (!traverse) return nil;
-	}
-	return nil;
+- (BOOL)matchesAncestorsOfView:(UIView *)view traverse:(BOOL)traverse {
+    for (UIView *ancestor = view.superview; ancestor != nil; ancestor = ancestor.superview) {
+        BOOL ancestorMatch = [self matchesView:ancestor];
+        if (ancestorMatch) {
+            if (!self.parentSelector) return YES;
+            BOOL traverse = self.shouldSelectIndirectSuperview;
+            if ([self.parentSelector matchesAncestorsOfView:ancestor traverse:traverse]) return YES;
+        }
+        if (!traverse) return NO;
+    }
+    return NO;
 }
 
-- (BOOL)shouldSelectSingleView:(UIView *)view {
+- (BOOL)matchesView:(UIView *)view {
     if (self.viewClass) {
         if (self.shouldSelectSubclasses) {
             if (![view isKindOfClass:self.viewClass]) return NO;
