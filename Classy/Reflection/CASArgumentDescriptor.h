@@ -27,6 +27,7 @@ typedef NS_ENUM(NSUInteger, CASPrimitiveType) {
 
 @interface CASArgumentDescriptor : NSObject
 
+@property (nonatomic, strong, readonly) NSString *name;
 @property (nonatomic, strong, readonly) Class argumentClass;
 @property (nonatomic, assign, readonly) CASPrimitiveType primitiveType;
 @property (nonatomic, strong, readonly) NSDictionary *valuesByName;
@@ -35,5 +36,6 @@ typedef NS_ENUM(NSUInteger, CASPrimitiveType) {
 + (instancetype)argWithType:(NSString *)type;
 + (instancetype)argWithClass:(Class)class;
 + (instancetype)argWithValuesByName:(NSDictionary *)valuesByName;
++ (instancetype)argWithName:(NSString *)name valuesByName:(NSDictionary *)valuesByName;
 
 @end

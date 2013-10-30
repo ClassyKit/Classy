@@ -7,16 +7,43 @@
 //
 
 #import "Classy.h"
+#import "UIColor+CASAdditions.h"
 
 SpecBegin(CASUIAppearance)
 
-- (void)testUIButtonAppearance {
+- (void)setUp {
     NSError *error = nil;
     NSString *filePath = [[NSBundle bundleForClass:self.class] pathForResource:@"UIAppearance-Basic.cas" ofType:nil];
-    CASStyler *styler = CASStyler.new;
-    [styler setFilePath:filePath error:&error];
-
+    [CASStyler.defaultStyler setFilePath:filePath error:&error];
     expect(error).to.beNil();
 }
+
+- (void)testUIButtonAppearance {
+    UIButton *button = UIButton.new;
+
+    [CASStyler.defaultStyler styleView:button];
+
+    // titleColor
+    expect([button titleColorForState:UIControlStateNormal]).to.equal([UIColor yellowColor]);
+    expect([button titleColorForState:UIControlStateHighlighted]).to.equal([UIColor cas_colorWithHex:@"#e3e3e3"]);
+    expect([button titleColorForState:UIControlStateDisabled]).to.equal([UIColor cas_colorWithHex:@"#e4e4e4"]);
+    expect([button titleColorForState:UIControlStateSelected]).to.equal([UIColor cas_colorWithHex:@"#e5e5e5"]);
+
+    // titleShadow
+    expect([button titleShadowColorForState:UIControlStateNormal]).to.equal([UIColor cas_colorWithHex:@"#e6e6e6"]);
+    expect([button titleShadowColorForState:UIControlStateHighlighted]).to.equal([UIColor cas_colorWithHex:@"#e7e7e7"]);
+    expect([button titleShadowColorForState:UIControlStateDisabled]).to.equal([UIColor cas_colorWithHex:@"#f4f4f4"]);
+    expect([button titleShadowColorForState:UIControlStateSelected]).to.equal([UIColor cas_colorWithHex:@"#f5f5f5"]);
+
+    // backgroundImage
+    expect([button backgroundImageForState:UIControlStateNormal]).to.equal([UIImage imageNamed:@"bg_button_normal"]);
+
+    UIImage *highlightedImage = [[UIImage imageNamed:@"bg_button_highlighted"] resizableImageWithCapInsets:UIEdgeInsetsMake(15, 14, 13, 12)];
+    expect([button backgroundImageForState:UIControlStateHighlighted].CGImage).to.equal(highlightedImage.CGImage);
+    expect([button backgroundImageForState:UIControlStateHighlighted].capInsets).to.equal(highlightedImage.capInsets);
+    expect([button backgroundImageForState:UIControlStateDisabled]).to.equal([UIImage imageNamed:@"bg_button_disabled"]);
+    expect([button backgroundImageForState:UIControlStateSelected]).to.equal([UIImage imageNamed:@"bg_button_selected"]);
+}
+
 
 SpecEnd

@@ -144,6 +144,18 @@
     return NO;
 }
 
+- (BOOL)transformValuesToNSString:(NSString **)string {
+    NSString *value = [self valueOfTokenType:CASTokenTypeString]
+        ?: [self valueOfTokenType:CASTokenTypeRef]
+        ?: [self valueOfTokenType:CASTokenTypeSelector];
+    if (value) {
+        *string = value;
+        return YES;
+    }
+
+    return NO;
+}
+
 - (BOOL)transformValuesToUIImage:(UIImage **)image {
     UIEdgeInsets insets;
     BOOL hasInsets = [self transformValuesToUIEdgeInsets:&insets];

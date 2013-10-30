@@ -107,6 +107,17 @@
     [invocation retainArguments];
     [propertyDescriptor.argumentDescriptors enumerateObjectsUsingBlock:^(CASArgumentDescriptor *argDescriptor, NSUInteger idx, BOOL *stop) {
         NSInteger argIndex = 2 + idx;
+
+        if (idx > 0) {
+            //arguments after first only supports enums at moment
+            NSString *valueName = styleProperty.arguments[argDescriptor.name];
+            if (valueName.length) {
+                NSInteger value = [argDescriptor.valuesByName[valueName] integerValue];
+                [invocation setArgument:&value atIndex:argIndex];
+            }
+            return;
+        }
+
         switch (argDescriptor.primitiveType) {
             case CASPrimitiveTypeBOOL: {
                 BOOL value = [[styleProperty valueOfTokenType:CASTokenTypeBoolean] boolValue];
@@ -149,13 +160,14 @@
             UIImage *image = nil;
             [styleProperty transformValuesToUIImage:&image];
             [invocation setArgument:&image atIndex:argIndex];
-        } else if (argDescriptor.argumentClass  == UIColor.class) {
+        } else if (argDescriptor.argumentClass == UIColor.class) {
             UIColor *color = nil;
             [styleProperty transformValuesToUIColor:&color];
             [invocation setArgument:&color atIndex:argIndex];
-        } else if (argDescriptor.argumentClass) {
-            id firstValue = styleProperty.values.count ? styleProperty.values[0] : nil;
-            [invocation setArgument:&firstValue atIndex:argIndex];
+        } else if (argDescriptor.argumentClass == NSString.class) {
+            NSString *string = nil;
+            [styleProperty transformValuesToNSString:&string];
+            [invocation setArgument:&string atIndex:argIndex];
         }
     }];
     return invocation;
@@ -189,12 +201,10 @@
         @"bottomLeft"  : @(UIViewContentModeBottomLeft),
         @"bottomRight" : @(UIViewContentModeBottomRight),
     };
-    [viewClassDescriptor setPropertyType:[CASArgumentDescriptor argWithValuesByName:contentModeMap]
-                                  forKey:@cas_propertykey(UIView, contentMode)];
+    [viewClassDescriptor setArgumentDescriptors:@[[CASArgumentDescriptor argWithValuesByName:contentModeMap]] forPropertyKey:@cas_propertykey(UIView, contentMode)];
 
     // some properties don't show up via reflection so we need to add them manually
-    [viewClassDescriptor setPropertyType:[CASArgumentDescriptor argWithClass:UIColor.class]
-                                  forKey:@cas_propertykey(UIView, backgroundColor)];
+    [viewClassDescriptor setArgumentDescriptors:@[[CASArgumentDescriptor argWithClass:UIColor.class]] forPropertyKey:@cas_propertykey(UIView, backgroundColor)];
 
     // UITextField
     // TODO text insets
@@ -216,8 +226,7 @@
         @"justified" : @(NSTextAlignmentJustified),
         @"natural"   : @(NSTextAlignmentNatural),
     };
-    [viewClassDescriptor setPropertyType:[CASArgumentDescriptor argWithValuesByName:textAlignmentMap]
-                                  forKey:@cas_propertykey(UITextField, textAlignment)];
+    [viewClassDescriptor setArgumentDescriptors:@[[CASArgumentDescriptor argWithValuesByName:textAlignmentMap]] forPropertyKey:@cas_propertykey(UITextField, textAlignment)];
 
     NSDictionary *borderStyleMap = @{
         @"none"    : @(UITextBorderStyleNone),
@@ -225,8 +234,7 @@
         @"bezel"   : @(UITextBorderStyleBezel),
         @"rounded" : @(UITextBorderStyleRoundedRect),
     };
-    [viewClassDescriptor setPropertyType:[CASArgumentDescriptor argWithValuesByName:borderStyleMap]
-                                  forKey:@cas_propertykey(UITextField, borderStyle)];
+    [viewClassDescriptor setArgumentDescriptors:@[[CASArgumentDescriptor argWithValuesByName:borderStyleMap]] forPropertyKey:@cas_propertykey(UITextField, borderStyle)];
 
     
     // UIControl
@@ -238,8 +246,7 @@
         @"bottom" : @(UIControlContentVerticalAlignmentBottom),
         @"fill"   : @(UIControlContentVerticalAlignmentFill),
     };
-    [viewClassDescriptor setPropertyType:[CASArgumentDescriptor argWithValuesByName:contentVerticalAlignmentMap]
-                                  forKey:@cas_propertykey(UIControl, contentVerticalAlignment)];
+    [viewClassDescriptor setArgumentDescriptors:@[[CASArgumentDescriptor argWithValuesByName:contentVerticalAlignmentMap]] forPropertyKey:@cas_propertykey(UIControl, contentVerticalAlignment)];
 
     NSDictionary *contentHorizontalAlignmentMap = @{
         @"center" : @(UIControlContentHorizontalAlignmentCenter),
@@ -247,8 +254,23 @@
         @"right"  : @(UIControlContentHorizontalAlignmentRight),
         @"fill"   : @(UIControlContentHorizontalAlignmentFill),
     };
-    [viewClassDescriptor setPropertyType:[CASArgumentDescriptor argWithValuesByName:contentHorizontalAlignmentMap]
-                                  forKey:@cas_propertykey(UIControl, contentHorizontalAlignment)];
+    [viewClassDescriptor setArgumentDescriptors:@[[CASArgumentDescriptor argWithValuesByName:contentHorizontalAlignmentMap]] forPropertyKey:@cas_propertykey(UIControl, contentHorizontalAlignment)];
+
+    NSDictionary *controlStateMap = @{
+        @"normal"       : @(UIControlStateNormal),
+        @"highlighted"  : @(UIControlStateHighlighted),
+        @"disabled"     : @(UIControlStateDisabled),
+        @"selected"     : @(UIControlStateSelected),
+    };
+
+    // UIButton
+    viewClassDescriptor = [self viewClassDescriptorForClass:UIButton.class];
+
+    [viewClassDescriptor setArgumentDescriptors:@[[CASArgumentDescriptor argWithClass:UIColor.class], [CASArgumentDescriptor argWithName:@"state" valuesByName:controlStateMap]] setter:@selector(setTitleColor:forState:) forPropertyKey:@"titleColor"];
+
+    [viewClassDescriptor setArgumentDescriptors:@[[CASArgumentDescriptor argWithClass:UIColor.class], [CASArgumentDescriptor argWithName:@"state" valuesByName:controlStateMap]] setter:@selector(setTitleShadowColor:forState:) forPropertyKey:@"titleShadowColor"];
+
+    [viewClassDescriptor setArgumentDescriptors:@[[CASArgumentDescriptor argWithClass:UIImage.class], [CASArgumentDescriptor argWithName:@"state" valuesByName:controlStateMap]] setter:@selector(setBackgroundImage:forState:) forPropertyKey:@"backgroundImage"];
 }
 
 - (CASViewClassDescriptor *)viewClassDescriptorForClass:(Class)class {

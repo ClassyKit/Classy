@@ -11,10 +11,10 @@
 
 @interface CASArgumentDescriptor ()
 
+@property (nonatomic, strong, readwrite) NSString *name;
 @property (nonatomic, strong, readwrite) Class argumentClass;
 @property (nonatomic, strong, readwrite) NSString *type;
 @property (nonatomic, strong, readwrite) NSDictionary *valuesByName;
-
 
 @end
 
@@ -42,6 +42,12 @@
     CASArgumentDescriptor *descriptor = CASArgumentDescriptor.new;
     descriptor.type = [NSString stringWithUTF8String:@encode(NSInteger)];
     descriptor.valuesByName = valuesByName;
+    return descriptor;
+}
+
++ (instancetype)argWithName:(NSString *)name valuesByName:(NSDictionary *)valuesByName {
+    CASArgumentDescriptor *descriptor = [self argWithValuesByName:valuesByName];
+    descriptor.name = name;
     return descriptor;
 }
 

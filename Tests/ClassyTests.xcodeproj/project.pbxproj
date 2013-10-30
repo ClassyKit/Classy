@@ -28,6 +28,10 @@
 		DD10AD51181A174A00A5B71D /* CASUIAppearanceSpec.m in Sources */ = {isa = PBXBuildFile; fileRef = DD10AD50181A174A00A5B71D /* CASUIAppearanceSpec.m */; };
 		DD10AD53181A176000A5B71D /* CASCustomViewSpec.m in Sources */ = {isa = PBXBuildFile; fileRef = DD10AD52181A176000A5B71D /* CASCustomViewSpec.m */; };
 		DD10AD55181A1C9100A5B71D /* Properties-Args.cas in Resources */ = {isa = PBXBuildFile; fileRef = DD10AD54181A1C9100A5B71D /* Properties-Args.cas */; };
+		DD175F8F1820C81900139EBE /* bg_button_normal.png in Resources */ = {isa = PBXBuildFile; fileRef = DD175F8B1820C81900139EBE /* bg_button_normal.png */; };
+		DD175F901820C81A00139EBE /* bg_button_highlighted.png in Resources */ = {isa = PBXBuildFile; fileRef = DD175F8C1820C81900139EBE /* bg_button_highlighted.png */; };
+		DD175F911820C81A00139EBE /* bg_button_disabled.png in Resources */ = {isa = PBXBuildFile; fileRef = DD175F8D1820C81900139EBE /* bg_button_disabled.png */; };
+		DD175F921820C81A00139EBE /* bg_button_selected.png in Resources */ = {isa = PBXBuildFile; fileRef = DD175F8E1820C81900139EBE /* bg_button_selected.png */; };
 		DD592B13181DE5E800C30F7F /* Selectors-Nested.cas in Resources */ = {isa = PBXBuildFile; fileRef = DD592B12181DE5E800C30F7F /* Selectors-Nested.cas */; };
 		DD9389DE18206A0100C0FFA7 /* CASStyleSelectorSpec.m in Sources */ = {isa = PBXBuildFile; fileRef = DD9389DD18206A0100C0FFA7 /* CASStyleSelectorSpec.m */; };
 		DDBF583418113BC10059B8D3 /* XCTest.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DDBF582518112ECA0059B8D3 /* XCTest.framework */; };
@@ -76,6 +80,10 @@
 		DD10AD50181A174A00A5B71D /* CASUIAppearanceSpec.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CASUIAppearanceSpec.m; sourceTree = "<group>"; };
 		DD10AD52181A176000A5B71D /* CASCustomViewSpec.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CASCustomViewSpec.m; sourceTree = "<group>"; };
 		DD10AD54181A1C9100A5B71D /* Properties-Args.cas */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = "Properties-Args.cas"; sourceTree = "<group>"; };
+		DD175F8B1820C81900139EBE /* bg_button_normal.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = bg_button_normal.png; sourceTree = "<group>"; };
+		DD175F8C1820C81900139EBE /* bg_button_highlighted.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = bg_button_highlighted.png; sourceTree = "<group>"; };
+		DD175F8D1820C81900139EBE /* bg_button_disabled.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = bg_button_disabled.png; sourceTree = "<group>"; };
+		DD175F8E1820C81900139EBE /* bg_button_selected.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = bg_button_selected.png; sourceTree = "<group>"; };
 		DD43DA8A1810F5D40058FBC1 /* Classy-Prefix.pch */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "Classy-Prefix.pch"; sourceTree = "<group>"; };
 		DD592B12181DE5E800C30F7F /* Selectors-Nested.cas */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = "Selectors-Nested.cas"; sourceTree = "<group>"; };
 		DD9389DD18206A0100C0FFA7 /* CASStyleSelectorSpec.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CASStyleSelectorSpec.m; sourceTree = "<group>"; };
@@ -228,6 +236,10 @@
 		DDD3D4BB1810D8B100E378A2 /* ClassyTestsLoader */ = {
 			isa = PBXGroup;
 			children = (
+				DD175F8B1820C81900139EBE /* bg_button_normal.png */,
+				DD175F8C1820C81900139EBE /* bg_button_highlighted.png */,
+				DD175F8D1820C81900139EBE /* bg_button_disabled.png */,
+				DD175F8E1820C81900139EBE /* bg_button_selected.png */,
 				DDD3D4FF1810DF7C00E378A2 /* bg_textfield.png */,
 				DDD3D4BC1810D8B100E378A2 /* ClassyTestsLoader-Info.plist */,
 				DDD3D4BD1810D8B100E378A2 /* Images.xcassets */,
@@ -334,8 +346,12 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				DD175F901820C81A00139EBE /* bg_button_highlighted.png in Resources */,
 				DDD3D5001810DF7C00E378A2 /* bg_textfield.png in Resources */,
 				DDD3D4C01810D8B100E378A2 /* Images.xcassets in Resources */,
+				DD175F911820C81A00139EBE /* bg_button_disabled.png in Resources */,
+				DD175F8F1820C81900139EBE /* bg_button_normal.png in Resources */,
+				DD175F921820C81A00139EBE /* bg_button_selected.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

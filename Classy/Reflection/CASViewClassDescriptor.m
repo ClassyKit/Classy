@@ -31,14 +31,14 @@
 
 #pragma mark - property descriptor support
 
-- (void)setPropertyType:(CASArgumentDescriptor *)argDescriptor forKey:(NSString *)key {
-    CASPropertyDescriptor *propertyDescriptor = [[CASPropertyDescriptor alloc] initWithKey:key];
-    propertyDescriptor.argumentDescriptors = @[argDescriptor];
+- (void)setArgumentDescriptors:(NSArray *)argumentDescriptors forPropertyKey:(NSString *)key {
+    CASPropertyDescriptor *propertyDescriptor = [[CASPropertyDescriptor alloc] initWithKey:key argumentDescriptors:argumentDescriptors];
+    self.propertyDescriptorCache[propertyDescriptor.key] = propertyDescriptor;
+}
 
-    NSString *setter = [NSString stringWithFormat:@"set%@:", [key cas_stringByCapitalizingFirstLetter]];
-
-    propertyDescriptor.setter = NSSelectorFromString(setter);
-    self.propertyDescriptorCache[key] = propertyDescriptor;
+- (void)setArgumentDescriptors:(NSArray *)argumentDescriptors setter:(SEL)setter forPropertyKey:(NSString *)key {
+    CASPropertyDescriptor *propertyDescriptor = [[CASPropertyDescriptor alloc] initWithKey:key argumentDescriptors:argumentDescriptors setter:setter];
+    self.propertyDescriptorCache[propertyDescriptor.key] = propertyDescriptor;
 }
 
 - (NSInvocation *)invocationForPropertyDescriptor:(CASPropertyDescriptor *)propertyDescriptor {
@@ -67,28 +67,33 @@
 
     if (self.propertyKeyAliases[propertyKey]
         || ([self.viewClass instancesRespondToSelector:propertySelector] && ![self.viewClass.superclass instancesRespondToSelector:propertySelector])) {
-        propertyDescriptor = [[CASPropertyDescriptor alloc] initWithKey:propertyKey];
 
         objc_property_t property = class_getProperty(self.viewClass, [propertyKey UTF8String]);
         if (property != NULL) {
             cas_propertyAttributes *propertyAttributes = cas_copyPropertyAttributes(class_getProperty(self.viewClass, [propertyKey UTF8String]));
             if (!propertyAttributes->readonly) {
+
+                NSArray *argumentDescriptors;
                 if (propertyAttributes->objectClass) {
-                    propertyDescriptor.argumentDescriptors = @[
+                    argumentDescriptors = @[
                         [CASArgumentDescriptor argWithClass:propertyAttributes->objectClass]
                     ];
                 } else {
                     NSString *type = [NSString stringWithCString:propertyAttributes->type encoding:NSASCIIStringEncoding];
-                    propertyDescriptor.argumentDescriptors = @[
+                    argumentDescriptors = @[
                         [CASArgumentDescriptor argWithType:type]
                     ];
                 }
-                propertyDescriptor.setter = propertyAttributes->setter;
-            }
-            free(propertyAttributes);
+                
+                propertyDescriptor = [[CASPropertyDescriptor alloc] initWithKey:propertyKey argumentDescriptors:argumentDescriptors setter:propertyAttributes->setter];
+                self.propertyDescriptorCache[propertyKey] = propertyDescriptor;
 
-            self.propertyDescriptorCache[propertyKey] = propertyDescriptor;
-            return propertyDescriptor;
+                free(propertyAttributes);
+                return propertyDescriptor;
+            } else {
+                free(propertyAttributes);
+                // TODO error
+            }
         } else {
             // TODO error
         }

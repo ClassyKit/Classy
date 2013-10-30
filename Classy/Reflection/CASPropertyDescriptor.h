@@ -12,9 +12,10 @@
 @interface CASPropertyDescriptor : NSObject
 
 @property (nonatomic, strong, readonly) NSString *key;
-@property (nonatomic, strong) NSArray *argumentDescriptors;
-@property (nonatomic, assign) SEL setter;
+@property (nonatomic, strong, readonly) NSArray *argumentDescriptors;
+@property (nonatomic, assign, readonly) SEL setter;
 
-- (id)initWithKey:(NSString *)key;
+- (id)initWithKey:(NSString *)key argumentDescriptors:(NSArray *)argumentDescriptors;
+- (id)initWithKey:(NSString *)key argumentDescriptors:(NSArray *)argumentDescriptors setter:(SEL)setter;
 
 @end

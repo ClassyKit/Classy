@@ -32,6 +32,7 @@
 
 - (CASPropertyDescriptor *)propertyDescriptorForKey:(NSString *)key;
 
-- (void)setPropertyType:(CASArgumentDescriptor *)argDescriptor forKey:(NSString *)key;
+- (void)setArgumentDescriptors:(NSArray *)argumentDescriptors forPropertyKey:(NSString *)key;
+- (void)setArgumentDescriptors:(NSArray *)argumentDescriptors setter:(SEL)setter forPropertyKey:(NSString *)key;
 
 @end

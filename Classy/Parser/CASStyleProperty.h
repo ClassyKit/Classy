@@ -103,6 +103,15 @@
 - (BOOL)transformValuesToUIImage:(UIImage **)image;
 
 /**
+ *  Attempts to extract a NSString from the valueTokens
+ *
+ *  @param string NSString pointer
+ *
+ *  @return whether the extraction succeeded
+ */
+- (BOOL)transformValuesToNSString:(NSString **)string;
+
+/**
  *  Replace any detected expressions/equations with a numerical value
  */
 - (void)resolveExpressions;
