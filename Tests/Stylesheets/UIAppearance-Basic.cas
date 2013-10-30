@@ -1,6 +1,7 @@
 // Support for all UIAppearance setter methods
 // https://gist.github.com/mattt/5135521
 
+
 UIActivityIndicatorView {
   color: red
 }
