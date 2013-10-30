@@ -18,10 +18,18 @@ SpecBegin(CASUIAppearance)
     expect(error).to.beNil();
 }
 
+- (void)testUIActivityIndicatorViewAppearance {
+    UIActivityIndicatorView *view = UIActivityIndicatorView.new;
+    [CASStyler.defaultStyler styleView:view];
+
+    expect(view.color).to.equal([UIColor redColor]);
+}
+
 - (void)testUIButtonAppearance {
     UIButton *button = UIButton.new;
-
     [CASStyler.defaultStyler styleView:button];
+
+    expect(button.contentEdgeInsets).to.equal(UIEdgeInsetsMake(1, 2, 3, 4));
 
     // titleColor
     expect([button titleColorForState:UIControlStateNormal]).to.equal([UIColor yellowColor]);

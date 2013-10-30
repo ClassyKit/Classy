@@ -1,7 +1,12 @@
-// Support for all UIAppearance methods
+// Support for all UIAppearance setter methods
 // https://gist.github.com/mattt/5135521
 
+UIActivityIndicatorView {
+  color: red
+}
+
 UIButton {
+  content-edge-insets: 1 2 3 4
   title-color yellow
   title-color[state:highlighted] #e3e3e3
   title-color[state:disabled] #e4e4e4
