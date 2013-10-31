@@ -12,5 +12,6 @@
 
 - (NSString *)cas_stringByCapitalizingFirstLetter;
 - (NSString *)cas_stringByTrimmingWhitespace;
+- (NSString *)cas_stringByCamelCasing;
 
 @end

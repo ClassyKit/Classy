@@ -56,11 +56,11 @@ SpecBegin(CASStyler)
 
     CASStyleSelector *selector = [styler.styleNodes[0] styleSelector];
     expect([selector stringValue]).to.equal(@"UIView.bordered");
-    expect([selector shouldSelectView:UIView.new]).to.beFalsy();
+    expect([selector shouldSelectItem:UIView.new]).to.beFalsy();
 
     UIView *view = UIView.new;
     view.cas_styleClass = @"bordered";
-    expect([selector shouldSelectView:view]).to.beTruthy();
+    expect([selector shouldSelectItem:view]).to.beTruthy();
 }
 
 - (void)testSelectIndirectSuperview {
@@ -69,30 +69,30 @@ SpecBegin(CASStyler)
 
     CASStyleSelector *selector = [styler.styleNodes[3] styleSelector];
     expect([selector stringValue]).to.equal(@"UINavigationBar UIButton");
-    expect([selector shouldSelectView:UIButton.new]).to.beFalsy();
+    expect([selector shouldSelectItem:UIButton.new]).to.beFalsy();
 
     //direct superview
     UIButton *button = UIButton.new;
     button.cas_styleClass = @"large";
     UINavigationBar *navigationBar = UINavigationBar.new;
     [navigationBar addSubview:button];
-    expect([selector shouldSelectView:button]).to.beTruthy();
+    expect([selector shouldSelectItem:button]).to.beTruthy();
 
     //indirect superview
     [button removeFromSuperview];
     UIImageView *imageView = UIImageView.new;
     [imageView addSubview:button];
     [navigationBar addSubview:imageView];
-    expect([selector shouldSelectView:button]).to.beTruthy();
+    expect([selector shouldSelectItem:button]).to.beTruthy();
 }
 
 - (void)testSelectSubclasses {
     CASStyleSelector *selector = CASStyleSelector.new;
     selector.viewClass = UIControl.class;
     selector.shouldSelectSubclasses = YES;
-    expect([selector shouldSelectView:UIControl.new]).to.equal(YES);
-    expect([selector shouldSelectView:UIView.new]).to.equal(NO);
-    expect([selector shouldSelectView:UIButton.new]).to.equal(YES);
+    expect([selector shouldSelectItem:UIControl.new]).to.equal(YES);
+    expect([selector shouldSelectItem:UIView.new]).to.equal(NO);
+    expect([selector shouldSelectItem:UIButton.new]).to.equal(YES);
 }
 
 SpecEnd

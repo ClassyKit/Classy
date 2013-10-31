@@ -14,7 +14,7 @@ SpecBegin(CASUIKit)
     CASStyler *styler = CASStyler.new;
     styler.filePath = [[NSBundle bundleForClass:self.class] pathForResource:@"UIKit-Basic.cas" ofType:nil];
     UIView *view = UIView.new;
-    [styler styleView:view];
+    [styler styleItem:view];
 
     expect(view.cas_borderColor.cas_hexValue).to.equal(@"a1a1a1");
     expect(view.backgroundColor.cas_hexValue).to.equal(@"a2a2a2");
@@ -36,7 +36,7 @@ SpecBegin(CASUIKit)
 
     expect(view.cas_textEdgeInsets).to.equal(UIEdgeInsetsZero);
 
-    [styler styleView:view];
+    [styler styleItem:view];
 
     CGRect bounds = CGRectMake(0, 0, 10, 10);
     expect(view.cas_textEdgeInsets).to.equal(UIEdgeInsetsMake(4, 3, 2, 1));

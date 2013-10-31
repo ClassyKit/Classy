@@ -36,17 +36,7 @@
 
 - (NSString *)name {
     if (!_name) {
-        NSArray *components = [self.nameToken.value componentsSeparatedByString:@"-"];
-        NSMutableString *camelCasedName = [NSMutableString string];
-
-        for (NSUInteger i = 0; i < components.count; i++) {
-            if (i == 0) {
-                [camelCasedName appendString:components[i]];
-            } else {
-                [camelCasedName appendString:[components[i] cas_stringByCapitalizingFirstLetter]];
-            }
-        }
-        _name = camelCasedName;
+        _name = [self.nameToken.value cas_stringByCamelCasing];
     }
     return _name;
 }

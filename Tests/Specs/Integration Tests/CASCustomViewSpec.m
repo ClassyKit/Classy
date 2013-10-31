@@ -15,7 +15,7 @@ SpecBegin(CASCustomView)
     CASStyler *styler = CASStyler.new;
     styler.filePath = [[NSBundle bundleForClass:self.class] pathForResource:@"CustomView-Basic.cas" ofType:nil];
     CASExampleView *exampleView = CASExampleView.new;
-    [styler styleView:exampleView];
+    [styler styleItem:exampleView];
 
     expect(exampleView.testCGFloat).to.equal(4.5);
     expect(exampleView.testBOOL).to.equal(YES);

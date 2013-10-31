@@ -1,3 +1,5 @@
+extracted using technique described at https://gist.github.com/mattt/5135521
+
 ### UIActivityIndicatorView
 
 ```objective-c

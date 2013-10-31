@@ -12,3 +12,12 @@ NSString *_CASAbsoluteFilePath(const char *currentFilePath, NSString *relativeFi
     NSString *currentDirectory = [[NSString stringWithUTF8String:currentFilePath] stringByDeletingLastPathComponent];
     return [currentDirectory stringByAppendingPathComponent:relativeFilePath];
 }
+
+NSUInteger CASKeyDeviceSystemMajorVersion() {
+    static NSUInteger _deviceSystemMajorVersion = -1;
+    static dispatch_once_t onceToken;
+    dispatch_once(&onceToken, ^{
+        _deviceSystemMajorVersion = [[[[[UIDevice currentDevice] systemVersion] componentsSeparatedByString:@"."] objectAtIndex:0] intValue];
+    });
+    return _deviceSystemMajorVersion;
+}

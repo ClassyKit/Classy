@@ -13,6 +13,7 @@
 #import "UITextField+CASAdditions.h"
 #import "CASUtilities.h"
 #import "CASStyleNode.h"
+#import "NSString+CASAdditions.h"
 
 @interface CASStyler ()
 
@@ -43,7 +44,7 @@
     return self;
 }
 
-- (void)styleView:(UIView *)view {
+- (void)styleItem:(id<CASStyleableItem>)item {
     if (!self.filePath) {
         // load default style file
         self.filePath = [[NSBundle mainBundle] pathForResource:@"stylesheet.cas" ofType:nil];
@@ -51,13 +52,15 @@
     // TODO style lookup table to improve speed.
 
     for (CASStyleNode *styleNode in self.styleNodes.reverseObjectEnumerator) {
-        if ([styleNode.styleSelector shouldSelectView:view]) {
+        if ([styleNode.styleSelector shouldSelectItem:item]) {
             // apply style nodes
             for (CASStyleProperty *styleProperty in styleNode.properties) {
-                [styleProperty.invocation invokeWithTarget:view];
+                [styleProperty.invocation invokeWithTarget:item];
             }
         }
     }
+
+    item.cas_styleApplied = YES;
 }
 
 - (void)setFilePath:(NSString *)filePath {
@@ -110,7 +113,7 @@
 
         if (idx > 0) {
             //arguments after first only supports enums at moment
-            NSString *valueName = styleProperty.arguments[argDescriptor.name];
+            NSString *valueName = [styleProperty.arguments[argDescriptor.name] cas_stringByCamelCasing];
             if (valueName.length) {
                 NSInteger value = [argDescriptor.valuesByName[valueName] integerValue];
                 [invocation setArgument:&value atIndex:argIndex];
@@ -127,7 +130,7 @@
             case CASPrimitiveTypeInteger: {
                 NSInteger value;
                 if (argDescriptor.valuesByName) {
-                    NSString *valueName = [styleProperty valueOfTokenType:CASTokenTypeRef];
+                    NSString *valueName = [[styleProperty valueOfTokenType:CASTokenTypeRef] cas_stringByCamelCasing];
                     value = [argDescriptor.valuesByName[valueName] integerValue];
                 } else {
                     value = [[styleProperty valueOfTokenType:CASTokenTypeUnit] integerValue];
@@ -263,6 +266,19 @@
         @"selected"     : @(UIControlStateSelected),
     };
 
+    NSDictionary *barButtonItemStyleMap = @{
+        @"plain"    : @(UIBarButtonItemStylePlain),
+        @"bordered" : @(UIBarButtonItemStyleBordered),
+        @"done"     : @(UIBarButtonItemStyleDone)
+    };
+
+    NSDictionary *barMetricsMap = @{
+        @"default"                : @(UIBarMetricsDefault),
+        @"landscapePhone"        : @(UIBarMetricsLandscapePhone),
+        @"defaultPrompt"         : @(UIBarMetricsDefaultPrompt),
+        @"landscapePhonePrompt" : @(UIBarMetricsLandscapePhonePrompt),
+    };
+
     // UIButton
     viewClassDescriptor = [self viewClassDescriptorForClass:UIButton.class];
 
@@ -271,6 +287,11 @@
     [viewClassDescriptor setArgumentDescriptors:@[[CASArgumentDescriptor argWithClass:UIColor.class], [CASArgumentDescriptor argWithName:@"state" valuesByName:controlStateMap]] setter:@selector(setTitleShadowColor:forState:) forPropertyKey:@"titleShadowColor"];
 
     [viewClassDescriptor setArgumentDescriptors:@[[CASArgumentDescriptor argWithClass:UIImage.class], [CASArgumentDescriptor argWithName:@"state" valuesByName:controlStateMap]] setter:@selector(setBackgroundImage:forState:) forPropertyKey:@"backgroundImage"];
+
+    // UIBarButtonItem
+    viewClassDescriptor = [self viewClassDescriptorForClass:UIBarButtonItem.class];
+
+    [viewClassDescriptor setArgumentDescriptors:@[[CASArgumentDescriptor argWithClass:UIImage.class], [CASArgumentDescriptor argWithName:@"state" valuesByName:controlStateMap], [CASArgumentDescriptor argWithName:@"style" valuesByName:barButtonItemStyleMap], [CASArgumentDescriptor argWithName:@"barMetrics" valuesByName:barMetricsMap]] setter:@selector(setBackgroundImage:forState:style:barMetrics:) forPropertyKey:@"backgroundImage"];
 }
 
 - (CASViewClassDescriptor *)viewClassDescriptorForClass:(Class)class {
@@ -307,7 +328,7 @@
 
 - (void)styleSubviewsOfView:(UIView *)view {
     for (UIView *subview in view.subviews) {
-        [self styleView:subview];
+        [self styleItem:subview];
         [self styleSubviewsOfView:subview];
     }
 }

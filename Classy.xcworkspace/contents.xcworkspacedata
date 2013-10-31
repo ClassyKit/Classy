@@ -69,6 +69,9 @@
          location = "group:Additions"
          name = "Additions">
          <FileRef
+            location = "group:CASStyleableItem.h">
+         </FileRef>
+         <FileRef
             location = "group:NSObject+CASSwizzle.h">
          </FileRef>
          <FileRef
@@ -103,6 +106,18 @@
          </FileRef>
          <FileRef
             location = "group:UIView+CASAdditions.m">
+         </FileRef>
+         <FileRef
+            location = "group:UIBarButtonItem+CASAdditions.h">
+         </FileRef>
+         <FileRef
+            location = "group:UIBarButtonItem+CASAdditions.m">
+         </FileRef>
+         <FileRef
+            location = "group:UINavigationBar+CASAdditions.h">
+         </FileRef>
+         <FileRef
+            location = "group:UINavigationBar+CASAdditions.m">
          </FileRef>
       </Group>
       <Group

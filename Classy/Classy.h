@@ -14,3 +14,5 @@
 #import "UIColor+CASAdditions.h"
 #import "UITextField+CASAdditions.h"
 #import "UIView+CASAdditions.h"
+#import "UIBarButtonItem+CASAdditions.h"
+#import "UINavigationBar+CASAdditions.h"

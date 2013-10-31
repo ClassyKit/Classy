@@ -8,6 +8,7 @@
 
 #import <UIKit/UIKit.h>
 #import "CASViewClassDescriptor.h"
+#import "CASStyleableItem.h"
 
 @interface CASStyler : NSObject
 
@@ -36,11 +37,11 @@
 - (void)setFilePath:(NSString *)filePath error:(NSError **)error;
 
 /**
- *  Apply any applicable styles to view instance, from low to high precendence
+ *  Apply any applicable styles to a CASStyleableItem instance, from low to high precendence
  *
- *  @param view `UIView` to apply styles to
+ *  @param item `CASStyleableItem` to apply styles to
  */
-- (void)styleView:(UIView *)view;
+- (void)styleItem:(id<CASStyleableItem>)item;
 
 /**
  *  Returns a cached CASViewClassDescriptor if it exists or creates one

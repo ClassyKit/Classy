@@ -19,4 +19,19 @@
     return [self stringByTrimmingCharactersInSet:NSCharacterSet.whitespaceCharacterSet];
 }
 
+- (NSString *)cas_stringByCamelCasing {
+    NSArray *components = [self componentsSeparatedByString:@"-"];
+    if (components.count <= 1) return self;
+
+    NSMutableString *camelCasedString = [NSMutableString string];
+    for (NSUInteger i = 0; i < components.count; i++) {
+        if (i == 0) {
+            [camelCasedString appendString:components[i]];
+        } else {
+            [camelCasedString appendString:[components[i] cas_stringByCapitalizingFirstLetter]];
+        }
+    }
+    return camelCasedString;
+}
+
 @end

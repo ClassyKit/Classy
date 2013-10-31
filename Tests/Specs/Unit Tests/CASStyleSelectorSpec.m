@@ -31,13 +31,13 @@ SpecBegin(CASStyleSelector)
 
     selector.viewClass = UIView.class;
     expect(selector.stringValue).to.equal(@"UIView");
-    expect([selector shouldSelectView:UIView.new]).to.beTruthy();
-    expect([selector shouldSelectView:UISlider.new]).to.beFalsy();
+    expect([selector shouldSelectItem:UIView.new]).to.beTruthy();
+    expect([selector shouldSelectItem:UISlider.new]).to.beFalsy();
 
     selector.viewClass = UITabBar.class;
     expect(selector.stringValue).to.equal(@"UITabBar");
-    expect([selector shouldSelectView:UITabBar.new]).to.beTruthy();
-    expect([selector shouldSelectView:UINavigationBar.new]).to.beFalsy();
+    expect([selector shouldSelectItem:UITabBar.new]).to.beTruthy();
+    expect([selector shouldSelectItem:UINavigationBar.new]).to.beFalsy();
 }
 
 - (void)testSelectViewWithIndirectSuperview {
@@ -54,8 +54,8 @@ SpecBegin(CASStyleSelector)
     [control addSubview:slider];
 
     expect(selector.stringValue).to.equal(@"UIControl UISlider");
-    expect([selector shouldSelectView:UIView.new]).to.beFalsy();
-    expect([selector shouldSelectView:slider]).to.beTruthy();
+    expect([selector shouldSelectItem:UIView.new]).to.beFalsy();
+    expect([selector shouldSelectItem:slider]).to.beTruthy();
 
     //add view inbetween control and slider
     UIButton *button = UIButton.new;
@@ -63,7 +63,7 @@ SpecBegin(CASStyleSelector)
     [control addSubview:button];
     [button addSubview:slider];
 
-    expect([selector shouldSelectView:slider]).to.beTruthy();
+    expect([selector shouldSelectItem:slider]).to.beTruthy();
 }
 
 - (void)testSelectViewWithDirectSuperviewOnly {
@@ -81,8 +81,8 @@ SpecBegin(CASStyleSelector)
     [control addSubview:slider];
 
     expect(selector.stringValue).to.equal(@"UIControl > UISlider");
-    expect([selector shouldSelectView:UIView.new]).to.beFalsy();
-    expect([selector shouldSelectView:slider]).to.beTruthy();
+    expect([selector shouldSelectItem:UIView.new]).to.beFalsy();
+    expect([selector shouldSelectItem:slider]).to.beTruthy();
 
     //add view inbetween control and slider
     UIButton *button = UIButton.new;
@@ -90,7 +90,7 @@ SpecBegin(CASStyleSelector)
     [control addSubview:button];
     [button addSubview:slider];
 
-    expect([selector shouldSelectView:slider]).to.beFalsy();
+    expect([selector shouldSelectItem:slider]).to.beFalsy();
 }
 
 - (void)testSelectViewWithStyleClass {
@@ -100,17 +100,17 @@ SpecBegin(CASStyleSelector)
     selector.viewClass = UIView.class;
     UIView *view = UIView.new;
     expect(selector.stringValue).to.equal(@"UIView.big");
-    expect([selector shouldSelectView:view]).to.beFalsy();
+    expect([selector shouldSelectItem:view]).to.beFalsy();
     view.cas_styleClass = @"big";
-    expect([selector shouldSelectView:view]).to.beTruthy();
+    expect([selector shouldSelectItem:view]).to.beTruthy();
 
     selector.viewClass = UITabBar.class;
 
     UITabBar *tabBar = UITabBar.new;
     expect(selector.stringValue).to.equal(@"UITabBar.big");
-    expect([selector shouldSelectView:tabBar]).to.beFalsy();
+    expect([selector shouldSelectItem:tabBar]).to.beFalsy();
     tabBar.cas_styleClass = @"big";
-    expect([selector shouldSelectView:tabBar]).to.beTruthy();
+    expect([selector shouldSelectItem:tabBar]).to.beTruthy();
 }
 
 - (void)testSelectViewWithSubclassMatch {
@@ -119,10 +119,10 @@ SpecBegin(CASStyleSelector)
     selector.shouldSelectSubclasses = YES;
 
     expect(selector.stringValue).to.equal(@"^UIControl");
-    expect([selector shouldSelectView:UIControl.new]).to.beTruthy();
-    expect([selector shouldSelectView:UIButton.new]).to.beTruthy();
-    expect([selector shouldSelectView:UIView.new]).to.beFalsy();
-    expect([selector shouldSelectView:UINavigationBar.new]).to.beFalsy();
+    expect([selector shouldSelectItem:UIControl.new]).to.beTruthy();
+    expect([selector shouldSelectItem:UIButton.new]).to.beTruthy();
+    expect([selector shouldSelectItem:UIView.new]).to.beFalsy();
+    expect([selector shouldSelectItem:UINavigationBar.new]).to.beFalsy();
 }
 
 - (void)testSelectViewWithComplexMixedMatchers {
@@ -166,12 +166,12 @@ SpecBegin(CASStyleSelector)
     [midControl addSubview:slider];
 
     expect(CASStringViewHierarchyFromView(slider)).to.equal(@"UIButton.top > UIView > UIControl.mid > UISlider");
-    expect([selector shouldSelectView:slider]).to.beTruthy();
+    expect([selector shouldSelectItem:slider]).to.beTruthy();
 
     // view heirarchy 2
     [view removeFromSuperview];
     expect(CASStringViewHierarchyFromView(slider)).to.equal(@"UIView > UIControl.mid > UISlider");
-    expect([selector shouldSelectView:slider]).to.beFalsy();
+    expect([selector shouldSelectItem:slider]).to.beFalsy();
 
     // view heirarchy 3
     UIButton *button = UIButton.new;
@@ -182,7 +182,7 @@ SpecBegin(CASStyleSelector)
 
     [exampleView addSubview:view];
     expect(CASStringViewHierarchyFromView(slider)).to.equal(@"UIButton.top > UIButton > CASExampleView > UIView > UIControl.mid > UISlider");
-    expect([selector shouldSelectView:slider]).to.beTruthy();
+    expect([selector shouldSelectItem:slider]).to.beTruthy();
 }
 
 SpecEnd

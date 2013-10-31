@@ -7,11 +7,9 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "CASStyleableItem.h"
 
-@interface UIView (CASAdditions)
-
-@property (nonatomic, strong) NSString *cas_styleClass;
-@property (nonatomic, assign) BOOL cas_styleApplied;
+@interface UIView (CASAdditions) <CASStyleableItem>
 
 @property (nonatomic, strong) UIColor *cas_borderColor;
 @property (nonatomic, assign) CGFloat cas_borderWidth;

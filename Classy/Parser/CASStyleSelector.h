@@ -7,6 +7,7 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "CASStyleableItem.h"
 
 @interface CASStyleSelector : NSObject <NSCopying>
 
@@ -81,13 +82,13 @@
 - (NSInteger)precedence;
 
 /**
- *  Whether is selector matches the given view
+ *  Whether is selector matches the given item
  *
- *  @param view `UIView` or a subclass
+ *  @param item `CASStyleableItem` or a subclass
  *
- *  @return `YES` if all selectors including parent selectors match the view
+ *  @return `YES` if all selectors including parent selectors match the item
  */
-- (BOOL)shouldSelectView:(UIView *)view;
+- (BOOL)shouldSelectItem:(id<CASStyleableItem>)item;
 
 /**
  *  String representation of receiver

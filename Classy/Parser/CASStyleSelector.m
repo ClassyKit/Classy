@@ -70,13 +70,13 @@
     return precedence;
 }
 
-- (BOOL)shouldSelectView:(UIView *)view {
-    if (![self matchesView:view]) {
+- (BOOL)shouldSelectItem:(id<CASStyleableItem>)item {
+    if (![self matchesItem:item]) {
         return NO;
     }
 
     if (self.parentSelector) {
-        return [self.parentSelector matchesAncestorsOfView:view traverse:self.shouldSelectIndirectSuperview];
+        return [self.parentSelector matchesAncestorsOfItem:item traverse:self.shouldSelectIndirectSuperview];
     }
 
     return YES;
@@ -112,28 +112,28 @@
 
 #pragma mark - private
 
-- (BOOL)matchesAncestorsOfView:(UIView *)view traverse:(BOOL)traverse {
-    for (UIView *ancestor = view.superview; ancestor != nil; ancestor = ancestor.superview) {
-        BOOL ancestorMatch = [self matchesView:ancestor];
+- (BOOL)matchesAncestorsOfItem:(id<CASStyleableItem>)item traverse:(BOOL)traverse {
+    for (id<CASStyleableItem> ancestor = item.cas_parent; ancestor != nil; ancestor = ancestor.cas_parent) {
+        BOOL ancestorMatch = [self matchesItem:ancestor];
         if (ancestorMatch) {
             if (!self.parentSelector) return YES;
             BOOL traverse = self.shouldSelectIndirectSuperview;
-            if ([self.parentSelector matchesAncestorsOfView:ancestor traverse:traverse]) return YES;
+            if ([self.parentSelector matchesAncestorsOfItem:ancestor traverse:traverse]) return YES;
         }
         if (!traverse) return NO;
     }
     return NO;
 }
 
-- (BOOL)matchesView:(UIView *)view {
+- (BOOL)matchesItem:(id<CASStyleableItem>)item {
     if (self.viewClass) {
         if (self.shouldSelectSubclasses) {
-            if (![view isKindOfClass:self.viewClass]) return NO;
+            if (![item isKindOfClass:self.viewClass]) return NO;
         } else {
-            if (![view isMemberOfClass:self.viewClass]) return NO;
+            if (![item isMemberOfClass:self.viewClass]) return NO;
         }
     }
-    if (self.styleClass.length && ![self.styleClass isEqualToString:view.cas_styleClass]) {
+    if (self.styleClass.length && ![self.styleClass isEqualToString:item.cas_styleClass]) {
         return NO;
     }
     return YES;

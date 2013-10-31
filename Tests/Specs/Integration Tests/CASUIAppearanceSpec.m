@@ -20,14 +20,14 @@ SpecBegin(CASUIAppearance)
 
 - (void)testUIActivityIndicatorViewAppearance {
     UIActivityIndicatorView *view = UIActivityIndicatorView.new;
-    [CASStyler.defaultStyler styleView:view];
+    [CASStyler.defaultStyler styleItem:view];
 
     expect(view.color).to.equal([UIColor redColor]);
 }
 
 - (void)testUIButtonAppearance {
     UIButton *button = UIButton.new;
-    [CASStyler.defaultStyler styleView:button];
+    [CASStyler.defaultStyler styleItem:button];
 
     expect(button.contentEdgeInsets).to.equal(UIEdgeInsetsMake(1, 2, 3, 4));
 
@@ -53,5 +53,11 @@ SpecBegin(CASUIAppearance)
     expect([button backgroundImageForState:UIControlStateSelected]).to.equal([UIImage imageNamed:@"bg_button_selected"]);
 }
 
+- (void)xtestUIBarButtonItemAppearance {
+    UIBarButtonItem *view = UIBarButtonItem.new;
+    [CASStyler.defaultStyler styleItem:view];
+
+    expect([view backgroundImageForState:UIControlStateNormal style:UIBarButtonItemStylePlain barMetrics:UIBarMetricsDefault]).to.equal([UIImage imageNamed:@"bg_button_normal"]);
+}
 
 SpecEnd

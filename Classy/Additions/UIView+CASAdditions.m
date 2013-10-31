@@ -21,14 +21,24 @@
 
 - (void)cas_didMoveToWindow {
     if (!self.cas_styleApplied) {
-        [CASStyler.defaultStyler styleView:self];
-        self.cas_styleApplied = YES;
+        [self cas_applyStyle:CASStyler.defaultStyler];
     }
 
     [self cas_didMoveToWindow];
 }
 
+- (void)cas_applyStyle:(CASStyler *)styler {
+    [styler styleItem:self];
+}
+
 #pragma mark - associated properties
+
+- (id<CASStyleableItem>)cas_parent {
+    return self.superview;
+}
+
+- (void)setCas_parent:(id<CASStyleableItem>)parent {
+}
 
 - (NSString *)cas_styleClass {
     return objc_getAssociatedObject(self, @selector(cas_styleClass));
