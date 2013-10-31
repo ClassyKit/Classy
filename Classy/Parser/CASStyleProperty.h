@@ -76,6 +76,15 @@
 - (BOOL)transformValuesToCGSize:(CGSize *)size;
 
 /**
+ *  Attempts to extract a UIOffset from the valueTokens
+ *
+ *  @param offset UIOffset pointer
+ *
+ *  @return whether the extraction succeeded
+ */
+- (BOOL)transformValuesToUIOffset:(UIOffset *)offset;
+
+/**
  *  Attempts to extract a UIEdgeInsets from the valueTokens
  *
  *  @param size UIEdgeInsets pointer

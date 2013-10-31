@@ -27,4 +27,22 @@ UIButton {
 
 UIBarButtonItem {
   background-image[state:normal] bg_button_normal
+  background-image[state:highlighted] bg_button_highlighted
+  background-image[state:highlighted, barMetrics:landscape-phone] bg_button_selected
+  
+  background-vertical-position-adjustment [barMetrics:default-prompt] 10
+  background-vertical-position-adjustment [barMetrics:landscape-phone] 20
+  
+  title-position-adjustment  11 12
+  title-position-adjustment [barMetrics:landscape-phone] 21 22
+  
+  
+  backButton-background-image[state:highlighted] bg_button_disabled
+  backButton-background-image[state:highlighted, barMetrics:landscape-phone] bg_button_normal
+  
+  backButton-background-vertical-position-adjustment [barMetrics:default-prompt] 50
+  backButton-background-vertical-position-adjustment [barMetrics:landscape-phone] 60
+  
+  backButton-title-position-adjustment  51 52
+  backButton-title-position-adjustment [barMetrics:landscape-phone] 61 62
 }

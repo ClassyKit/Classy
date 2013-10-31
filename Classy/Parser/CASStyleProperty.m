@@ -111,6 +111,22 @@
     return NO;
 }
 
+- (BOOL)transformValuesToUIOffset:(UIOffset *)offset {
+    NSArray *unitTokens = [self valuesOfTokenType:CASTokenTypeUnit];
+    if (unitTokens.count == 1) {
+        CGFloat value = [unitTokens[0] doubleValue];
+        *offset = UIOffsetMake(value, value);
+        return YES;
+    }
+    if (unitTokens.count == 2) {
+        CGFloat value1 = [unitTokens[0] doubleValue];
+        CGFloat value2 = [unitTokens[1] doubleValue];
+        *offset = UIOffsetMake(value1, value2);
+        return YES;
+    }
+    return NO;
+}
+
 - (BOOL)transformValuesToUIColor:(UIColor **)color {
     UIColor *colorValue = [self valueOfTokenType:CASTokenTypeColor];
     if (colorValue) {

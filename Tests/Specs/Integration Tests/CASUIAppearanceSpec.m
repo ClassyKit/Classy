@@ -53,11 +53,32 @@ SpecBegin(CASUIAppearance)
     expect([button backgroundImageForState:UIControlStateSelected]).to.equal([UIImage imageNamed:@"bg_button_selected"]);
 }
 
-- (void)xtestUIBarButtonItemAppearance {
+- (void)testUIBarButtonItemAppearance {
     UIBarButtonItem *view = UIBarButtonItem.new;
     [CASStyler.defaultStyler styleItem:view];
 
-    expect([view backgroundImageForState:UIControlStateNormal style:UIBarButtonItemStylePlain barMetrics:UIBarMetricsDefault]).to.equal([UIImage imageNamed:@"bg_button_normal"]);
+    expect([view backgroundImageForState:UIControlStateNormal barMetrics:UIBarMetricsDefault]).to.equal([UIImage imageNamed:@"bg_button_normal"]);
+    expect([view backgroundImageForState:UIControlStateHighlighted barMetrics:UIBarMetricsDefault]).to.equal([UIImage imageNamed:@"bg_button_highlighted"]);
+    expect([view backgroundImageForState:UIControlStateHighlighted barMetrics:UIBarMetricsLandscapePhone]).to.equal([UIImage imageNamed:@"bg_button_selected"]);
+
+    expect([view backgroundVerticalPositionAdjustmentForBarMetrics:UIBarMetricsDefaultPrompt]).to.equal(10);
+    expect([view backgroundVerticalPositionAdjustmentForBarMetrics:UIBarMetricsLandscapePhone]).to.equal(20);
+
+    expect([view titlePositionAdjustmentForBarMetrics:UIBarMetricsDefault]).to.equal(UIOffsetMake(11, 12));
+    expect([view titlePositionAdjustmentForBarMetrics:UIBarMetricsLandscapePhone]).to.equal(UIOffsetMake(21, 22));
+
+
+    //back
+    expect([view backButtonBackgroundImageForState:UIControlStateHighlighted barMetrics:UIBarMetricsDefault]).to.equal([UIImage imageNamed:@"bg_button_disabled"]);
+    expect([view backButtonBackgroundImageForState:UIControlStateHighlighted barMetrics:UIBarMetricsLandscapePhone]).to.equal([UIImage imageNamed:@"bg_button_normal"]);
+
+
+    expect([view backButtonBackgroundVerticalPositionAdjustmentForBarMetrics:UIBarMetricsDefaultPrompt]).to.equal(50);
+    expect([view backButtonBackgroundVerticalPositionAdjustmentForBarMetrics:UIBarMetricsLandscapePhone]).to.equal(60);
+
+    expect([view backButtonTitlePositionAdjustmentForBarMetrics:UIBarMetricsDefault]).to.equal(UIOffsetMake(51, 52));
+    expect([view backButtonTitlePositionAdjustmentForBarMetrics:UIBarMetricsLandscapePhone]).to.equal(UIOffsetMake(61, 62));
+
 }
 
 SpecEnd
