@@ -1,4 +1,5 @@
-// Support for all UIAppearance setter methods
+// Support for all relevant UIAppearance setter methods
+// A few methods are not included
 // https://github.com/cloudkite/Classy/blob/master/Tests/UIAppearance-setters.md
 
 UIActivityIndicatorView {
@@ -19,16 +20,16 @@ UIButton {
   title-shadow-color[state:selected] #f5f5f5
 
   //white space is flexible
-  background-image [state:normal] bg_button_normal
+  background-image [state:normal] test_image_1
   background-image [state:highlighted] bg_button_highlighted 15 14 13 12
-  background-image[state:disabled] bg_button_disabled
-  background-image[state:selected] bg_button_selected
+  background-image[state:disabled] test_image_3
+  background-image[state:selected] test_image_4
 }
 
 UIBarButtonItem {
-  background-image[state:normal] bg_button_normal
+  background-image[state:normal] test_image_1
   background-image[state:highlighted] bg_button_highlighted
-  background-image[state:highlighted, barMetrics:landscape-phone] bg_button_selected
+  background-image[state:highlighted, barMetrics:landscape-phone] test_image_4
   
   background-vertical-position-adjustment [barMetrics:default-prompt] 10
   background-vertical-position-adjustment [barMetrics:landscape-phone] 20
@@ -37,12 +38,22 @@ UIBarButtonItem {
   title-position-adjustment [barMetrics:landscape-phone] 21 22
   
   
-  backButton-background-image[state:highlighted] bg_button_disabled
-  backButton-background-image[state:highlighted, barMetrics:landscape-phone] bg_button_normal
+  backButton-background-image[state:highlighted] test_image_3
+  backButton-background-image[state:highlighted, barMetrics:landscape-phone] test_image_1
   
   backButton-background-vertical-position-adjustment [barMetrics:default-prompt] 50
   backButton-background-vertical-position-adjustment [barMetrics:landscape-phone] 60
   
   backButton-title-position-adjustment  51 52
   backButton-title-position-adjustment [barMetrics:landscape-phone] 61 62
+}
+
+UINavigationBar {
+  bar-tint-color blue
+  shadow-image test_image_1
+  back-indicator-image test_image_4
+  backIndicatorTransitionMaskImage test_image_3
+  
+  background-image[barMetrics:landscape-phone, barPosition:top] test_image_4
+  titleVerticalPositionAdjustment[barMetrics:default-prompt] 5
 }

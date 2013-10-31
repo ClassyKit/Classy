@@ -303,6 +303,23 @@
     [viewClassDescriptor setArgumentDescriptors:@[[CASArgumentDescriptor argWithObjCType:@encode(CGFloat)], [CASArgumentDescriptor argWithName:@"barMetrics" valuesByName:barMetricsMap]] setter:@selector(setBackButtonBackgroundVerticalPositionAdjustment:forBarMetrics:) forPropertyKey:@"backButtonBackgroundVerticalPositionAdjustment"];
 
     [viewClassDescriptor setArgumentDescriptors:@[[CASArgumentDescriptor argWithObjCType:@encode(UIOffset)], [CASArgumentDescriptor argWithName:@"barMetrics" valuesByName:barMetricsMap]] setter:@selector(setBackButtonTitlePositionAdjustment:forBarMetrics:) forPropertyKey:@"backButtonTitlePositionAdjustment"];
+
+    // UINavigationBar
+    viewClassDescriptor = [self viewClassDescriptorForClass:UINavigationBar.class];
+    NSDictionary *barPositionMap;
+    if (CASKeyDeviceSystemMajorVersion() >= 7) {
+        barPositionMap = @{
+            @"any"          : @(UIBarPositionAny),
+            @"bottom"       : @(UIBarPositionBottom),
+            @"top"          : @(UIBarPositionTop),
+            @"topAttached"  : @(UIBarPositionTopAttached),
+        };
+        [viewClassDescriptor setArgumentDescriptors:@[[CASArgumentDescriptor argWithClass:UIImage.class], [CASArgumentDescriptor argWithName:@"barPosition" valuesByName:barPositionMap], [CASArgumentDescriptor argWithName:@"barMetrics" valuesByName:barMetricsMap]] setter:@selector(setBackgroundImage:forBarPosition:barMetrics:) forPropertyKey:@"backgroundImage"];
+    } else {
+        [viewClassDescriptor setArgumentDescriptors:@[[CASArgumentDescriptor argWithClass:UIImage.class], [CASArgumentDescriptor argWithName:@"barMetrics" valuesByName:barMetricsMap]] setter:@selector(setBackgroundImage:forBarMetrics:) forPropertyKey:@"backgroundImage"];
+    }
+
+    [viewClassDescriptor setArgumentDescriptors:@[[CASArgumentDescriptor argWithObjCType:@encode(CGFloat)], [CASArgumentDescriptor argWithName:@"barMetrics" valuesByName:barMetricsMap]] setter:@selector(setTitleVerticalPositionAdjustment:forBarMetrics:) forPropertyKey:@"titleVerticalPositionAdjustment"];
 }
 
 - (CASViewClassDescriptor *)viewClassDescriptorForClass:(Class)class {
