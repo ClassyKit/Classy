@@ -418,7 +418,7 @@
     CASViewClassDescriptor *viewClassDescriptor = [self.viewClassDescriptorCache objectForKey:class];
     if (!viewClassDescriptor) {
         viewClassDescriptor = [[CASViewClassDescriptor alloc] initWithClass:class];
-        if (class.superclass && ![UIResponder.class isSubclassOfClass:class.superclass]) {
+        if (class.superclass && ![NSObject.class isSubclassOfClass:class.superclass] && ![UIResponder.class isSubclassOfClass:class.superclass]) {
             viewClassDescriptor.parent = [self viewClassDescriptorForClass:class.superclass];
         }
         [self.viewClassDescriptorCache setObject:viewClassDescriptor forKey:class];

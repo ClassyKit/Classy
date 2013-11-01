@@ -21,14 +21,14 @@ UIButton {
 
   //white space is flexible
   background-image [state:normal] test_image_1
-  background-image [state:highlighted] bg_button_highlighted 15 14 13 12
+  background-image [state:highlighted] test_image_2 15 14 13 12
   background-image[state:disabled] test_image_3
   background-image[state:selected] test_image_4
 }
 
 UIBarButtonItem {
   background-image[state:normal] test_image_1
-  background-image[state:highlighted] bg_button_highlighted
+  background-image[state:highlighted] test_image_2
   background-image[state:highlighted, barMetrics:landscape-phone] test_image_4
   
   background-vertical-position-adjustment [barMetrics:default-prompt] 10

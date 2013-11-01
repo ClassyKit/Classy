@@ -46,7 +46,7 @@ SpecBegin(CASUIAppearance)
     // backgroundImage
     expect([button backgroundImageForState:UIControlStateNormal]).to.equal([UIImage imageNamed:@"test_image_1"]);
 
-    UIImage *highlightedImage = [[UIImage imageNamed:@"bg_button_highlighted"] resizableImageWithCapInsets:UIEdgeInsetsMake(15, 14, 13, 12)];
+    UIImage *highlightedImage = [[UIImage imageNamed:@"test_image_2"] resizableImageWithCapInsets:UIEdgeInsetsMake(15, 14, 13, 12)];
     expect([button backgroundImageForState:UIControlStateHighlighted].CGImage).to.equal(highlightedImage.CGImage);
     expect([button backgroundImageForState:UIControlStateHighlighted].capInsets).to.equal(highlightedImage.capInsets);
     expect([button backgroundImageForState:UIControlStateDisabled]).to.equal([UIImage imageNamed:@"test_image_3"]);
@@ -58,7 +58,7 @@ SpecBegin(CASUIAppearance)
     [CASStyler.defaultStyler styleItem:view];
 
     expect([view backgroundImageForState:UIControlStateNormal barMetrics:UIBarMetricsDefault]).to.equal([UIImage imageNamed:@"test_image_1"]);
-    expect([view backgroundImageForState:UIControlStateHighlighted barMetrics:UIBarMetricsDefault]).to.equal([UIImage imageNamed:@"bg_button_highlighted"]);
+    expect([view backgroundImageForState:UIControlStateHighlighted barMetrics:UIBarMetricsDefault]).to.equal([UIImage imageNamed:@"test_image_2"]);
     expect([view backgroundImageForState:UIControlStateHighlighted barMetrics:UIBarMetricsLandscapePhone]).to.equal([UIImage imageNamed:@"test_image_4"]);
 
     expect([view backgroundVerticalPositionAdjustmentForBarMetrics:UIBarMetricsDefaultPrompt]).to.equal(10);
