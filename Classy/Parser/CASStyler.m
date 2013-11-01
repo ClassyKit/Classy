@@ -206,6 +206,13 @@
         @"resultsList"  : @(UISearchBarIconResultsList),
     };
 
+    NSDictionary *barPositionMap = @{
+        @"any"          : @(UIBarPositionAny),
+        @"bottom"       : @(UIBarPositionBottom),
+        @"top"          : @(UIBarPositionTop),
+        @"topAttached"  : @(UIBarPositionTopAttached),
+    };
+
     // Common CASArgumentDescriptors
     CASArgumentDescriptor *colorArg = [CASArgumentDescriptor argWithClass:UIColor.class];
     CASArgumentDescriptor *stateArg = [CASArgumentDescriptor argWithName:@"state" valuesByName:controlStateMap];
@@ -215,17 +222,7 @@
     CASArgumentDescriptor *offsetArg = [CASArgumentDescriptor argWithObjCType:@encode(UIOffset)];
     CASArgumentDescriptor *searchIconArg = [CASArgumentDescriptor argWithName:@"icon" valuesByName:searchBarIconMap];
 
-    NSDictionary *barPositionMap;
-    CASArgumentDescriptor *barPositionArg;
-    if (CASKeyDeviceSystemMajorVersion() >= 7) {
-        barPositionMap = @{
-            @"any"          : @(UIBarPositionAny),
-            @"bottom"       : @(UIBarPositionBottom),
-            @"top"          : @(UIBarPositionTop),
-            @"topAttached"  : @(UIBarPositionTopAttached),
-        };
-        barPositionArg = [CASArgumentDescriptor argWithName:@"barPosition" valuesByName:barPositionMap];
-    }
+    CASArgumentDescriptor *barPositionArg = [CASArgumentDescriptor argWithName:@"barPosition" valuesByName:barPositionMap];
 
     // UIView
     CASViewClassDescriptor *viewClassDescriptor = [self viewClassDescriptorForClass:UIView.class];
@@ -376,6 +373,45 @@
     };
     [viewClassDescriptor setArgumentDescriptors:@[offsetArg, [CASArgumentDescriptor argWithName:@"segmentType" valuesByName:segmentedControlSegmentMap], barMetricsArg] setter:@selector(setContentPositionAdjustment:forSegmentType:barMetrics:) forPropertyKey:@"contentPositionAdjustment"];
 
+    // UIStepper
+    viewClassDescriptor = [self viewClassDescriptorForClass:UIStepper.class];
+
+    [viewClassDescriptor setArgumentDescriptors:@[imageArg, stateArg] setter:@selector(setBackgroundImage:forState:) forPropertyKey:@"backgroundImage"];
+
+    [viewClassDescriptor setArgumentDescriptors:@[imageArg, [CASArgumentDescriptor argWithName:@"leftSegmentState" valuesByName:controlStateMap], [CASArgumentDescriptor argWithName:@"rightSegmentState" valuesByName:controlStateMap]] setter:@selector(setDividerImage:forLeftSegmentState:rightSegmentState:) forPropertyKey:@"dividerImage"];
+
+    [viewClassDescriptor setArgumentDescriptors:@[imageArg, stateArg] setter:@selector(setDecrementImage:forState:) forPropertyKey:@"decrementImage"];
+
+    [viewClassDescriptor setArgumentDescriptors:@[imageArg, stateArg] setter:@selector(setIncrementImage:forState:) forPropertyKey:@"incrementImage"];
+
+    // UITabBar
+    viewClassDescriptor = [self viewClassDescriptorForClass:UITabBar.class];
+    if (CASKeyDeviceSystemMajorVersion() >= 7) {
+        NSDictionary *tabBarItemPositioningMap = @{
+            @"auto"      : @(UITabBarItemPositioningAutomatic),
+            @"automatic" : @(UITabBarItemPositioningAutomatic),
+            @"fill"      : @(UITabBarItemPositioningFill),
+            @"centered"  : @(UITabBarItemPositioningCentered),
+        };
+        [viewClassDescriptor setArgumentDescriptors:@[[CASArgumentDescriptor argWithValuesByName:tabBarItemPositioningMap]] forPropertyKey:@cas_propertykey(UITabBar, itemPositioning)];
+
+        NSDictionary *barStyleMap = @{
+            @"default" : @(UIBarStyleDefault),
+            @"black"   : @(UIBarStyleBlack),
+        };
+        [viewClassDescriptor setArgumentDescriptors:@[[CASArgumentDescriptor argWithValuesByName:barStyleMap]] forPropertyKey:@cas_propertykey(UITabBar, barStyle)];
+    }
+
+    // UITabBarItem
+    viewClassDescriptor = [self viewClassDescriptorForClass:UITabBarItem.class];
+    [viewClassDescriptor setArgumentDescriptors:@[[CASArgumentDescriptor argWithObjCType:@encode(UIOffset)]] forPropertyKey:@cas_propertykey(UITabBarItem, titlePositionAdjustment)];
+
+    // UIToolBar
+    viewClassDescriptor = [self viewClassDescriptorForClass:UIToolbar.class];
+
+    [viewClassDescriptor setArgumentDescriptors:@[imageArg, barPositionArg, barMetricsArg] setter:@selector(setBackgroundImage:forToolbarPosition:barMetrics:) forPropertyKey:@"backgroundImage"];
+
+    [viewClassDescriptor setArgumentDescriptors:@[imageArg, barPositionArg] setter:@selector(setShadowImage:forToolbarPosition:) forPropertyKey:@"shadowImage"];
 }
 
 - (CASViewClassDescriptor *)viewClassDescriptorForClass:(Class)class {

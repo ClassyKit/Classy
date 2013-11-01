@@ -16,3 +16,6 @@
 #import "UIView+CASAdditions.h"
 #import "UIBarButtonItem+CASAdditions.h"
 #import "UINavigationBar+CASAdditions.h"
+#import "UITabBarItem+CASAdditions.h"
+#import "UITabBar+CASAdditions.h"
+#import "UIToolBar+CASAdditions.h"

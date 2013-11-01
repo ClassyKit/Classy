@@ -143,4 +143,94 @@ SpecBegin(CASUIAppearance)
     expect([view contentPositionAdjustmentForSegmentType:UISegmentedControlSegmentLeft barMetrics:UIBarMetricsLandscapePhone]).to.equal(UIOffsetMake(1, 6));
 }
 
+- (void)testUISliderAppearance {
+    UISlider *view = UISlider.new;
+    [CASStyler.defaultStyler styleItem:view];
+
+    expect([view minimumTrackTintColor]).to.equal([UIColor blackColor]);
+    expect([view maximumTrackTintColor]).to.equal([UIColor purpleColor]);
+    expect([view thumbTintColor]).to.equal([UIColor yellowColor]);
+}
+
+- (void)testUISteppterAppearance {
+    UIStepper *view = UIStepper.new;
+    [CASStyler.defaultStyler styleItem:view];
+
+    //UISlider modifies this image. so cant verify
+    //expect([view backgroundImageForState:UIControlStateHighlighted]).to.equal([UIImage imageNamed:@"test_image_1"]);
+    expect([view dividerImageForLeftSegmentState:UIControlStateDisabled rightSegmentState:UIControlStateSelected]).to.equal([UIImage imageNamed:@"test_image_5"]);
+    expect([view incrementImageForState:UIControlStateDisabled]).to.equal([UIImage imageNamed:@"test_image_2"]);
+    expect([view decrementImageForState:UIControlStateDisabled]).to.equal([UIImage imageNamed:@"test_image_3"]);
+}
+
+- (void)testUISwitchAppearance {
+    UISwitch *view = UISwitch.new;
+    [CASStyler.defaultStyler styleItem:view];
+
+    expect([view onImage]).to.equal([UIImage imageNamed:@"test_image_1"]);
+    expect([view offImage]).to.equal([UIImage imageNamed:@"test_image_2"]);
+
+    //view cannot have both progressImage and progressTint. so we need to test seperately
+    view.cas_styleClass = @"tinted";
+    [CASStyler.defaultStyler styleItem:view];
+    expect([view onTintColor]).to.equal([UIColor cyanColor]);
+    expect([view thumbTintColor]).to.equal([UIColor greenColor]);
+}
+
+- (void)testUITabBarAppearance {
+    UITabBar *view = UITabBar.new;
+    [CASStyler.defaultStyler styleItem:view];
+
+    expect([view barTintColor]).to.equal([UIColor redColor]);
+    expect([view selectedImageTintColor]).to.equal([UIColor orangeColor]);
+    expect([view backgroundImage].CGImage).to.equal([UIImage imageNamed:@"test_image_1"].CGImage);
+    expect([view selectionIndicatorImage]).to.equal([UIImage imageNamed:@"test_image_2"]);
+    expect([view shadowImage].CGImage).to.equal([UIImage imageNamed:@"test_image_3"].CGImage);
+    expect([view itemPositioning]).to.equal(UITabBarItemPositioningCentered);
+    expect(view.itemWidth).to.equal(10);
+    expect(view.itemSpacing).to.equal(5);
+    expect(view.barStyle).to.equal(UIBarStyleBlack);
+}
+
+- (void)testUITabBarItemAppearance {
+    UITabBarItem *item = UITabBarItem.new;
+    [CASStyler.defaultStyler styleItem:item];
+
+    expect(item.titlePositionAdjustment).to.equal(UIOffsetMake(1, 2));
+}
+
+- (void)testUITableViewAppearance {
+    UITableView *view = UITableView.new;
+    [CASStyler.defaultStyler styleItem:view];
+
+    expect(view.separatorInset).to.equal(UIEdgeInsetsMake(1, 2, 3, 4));
+    expect(view.sectionIndexColor).to.equal([UIColor blueColor]);
+    expect(view.sectionIndexBackgroundColor).to.equal([UIColor grayColor]);
+    expect(view.sectionIndexTrackingBackgroundColor).to.equal([UIColor orangeColor]);
+}
+
+- (void)testUITableViewCellAppearance {
+    UITableViewCell *view = UITableViewCell.new;
+    [CASStyler.defaultStyler styleItem:view];
+
+    //top and bottom are ignored
+    expect(view.separatorInset).to.equal(UIEdgeInsetsMake(0, 4, 0, 4));
+}
+
+- (void)testUIToolbarAppearance {
+    UIToolbar *view = UIToolbar.new;
+    [CASStyler.defaultStyler styleItem:view];
+
+    expect(view.barTintColor).to.equal([UIColor magentaColor]);
+    expect([view backgroundImageForToolbarPosition:UIBarPositionTop barMetrics:UIBarMetricsLandscapePhone].CGImage).to.equal([UIImage imageNamed:@"test_image_4"].CGImage);
+    expect([view shadowImageForToolbarPosition:UIBarPositionBottom].CGImage).to.equal([UIImage imageNamed:@"test_image_3"].CGImage);
+}
+
+- (void)testUIViewAppearance {
+    UIView *view = UIView.new;
+    [CASStyler.defaultStyler styleItem:view];
+
+    expect(view.backgroundColor).to.equal([UIColor cas_colorWithHex:@"#faf"]);
+}
+
 SpecEnd

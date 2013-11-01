@@ -91,3 +91,65 @@ UISegmentedControl {
   dividerImage[leftSegmentState:disabled, rightSegmentState:selected] test_image_5
   contentPositionAdjustment[segmentType:left, barMetrics:landscape-phone] 1, 6
 }
+
+UISlider {
+  minimumTrackTintColor black
+  maximumTrackTintColor purple
+  thumbTintColor yellow
+}
+
+UIStepper {
+  background-image[state:highlighted] test_image_1
+  dividerImage[leftSegmentState:disabled, rightSegmentState:selected] test_image_5
+  increment-image[state:disabled] test_image_2
+  decrement-image[state:disabled] test_image_3
+}
+
+UISwitch.tinted {
+  onTintColor : cyan
+  thumbTintColor : green
+}
+
+UISwitch {
+  onImage : test_image_1
+  offImage : test_image_2
+}
+
+UITabBar {
+  barTintColor : red
+  selectedImageTintColor: orange
+  backgroundImage: test_image_1
+  selectionIndicatorImage: test_image_2
+  shadowImage test_image_3
+  itemPositioning centered
+  itemWidth 10
+  itemSpacing 5
+  barStyle black
+}
+
+UITabBarItem {
+  titlePositionAdjustment 1, 2
+}
+
+UITableView {
+  separatorInset 1,2,3,4
+  sectionIndexColor blue
+  sectionIndexBackgroundColor gray
+  sectionIndexTrackingBackgroundColor orange
+}
+
+UITableViewCell {
+  separatorInset 1,4,1,4
+}
+
+UIToolbar {
+  barTintColor magenta
+  
+  background-image[barMetrics:landscape-phone, barPosition:top] test_image_4
+  
+  shadow-image[barMetrics:landscape-phone, barPosition:bottom] test_image_3
+}
+
+UIView {
+  background-color: #faf
+}

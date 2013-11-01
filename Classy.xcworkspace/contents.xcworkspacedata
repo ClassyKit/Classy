@@ -119,6 +119,24 @@
          <FileRef
             location = "group:UINavigationBar+CASAdditions.m">
          </FileRef>
+         <FileRef
+            location = "group:UITabBar+CASAdditions.h">
+         </FileRef>
+         <FileRef
+            location = "group:UITabBar+CASAdditions.m">
+         </FileRef>
+         <FileRef
+            location = "group:UITabBarItem+CASAdditions.h">
+         </FileRef>
+         <FileRef
+            location = "group:UITabBarItem+CASAdditions.m">
+         </FileRef>
+         <FileRef
+            location = "group:UIToolbar+CASAdditions.h">
+         </FileRef>
+         <FileRef
+            location = "group:UIToolbar+CASAdditions.m">
+         </FileRef>
       </Group>
       <Group
          location = "group:Reflection"

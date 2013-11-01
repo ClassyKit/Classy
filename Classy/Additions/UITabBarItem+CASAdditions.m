@@ -1,16 +1,16 @@
 //
-//  UIBarButtonItem+CASAdditions.m
+//  UITabBarItem+CASAdditions.m
 //  
 //
-//  Created by Jonas Budelmann on 31/10/13.
+//  Created by Jonas Budelmann on 1/11/13.
 //
 //
 
-#import "UIBarButtonItem+CASAdditions.h"
+#import "UITabBarItem+CASAdditions.h"
 #import <objc/runtime.h>
 #import "CASStyler.h"
 
-@implementation UIBarButtonItem (CASAdditions) 
+@implementation UITabBarItem (CASAdditions)
 
 - (void)cas_applyStyle:(CASStyler *)styler {
     [styler styleItem:self];
@@ -42,5 +42,6 @@
 - (void)setCas_styleApplied:(BOOL)styleApplied {
     objc_setAssociatedObject(self, @selector(cas_styleApplied), @(styleApplied), OBJC_ASSOCIATION_RETAIN_NONATOMIC);
 }
+
 
 @end
