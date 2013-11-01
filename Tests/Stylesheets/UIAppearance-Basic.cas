@@ -57,3 +57,31 @@ UINavigationBar {
   background-image[barMetrics:landscape-phone, barPosition:top] test_image_4
   titleVerticalPositionAdjustment[barMetrics:default-prompt] 5
 }
+
+UIPageControl {
+  pageIndicatorTintColor: purple
+  currentPageIndicatorTintColor: red
+}
+
+UIProgressView {
+  progressImage test_image_1
+  trackImage test_image_2
+}
+
+UIProgressView.tinted {
+  progressTintColor: dark-gray
+  trackTintColor: light-gray
+}
+
+UISearchBar {
+  bar-tint-color  brown
+  background-image test_image_2
+  scopeBar-background-image test_image_3
+  searchField-background-position-adjustment (2, 3) * 10
+  searchText-position-adjustment 3 4
+
+  scopeBarButtonBackgroundImage[state:selected] test_image_1
+  scopeBarButtonDividerImage[leftSegmentState:disabled, rightSegmentState:selected] test_image_5
+  icon-position-adjustment[icon:clear] 5 6
+  icon-image[icon:bookmark, state:selected] test_image_2
+}

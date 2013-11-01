@@ -94,4 +94,44 @@ SpecBegin(CASUIAppearance)
     expect([view titleVerticalPositionAdjustmentForBarMetrics:UIBarMetricsDefaultPrompt]);
 }
 
+- (void)testUIPageControlAppearance {
+    UIPageControl *view = UIPageControl.new;
+    [CASStyler.defaultStyler styleItem:view];
+
+    expect([view pageIndicatorTintColor]).to.equal([UIColor purpleColor]);
+    expect([view currentPageIndicatorTintColor]).to.equal([UIColor redColor]);
+}
+
+- (void)testUIProgressViewAppearance {
+    UIProgressView *view = [[UIProgressView alloc] initWithProgressViewStyle:UIProgressViewStyleDefault];
+    [CASStyler.defaultStyler styleItem:view];
+
+    expect([view progressImage]).to.equal([UIImage imageNamed:@"test_image_1"]);
+    expect([view trackImage]).to.equal([UIImage imageNamed:@"test_image_2"]);
+
+    //view cannot have both progressImage and progressTint. so we need to test seperately
+    view.cas_styleClass = @"tinted";
+    [CASStyler.defaultStyler styleItem:view];
+    expect([view progressTintColor]).to.equal([UIColor darkGrayColor]);
+    expect([view trackTintColor]).to.equal([UIColor lightGrayColor]);
+}
+
+- (void)testUISearchBarAppearance {
+    UISearchBar *view = UISearchBar.new;
+    [CASStyler.defaultStyler styleItem:view];
+
+    expect([view barTintColor]).to.equal([UIColor brownColor]);
+    expect([view backgroundImage].CGImage).to.equal([UIImage imageNamed:@"test_image_2"].CGImage);
+    expect([view scopeBarBackgroundImage]).to.equal([UIImage imageNamed:@"test_image_3"]);
+    expect([view searchFieldBackgroundPositionAdjustment]).to.equal(UIOffsetMake(20, 30));
+    expect([view searchTextPositionAdjustment]).to.equal(UIOffsetMake(3, 4));
+
+    expect([view scopeBarButtonBackgroundImageForState:UIControlStateSelected]).to.equal([UIImage imageNamed:@"test_image_1"]);
+    expect([view scopeBarButtonDividerImageForLeftSegmentState:UIControlStateDisabled rightSegmentState:UIControlStateSelected]).to.equal([UIImage imageNamed:@"test_image_5"]);
+    expect([view scopeBarButtonDividerImageForLeftSegmentState:UIControlStateHighlighted rightSegmentState:UIControlStateSelected]).to.beNil();
+
+    expect([view positionAdjustmentForSearchBarIcon:UISearchBarIconClear]).to.equal(UIOffsetMake(5, 6));
+    expect([view imageForSearchBarIcon:UISearchBarIconBookmark state:UIControlStateSelected]).to.equal([UIImage imageNamed:@"test_image_2"]);
+}
+
 SpecEnd

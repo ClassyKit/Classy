@@ -320,6 +320,29 @@
     }
 
     [viewClassDescriptor setArgumentDescriptors:@[[CASArgumentDescriptor argWithObjCType:@encode(CGFloat)], [CASArgumentDescriptor argWithName:@"barMetrics" valuesByName:barMetricsMap]] setter:@selector(setTitleVerticalPositionAdjustment:forBarMetrics:) forPropertyKey:@"titleVerticalPositionAdjustment"];
+
+    // UISearchBar
+    viewClassDescriptor = [self viewClassDescriptorForClass:UISearchBar.class];
+    if (CASKeyDeviceSystemMajorVersion() >= 7) {
+        [viewClassDescriptor setArgumentDescriptors:@[[CASArgumentDescriptor argWithClass:UIImage.class], [CASArgumentDescriptor argWithName:@"barPosition" valuesByName:barPositionMap], [CASArgumentDescriptor argWithName:@"barMetrics" valuesByName:barMetricsMap]] setter:@selector(setBackgroundImage:forBarPosition:barMetrics:) forPropertyKey:@"backgroundImage"];
+    }
+
+    [viewClassDescriptor setArgumentDescriptors:@[[CASArgumentDescriptor argWithClass:UIImage.class], [CASArgumentDescriptor argWithName:@"state" valuesByName:controlStateMap]] setter:@selector(setSearchFieldBackgroundImage:forState:) forPropertyKey:@"searchFieldBackgroundImage"];
+
+    NSDictionary *searchBarIconMap = @{
+        @"search"       : @(UISearchBarIconSearch),
+        @"clear"        : @(UISearchBarIconClear),
+        @"bookmark"     : @(UISearchBarIconBookmark),
+        @"resultsList"  : @(UISearchBarIconResultsList),
+    };
+
+    [viewClassDescriptor setArgumentDescriptors:@[[CASArgumentDescriptor argWithClass:UIImage.class], [CASArgumentDescriptor argWithName:@"icon" valuesByName:searchBarIconMap], [CASArgumentDescriptor argWithName:@"state" valuesByName:controlStateMap]] setter:@selector(setImage:forSearchBarIcon:state:) forPropertyKey:@"iconImage"];
+
+    [viewClassDescriptor setArgumentDescriptors:@[[CASArgumentDescriptor argWithClass:UIImage.class], [CASArgumentDescriptor argWithName:@"state" valuesByName:controlStateMap]] setter:@selector(setScopeBarButtonBackgroundImage:forState:) forPropertyKey:@"scopeBarButtonBackgroundImage"];
+
+    [viewClassDescriptor setArgumentDescriptors:@[[CASArgumentDescriptor argWithClass:UIImage.class], [CASArgumentDescriptor argWithName:@"leftSegmentState" valuesByName:controlStateMap], [CASArgumentDescriptor argWithName:@"rightSegmentState" valuesByName:controlStateMap]] setter:@selector(setScopeBarButtonDividerImage:forLeftSegmentState:rightSegmentState:) forPropertyKey:@"scopeBarButtonDividerImage"];
+
+    [viewClassDescriptor setArgumentDescriptors:@[[CASArgumentDescriptor argWithObjCType:@encode(UIOffset)], [CASArgumentDescriptor argWithName:@"icon" valuesByName:searchBarIconMap]] setter:@selector(setPositionAdjustment:forSearchBarIcon:) forPropertyKey:@"iconPositionAdjustment"];
 }
 
 - (CASViewClassDescriptor *)viewClassDescriptorForClass:(Class)class {

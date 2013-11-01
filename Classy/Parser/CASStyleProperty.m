@@ -138,6 +138,7 @@
         ?: [self valueOfTokenType:CASTokenTypeSelector]
         ?: [self valueOfTokenType:CASTokenTypeString];
 
+    value = [value cas_stringByCamelCasing];
     SEL selector = NSSelectorFromString([NSString stringWithFormat:@"%@Color", value]);
     if (selector && [UIColor.class respondsToSelector:selector]) {
 #pragma clang diagnostic push
