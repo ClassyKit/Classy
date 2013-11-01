@@ -85,3 +85,9 @@ UISearchBar {
   icon-position-adjustment[icon:clear] 5 6
   icon-image[icon:bookmark, state:selected] test_image_2
 }
+
+UISegmentedControl {
+  background-image[state:disabled,barMetrics:landscape-phone] test_image_1
+  dividerImage[leftSegmentState:disabled, rightSegmentState:selected] test_image_5
+  contentPositionAdjustment[segmentType:left, barMetrics:landscape-phone] 1, 6
+}

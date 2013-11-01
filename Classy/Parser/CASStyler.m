@@ -183,6 +183,50 @@
 }
 
 - (void)setupViewClassDescriptors {
+
+    // Common ENUM maps
+    NSDictionary *controlStateMap = @{
+        @"normal"       : @(UIControlStateNormal),
+        @"highlighted"  : @(UIControlStateHighlighted),
+        @"disabled"     : @(UIControlStateDisabled),
+        @"selected"     : @(UIControlStateSelected),
+    };
+
+    NSDictionary *barMetricsMap = @{
+        @"default"                : @(UIBarMetricsDefault),
+        @"landscapePhone"        : @(UIBarMetricsLandscapePhone),
+        @"defaultPrompt"         : @(UIBarMetricsDefaultPrompt),
+        @"landscapePhonePrompt" : @(UIBarMetricsLandscapePhonePrompt),
+    };
+
+    NSDictionary *searchBarIconMap = @{
+        @"search"       : @(UISearchBarIconSearch),
+        @"clear"        : @(UISearchBarIconClear),
+        @"bookmark"     : @(UISearchBarIconBookmark),
+        @"resultsList"  : @(UISearchBarIconResultsList),
+    };
+
+    // Common CASArgumentDescriptors
+    CASArgumentDescriptor *colorArg = [CASArgumentDescriptor argWithClass:UIColor.class];
+    CASArgumentDescriptor *stateArg = [CASArgumentDescriptor argWithName:@"state" valuesByName:controlStateMap];
+    CASArgumentDescriptor *imageArg = [CASArgumentDescriptor argWithClass:UIImage.class];
+    CASArgumentDescriptor *barMetricsArg = [CASArgumentDescriptor argWithName:@"barMetrics" valuesByName:barMetricsMap];
+    CASArgumentDescriptor *floatArg = [CASArgumentDescriptor argWithObjCType:@encode(CGFloat)];
+    CASArgumentDescriptor *offsetArg = [CASArgumentDescriptor argWithObjCType:@encode(UIOffset)];
+    CASArgumentDescriptor *searchIconArg = [CASArgumentDescriptor argWithName:@"icon" valuesByName:searchBarIconMap];
+
+    NSDictionary *barPositionMap;
+    CASArgumentDescriptor *barPositionArg;
+    if (CASKeyDeviceSystemMajorVersion() >= 7) {
+        barPositionMap = @{
+            @"any"          : @(UIBarPositionAny),
+            @"bottom"       : @(UIBarPositionBottom),
+            @"top"          : @(UIBarPositionTop),
+            @"topAttached"  : @(UIBarPositionTopAttached),
+        };
+        barPositionArg = [CASArgumentDescriptor argWithName:@"barPosition" valuesByName:barPositionMap];
+    }
+
     // UIView
     CASViewClassDescriptor *viewClassDescriptor = [self viewClassDescriptorForClass:UIView.class];
     viewClassDescriptor.propertyKeyAliases = @{
@@ -213,7 +257,7 @@
     [viewClassDescriptor setArgumentDescriptors:@[[CASArgumentDescriptor argWithValuesByName:contentModeMap]] forPropertyKey:@cas_propertykey(UIView, contentMode)];
 
     // some properties don't show up via reflection so we need to add them manually
-    [viewClassDescriptor setArgumentDescriptors:@[[CASArgumentDescriptor argWithClass:UIColor.class]] forPropertyKey:@cas_propertykey(UIView, backgroundColor)];
+    [viewClassDescriptor setArgumentDescriptors:@[colorArg] forPropertyKey:@cas_propertykey(UIView, backgroundColor)];
 
     // UITextField
     // TODO text insets
@@ -265,84 +309,73 @@
     };
     [viewClassDescriptor setArgumentDescriptors:@[[CASArgumentDescriptor argWithValuesByName:contentHorizontalAlignmentMap]] forPropertyKey:@cas_propertykey(UIControl, contentHorizontalAlignment)];
 
-    NSDictionary *controlStateMap = @{
-        @"normal"       : @(UIControlStateNormal),
-        @"highlighted"  : @(UIControlStateHighlighted),
-        @"disabled"     : @(UIControlStateDisabled),
-        @"selected"     : @(UIControlStateSelected),
-    };
-
-    NSDictionary *barMetricsMap = @{
-        @"default"                : @(UIBarMetricsDefault),
-        @"landscapePhone"        : @(UIBarMetricsLandscapePhone),
-        @"defaultPrompt"         : @(UIBarMetricsDefaultPrompt),
-        @"landscapePhonePrompt" : @(UIBarMetricsLandscapePhonePrompt),
-    };
-
     // UIButton
     viewClassDescriptor = [self viewClassDescriptorForClass:UIButton.class];
 
-    [viewClassDescriptor setArgumentDescriptors:@[[CASArgumentDescriptor argWithClass:UIColor.class], [CASArgumentDescriptor argWithName:@"state" valuesByName:controlStateMap]] setter:@selector(setTitleColor:forState:) forPropertyKey:@"titleColor"];
+    [viewClassDescriptor setArgumentDescriptors:@[colorArg, stateArg] setter:@selector(setTitleColor:forState:) forPropertyKey:@"titleColor"];
 
-    [viewClassDescriptor setArgumentDescriptors:@[[CASArgumentDescriptor argWithClass:UIColor.class], [CASArgumentDescriptor argWithName:@"state" valuesByName:controlStateMap]] setter:@selector(setTitleShadowColor:forState:) forPropertyKey:@"titleShadowColor"];
+    [viewClassDescriptor setArgumentDescriptors:@[colorArg, stateArg] setter:@selector(setTitleShadowColor:forState:) forPropertyKey:@"titleShadowColor"];
 
-    [viewClassDescriptor setArgumentDescriptors:@[[CASArgumentDescriptor argWithClass:UIImage.class], [CASArgumentDescriptor argWithName:@"state" valuesByName:controlStateMap]] setter:@selector(setBackgroundImage:forState:) forPropertyKey:@"backgroundImage"];
+    [viewClassDescriptor setArgumentDescriptors:@[imageArg, stateArg] setter:@selector(setBackgroundImage:forState:) forPropertyKey:@"backgroundImage"];
 
     // UIBarButtonItem
     viewClassDescriptor = [self viewClassDescriptorForClass:UIBarButtonItem.class];
 
-    [viewClassDescriptor setArgumentDescriptors:@[[CASArgumentDescriptor argWithClass:UIImage.class], [CASArgumentDescriptor argWithName:@"state" valuesByName:controlStateMap], [CASArgumentDescriptor argWithName:@"barMetrics" valuesByName:barMetricsMap]] setter:@selector(setBackgroundImage:forState:barMetrics:) forPropertyKey:@"backgroundImage"];
+    [viewClassDescriptor setArgumentDescriptors:@[imageArg, stateArg, barMetricsArg] setter:@selector(setBackgroundImage:forState:barMetrics:) forPropertyKey:@"backgroundImage"];
 
-    [viewClassDescriptor setArgumentDescriptors:@[[CASArgumentDescriptor argWithObjCType:@encode(CGFloat)], [CASArgumentDescriptor argWithName:@"barMetrics" valuesByName:barMetricsMap]] setter:@selector(setBackgroundVerticalPositionAdjustment:forBarMetrics:) forPropertyKey:@"backgroundVerticalPositionAdjustment"];
+    [viewClassDescriptor setArgumentDescriptors:@[floatArg, barMetricsArg] setter:@selector(setBackgroundVerticalPositionAdjustment:forBarMetrics:) forPropertyKey:@"backgroundVerticalPositionAdjustment"];
 
-    [viewClassDescriptor setArgumentDescriptors:@[[CASArgumentDescriptor argWithObjCType:@encode(UIOffset)], [CASArgumentDescriptor argWithName:@"barMetrics" valuesByName:barMetricsMap]] setter:@selector(setTitlePositionAdjustment:forBarMetrics:) forPropertyKey:@"titlePositionAdjustment"];
+    [viewClassDescriptor setArgumentDescriptors:@[offsetArg, barMetricsArg] setter:@selector(setTitlePositionAdjustment:forBarMetrics:) forPropertyKey:@"titlePositionAdjustment"];
 
     //backButton
-    [viewClassDescriptor setArgumentDescriptors:@[[CASArgumentDescriptor argWithClass:UIImage.class], [CASArgumentDescriptor argWithName:@"state" valuesByName:controlStateMap], [CASArgumentDescriptor argWithName:@"barMetrics" valuesByName:barMetricsMap]] setter:@selector(setBackButtonBackgroundImage:forState:barMetrics:) forPropertyKey:@"backButtonBackgroundImage"];
+    [viewClassDescriptor setArgumentDescriptors:@[imageArg, stateArg, barMetricsArg] setter:@selector(setBackButtonBackgroundImage:forState:barMetrics:) forPropertyKey:@"backButtonBackgroundImage"];
 
-    [viewClassDescriptor setArgumentDescriptors:@[[CASArgumentDescriptor argWithObjCType:@encode(CGFloat)], [CASArgumentDescriptor argWithName:@"barMetrics" valuesByName:barMetricsMap]] setter:@selector(setBackButtonBackgroundVerticalPositionAdjustment:forBarMetrics:) forPropertyKey:@"backButtonBackgroundVerticalPositionAdjustment"];
+    [viewClassDescriptor setArgumentDescriptors:@[floatArg, barMetricsArg] setter:@selector(setBackButtonBackgroundVerticalPositionAdjustment:forBarMetrics:) forPropertyKey:@"backButtonBackgroundVerticalPositionAdjustment"];
 
-    [viewClassDescriptor setArgumentDescriptors:@[[CASArgumentDescriptor argWithObjCType:@encode(UIOffset)], [CASArgumentDescriptor argWithName:@"barMetrics" valuesByName:barMetricsMap]] setter:@selector(setBackButtonTitlePositionAdjustment:forBarMetrics:) forPropertyKey:@"backButtonTitlePositionAdjustment"];
+    [viewClassDescriptor setArgumentDescriptors:@[offsetArg, barMetricsArg] setter:@selector(setBackButtonTitlePositionAdjustment:forBarMetrics:) forPropertyKey:@"backButtonTitlePositionAdjustment"];
 
     // UINavigationBar
     viewClassDescriptor = [self viewClassDescriptorForClass:UINavigationBar.class];
-    NSDictionary *barPositionMap;
     if (CASKeyDeviceSystemMajorVersion() >= 7) {
-        barPositionMap = @{
-            @"any"          : @(UIBarPositionAny),
-            @"bottom"       : @(UIBarPositionBottom),
-            @"top"          : @(UIBarPositionTop),
-            @"topAttached"  : @(UIBarPositionTopAttached),
-        };
-        [viewClassDescriptor setArgumentDescriptors:@[[CASArgumentDescriptor argWithClass:UIImage.class], [CASArgumentDescriptor argWithName:@"barPosition" valuesByName:barPositionMap], [CASArgumentDescriptor argWithName:@"barMetrics" valuesByName:barMetricsMap]] setter:@selector(setBackgroundImage:forBarPosition:barMetrics:) forPropertyKey:@"backgroundImage"];
+        [viewClassDescriptor setArgumentDescriptors:@[imageArg, barPositionArg, barMetricsArg] setter:@selector(setBackgroundImage:forBarPosition:barMetrics:) forPropertyKey:@"backgroundImage"];
     } else {
-        [viewClassDescriptor setArgumentDescriptors:@[[CASArgumentDescriptor argWithClass:UIImage.class], [CASArgumentDescriptor argWithName:@"barMetrics" valuesByName:barMetricsMap]] setter:@selector(setBackgroundImage:forBarMetrics:) forPropertyKey:@"backgroundImage"];
+        [viewClassDescriptor setArgumentDescriptors:@[imageArg, barMetricsArg] setter:@selector(setBackgroundImage:forBarMetrics:) forPropertyKey:@"backgroundImage"];
     }
 
-    [viewClassDescriptor setArgumentDescriptors:@[[CASArgumentDescriptor argWithObjCType:@encode(CGFloat)], [CASArgumentDescriptor argWithName:@"barMetrics" valuesByName:barMetricsMap]] setter:@selector(setTitleVerticalPositionAdjustment:forBarMetrics:) forPropertyKey:@"titleVerticalPositionAdjustment"];
+    [viewClassDescriptor setArgumentDescriptors:@[floatArg, barMetricsArg] setter:@selector(setTitleVerticalPositionAdjustment:forBarMetrics:) forPropertyKey:@"titleVerticalPositionAdjustment"];
 
     // UISearchBar
     viewClassDescriptor = [self viewClassDescriptorForClass:UISearchBar.class];
     if (CASKeyDeviceSystemMajorVersion() >= 7) {
-        [viewClassDescriptor setArgumentDescriptors:@[[CASArgumentDescriptor argWithClass:UIImage.class], [CASArgumentDescriptor argWithName:@"barPosition" valuesByName:barPositionMap], [CASArgumentDescriptor argWithName:@"barMetrics" valuesByName:barMetricsMap]] setter:@selector(setBackgroundImage:forBarPosition:barMetrics:) forPropertyKey:@"backgroundImage"];
+        [viewClassDescriptor setArgumentDescriptors:@[imageArg, barPositionArg, barMetricsArg] setter:@selector(setBackgroundImage:forBarPosition:barMetrics:) forPropertyKey:@"backgroundImage"];
     }
 
-    [viewClassDescriptor setArgumentDescriptors:@[[CASArgumentDescriptor argWithClass:UIImage.class], [CASArgumentDescriptor argWithName:@"state" valuesByName:controlStateMap]] setter:@selector(setSearchFieldBackgroundImage:forState:) forPropertyKey:@"searchFieldBackgroundImage"];
+    [viewClassDescriptor setArgumentDescriptors:@[imageArg, stateArg] setter:@selector(setSearchFieldBackgroundImage:forState:) forPropertyKey:@"searchFieldBackgroundImage"];
 
-    NSDictionary *searchBarIconMap = @{
-        @"search"       : @(UISearchBarIconSearch),
-        @"clear"        : @(UISearchBarIconClear),
-        @"bookmark"     : @(UISearchBarIconBookmark),
-        @"resultsList"  : @(UISearchBarIconResultsList),
+    [viewClassDescriptor setArgumentDescriptors:@[imageArg, searchIconArg, stateArg] setter:@selector(setImage:forSearchBarIcon:state:) forPropertyKey:@"iconImage"];
+
+    [viewClassDescriptor setArgumentDescriptors:@[imageArg, stateArg] setter:@selector(setScopeBarButtonBackgroundImage:forState:) forPropertyKey:@"scopeBarButtonBackgroundImage"];
+
+    [viewClassDescriptor setArgumentDescriptors:@[imageArg, [CASArgumentDescriptor argWithName:@"leftSegmentState" valuesByName:controlStateMap], [CASArgumentDescriptor argWithName:@"rightSegmentState" valuesByName:controlStateMap]] setter:@selector(setScopeBarButtonDividerImage:forLeftSegmentState:rightSegmentState:) forPropertyKey:@"scopeBarButtonDividerImage"];
+
+    [viewClassDescriptor setArgumentDescriptors:@[offsetArg, searchIconArg] setter:@selector(setPositionAdjustment:forSearchBarIcon:) forPropertyKey:@"iconPositionAdjustment"];
+
+    // UISegmentedControl
+    viewClassDescriptor = [self viewClassDescriptorForClass:UISegmentedControl.class];
+
+    [viewClassDescriptor setArgumentDescriptors:@[imageArg, stateArg, barMetricsArg] setter:@selector(setBackgroundImage:forState:barMetrics:) forPropertyKey:@"backgroundImage"];
+
+    [viewClassDescriptor setArgumentDescriptors:@[imageArg, [CASArgumentDescriptor argWithName:@"leftSegmentState" valuesByName:controlStateMap], [CASArgumentDescriptor argWithName:@"rightSegmentState" valuesByName:controlStateMap], barMetricsArg] setter:@selector(setDividerImage:forLeftSegmentState:rightSegmentState:barMetrics:) forPropertyKey:@"dividerImage"];
+
+    NSDictionary *segmentedControlSegmentMap = @{
+        @"any"    : @(UISegmentedControlSegmentAny),
+        @"left"   : @(UISegmentedControlSegmentLeft),
+        @"center" : @(UISegmentedControlSegmentCenter),
+        @"right"  : @(UISegmentedControlSegmentRight),
+        @"alone"  : @(UISegmentedControlSegmentAlone),
     };
+    [viewClassDescriptor setArgumentDescriptors:@[offsetArg, [CASArgumentDescriptor argWithName:@"segmentType" valuesByName:segmentedControlSegmentMap], barMetricsArg] setter:@selector(setContentPositionAdjustment:forSegmentType:barMetrics:) forPropertyKey:@"contentPositionAdjustment"];
 
-    [viewClassDescriptor setArgumentDescriptors:@[[CASArgumentDescriptor argWithClass:UIImage.class], [CASArgumentDescriptor argWithName:@"icon" valuesByName:searchBarIconMap], [CASArgumentDescriptor argWithName:@"state" valuesByName:controlStateMap]] setter:@selector(setImage:forSearchBarIcon:state:) forPropertyKey:@"iconImage"];
-
-    [viewClassDescriptor setArgumentDescriptors:@[[CASArgumentDescriptor argWithClass:UIImage.class], [CASArgumentDescriptor argWithName:@"state" valuesByName:controlStateMap]] setter:@selector(setScopeBarButtonBackgroundImage:forState:) forPropertyKey:@"scopeBarButtonBackgroundImage"];
-
-    [viewClassDescriptor setArgumentDescriptors:@[[CASArgumentDescriptor argWithClass:UIImage.class], [CASArgumentDescriptor argWithName:@"leftSegmentState" valuesByName:controlStateMap], [CASArgumentDescriptor argWithName:@"rightSegmentState" valuesByName:controlStateMap]] setter:@selector(setScopeBarButtonDividerImage:forLeftSegmentState:rightSegmentState:) forPropertyKey:@"scopeBarButtonDividerImage"];
-
-    [viewClassDescriptor setArgumentDescriptors:@[[CASArgumentDescriptor argWithObjCType:@encode(UIOffset)], [CASArgumentDescriptor argWithName:@"icon" valuesByName:searchBarIconMap]] setter:@selector(setPositionAdjustment:forSearchBarIcon:) forPropertyKey:@"iconPositionAdjustment"];
 }
 
 - (CASViewClassDescriptor *)viewClassDescriptorForClass:(Class)class {

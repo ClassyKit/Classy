@@ -134,4 +134,13 @@ SpecBegin(CASUIAppearance)
     expect([view imageForSearchBarIcon:UISearchBarIconBookmark state:UIControlStateSelected]).to.equal([UIImage imageNamed:@"test_image_2"]);
 }
 
+- (void)testUISegmentedControlAppearance {
+    UISegmentedControl *view = UISegmentedControl.new;
+    [CASStyler.defaultStyler styleItem:view];
+
+    expect([view backgroundImageForState:UIControlStateDisabled barMetrics:UIBarMetricsLandscapePhone]).to.equal([UIImage imageNamed:@"test_image_1"]);
+    expect([view dividerImageForLeftSegmentState:UIControlStateDisabled rightSegmentState:UIControlStateSelected barMetrics:UIBarMetricsDefault]).to.equal([UIImage imageNamed:@"test_image_5"]);
+    expect([view contentPositionAdjustmentForSegmentType:UISegmentedControlSegmentLeft barMetrics:UIBarMetricsLandscapePhone]).to.equal(UIOffsetMake(1, 6));
+}
+
 SpecEnd
