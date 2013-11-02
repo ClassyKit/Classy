@@ -177,6 +177,10 @@
             NSString *string = nil;
             [styleProperty transformValuesToNSString:&string];
             [invocation setArgument:&string atIndex:argIndex];
+        } else if (argDescriptor.argumentClass == UIFont.class) {
+            UIFont *font = nil;
+            [styleProperty transformValuesToUIFont:&font];
+            [invocation setArgument:&font atIndex:argIndex];
         }
     }];
     return invocation;
@@ -262,8 +266,6 @@
     viewClassDescriptor = [self viewClassDescriptorForClass:UITextField.class];
     viewClassDescriptor.propertyKeyAliases = @{
         @"fontColor"           : @cas_propertykey(UITextField, textColor),
-        @"fontName"            : @cas_propertykey(UITextField, cas_fontName),
-        @"fontSize"            : @cas_propertykey(UITextField, cas_fontSize),
         @"horizontalAlignment" : @cas_propertykey(UITextField, textAlignment),
         @"backgroundImage"     : @cas_propertykey(UITextField, background),
         @"textInsets"          : @cas_propertykey(UITextField, cas_textEdgeInsets),

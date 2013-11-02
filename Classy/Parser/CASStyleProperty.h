@@ -121,6 +121,15 @@
 - (BOOL)transformValuesToNSString:(NSString **)string;
 
 /**
+ *  Attempts to extract a UIFont from the valueTokens
+ *
+ *  @param font UIFont pointer
+ *
+ *  @return whether the extraction succeeded
+ */
+- (BOOL)transformValuesToUIFont:(UIFont **)font;
+
+/**
  *  Replace any detected expressions/equations with a numerical value
  */
 - (void)resolveExpressions;

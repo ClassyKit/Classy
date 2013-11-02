@@ -41,8 +41,7 @@ SpecBegin(CASUIKit)
     CGRect bounds = CGRectMake(0, 0, 10, 10);
     expect(view.cas_textEdgeInsets).to.equal(UIEdgeInsetsMake(4, 3, 2, 1));
     expect([view textRectForBounds:bounds]).to.equal(UIEdgeInsetsInsetRect(bounds, view.cas_textEdgeInsets));
-    expect(view.cas_fontName).to.equal(@"Avenir-Heavy");
-    expect(view.cas_fontSize).to.equal(12);
+    expect(view.font).to.equal([UIFont fontWithName:@"Avenir-Heavy" size:12]);
     expect(view.textColor.cas_hexValue).to.equal(@"a0a0a0");
     expect(view.textAlignment).to.equal(NSTextAlignmentRight);
     expect(view.contentVerticalAlignment).to.equal(UIControlContentVerticalAlignmentBottom);

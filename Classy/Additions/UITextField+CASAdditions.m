@@ -20,30 +20,6 @@
                       withNewSelector:@selector(cas_editingRectForBounds:)];
 }
 
-#pragma mark - font properties
-
-- (void)setCas_fontName:(NSString *)fontName {
-    objc_setAssociatedObject(self, @selector(cas_fontName), fontName, OBJC_ASSOCIATION_RETAIN_NONATOMIC);
-    self.font = [UIFont fontWithName:fontName size:self.cas_fontSize];
-}
-
-- (NSString *)cas_fontName {
-    return objc_getAssociatedObject(self, @selector(cas_fontName));
-}
-
-- (void)setCas_fontSize:(CGFloat)fontSize {
-    objc_setAssociatedObject(self, @selector(cas_fontSize), @(fontSize), OBJC_ASSOCIATION_RETAIN_NONATOMIC);
-    if (self.cas_fontName) {
-        self.font = [UIFont fontWithName:self.cas_fontName size:fontSize];
-    } else {
-        self.font = [UIFont systemFontOfSize:fontSize];
-    }
-}
-
-- (CGFloat)cas_fontSize {
-    return [objc_getAssociatedObject(self, @selector(cas_fontSize)) doubleValue];
-}
-
 #pragma mark - text insets
 
 - (void)setCas_textEdgeInsets:(UIEdgeInsets)cas_textEdgeInsets {

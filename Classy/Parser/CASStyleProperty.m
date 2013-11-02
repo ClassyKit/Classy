@@ -179,6 +179,25 @@
     return NO;
 }
 
+- (BOOL)transformValuesToUIFont:(UIFont **)font {
+    NSNumber *fontSize = [self valueOfTokenType:CASTokenTypeUnit];
+    NSString *fontName = [self valueOfTokenType:CASTokenTypeString]
+        ?: [self valueOfTokenType:CASTokenTypeRef]
+        ?: [self valueOfTokenType:CASTokenTypeSelector];
+
+    if (!fontSize && !fontName.length) {
+        return NO;
+    }
+
+    CGFloat fontSizeValue = [fontSize floatValue] ?: [UIFont systemFontSize];
+    if (fontName) {
+        *font = [UIFont fontWithName:fontName size:fontSizeValue];
+    } else {
+        *font = [UIFont systemFontOfSize:fontSizeValue];
+    }
+    return YES;
+}
+
 - (void)resolveExpressions {
     BOOL hasOperator = NO;
     for (CASToken *token in self.valueTokens) {

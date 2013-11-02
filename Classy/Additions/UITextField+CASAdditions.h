@@ -10,8 +10,6 @@
 
 @interface UITextField (CASAdditions)
 
-@property (nonatomic, strong) NSString *cas_fontName;
-@property (nonatomic, assign) CGFloat cas_fontSize;
 @property (nonatomic, assign) UIEdgeInsets cas_textEdgeInsets;
 
 @end
