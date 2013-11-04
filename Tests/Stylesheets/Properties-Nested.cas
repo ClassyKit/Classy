@@ -1,5 +1,5 @@
-//some properties have child properties. such as a views layer or text attributes.
-//to differentiate these from selectors you need to mark them with an @ symbol, {} are optional
+//some properties have child properties. this is only used for text attributes at moment, but could be utilised for other things in the future.
+//to differentiate these from selectors you need to mark them with an @ symbol, `{` and `}` are optional
 
 UIButton
   background-color:#fff;

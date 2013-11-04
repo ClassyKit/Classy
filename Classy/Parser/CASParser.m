@@ -209,20 +209,23 @@ NSInteger const CASParseErrorFileContents = 2;
         __block NSInteger previousLength = NSNotFound;
         __block CASToken *previousToken = nil;
         BOOL acceptableToken = [self consumeTokensMatching:^BOOL(CASToken *token) {
-            BOOL closeNode = token.type == CASTokenTypeOutdent || token.type == CASTokenTypeRightCurlyBrace;
+            BOOL popStack = token.type == CASTokenTypeOutdent || token.type == CASTokenTypeRightCurlyBrace;
 
-            // make sure we dont double close
-            BOOL alreadyClosed = previousLength == self.lexer.length && previousToken.type == CASTokenTypeOutdent && token.type == CASTokenTypeRightCurlyBrace;
-            if (!alreadyClosed) {
+            // make sure we don't double pop
+            BOOL alreadyPopped = previousLength == self.lexer.length
+                && previousToken.type == CASTokenTypeOutdent
+                && token.type == CASTokenTypeRightCurlyBrace;
+
+            if (!alreadyPopped && popStack) {
                 NSMutableArray *stack = stylePropertiesStack.count ? stylePropertiesStack : styleNodesStack;
-                if (closeNode && stack.count) {
+                if (stack.count) {
                     [stack removeObjectAtIndex:stack.count-1];
                 }
             }
 
             previousLength = self.lexer.length;
             previousToken = token;
-            return closeNode || token.isWhitespace || token.type == CASTokenTypeSemiColon;
+            return popStack || token.isWhitespace || token.type == CASTokenTypeSemiColon;
         }];
 
         if (!acceptableToken) {
