@@ -33,6 +33,16 @@
 @property (nonatomic, strong, readonly) NSArray *valueTokens;
 
 /**
+ *  child style properties
+ */
+@property (nonatomic, strong, readonly) NSMutableArray *childStyleProperties;
+
+/**
+ *  Whether or not the receiver is expected to have child properties
+ */
+@property (nonatomic, assign) BOOL hasChildren;
+
+/**
  *  Provides support for properties that have extra arguments such as
  *  - setTitle:forState:
  */
@@ -133,5 +143,10 @@
  *  Replace any detected expressions/equations with a numerical value
  */
 - (void)resolveExpressions;
+
+/**
+ *  adds nested CASStyleProperty to the reciever
+ */
+- (void)addChildStyleProperty:(CASStyleProperty *)styleProperty;
 
 @end

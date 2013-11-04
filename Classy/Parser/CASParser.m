@@ -101,6 +101,7 @@ NSInteger const CASParseErrorFileContents = 2;
 
     NSMutableArray *allStyleNodes = NSMutableArray.new;
     NSMutableArray *styleNodesStack = NSMutableArray.new;
+    NSMutableArray *stylePropertiesStack = NSMutableArray.new;
 
     while (self.peekToken.type != CASTokenTypeEOS) {
         if (self.error) {
@@ -189,28 +190,42 @@ NSInteger const CASParseErrorFileContents = 2;
                 return nil;
             }
             [styleProperty resolveExpressions];
-            for (CASStyleNode *node in styleNodesStack.lastObject) {
-                [node addStyleProperty:styleProperty];
+
+            if (stylePropertiesStack.count) {
+                CASStyleProperty *parent = stylePropertiesStack.lastObject;
+                [parent addChildStyleProperty:styleProperty];
+            } else {
+                for (CASStyleNode *node in styleNodesStack.lastObject) {
+                    [node addStyleProperty:styleProperty];
+                }
+            }
+
+            if (styleProperty.hasChildren) {
+                [stylePropertiesStack addObject:styleProperty];
             }
             continue;
         }
 
-        BOOL closeNode = [self consumeTokensMatching:^BOOL(CASToken *token) {
-            BOOL consumable = token.type == CASTokenTypeOutdent || token.type == CASTokenTypeRightCurlyBrace;
-            if (consumable && styleNodesStack.count) {
-                [styleNodesStack removeObjectAtIndex:styleNodesStack.count-1];
-            }
-
-            return consumable;
-        }];
-
+        __block NSInteger previousLength = NSNotFound;
+        __block CASToken *previousToken = nil;
         BOOL acceptableToken = [self consumeTokensMatching:^BOOL(CASToken *token) {
-            if (token.type == CASTokenTypeOutdent && styleNodesStack.count) {
-                [styleNodesStack removeObjectAtIndex:styleNodesStack.count-1];
+            BOOL closeNode = token.type == CASTokenTypeOutdent || token.type == CASTokenTypeRightCurlyBrace;
+
+            // make sure we dont double close
+            BOOL alreadyClosed = previousLength == self.lexer.length && previousToken.type == CASTokenTypeOutdent && token.type == CASTokenTypeRightCurlyBrace;
+            if (!alreadyClosed) {
+                NSMutableArray *stack = stylePropertiesStack.count ? stylePropertiesStack : styleNodesStack;
+                if (closeNode && stack.count) {
+                    [stack removeObjectAtIndex:stack.count-1];
+                }
             }
-            return token.isWhitespace || token.type == CASTokenTypeSemiColon;
+
+            previousLength = self.lexer.length;
+            previousToken = token;
+            return closeNode || token.isWhitespace || token.type == CASTokenTypeSemiColon;
         }];
-        if (!acceptableToken && !closeNode) {
+
+        if (!acceptableToken) {
             NSString *description = [NSString stringWithFormat:@"Unexpected token `%@`", self.nextToken];
             if (error) {
                 *error = [self.lexer errorWithDescription:description
@@ -254,6 +269,20 @@ NSInteger const CASParseErrorFileContents = 2;
         [self nextToken];
     }
     return anyMatches;
+}
+
+- (BOOL)isNestedPropertyAtIndex:(NSInteger)index {
+    NSInteger tail = index;
+    while (--tail > 0) {
+        CASToken *tailToken = [self lookaheadByCount:tail];
+        if ([tailToken valueIsEqualTo:@"@"]) {
+            return YES;
+        }
+        if (!tailToken.isWhitespace && tailToken.type != CASTokenTypeLeftCurlyBrace) {
+            return NO;
+        }
+    }
+    return NO;
 }
 
 #pragma mark - nodes
@@ -306,6 +335,10 @@ NSInteger const CASParseErrorFileContents = 2;
     CASToken *token = [self lookaheadByCount:i];
     while (token && token.isPossiblySelector) {
         token = [self lookaheadByCount:++i];
+    }
+
+    if ([self isNestedPropertyAtIndex:i]) {
+        return nil;
     }
 
     if (token.type != CASTokenTypeLeftCurlyBrace && token.type != CASTokenTypeIndent) {
@@ -428,8 +461,8 @@ NSInteger const CASParseErrorFileContents = 2;
     BOOL hasName = NO, hasValues = NO;
     CASToken *token = [self lookaheadByCount:i];
     while (token && token.type != CASTokenTypeNewline
-           && token.type != CASTokenTypeLeftCurlyBrace
            && token.type != CASTokenTypeRightCurlyBrace
+           && token.type != CASTokenTypeIndent
            && token.type != CASTokenTypeOutdent
            && token.type != CASTokenTypeSemiColon
            && token.type != CASTokenTypeEOS) {
@@ -455,6 +488,7 @@ NSInteger const CASParseErrorFileContents = 2;
         NSMutableDictionary *arguments;
         CASToken *argNameToken, *argValueToken;
         BOOL argumentListMode = NO;
+        BOOL hasChildren = [self isNestedPropertyAtIndex:i];
 
         // consume tokens
         while (--i > 0) {
@@ -508,6 +542,7 @@ NSInteger const CASParseErrorFileContents = 2;
         }
         CASStyleProperty *styleProperty = [[CASStyleProperty alloc] initWithNameToken:nameToken valueTokens:valueTokens];
         styleProperty.arguments = [arguments copy];
+        styleProperty.hasChildren = hasChildren;
         return styleProperty;
     }
 

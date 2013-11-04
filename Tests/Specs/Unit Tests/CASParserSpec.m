@@ -12,10 +12,6 @@
 #import "UIColor+CASAdditions.h"
 #import "CASStyleSelector.h"
 
-@interface CASStyleNode ()
-@property (nonatomic, strong) NSMutableArray *styleProperties;
-@end
-
 SpecBegin(CASParser)
 
 - (void)testErrorWhenNoFile {
@@ -147,7 +143,7 @@ SpecBegin(CASParser)
     expect([styles[10] styleSelector].stringValue).to.equal(@"UITabBar.nice UITextField.nicer");
     expect([styles[11] styleSelector].stringValue).to.equal(@"UISegmentedControl.nice UITextField.nicer");
 
-    // group 1
+    // node 1
     CASStyleNode *node = styles[0];
     expect(node.styleProperties).to.haveCountOf(2);
     expect([node.styleProperties[0] name]).to.equal(@"backgroundColor");
@@ -155,61 +151,61 @@ SpecBegin(CASParser)
     expect([node.styleProperties[1] name]).to.equal(@"borderWidth");
     expect([node.styleProperties[1] values]).to.equal(@[@1]);
 
-    // group 2
+    // node 2
     node = styles[1];
     expect(node.styleProperties).to.haveCountOf(1);
     expect([node.styleProperties[0] name]).to.equal(@"amazing");
     expect([node.styleProperties[0] values]).to.equal(@[@23]);
 
-    // group 3
+    // node 3
     node = styles[2];
     expect(node.styleProperties).to.haveCountOf(1);
     expect([node.styleProperties[0] name]).to.equal(@"another");
     expect([node.styleProperties[0] values]).to.equal((@[@34]));
 
-    // group 4
+    // node 4
     node = styles[3];
     expect(node.styleProperties).to.haveCountOf(1);
     expect([node.styleProperties[0] name]).to.equal(@"borderColor");
     expect([node.styleProperties[0] values]).to.equal((@[[UIColor cas_colorWithHex:@"#ddd"]]));
 
-    // group 5
+    // node 5
     node = styles[4];
     expect(node.styleProperties).to.haveCountOf(0);
 
-    // group 6
+    // node 6
     node = styles[5];
     expect(node.styleProperties).to.haveCountOf(1);
     expect([node.styleProperties[0] name]).to.equal(@"backgroundColor");
     expect([node.styleProperties[0] values]).to.equal((@[[UIColor cas_colorWithHex:@"#eee"]]));
 
-    // group 7
+    // node 7
     node = styles[6];
     expect(node.styleProperties).to.haveCountOf(0);
 
-    // group 8
+    // node 8
     node = styles[7];
     expect(node.styleProperties).to.haveCountOf(0);
 
-    // group 9
+    // node 9
     node = styles[8];
     expect(node.styleProperties).to.haveCountOf(1);
     expect([node.styleProperties[0] name]).to.equal(@"borderWidth");
     expect([node.styleProperties[0] values]).to.equal(@[@2]);
 
-    // group 10
+    // node 10
     node = styles[9];
     expect(node.styleProperties).to.haveCountOf(1);
     expect([node.styleProperties[0] name]).to.equal(@"borderWidth");
     expect([node.styleProperties[0] values]).to.equal(@[@2]);
 
-    // group 11
+    // node 11
     node = styles[10];
     expect(node.styleProperties).to.haveCountOf(1);
     expect([node.styleProperties[0] name]).to.equal(@"borderWidth");
     expect([node.styleProperties[0] values]).to.equal(@[@3]);
 
-    // group 11
+    // node 11
     node = styles[11];
     expect(node.styleProperties).to.haveCountOf(1);
     expect([node.styleProperties[0] name]).to.equal(@"borderWidth");
@@ -222,7 +218,7 @@ SpecBegin(CASParser)
 
     expect(styles.count).to.equal(5);
 
-    // group 1
+    // node 1
     CASStyleNode *node = styles[0];
     expect(node.styleProperties).to.haveCountOf(2);
     expect([node.styleProperties[0] name]).to.equal(@"backgroundColor");
@@ -230,7 +226,7 @@ SpecBegin(CASParser)
     expect([node.styleProperties[1] name]).to.equal(@"borderInset");
     expect([node.styleProperties[1] values]).to.equal(@[@1]);
 
-    // group 2
+    // node 2
     node = styles[2];
     expect(node.styleProperties).to.haveCountOf(2);
     expect([node.styleProperties[0] name]).to.equal(@"fontColor");
@@ -238,7 +234,7 @@ SpecBegin(CASParser)
     expect([node.styleProperties[1] name]).to.equal(@"borderWidth");
     expect([node.styleProperties[1] values]).to.equal(@[@2]);
 
-    // group 3
+    // node 3
     node = styles[3];
     expect(node.styleProperties).to.haveCountOf(3);
     expect([node.styleProperties[0] name]).to.equal(@"fontName");
@@ -266,6 +262,52 @@ SpecBegin(CASParser)
     expect([node.styleProperties[2] name]).to.equal(@"fontSize");
     expect([node.styleProperties[2] values]).to.equal(@[@14]);
     expect([node.styleProperties[2] arguments]).to.equal(@{ @"state" : @"disabled" });
+}
+
+- (void)testParseNestedProperties {
+    NSError *error = nil;
+    NSString *filePath = [[NSBundle bundleForClass:self.class] pathForResource:@"Properties-Nested.cas" ofType:nil];
+    NSArray *styles = [CASParser stylesFromFilePath:filePath error:&error];
+    expect(error).to.beNil();
+
+    expect(styles).to.haveCountOf(3);
+
+    // node 1
+    CASStyleNode *node = styles[0];
+    expect(node.styleSelector.stringValue).to.equal(@"UIButton");
+    expect(node.styleProperties).to.haveCountOf(3);
+    expect([node.styleProperties[0] name]).to.equal(@"backgroundColor");
+    expect([node.styleProperties[1] name]).to.equal(@"borderWidth");
+
+    CASStyleProperty *embed = node.styleProperties[2];
+    expect(embed.name).to.equal(@"embed");
+    expect(embed.childStyleProperties).to.haveCountOf(4);
+    expect([embed.childStyleProperties[0] name]).to.equal(@"font");
+    expect([embed.childStyleProperties[0] values]).to.equal((@[@"arial", @15]));
+    expect([embed.childStyleProperties[2] name]).to.equal(@"kern");
+    expect([embed.childStyleProperties[2] values]).to.equal(@[@5]);
+    expect([embed.childStyleProperties[3] name]).to.equal(@"stuff");
+    expect([embed.childStyleProperties[3] values]).to.equal(@[@"1 more thing"]);
+
+    CASStyleProperty *paragraphStyle = embed.childStyleProperties[1];
+    expect(paragraphStyle.name).to.equal(@"paragraphStyle");
+    expect(paragraphStyle.childStyleProperties).to.haveCountOf(2);
+    expect([paragraphStyle.childStyleProperties[0] name]).to.equal(@"maximumLineHeight");
+    expect([paragraphStyle.childStyleProperties[0] values]).to.equal(@[@2]);
+    expect([paragraphStyle.childStyleProperties[1] name]).to.equal(@"minimumLineHeight");
+    expect([paragraphStyle.childStyleProperties[1] values]).to.equal(@[@4]);
+
+    // node 2
+    node = styles[1];
+    expect(node.styleSelector.stringValue).to.equal(@"UIButton > UINavigationBar");
+    expect(node.styleProperties).to.haveCountOf(1);
+    expect([node.styleProperties[0] name]).to.equal(@"amazing");
+
+    // node 3
+    node = styles[2];
+    expect(node.styleSelector.stringValue).to.equal(@"UIButton UISlider");
+    expect(node.styleProperties).to.haveCountOf(1);
+    expect([node.styleProperties[0] name]).to.equal(@"another");
 }
 
 SpecEnd

@@ -1,0 +1,18 @@
+//some properties have child properties. such as a views layer or text attributes.
+//to differentiate these from selectors you need to mark them with an @ symbol, {} are optional
+
+UIButton
+  background-color:#fff;
+  border-width 1
+  > UINavigationBar
+    amazing 23
+  embed @
+    font arial 15
+    paragraphStyle @{
+      maximumLineHeight 2
+      minimumLineHeight 4
+    }
+    kern 5
+    stuff: "1 more thing"
+  UISlider
+    another 34

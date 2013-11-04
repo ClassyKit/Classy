@@ -33,6 +33,7 @@
 		DD175F911820C81A00139EBE /* test_image_3.png in Resources */ = {isa = PBXBuildFile; fileRef = DD175F8D1820C81900139EBE /* test_image_3.png */; };
 		DD175F921820C81A00139EBE /* test_image_4.png in Resources */ = {isa = PBXBuildFile; fileRef = DD175F8E1820C81900139EBE /* test_image_4.png */; };
 		DD592B13181DE5E800C30F7F /* Selectors-Nested.cas in Resources */ = {isa = PBXBuildFile; fileRef = DD592B12181DE5E800C30F7F /* Selectors-Nested.cas */; };
+		DD7C18441827464C008110D7 /* Properties-Nested.cas in Resources */ = {isa = PBXBuildFile; fileRef = DD7C18431827464C008110D7 /* Properties-Nested.cas */; };
 		DD9389DE18206A0100C0FFA7 /* CASStyleSelectorSpec.m in Sources */ = {isa = PBXBuildFile; fileRef = DD9389DD18206A0100C0FFA7 /* CASStyleSelectorSpec.m */; };
 		DDBF583418113BC10059B8D3 /* XCTest.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DDBF582518112ECA0059B8D3 /* XCTest.framework */; };
 		DDBF583518113BC10059B8D3 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DDD3D48C1810D6DA00E378A2 /* Foundation.framework */; };
@@ -86,6 +87,7 @@
 		DD175F8E1820C81900139EBE /* test_image_4.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = test_image_4.png; sourceTree = "<group>"; };
 		DD43DA8A1810F5D40058FBC1 /* Classy-Prefix.pch */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "Classy-Prefix.pch"; sourceTree = "<group>"; };
 		DD592B12181DE5E800C30F7F /* Selectors-Nested.cas */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = "Selectors-Nested.cas"; sourceTree = "<group>"; };
+		DD7C18431827464C008110D7 /* Properties-Nested.cas */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = "Properties-Nested.cas"; sourceTree = "<group>"; };
 		DD9389DD18206A0100C0FFA7 /* CASStyleSelectorSpec.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CASStyleSelectorSpec.m; sourceTree = "<group>"; };
 		DDBF582518112ECA0059B8D3 /* XCTest.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = XCTest.framework; path = Library/Frameworks/XCTest.framework; sourceTree = DEVELOPER_DIR; };
 		DDBF583318113BC10059B8D3 /* ClassyTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = ClassyTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -185,6 +187,7 @@
 				DD10AD2E1819FA6800A5B71D /* CustomView-Basic.cas */,
 				DD10AD54181A1C9100A5B71D /* Properties-Args.cas */,
 				DD10AD2F1819FA6800A5B71D /* Properties-Basic.cas */,
+				DD7C18431827464C008110D7 /* Properties-Nested.cas */,
 				DD10AD301819FA6800A5B71D /* Selectors-Messy.cas */,
 				DD10AD311819FA6800A5B71D /* Selectors-Complex.cas */,
 				DD10AD321819FA6800A5B71D /* Selectors-Hierarchy.cas */,
@@ -336,6 +339,7 @@
 				DD10AD361819FA6800A5B71D /* CustomView-Basic.cas in Resources */,
 				DD10AD371819FA6800A5B71D /* Properties-Basic.cas in Resources */,
 				DD10AD381819FA6800A5B71D /* Selectors-Messy.cas in Resources */,
+				DD7C18441827464C008110D7 /* Properties-Nested.cas in Resources */,
 				DD10AD3C1819FA6800A5B71D /* UIAppearance-Basic.cas in Resources */,
 				DD10AD3B1819FA6800A5B71D /* Selectors-Indentation.cas in Resources */,
 				DD10AD391819FA6800A5B71D /* Selectors-Complex.cas in Resources */,

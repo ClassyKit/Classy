@@ -17,6 +17,7 @@
 
 @property (nonatomic, strong, readwrite) CASToken *nameToken;
 @property (nonatomic, strong, readwrite) NSArray *valueTokens;
+@property (nonatomic, strong, readwrite) NSMutableArray *childStyleProperties;
 
 @end
 
@@ -212,6 +213,13 @@
     CASExpressionSolver *solver = CASExpressionSolver.new;
     self.valueTokens = [solver tokensByReducingTokens:self.valueTokens];
     self.values = nil;
+}
+
+- (void)addChildStyleProperty:(CASStyleProperty *)styleProperty {
+    if (!self.childStyleProperties) {
+        self.childStyleProperties = NSMutableArray.new;
+    }
+    [self.childStyleProperties addObject:styleProperty];
 }
 
 @end

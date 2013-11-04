@@ -92,6 +92,10 @@ NSString * const CASParseFailingStringErrorKey = @"CASParseFailingStringErrorKey
     return self;
 }
 
+- (NSInteger)length {
+    return self.str.length;
+}
+
 - (CASToken *)peekToken {
     return [self lookaheadByCount:1];
 }

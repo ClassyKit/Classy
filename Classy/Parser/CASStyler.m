@@ -54,7 +54,7 @@
     for (CASStyleNode *styleNode in self.styleNodes.reverseObjectEnumerator) {
         if ([styleNode.styleSelector shouldSelectItem:item]) {
             // apply style nodes
-            for (CASStyleProperty *styleProperty in styleNode.properties) {
+            for (CASStyleProperty *styleProperty in styleNode.styleProperties) {
                 [styleProperty.invocation invokeWithTarget:item];
             }
         }
@@ -89,7 +89,7 @@
 
     // precompute values
     for (CASStyleNode *styleNode in self.styleNodes.reverseObjectEnumerator) {
-        for (CASStyleProperty *styleProperty in styleNode.properties) {
+        for (CASStyleProperty *styleProperty in styleNode.styleProperties) {
             // TODO type checking and throw errors
 
             // ensure we dont do same node twice

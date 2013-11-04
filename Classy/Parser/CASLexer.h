@@ -23,6 +23,11 @@ extern NSString * const CASParseFailingStringErrorKey;
 @property (nonatomic, strong, readonly) NSError *error;
 
 /**
+ *  The remaining length of string to tokenise
+ */
+@property (nonatomic, assign, readonly) NSInteger length;
+
+/**
  *  Create new `CASLexer` with a `NSString` to Tokenize
  */
 - (id)initWithString:(NSString *)str;

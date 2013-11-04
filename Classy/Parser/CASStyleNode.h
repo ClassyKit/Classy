@@ -15,7 +15,7 @@
 /**
  *  returns all style properties for the receiver
  */
-@property (nonatomic, readonly) NSArray *properties;
+@property (nonatomic, strong) NSMutableArray *styleProperties;
 
 /**
  *  selector related to this node

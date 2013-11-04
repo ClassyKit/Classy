@@ -8,12 +8,6 @@
 
 #import "CASStyleNode.h"
 
-@interface CASStyleNode ()
-
-@property (nonatomic, strong) NSMutableArray *styleProperties;
-
-@end
-
 @implementation CASStyleNode
 
 - (id)init {
@@ -27,10 +21,6 @@
 
 - (void)addStyleProperty:(CASStyleProperty *)styleProperty {
     [self.styleProperties addObject:styleProperty];
-}
-
-- (NSArray *)properties {
-    return self.styleProperties;
 }
 
 @end

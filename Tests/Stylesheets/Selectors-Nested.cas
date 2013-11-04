@@ -10,8 +10,9 @@ UIButton
 
 UIView
   UINavigationBar
-    > UIView
+    > UIView {
       background-color:#eee
+    }
   border-color: #ddd
 
 UITabBar.nice, UISegmentedControl.nice {
