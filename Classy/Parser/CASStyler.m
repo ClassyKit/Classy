@@ -54,8 +54,8 @@
     for (CASStyleNode *styleNode in self.styleNodes.reverseObjectEnumerator) {
         if ([styleNode.styleSelector shouldSelectItem:item]) {
             // apply style nodes
-            for (CASStyleProperty *styleProperty in styleNode.styleProperties) {
-                [styleProperty.invocation invokeWithTarget:item];
+            for (NSInvocation *invocation in styleNode.invocations) {
+                [invocation invokeWithTarget:item];
             }
         }
     }
@@ -89,14 +89,16 @@
 
     // precompute values
     for (CASStyleNode *styleNode in self.styleNodes.reverseObjectEnumerator) {
+        NSMutableArray *invocations = NSMutableArray.new;
         for (CASStyleProperty *styleProperty in styleNode.styleProperties) {
             // TODO type checking and throw errors
 
-            // ensure we dont do same node twice
-            if (styleProperty.invocation) continue;
             NSInvocation *invocation = [self invocationForClass:styleNode.styleSelector.viewClass styleProperty:styleProperty];
-            styleProperty.invocation = invocation;
+            if (invocation) {
+                [invocations addObject:invocation];
+            }
         }
+        styleNode.invocations = invocations;
     }
 }
 

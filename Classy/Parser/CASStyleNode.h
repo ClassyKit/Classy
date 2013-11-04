@@ -13,6 +13,11 @@
 @interface CASStyleNode : NSObject
 
 /**
+ *  NSInvocations to apply to appropriate view
+ */
+@property (nonatomic, strong) NSArray *invocations;
+
+/**
  *  returns all style properties for the receiver
  */
 @property (nonatomic, strong) NSMutableArray *styleProperties;

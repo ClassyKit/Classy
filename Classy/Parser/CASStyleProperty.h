@@ -49,11 +49,6 @@
 @property (nonatomic, strong) NSDictionary *arguments;
 
 /**
- *  NSInvocation to apply to appropriate view
- */
-@property (nonatomic, strong) NSInvocation *invocation;
-
-/**
  *  Creates property with raw data in the form of CATokens
  */
 - (id)initWithNameToken:(CASToken *)nameToken valueTokens:(NSArray *)valueTokens;
