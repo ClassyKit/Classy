@@ -107,12 +107,16 @@
     CASViewClassDescriptor *viewClassDescriptor = [self viewClassDescriptorForClass:class];
     CASPropertyDescriptor *propertyDescriptor = [viewClassDescriptor propertyDescriptorForKey:styleProperty.name];
 
-    NSInvocation *invocation = [viewClassDescriptor invocationForPropertyDescriptor:propertyDescriptor];
-    [invocation retainArguments];
+    //Special case textAttributes
+    BOOL isTextAttributesProperty = styleProperty.childStyleProperties.count && [styleProperty.name hasSuffix:@"TextAttributes"];
 
-    CASInvocation *invocationWrapper = [[CASInvocation alloc] initWithInvocation:invocation forKeyPath:keypath];
+    NSInvocation *invocation;
+    CASInvocation *invocationWrapper;;
     NSMutableArray *invocations = NSMutableArray.new;
-    if (!styleProperty.childStyleProperties.count) {
+    if (isTextAttributesProperty || !styleProperty.childStyleProperties.count) {
+        invocation = [viewClassDescriptor invocationForPropertyDescriptor:propertyDescriptor];
+        [invocation retainArguments];
+        invocationWrapper = [[CASInvocation alloc] initWithInvocation:invocation forKeyPath:keypath];
         [invocations addObject:invocationWrapper];
     }
 
@@ -204,7 +208,8 @@
             NSString *childKeyPath = keypath.length ? [NSString stringWithFormat:@"%@.%@", keypath, styleProperty.name] : styleProperty.name;
 
             // handle textAttributes as special case
-            if (targetClass == NSDictionary.class && [styleProperty.name hasSuffix:@"TextAttributes"]) {
+            BOOL isTextAttributesArg = targetClass == NSDictionary.class && isTextAttributesProperty;
+            if (isTextAttributesArg) {
                 target = CASTextAttributes.new;
                 targetClass = CASTextAttributes.class;
                 childKeyPath = nil;
@@ -221,10 +226,9 @@
             }
 
             // if textAttributes set argument to dictionary value
-            if (targetClass == CASTextAttributes.class) {
+            if (isTextAttributesArg) {
                 NSDictionary *value = [target dictionary];
                 [invocation setArgument:&value atIndex:argIndex];
-                [invocations addObject:invocationWrapper];
             }
         }
     }];
