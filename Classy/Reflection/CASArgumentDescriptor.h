@@ -20,7 +20,8 @@ typedef NS_ENUM(NSUInteger, CASPrimitiveType) {
     CASPrimitiveTypeCGSize,
     CASPrimitiveTypeCGRect,
     CASPrimitiveTypeUIEdgeInsets,
-    CASPrimitiveTypeUIOffset
+    CASPrimitiveTypeUIOffset,
+    CASPrimitiveTypeCGColorRef,
 };
 
 

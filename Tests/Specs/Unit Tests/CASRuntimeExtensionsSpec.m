@@ -24,6 +24,7 @@
 @property (copy) NSString *normalString;
 @property (unsafe_unretained) id untypedObject;
 @property (nonatomic, weak) NSObject *weakObject;
+@property (nonatomic, assign) CGColorRef colorRef;
 
 @end
 
@@ -72,6 +73,16 @@ SpecBegin(CASRuntimeExtensions)
     XCTAssertNil(attributes->objectClass, @"");
     
     free(attributes);
+}
+
+- (void)testGetPropertyAttributeForStructPointer {
+    objc_property_t property = class_getProperty([RuntimeTestClass class], "colorRef");
+    NSLog(@"property attributes: %s", property_getAttributes(property));
+
+    cas_propertyAttributes *attributes = cas_copyPropertyAttributes(property);
+    XCTAssertTrue(attributes != NULL, @"could not get property attributes");
+    XCTAssertTrue(strlen(attributes->type) > 0, @"property type is missing from attributes");
+    XCTAssertNil(attributes->objectClass, @"");
 }
 
 - (void)testGetPropertyAttributesForArray {

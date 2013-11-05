@@ -16,15 +16,15 @@ SpecBegin(CASUIKit)
     UIView *view = UIView.new;
     [styler styleItem:view];
 
-    expect(view.cas_borderColor.cas_hexValue).to.equal(@"a1a1a1");
+    expect([UIColor colorWithCGColor:view.layer.borderColor].cas_hexValue).to.equal(@"a1a1a1");
     expect(view.backgroundColor.cas_hexValue).to.equal(@"a2a2a2");
-    expect(view.cas_borderWidth).to.equal(2);
-    expect(view.cas_cornerRadius).to.equal(7);
+    expect(view.layer.borderWidth).to.equal(2);
+    expect(view.layer.cornerRadius).to.equal(7);
 
-    expect(view.cas_shadowColor).to.equal([UIColor redColor]);
-    expect(view.cas_shadowOffset).to.equal(CGSizeMake(1, 3));
-    expect(view.cas_shadowOpacity).to.equal(0.5);
-    expect(view.cas_shadowRadius).to.equal(4);
+    expect([UIColor colorWithCGColor:view.layer.shadowColor]).to.equal([UIColor redColor]);
+    expect(view.layer.shadowOffset).to.equal(CGSizeMake(1, 3));
+    expect(view.layer.shadowOpacity).to.equal(0.5);
+    expect(view.layer.shadowRadius).to.equal(4);
 
     expect(view.contentMode).to.equal(UIViewContentModeScaleAspectFill);
 }

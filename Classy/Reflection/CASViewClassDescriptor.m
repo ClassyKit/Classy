@@ -47,6 +47,7 @@
     
     SEL selector = propertyDescriptor.setter;
     NSMethodSignature *methodSignature = [self.viewClass instanceMethodSignatureForSelector:selector];
+    if (!methodSignature) return nil;
     NSInvocation *invocation = [NSInvocation invocationWithMethodSignature:methodSignature];
     [invocation setSelector:selector];
     return invocation;

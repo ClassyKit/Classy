@@ -53,4 +53,9 @@ SpecBegin(CASArgumentDescriptor)
     expect([CASArgumentDescriptor argWithObjCType:@encode(CASStructExample)].primitiveType).to.equal(CASPrimitiveTypeUnsupported);
 }
 
+- (void)testReturnCGColorRef {
+    expect([CASArgumentDescriptor argWithObjCType:@encode(CGColorRef)].primitiveType).to.equal(CASPrimitiveTypeCGColorRef);
+
+}
+
 SpecEnd

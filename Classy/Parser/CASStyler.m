@@ -94,7 +94,7 @@
         NSMutableArray *invocations = NSMutableArray.new;
         for (CASStyleProperty *styleProperty in styleNode.styleProperties) {
             // TODO type checking and throw errors
-            NSArray *propertyInvocations = [self invocationsForClass:styleNode.styleSelector.viewClass styleProperty:styleProperty parentKeyPath:nil childKeyPath:nil];
+            NSArray *propertyInvocations = [self invocationsForClass:styleNode.styleSelector.viewClass styleProperty:styleProperty keyPath:nil];
             [invocations addObjectsFromArray:propertyInvocations];
         }
         styleNode.invocations = invocations;
@@ -103,14 +103,14 @@
 
 #pragma mark - private
 
-- (NSArray *)invocationsForClass:(Class)class styleProperty:(CASStyleProperty *)styleProperty parentKeyPath:(NSString *)parentKeypath childKeyPath:(NSString *)childKeypath {
+- (NSArray *)invocationsForClass:(Class)class styleProperty:(CASStyleProperty *)styleProperty keyPath:(NSString *)keypath {
     CASViewClassDescriptor *viewClassDescriptor = [self viewClassDescriptorForClass:class];
     CASPropertyDescriptor *propertyDescriptor = [viewClassDescriptor propertyDescriptorForKey:styleProperty.name];
 
     NSInvocation *invocation = [viewClassDescriptor invocationForPropertyDescriptor:propertyDescriptor];
     [invocation retainArguments];
 
-    CASInvocation *invocationWrapper = [[CASInvocation alloc] initWithInvocation:invocation forKeyPath:parentKeypath];
+    CASInvocation *invocationWrapper = [[CASInvocation alloc] initWithInvocation:invocation forKeyPath:keypath];
     NSMutableArray *invocations = [NSMutableArray arrayWithObject:invocationWrapper];
 
     [propertyDescriptor.argumentDescriptors enumerateObjectsUsingBlock:^(CASArgumentDescriptor *argDescriptor, NSUInteger idx, BOOL *stop) {
@@ -166,6 +166,12 @@
                 [invocation setArgument:&offset atIndex:argIndex];
                 break;
             }
+            case CASPrimitiveTypeCGColorRef : {
+                UIColor *color = nil;
+                [styleProperty transformValuesToUIColor:&color];
+                CGColorRef colorRef = color.CGColor;
+                [invocation setArgument:&colorRef atIndex:argIndex];
+            }
             default:
                 break;
         }
@@ -192,16 +198,17 @@
             id target = nil;
             Class targetClass = argDescriptor.argumentClass;
 
+            NSString *childKeyPath = keypath.length ? [NSString stringWithFormat:@"%@.%@", keypath, styleProperty.name] : styleProperty.name;
+
             // handle textAttributes as special case
             if (targetClass == NSDictionary.class && [styleProperty.name hasSuffix:@"TextAttributes"]) {
                 target = CASTextAttributes.new;
                 targetClass = CASTextAttributes.class;
+                childKeyPath = nil;
             }
 
             for (CASStyleProperty *childStyleProperty in styleProperty.childStyleProperties) {
-                NSString *newParentKeyPath = parentKeypath.length ? [NSString stringWithFormat:@"%@.%@", parentKeypath, childKeypath] : childKeypath;
-
-                NSArray *childInvocations = [self invocationsForClass:targetClass styleProperty:childStyleProperty parentKeyPath:newParentKeyPath childKeyPath:childStyleProperty.name];
+                NSArray *childInvocations = [self invocationsForClass:targetClass styleProperty:childStyleProperty keyPath:childKeyPath];
                 
                 if (target) {
                     [childInvocations makeObjectsPerformSelector:@selector(invokeWithTarget:) withObject:target];
@@ -284,15 +291,6 @@
 
     // UIView
     CASViewClassDescriptor *viewClassDescriptor = [self viewClassDescriptorForClass:UIView.class];
-    viewClassDescriptor.propertyKeyAliases = @{
-        @"borderColor"   : @cas_propertykey(UIView, cas_borderColor),
-        @"borderWidth"   : @cas_propertykey(UIView, cas_borderWidth),
-        @"borderRadius"  : @cas_propertykey(UIView, cas_cornerRadius),
-        @"shadowColor"   : @cas_propertykey(UIView, cas_shadowColor),
-        @"shadowOffset"  : @cas_propertykey(UIView, cas_shadowOffset),
-        @"shadowOpacity" : @cas_propertykey(UIView, cas_shadowOpacity),
-        @"shadowRadius"  : @cas_propertykey(UIView, cas_shadowRadius),
-    };
 
     NSDictionary *contentModeMap = @{
         @"fill"        : @(UIViewContentModeScaleToFill),

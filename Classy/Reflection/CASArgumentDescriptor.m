@@ -86,6 +86,8 @@
         return CASPrimitiveTypeUIEdgeInsets;
     } else if ([self.type hasPrefix:@"{UIOffset"]) {
         return CASPrimitiveTypeUIOffset;
+    } else if ([self.type hasPrefix:@"^{CGColor"]) {
+        return CASPrimitiveTypeCGColorRef;
     }
 
     return CASPrimitiveTypeUnsupported;
