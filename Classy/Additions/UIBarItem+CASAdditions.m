@@ -1,23 +1,22 @@
 //
-//  UIBarButtonItem+CASAdditions.m
+//  UIBarItem+CASAdditions.m
 //  
 //
-//  Created by Jonas Budelmann on 31/10/13.
+//  Created by Jonas Budelmann on 5/11/13.
 //
 //
 
-#import "UIBarButtonItem+CASAdditions.h"
+#import "UIBarItem+CASAdditions.h"
 #import <objc/runtime.h>
 #import "CASStyler.h"
 
-@implementation UIBarButtonItem (CASAdditions) 
+@implementation UIBarItem (CASAdditions)
 
 - (void)cas_applyStyle:(CASStyler *)styler {
     [styler styleItem:self];
 }
 
 #pragma mark - associated properties
-//TODO move to macro?
 
 - (id<CASStyleableItem>)cas_parent {
     return objc_getAssociatedObject(self, @selector(cas_parent));

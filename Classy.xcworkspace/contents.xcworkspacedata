@@ -17,6 +17,12 @@
             location = "group:CASExpressionSolver.m">
          </FileRef>
          <FileRef
+            location = "group:CASInvocation.h">
+         </FileRef>
+         <FileRef
+            location = "group:CASInvocation.m">
+         </FileRef>
+         <FileRef
             location = "group:CASLexer.h">
          </FileRef>
          <FileRef
@@ -114,10 +120,10 @@
             location = "group:UIView+CASAdditions.m">
          </FileRef>
          <FileRef
-            location = "group:UIBarButtonItem+CASAdditions.h">
+            location = "group:UIBarItem+CASAdditions.h">
          </FileRef>
          <FileRef
-            location = "group:UIBarButtonItem+CASAdditions.m">
+            location = "group:UIBarItem+CASAdditions.m">
          </FileRef>
          <FileRef
             location = "group:UINavigationBar+CASAdditions.h">
@@ -130,12 +136,6 @@
          </FileRef>
          <FileRef
             location = "group:UITabBar+CASAdditions.m">
-         </FileRef>
-         <FileRef
-            location = "group:UITabBarItem+CASAdditions.h">
-         </FileRef>
-         <FileRef
-            location = "group:UITabBarItem+CASAdditions.m">
          </FileRef>
          <FileRef
             location = "group:UIToolbar+CASAdditions.h">

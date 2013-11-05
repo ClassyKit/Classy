@@ -14,6 +14,8 @@
 #import "CASUtilities.h"
 #import "CASStyleNode.h"
 #import "NSString+CASAdditions.h"
+#import "CASTextAttributes.h"
+#import "CASInvocation.h"
 
 @interface CASStyler ()
 
@@ -54,7 +56,7 @@
     for (CASStyleNode *styleNode in self.styleNodes.reverseObjectEnumerator) {
         if ([styleNode.styleSelector shouldSelectItem:item]) {
             // apply style nodes
-            for (NSInvocation *invocation in styleNode.invocations) {
+            for (CASInvocation *invocation in styleNode.invocations) {
                 [invocation invokeWithTarget:item];
             }
         }
@@ -92,11 +94,8 @@
         NSMutableArray *invocations = NSMutableArray.new;
         for (CASStyleProperty *styleProperty in styleNode.styleProperties) {
             // TODO type checking and throw errors
-
-            NSInvocation *invocation = [self invocationForClass:styleNode.styleSelector.viewClass styleProperty:styleProperty];
-            if (invocation) {
-                [invocations addObject:invocation];
-            }
+            NSArray *propertyInvocations = [self invocationsForClass:styleNode.styleSelector.viewClass styleProperty:styleProperty parentKeyPath:nil childKeyPath:nil];
+            [invocations addObjectsFromArray:propertyInvocations];
         }
         styleNode.invocations = invocations;
     }
@@ -104,12 +103,16 @@
 
 #pragma mark - private
 
-- (NSInvocation *)invocationForClass:(Class)class styleProperty:(CASStyleProperty *)styleProperty {
+- (NSArray *)invocationsForClass:(Class)class styleProperty:(CASStyleProperty *)styleProperty parentKeyPath:(NSString *)parentKeypath childKeyPath:(NSString *)childKeypath {
     CASViewClassDescriptor *viewClassDescriptor = [self viewClassDescriptorForClass:class];
     CASPropertyDescriptor *propertyDescriptor = [viewClassDescriptor propertyDescriptorForKey:styleProperty.name];
 
     NSInvocation *invocation = [viewClassDescriptor invocationForPropertyDescriptor:propertyDescriptor];
     [invocation retainArguments];
+
+    CASInvocation *invocationWrapper = [[CASInvocation alloc] initWithInvocation:invocation forKeyPath:parentKeypath];
+    NSMutableArray *invocations = [NSMutableArray arrayWithObject:invocationWrapper];
+
     [propertyDescriptor.argumentDescriptors enumerateObjectsUsingBlock:^(CASArgumentDescriptor *argDescriptor, NSUInteger idx, BOOL *stop) {
         NSInteger argIndex = 2 + idx;
 
@@ -184,8 +187,37 @@
             [styleProperty transformValuesToUIFont:&font];
             [invocation setArgument:&font atIndex:argIndex];
         }
+
+        if (styleProperty.childStyleProperties.count) {
+            id target = nil;
+            Class targetClass = argDescriptor.argumentClass;
+
+            // handle textAttributes as special case
+            if (targetClass == NSDictionary.class && [styleProperty.name hasSuffix:@"TextAttributes"]) {
+                target = CASTextAttributes.new;
+                targetClass = CASTextAttributes.class;
+            }
+
+            for (CASStyleProperty *childStyleProperty in styleProperty.childStyleProperties) {
+                NSString *newParentKeyPath = parentKeypath.length ? [NSString stringWithFormat:@"%@.%@", parentKeypath, childKeypath] : childKeypath;
+
+                NSArray *childInvocations = [self invocationsForClass:targetClass styleProperty:childStyleProperty parentKeyPath:newParentKeyPath childKeyPath:childStyleProperty.name];
+                
+                if (target) {
+                    [childInvocations makeObjectsPerformSelector:@selector(invokeWithTarget:) withObject:target];
+                } else {
+                    [invocations addObjectsFromArray:childInvocations];
+                }
+            }
+
+            // if textAttributes set argument to dictionary value
+            if (targetClass == CASTextAttributes.class) {
+                NSDictionary *value = [target dictionary];
+                [invocation setArgument:&value atIndex:argIndex];
+            }
+        }
     }];
-    return invocation;
+    return invocations;
 }
 
 - (void)setupViewClassDescriptors {
@@ -196,6 +228,23 @@
         @"highlighted"  : @(UIControlStateHighlighted),
         @"disabled"     : @(UIControlStateDisabled),
         @"selected"     : @(UIControlStateSelected),
+    };
+
+    NSDictionary *textAlignmentMap = @{
+        @"center"    : @(NSTextAlignmentCenter),
+        @"left"      : @(NSTextAlignmentLeft),
+        @"right"     : @(NSTextAlignmentRight),
+        @"justified" : @(NSTextAlignmentJustified),
+        @"natural"   : @(NSTextAlignmentNatural),
+    };
+
+    NSDictionary *lineBreakModeMap = @{
+        @"wordWrapping"     : @(NSLineBreakByWordWrapping),
+        @"charWrapping"     : @(NSLineBreakByCharWrapping),
+        @"clipping"         : @(NSLineBreakByClipping),
+        @"truncatingHead"   : @(NSLineBreakByTruncatingHead),
+        @"truncatingTail"   : @(NSLineBreakByTruncatingTail),
+        @"truncatingMiddle" : @(NSLineBreakByTruncatingMiddle)
     };
 
     NSDictionary *barMetricsMap = @{
@@ -221,6 +270,9 @@
 
     // Common CASArgumentDescriptors
     CASArgumentDescriptor *colorArg = [CASArgumentDescriptor argWithClass:UIColor.class];
+    CASArgumentDescriptor *dictionaryArg = [CASArgumentDescriptor argWithClass:NSDictionary.class];
+    CASArgumentDescriptor *textAlignmentArg = [CASArgumentDescriptor argWithValuesByName:textAlignmentMap];
+    CASArgumentDescriptor *lineBreakModeArg = [CASArgumentDescriptor argWithValuesByName:lineBreakModeMap];
     CASArgumentDescriptor *stateArg = [CASArgumentDescriptor argWithName:@"state" valuesByName:controlStateMap];
     CASArgumentDescriptor *imageArg = [CASArgumentDescriptor argWithClass:UIImage.class];
     CASArgumentDescriptor *barMetricsArg = [CASArgumentDescriptor argWithName:@"barMetrics" valuesByName:barMetricsMap];
@@ -262,8 +314,15 @@
     // some properties don't show up via reflection so we need to add them manually
     [viewClassDescriptor setArgumentDescriptors:@[colorArg] forPropertyKey:@cas_propertykey(UIView, backgroundColor)];
 
+    // UIBarItem
+    viewClassDescriptor = [self viewClassDescriptorForClass:UIBarItem.class];
+    [viewClassDescriptor setArgumentDescriptors:@[dictionaryArg, stateArg] setter:@selector(setTitleTextAttributes:forState:) forPropertyKey:@"titleTextAttributes"];
+
+    // UILabel
+    viewClassDescriptor = [self viewClassDescriptorForClass:UILabel.class];
+    [viewClassDescriptor setArgumentDescriptors:@[lineBreakModeArg] forPropertyKey:@cas_propertykey(UILabel, lineBreakMode)];
+
     // UITextField
-    // TODO text insets
     // TODO border insets
     viewClassDescriptor = [self viewClassDescriptorForClass:UITextField.class];
     viewClassDescriptor.propertyKeyAliases = @{
@@ -273,14 +332,7 @@
         @"textInsets"          : @cas_propertykey(UITextField, cas_textEdgeInsets),
     };
 
-    NSDictionary *textAlignmentMap = @{
-        @"center"    : @(NSTextAlignmentCenter),
-        @"left"      : @(NSTextAlignmentLeft),
-        @"right"     : @(NSTextAlignmentRight),
-        @"justified" : @(NSTextAlignmentJustified),
-        @"natural"   : @(NSTextAlignmentNatural),
-    };
-    [viewClassDescriptor setArgumentDescriptors:@[[CASArgumentDescriptor argWithValuesByName:textAlignmentMap]] forPropertyKey:@cas_propertykey(UITextField, textAlignment)];
+    [viewClassDescriptor setArgumentDescriptors:@[textAlignmentArg] forPropertyKey:@cas_propertykey(UITextField, textAlignment)];
 
     NSDictionary *borderStyleMap = @{
         @"none"    : @(UITextBorderStyleNone),
@@ -361,6 +413,8 @@
 
     [viewClassDescriptor setArgumentDescriptors:@[offsetArg, searchIconArg] setter:@selector(setPositionAdjustment:forSearchBarIcon:) forPropertyKey:@"iconPositionAdjustment"];
 
+    [viewClassDescriptor setArgumentDescriptors:@[dictionaryArg, stateArg] setter:@selector(setScopeBarButtonTitleTextAttributes:forState:) forPropertyKey:@"scopeBarButtonTitleTextAttributes"];
+
     // UISegmentedControl
     viewClassDescriptor = [self viewClassDescriptorForClass:UISegmentedControl.class];
 
@@ -377,6 +431,8 @@
     };
     [viewClassDescriptor setArgumentDescriptors:@[offsetArg, [CASArgumentDescriptor argWithName:@"segmentType" valuesByName:segmentedControlSegmentMap], barMetricsArg] setter:@selector(setContentPositionAdjustment:forSegmentType:barMetrics:) forPropertyKey:@"contentPositionAdjustment"];
 
+    [viewClassDescriptor setArgumentDescriptors:@[dictionaryArg, stateArg] setter:@selector(setTitleTextAttributes:forState:) forPropertyKey:@"titleTextAttributes"];
+    
     // UIStepper
     viewClassDescriptor = [self viewClassDescriptorForClass:UIStepper.class];
 
@@ -416,6 +472,44 @@
     [viewClassDescriptor setArgumentDescriptors:@[imageArg, barPositionArg, barMetricsArg] setter:@selector(setBackgroundImage:forToolbarPosition:barMetrics:) forPropertyKey:@"backgroundImage"];
 
     [viewClassDescriptor setArgumentDescriptors:@[imageArg, barPositionArg] setter:@selector(setShadowImage:forToolbarPosition:) forPropertyKey:@"shadowImage"];
+
+    // CASTextAttributes
+    viewClassDescriptor = [self viewClassDescriptorForClass:CASTextAttributes.class];
+
+    NSDictionary *underlineStyleMap;
+    if (CASKeyDeviceSystemMajorVersion() >= 7) {
+        underlineStyleMap = @{
+            @"none"      : @(NSUnderlineStyleNone),
+            @"single"    : @(NSUnderlineStyleSingle),
+            @"thick"     : @(NSUnderlineStyleThick),
+            @"double"    : @(NSUnderlineStyleDouble),
+            @"solid"     : @(NSUnderlinePatternSolid),
+            @"dot"       : @(NSUnderlinePatternDot),
+            @"dash"      : @(NSUnderlinePatternDash),
+            @"dashDot"   : @(NSUnderlinePatternDashDot),
+            @"dotDotDot" : @(NSUnderlinePatternDashDotDot),
+            @"byWord"    : @(NSUnderlineByWord),
+        };
+    } else {
+        underlineStyleMap = @{
+            @"none"    : @(NSUnderlineStyleNone),
+            @"single"  : @(NSUnderlineStyleSingle),
+        };
+    }
+
+    CASArgumentDescriptor *underlineStyleArg = [CASArgumentDescriptor argWithValuesByName:underlineStyleMap];
+    [viewClassDescriptor setArgumentDescriptors:@[underlineStyleArg] forPropertyKey:@cas_propertykey(CASTextAttributes, underlineStyle)];
+    [viewClassDescriptor setArgumentDescriptors:@[underlineStyleArg] forPropertyKey:@cas_propertykey(CASTextAttributes, strikethroughStyle)];
+
+    // NSParagraphStyle
+    viewClassDescriptor = [self viewClassDescriptorForClass:NSParagraphStyle.class];
+    [viewClassDescriptor setArgumentDescriptors:@[textAlignmentArg] forPropertyKey:@cas_propertykey(NSParagraphStyle, alignment)];
+    [viewClassDescriptor setArgumentDescriptors:@[lineBreakModeArg] forPropertyKey:@cas_propertykey(NSParagraphStyle, lineBreakMode)];
+
+
+    // NSShadow
+    viewClassDescriptor = [self viewClassDescriptorForClass:NSShadow.class];
+    [viewClassDescriptor setArgumentDescriptors:@[colorArg] forPropertyKey:@cas_propertykey(NSShadow, shadowColor)];
 }
 
 - (CASViewClassDescriptor *)viewClassDescriptorForClass:(Class)class {

@@ -9,7 +9,7 @@
 #import "UINavigationBar+CASAdditions.h"
 #import "CASStyler.h"
 #import "UIView+CASAdditions.h"
-#import "UIBarButtonItem+CASAdditions.h"
+#import "UIBarItem+CASAdditions.h"
 
 @implementation UINavigationBar (CASAdditions)
 

@@ -26,6 +26,30 @@ UIButton {
   background-image[state:selected] test_image_4
 }
 
+^UIBarItem {
+  title-text-attributes[state:highlighted] @{
+    font: HelveticaNeue 21
+    foreground-color: magenta
+    background-color: red
+    ligature: 6
+    kern: 0.6
+    strikethrough-style: single
+    underline-style: double
+    stroke-color: blue
+    paragraph-style: @{
+      line-spacing: 20
+      paragraph-spacing: 15;
+      line-break-mode:truncatingTail
+      alignment:center;
+    }
+    shadow: @{
+      shadow-offset: 1,2
+      shadow-blur-radius: 10
+      shadow-color: purple
+    }
+  }
+}
+
 UIBarButtonItem {
   background-image[state:normal] test_image_1
   background-image[state:highlighted] test_image_2

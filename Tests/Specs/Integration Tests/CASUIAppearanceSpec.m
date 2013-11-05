@@ -53,6 +53,32 @@ SpecBegin(CASUIAppearance)
     expect([button backgroundImageForState:UIControlStateSelected]).to.equal([UIImage imageNamed:@"test_image_4"]);
 }
 
+- (void)testUIBarItemAppearance {
+    UITabBarItem *view = UITabBarItem.new;
+    [CASStyler.defaultStyler styleItem:view];
+
+    NSDictionary *titleTextAttributes = [view titleTextAttributesForState:UIControlStateHighlighted];
+    expect(titleTextAttributes[NSFontAttributeName]).to.equal([UIFont fontWithName:@"HelveticaNeue" size:21]);
+    expect(titleTextAttributes[NSForegroundColorAttributeName]).to.equal([UIColor magentaColor]);
+    expect(titleTextAttributes[NSBackgroundColorAttributeName]).to.equal([UIColor redColor]);
+    expect(titleTextAttributes[NSLigatureAttributeName]).to.equal(@6);
+    expect(titleTextAttributes[NSKernAttributeName]).to.equal(@0.6);
+    expect(titleTextAttributes[NSStrikethroughStyleAttributeName]).to.equal(@(NSUnderlineStyleSingle));
+    expect(titleTextAttributes[NSUnderlineStyleAttributeName]).to.equal(@(NSUnderlineStyleDouble));
+    expect(titleTextAttributes[NSStrokeColorAttributeName]).to.equal([UIColor blueColor]);
+
+    NSParagraphStyle *paragraphStyle = titleTextAttributes[NSParagraphStyleAttributeName];
+    expect(paragraphStyle.lineSpacing).to.equal(20);
+    expect(paragraphStyle.paragraphSpacing).to.equal(15);
+    expect(paragraphStyle.alignment).to.equal(NSTextAlignmentCenter);
+    expect(paragraphStyle.lineBreakMode).to.equal(NSLineBreakByTruncatingTail);
+
+    NSShadow *shadow = titleTextAttributes[NSShadowAttributeName];
+    expect(shadow.shadowOffset).to.equal(UIOffsetMake(1, 2));
+    expect(shadow.shadowBlurRadius).to.equal(10);
+    expect(shadow.shadowColor).to.equal([UIColor purpleColor]);
+}
+
 - (void)testUIBarButtonItemAppearance {
     UIBarButtonItem *view = UIBarButtonItem.new;
     [CASStyler.defaultStyler styleItem:view];

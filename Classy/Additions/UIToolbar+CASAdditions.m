@@ -10,7 +10,7 @@
 
 #import "CASStyler.h"
 #import "UIView+CASAdditions.h"
-#import "UIBarButtonItem+CASAdditions.h"
+#import "UIBarItem+CASAdditions.h"
 
 @implementation UIToolbar (CASAdditions)
 

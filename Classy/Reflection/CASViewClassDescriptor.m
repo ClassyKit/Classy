@@ -9,6 +9,7 @@
 #import "CASViewClassDescriptor.h"
 #import "CASRuntimeExtensions.h"
 #import "NSString+CASAdditions.h"
+#import "CASUtilities.h"
 
 @interface CASViewClassDescriptor ()
 
@@ -71,31 +72,27 @@
         objc_property_t property = class_getProperty(self.viewClass, [propertyKey UTF8String]);
         if (property != NULL) {
             cas_propertyAttributes *propertyAttributes = cas_copyPropertyAttributes(class_getProperty(self.viewClass, [propertyKey UTF8String]));
-            if (!propertyAttributes->readonly) {
 
-                NSArray *argumentDescriptors;
-                if (propertyAttributes->objectClass) {
-                    argumentDescriptors = @[
-                        [CASArgumentDescriptor argWithClass:propertyAttributes->objectClass]
-                    ];
-                } else {
-                    NSString *type = [NSString stringWithCString:propertyAttributes->type encoding:NSASCIIStringEncoding];
-                    argumentDescriptors = @[
-                        [CASArgumentDescriptor argWithType:type]
-                    ];
-                }
-                
-                propertyDescriptor = [[CASPropertyDescriptor alloc] initWithKey:propertyKey argumentDescriptors:argumentDescriptors setter:propertyAttributes->setter];
-                self.propertyDescriptorCache[propertyKey] = propertyDescriptor;
-
-                free(propertyAttributes);
-                return propertyDescriptor;
+            NSArray *argumentDescriptors;
+            if (propertyAttributes->objectClass) {
+                argumentDescriptors = @[
+                    [CASArgumentDescriptor argWithClass:propertyAttributes->objectClass]
+                ];
             } else {
-                free(propertyAttributes);
-                // TODO error
+                NSString *type = [NSString stringWithCString:propertyAttributes->type encoding:NSASCIIStringEncoding];
+                argumentDescriptors = @[
+                    [CASArgumentDescriptor argWithType:type]
+                ];
             }
+            
+            propertyDescriptor = [[CASPropertyDescriptor alloc] initWithKey:propertyKey argumentDescriptors:argumentDescriptors setter:propertyAttributes->setter];
+            self.propertyDescriptorCache[propertyKey] = propertyDescriptor;
+
+            free(propertyAttributes);
+            return propertyDescriptor;
         } else {
             // TODO error
+            CASLog(@"Property '%@' not found. Class '%@'", propertyKey, self.viewClass);
         }
     }
 
