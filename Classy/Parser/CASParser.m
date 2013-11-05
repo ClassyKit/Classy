@@ -174,7 +174,8 @@ NSInteger const CASParseErrorFileContents = 2;
         }
 
         // not a style group therefore must be a property
-        CASStyleProperty *styleProperty = [self nextStyleProperty];
+        BOOL isStylePropertyParent = NO;
+        CASStyleProperty *styleProperty = [self nextStylePropertyIsParent:&isStylePropertyParent];
         if (self.error) {
             if (error) *error = self.error;
             return nil;
@@ -200,7 +201,7 @@ NSInteger const CASParseErrorFileContents = 2;
                 }
             }
 
-            if (styleProperty.hasChildren) {
+            if (isStylePropertyParent) {
                 [stylePropertiesStack addObject:styleProperty];
             }
             continue;
@@ -458,7 +459,7 @@ NSInteger const CASParseErrorFileContents = 2;
     return styleNodes;
 }
 
-- (CASStyleProperty *)nextStyleProperty {
+- (CASStyleProperty *)nextStylePropertyIsParent:(BOOL *)isParent {
     NSInteger i = 1;
 
     BOOL hasName = NO, hasValues = NO;
@@ -545,7 +546,7 @@ NSInteger const CASParseErrorFileContents = 2;
         }
         CASStyleProperty *styleProperty = [[CASStyleProperty alloc] initWithNameToken:nameToken valueTokens:valueTokens];
         styleProperty.arguments = [arguments copy];
-        styleProperty.hasChildren = hasChildren;
+        *isParent = hasChildren;
         return styleProperty;
     }
 

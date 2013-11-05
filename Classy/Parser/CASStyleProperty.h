@@ -38,11 +38,6 @@
 @property (nonatomic, strong, readonly) NSMutableArray *childStyleProperties;
 
 /**
- *  Whether or not the receiver is expected to have child properties
- */
-@property (nonatomic, assign) BOOL hasChildren;
-
-/**
  *  Provides support for properties that have extra arguments such as
  *  - setTitle:forState:
  */
