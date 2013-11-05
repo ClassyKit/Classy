@@ -47,7 +47,10 @@
     
     SEL selector = propertyDescriptor.setter;
     NSMethodSignature *methodSignature = [self.viewClass instanceMethodSignatureForSelector:selector];
-    if (!methodSignature) return nil;
+    if (!methodSignature) {
+        CASLog(@"Selector '%@' not found. Class '%@'", NSStringFromSelector(selector), self.viewClass);
+        return nil;
+    }
     NSInvocation *invocation = [NSInvocation invocationWithMethodSignature:methodSignature];
     [invocation setSelector:selector];
     return invocation;

@@ -111,7 +111,10 @@
     [invocation retainArguments];
 
     CASInvocation *invocationWrapper = [[CASInvocation alloc] initWithInvocation:invocation forKeyPath:keypath];
-    NSMutableArray *invocations = [NSMutableArray arrayWithObject:invocationWrapper];
+    NSMutableArray *invocations = NSMutableArray.new;
+    if (!styleProperty.childStyleProperties.count) {
+        [invocations addObject:invocationWrapper];
+    }
 
     [propertyDescriptor.argumentDescriptors enumerateObjectsUsingBlock:^(CASArgumentDescriptor *argDescriptor, NSUInteger idx, BOOL *stop) {
         NSInteger argIndex = 2 + idx;
@@ -221,6 +224,7 @@
             if (targetClass == CASTextAttributes.class) {
                 NSDictionary *value = [target dictionary];
                 [invocation setArgument:&value atIndex:argIndex];
+                [invocations addObject:invocationWrapper];
             }
         }
     }];
