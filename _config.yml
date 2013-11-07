@@ -1,0 +1,15 @@
+# Dependencies
+markdown:         rdiscount
+pygments:         true
+
+# Permalinks
+permalink:        pretty
+
+# Server
+destination:      ./_gh_pages
+exclude:          [".gitignore", ".editorconfig", "CNAME", "LICENSE", "README.md"]
+port:             9001
+
+# Custom vars
+current_version:  0.0.1
+repo:             https://github.com/cloudkite/Classy

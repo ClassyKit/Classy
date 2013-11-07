@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <!-- Meta, title, CSS, favicons, etc. -->
+    {% include header.html %}
+  </head>
+  <body class="bs-docs-home">
+    <a class="sr-only" href="#content">Skip to main content</a>
+
+    <!-- Docs master nav -->
+    {% include nav-main.html %}
+
+    <!-- Page content of course! -->
+    {{ content }}
+
+    <footer class="container" role="contentinfo">
+
+      {% include social-buttons.html %}
+
+      <ul class="bs-masthead-links">
+        <li class="current-version">
+          Currently v{{ site.current_version }}
+        </li>
+        <li>
+          <a href="{{ site.repo }}" onclick="_gaq.push(['_trackEvent', 'Jumbotron actions', 'Jumbotron links', 'GitHub project']);">GitHub project</a>
+        </li>
+      </ul>
+    </footer>
+
+    <!-- JS and analytics only. -->
+    {% include footer.html %}
+
+  </body>
+</html>
