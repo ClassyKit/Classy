@@ -31,7 +31,14 @@
 }
 
 - (void)setCas_styleClass:(NSString *)styleClass {
+    if ([self.cas_styleClass isEqual:styleClass]) return;
     objc_setAssociatedObject(self, @selector(cas_styleClass), styleClass, OBJC_ASSOCIATION_RETAIN_NONATOMIC);
+
+    if (self.cas_parent) {
+        [self cas_applyStyle:CASStyler.defaultStyler];
+    } else {
+        self.cas_styleApplied = NO;
+    }
 }
 
 - (BOOL)cas_styleApplied {
