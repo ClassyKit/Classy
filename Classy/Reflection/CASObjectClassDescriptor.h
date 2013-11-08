@@ -1,5 +1,5 @@
 //
-//  CASViewClassDescriptor.h
+//  CASObjectClassDescriptor.h
 //  Classy
 //
 //  Created by Jonas Budelmann on 30/09/13.
@@ -9,17 +9,17 @@
 #import <Foundation/Foundation.h>
 #import "CASPropertyDescriptor.h"
 
-@interface CASViewClassDescriptor : NSObject
+@interface CASObjectClassDescriptor : NSObject
 
 /**
- *  view class which receiver relates to
+ *  object class which receiver relates to
  */
-@property (nonatomic, strong, readonly) Class viewClass;
+@property (nonatomic, strong, readonly) Class objectClass;
 
 /**
  *  view superclass descriptor
  */
-@property (nonatomic, strong) CASViewClassDescriptor *parent;
+@property (nonatomic, strong) CASObjectClassDescriptor *parent;
 
 /**
  *  alternative names for view property keys

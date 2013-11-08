@@ -14,7 +14,7 @@
 /**
  *  Class of View to match
  */
-@property (nonatomic, strong) Class viewClass;
+@property (nonatomic, strong) Class objectClass;
 
 /**
  *  If not nil checks the view's cas_styleClass property
@@ -22,7 +22,7 @@
 @property (nonatomic, copy) NSString *styleClass;
 
 /**
- *  Whether or not to do strict matching against viewClass
+ *  Whether or not to do strict matching against objectClass
  */
 @property (nonatomic, assign) BOOL shouldSelectSubclasses;
 

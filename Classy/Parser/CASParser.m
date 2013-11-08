@@ -421,12 +421,12 @@ NSInteger const CASParseErrorFileContents = 2;
             if ([tokenValue hasPrefix:@"."]) {
                 styleSelector.styleClass = [tokenValue substringFromIndex:1];
             } else {
-                styleSelector.viewClass = NSClassFromString(tokenValue);
+                styleSelector.objectClass = NSClassFromString(tokenValue);
             }
 
-            if (!styleSelector.viewClass && !shouldConcatToParent) {
+            if (!styleSelector.objectClass && !shouldConcatToParent) {
                 self.error = [self.lexer errorWithDescription:[NSString stringWithFormat:@"Invalid class name `%@`", tokenValue]
-                                                       reason:@"Every selector must have a viewClass"
+                                                       reason:@"Every selector must have a objectClass"
                                                          code:CASParseErrorFileContents];
                 return nil;
             }

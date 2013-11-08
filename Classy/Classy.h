@@ -9,7 +9,11 @@
 #import <Foundation/Foundation.h>
 
 #import "CASStyler.h"
+#import "CASStyleableItem.h"
 #import "CASUtilities.h"
+#import "CASObjectClassDescriptor.h"
+#import "CASArgumentDescriptor.h"
+#import "CASPropertyDescriptor.h"
 
 #import "UIColor+CASAdditions.h"
 #import "UITextField+CASAdditions.h"

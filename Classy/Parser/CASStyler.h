@@ -7,7 +7,7 @@
 //
 
 #import <UIKit/UIKit.h>
-#import "CASViewClassDescriptor.h"
+#import "CASObjectClassDescriptor.h"
 #import "CASStyleableItem.h"
 
 @interface CASStyler : NSObject
@@ -44,8 +44,8 @@
 - (void)styleItem:(id<CASStyleableItem>)item;
 
 /**
- *  Returns a cached CASViewClassDescriptor if it exists or creates one
+ *  Returns a cached CASObjectClassDescriptor if it exists or creates one
  */
-- (CASViewClassDescriptor *)viewClassDescriptorForClass:(Class)class;
+- (CASObjectClassDescriptor *)objectClassDescriptorForClass:(Class)class;
 
 @end

@@ -1,30 +1,30 @@
 //
-//  CASViewClassDescriptor.m
+//  CASObjectClassDescriptor.m
 //  Classy
 //
 //  Created by Jonas Budelmann on 30/09/13.
 //  Copyright (c) 2013 cloudling. All rights reserved.
 //
 
-#import "CASViewClassDescriptor.h"
+#import "CASObjectClassDescriptor.h"
 #import "CASRuntimeExtensions.h"
 #import "NSString+CASAdditions.h"
 #import "CASUtilities.h"
 
-@interface CASViewClassDescriptor ()
+@interface CASObjectClassDescriptor ()
 
-@property (nonatomic, strong, readwrite) Class viewClass;
+@property (nonatomic, strong, readwrite) Class objectClass;
 @property (nonatomic, strong) NSMutableDictionary *propertyDescriptorCache;
 
 @end
 
-@implementation CASViewClassDescriptor
+@implementation CASObjectClassDescriptor
 
 - (id)initWithClass:(Class)class {
     self = [super init];
     if (!self) return nil;
 
-    self.viewClass = class;
+    self.objectClass = class;
     self.propertyDescriptorCache = NSMutableDictionary.new;
 
     return self;
@@ -46,9 +46,9 @@
     if (!propertyDescriptor) return nil;
     
     SEL selector = propertyDescriptor.setter;
-    NSMethodSignature *methodSignature = [self.viewClass instanceMethodSignatureForSelector:selector];
+    NSMethodSignature *methodSignature = [self.objectClass instanceMethodSignatureForSelector:selector];
     if (!methodSignature) {
-        CASLog(@"Selector '%@' not found. Class '%@'", NSStringFromSelector(selector), self.viewClass);
+        CASLog(@"Selector '%@' not found. Class '%@'", NSStringFromSelector(selector), self.objectClass);
         return nil;
     }
     NSInvocation *invocation = [NSInvocation invocationWithMethodSignature:methodSignature];
@@ -71,11 +71,11 @@
     SEL propertySelector = NSSelectorFromString(propertyKey);
 
     if (self.propertyKeyAliases[propertyKey]
-        || ([self.viewClass instancesRespondToSelector:propertySelector] && ![self.viewClass.superclass instancesRespondToSelector:propertySelector])) {
+        || ([self.objectClass instancesRespondToSelector:propertySelector] && ![self.objectClass.superclass instancesRespondToSelector:propertySelector])) {
 
-        objc_property_t property = class_getProperty(self.viewClass, [propertyKey UTF8String]);
+        objc_property_t property = class_getProperty(self.objectClass, [propertyKey UTF8String]);
         if (property != NULL) {
-            cas_propertyAttributes *propertyAttributes = cas_copyPropertyAttributes(class_getProperty(self.viewClass, [propertyKey UTF8String]));
+            cas_propertyAttributes *propertyAttributes = cas_copyPropertyAttributes(class_getProperty(self.objectClass, [propertyKey UTF8String]));
 
             NSArray *argumentDescriptors;
             if (propertyAttributes->objectClass) {
@@ -96,7 +96,7 @@
             return propertyDescriptor;
         } else {
             // TODO error
-            CASLog(@"Property '%@' not found. Class '%@'", propertyKey, self.viewClass);
+            CASLog(@"Property '%@' not found. Class '%@'", propertyKey, self.objectClass);
         }
     }
 

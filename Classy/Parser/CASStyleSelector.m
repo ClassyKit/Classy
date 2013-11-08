@@ -26,7 +26,7 @@
     CASStyleSelector *newSelector = [[self.class allocWithZone:zone] init];
     if (!newSelector) return nil;
 
-    newSelector.viewClass = self.viewClass;
+    newSelector.objectClass = self.objectClass;
     newSelector.styleClass = self.styleClass;
     newSelector.shouldSelectSubclasses = self.shouldSelectSubclasses;
     newSelector.shouldSelectIndirectSuperview = self.shouldSelectIndirectSuperview;
@@ -47,7 +47,7 @@
 
 - (NSInteger)precedence {
     NSInteger precedence = 0;
-    if (self.viewClass) {
+    if (self.objectClass) {
         if (self.isParent) {
             precedence += self.shouldSelectIndirectSuperview ? 2 : 3;
         } else {
@@ -90,8 +90,8 @@
     if (self.shouldSelectSubclasses) {
         [stringValue appendString:@"^"];
     }
-    if (self.viewClass) {
-        [stringValue appendString:NSStringFromClass(self.viewClass)];
+    if (self.objectClass) {
+        [stringValue appendString:NSStringFromClass(self.objectClass)];
     }
     if (self.arguments) {
         [stringValue appendString:@"["];
@@ -126,11 +126,11 @@
 }
 
 - (BOOL)matchesItem:(id<CASStyleableItem>)item {
-    if (self.viewClass) {
+    if (self.objectClass) {
         if (self.shouldSelectSubclasses) {
-            if (![item isKindOfClass:self.viewClass]) return NO;
+            if (![item isKindOfClass:self.objectClass]) return NO;
         } else {
-            if (![item isMemberOfClass:self.viewClass]) return NO;
+            if (![item isMemberOfClass:self.objectClass]) return NO;
         }
     }
     if (self.styleClass.length && ![self.styleClass isEqualToString:item.cas_styleClass]) {

@@ -25,14 +25,14 @@ SpecBegin(CASStyler)
     CASStyler *styler = CASStyler.new;
     styler.filePath = [[NSBundle bundleForClass:self.class] pathForResource:@"UIView-Basic.cas" ofType:nil];
 
-    CASViewClassDescriptor *descriptor = [styler viewClassDescriptorForClass:UISlider.class];
-    expect(descriptor.viewClass).to.equal(UISlider.class);
-    expect(descriptor.parent.viewClass).to.equal(UIControl.class);
-    expect(descriptor.parent.parent.viewClass).to.equal(UIView.class);
+    CASObjectClassDescriptor *descriptor = [styler objectClassDescriptorForClass:UISlider.class];
+    expect(descriptor.objectClass).to.equal(UISlider.class);
+    expect(descriptor.parent.objectClass).to.equal(UIControl.class);
+    expect(descriptor.parent.parent.objectClass).to.equal(UIView.class);
     expect(descriptor.parent.parent.parent).to.beNil();
 
-    descriptor = [styler viewClassDescriptorForClass:UIView.class];
-    expect(descriptor.viewClass).to.equal(UIView.class);
+    descriptor = [styler objectClassDescriptorForClass:UIView.class];
+    expect(descriptor.objectClass).to.equal(UIView.class);
     expect(descriptor.parent).to.beNil();
 }
 
@@ -88,7 +88,7 @@ SpecBegin(CASStyler)
 
 - (void)testSelectSubclasses {
     CASStyleSelector *selector = CASStyleSelector.new;
-    selector.viewClass = UIControl.class;
+    selector.objectClass = UIControl.class;
     selector.shouldSelectSubclasses = YES;
     expect([selector shouldSelectItem:UIControl.new]).to.equal(YES);
     expect([selector shouldSelectItem:UIView.new]).to.equal(NO);

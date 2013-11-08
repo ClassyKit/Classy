@@ -29,12 +29,12 @@ SpecBegin(CASStyleSelector)
 - (void)testSelectViewClass {
     CASStyleSelector *selector = CASStyleSelector.new;
 
-    selector.viewClass = UIView.class;
+    selector.objectClass = UIView.class;
     expect(selector.stringValue).to.equal(@"UIView");
     expect([selector shouldSelectItem:UIView.new]).to.beTruthy();
     expect([selector shouldSelectItem:UISlider.new]).to.beFalsy();
 
-    selector.viewClass = UITabBar.class;
+    selector.objectClass = UITabBar.class;
     expect(selector.stringValue).to.equal(@"UITabBar");
     expect([selector shouldSelectItem:UITabBar.new]).to.beTruthy();
     expect([selector shouldSelectItem:UINavigationBar.new]).to.beFalsy();
@@ -42,11 +42,11 @@ SpecBegin(CASStyleSelector)
 
 - (void)testSelectViewWithIndirectSuperview {
     CASStyleSelector *parentSelector = CASStyleSelector.new;
-    parentSelector.viewClass = UIControl.class;
+    parentSelector.objectClass = UIControl.class;
     parentSelector.parent = YES;
 
     CASStyleSelector *selector = CASStyleSelector.new;
-    selector.viewClass = UISlider.class;
+    selector.objectClass = UISlider.class;
     selector.parentSelector = parentSelector;
 
     UIControl *control = UIControl.new;
@@ -68,11 +68,11 @@ SpecBegin(CASStyleSelector)
 
 - (void)testSelectViewWithDirectSuperviewOnly {
     CASStyleSelector *parentSelector = CASStyleSelector.new;
-    parentSelector.viewClass = UIControl.class;
+    parentSelector.objectClass = UIControl.class;
     parentSelector.parent = YES;
 
     CASStyleSelector *selector = CASStyleSelector.new;
-    selector.viewClass = UISlider.class;
+    selector.objectClass = UISlider.class;
     selector.shouldSelectIndirectSuperview = NO;
     selector.parentSelector = parentSelector;
 
@@ -97,14 +97,14 @@ SpecBegin(CASStyleSelector)
     CASStyleSelector *selector = CASStyleSelector.new;
     selector.styleClass = @"big";
 
-    selector.viewClass = UIView.class;
+    selector.objectClass = UIView.class;
     UIView *view = UIView.new;
     expect(selector.stringValue).to.equal(@"UIView.big");
     expect([selector shouldSelectItem:view]).to.beFalsy();
     view.cas_styleClass = @"big";
     expect([selector shouldSelectItem:view]).to.beTruthy();
 
-    selector.viewClass = UITabBar.class;
+    selector.objectClass = UITabBar.class;
 
     UITabBar *tabBar = UITabBar.new;
     expect(selector.stringValue).to.equal(@"UITabBar.big");
@@ -115,7 +115,7 @@ SpecBegin(CASStyleSelector)
 
 - (void)testSelectViewWithSubclassMatch {
     CASStyleSelector *selector = CASStyleSelector.new;
-    selector.viewClass = UIControl.class;
+    selector.objectClass = UIControl.class;
     selector.shouldSelectSubclasses = YES;
 
     expect(selector.stringValue).to.equal(@"^UIControl");
@@ -127,25 +127,25 @@ SpecBegin(CASStyleSelector)
 
 - (void)testSelectViewWithComplexMixedMatchers {
     CASStyleSelector *parentSelector3 = CASStyleSelector.new;
-    parentSelector3.viewClass = UIButton.class;
+    parentSelector3.objectClass = UIButton.class;
     parentSelector3.styleClass = @"top";
     parentSelector3.parent = YES;
 
     CASStyleSelector *parentSelector2 = CASStyleSelector.new;
-    parentSelector2.viewClass = UIView.class;
+    parentSelector2.objectClass = UIView.class;
     parentSelector2.shouldSelectSubclasses = YES;
     parentSelector2.shouldSelectIndirectSuperview = NO;
     parentSelector2.parent = YES;
     parentSelector2.parentSelector = parentSelector3;
 
     CASStyleSelector *parentSelector1 = CASStyleSelector.new;
-    parentSelector1.viewClass = UIControl.class;
+    parentSelector1.objectClass = UIControl.class;
     parentSelector1.styleClass = @"mid";
     parentSelector1.parent = YES;
     parentSelector1.parentSelector = parentSelector2;
 
     CASStyleSelector *selector = CASStyleSelector.new;
-    selector.viewClass = UISlider.class;
+    selector.objectClass = UISlider.class;
     selector.shouldSelectIndirectSuperview = NO;
     selector.parentSelector = parentSelector1;
 
