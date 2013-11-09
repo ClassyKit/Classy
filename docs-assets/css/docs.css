@@ -50,6 +50,12 @@ body {
   padding-top: 50px; /* Account for fixed navbar */
 }
 
+code {
+  color:#333333;
+  background-color:#F0F9FF;
+  border:1px solid #D1E0EB;
+}
+
 /* Keep code small in tables on account of limited space */
 .table code {
   font-size: 13px;
@@ -942,6 +948,7 @@ h1[id] {
 .highlight pre code {
   font-size: inherit;
   color: #333; /* Effectively the base text color */
+  border:none;
 }
 .highlight pre .lineno {
   display: inline-block;
