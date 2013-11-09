@@ -51,11 +51,9 @@
         {% include social-buttons.html %}
 
         <ul class="footer-links">
-          <li>Currently v{{ site.current_version }}</li>
+          <li><a href="{{ site.repo }}/blob/master/CHANGELOG.md">Currently v{{ site.current_version }}</a></li>
           <li class="muted">&middot;</li>
           <li><a href="{{ site.repo }}/issues?state=open">Issues</a></li>
-          <li class="muted">&middot;</li>
-          <li><a href="{{ site.repo }}/blob/master/CONTRIBUTING.md">Changelog</a></li>
         </ul>
       </div>
     </footer>

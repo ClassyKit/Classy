@@ -19,10 +19,10 @@
 
       <ul class="bs-masthead-links">
         <li class="current-version">
-          Currently v{{ site.current_version }}
+          <a href="{{ site.repo }}/blob/master/CHANGELOG.md">Currently v{{ site.current_version }}</a></li>
         </li>
         <li>
-          <a href="{{ site.repo }}" onclick="_gaq.push(['_trackEvent', 'Jumbotron actions', 'Jumbotron links', 'GitHub project']);">GitHub project</a>
+          <a href="{{ site.repo }}">GitHub project</a>
         </li>
       </ul>
     </footer>
