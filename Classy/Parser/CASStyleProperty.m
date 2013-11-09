@@ -17,11 +17,14 @@
 
 @property (nonatomic, strong, readwrite) CASToken *nameToken;
 @property (nonatomic, strong, readwrite) NSArray *valueTokens;
-@property (nonatomic, strong, readwrite) NSMutableArray *childStyleProperties;
 
 @end
 
-@implementation CASStyleProperty
+@implementation CASStyleProperty {
+    NSMutableArray *_childStyleProperties;
+}
+
+@synthesize childStyleProperties = _childStyleProperties;
 
 - (id)initWithNameToken:(CASToken *)nameToken valueTokens:(NSArray *)valueTokens {
     self = [super init];
@@ -216,10 +219,10 @@
 }
 
 - (void)addChildStyleProperty:(CASStyleProperty *)styleProperty {
-    if (!self.childStyleProperties) {
-        self.childStyleProperties = NSMutableArray.new;
+    if (!_childStyleProperties) {
+        _childStyleProperties = NSMutableArray.new;
     }
-    [self.childStyleProperties addObject:styleProperty];
+    [_childStyleProperties addObject:styleProperty];
 }
 
 @end

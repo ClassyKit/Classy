@@ -35,7 +35,7 @@
 /**
  *  child style properties
  */
-@property (nonatomic, strong, readonly) NSMutableArray *childStyleProperties;
+@property (nonatomic, strong, readonly) NSArray *childStyleProperties;
 
 /**
  *  Provides support for properties that have extra arguments such as

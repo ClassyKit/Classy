@@ -13,8 +13,9 @@
 @implementation CASAppDelegate
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
-    
-#ifdef DEBUG
+
+
+#if TARGET_IPHONE_SIMULATOR
     // get absolute file path of stylesheet, using relative path
     NSString *absoluteFilePath = CASAbsoluteFilePath(@"Stylesheets/stylesheet.cas");
     [CASStyler defaultStyler].watchFilePath = absoluteFilePath;

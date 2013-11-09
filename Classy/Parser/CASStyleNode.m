@@ -8,19 +8,23 @@
 
 #import "CASStyleNode.h"
 
-@implementation CASStyleNode
+@implementation CASStyleNode {
+    NSMutableArray *_styleProperties;
+}
+
+@synthesize styleProperties = _styleProperties;
 
 - (id)init {
     self = [super init];
     if (!self) return nil;
 
-    self.styleProperties = NSMutableArray.new;
+    _styleProperties = NSMutableArray.new;
 
     return self;
 }
 
 - (void)addStyleProperty:(CASStyleProperty *)styleProperty {
-    [self.styleProperties addObject:styleProperty];
+    [_styleProperties addObject:styleProperty];
 }
 
 @end
