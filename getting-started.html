@@ -10,17 +10,70 @@ base_url: "../"
   ================================================== -->
   <div class="bs-docs-section">
     <div class="page-header">
-      <h1 id="installing">Installing Classy</h1>
+      <h1 id="install">Installing Classy</h1>
     </div>
-    <p class="lead">The recommended method for integrating Classy into your project is using <a href="http://cocoapods.org/">cocoapods</a></p>
+    <p class="lead">The recommended method of integrating Classy into your project is using <a href="http://cocoapods.org/">cocoapods</a></p>
 
-    <div class="bs-docs-dl-options">
+    <h3 id="install-cocoapods">Cocoapods</h3>
+    <div>
       <p>Add Classy to your Podfile</p>
       {% highlight ruby %}pod 'Classy'{% endhighlight %}
       
       <p>Run pod install from your command line</p>
       {% highlight bash %}$ pod install{% endhighlight %}
     </div>
+    
+    <h3 id="install-default">Default Stylesheet</h3>
+    <div>
+      <p>By default Classy will look for a file called <b>"stylesheet.cas"</b> in your application bundle.  If you use this filename for your stylesheet file you don't need todo anything else<p/>
+      
+      <p>However if you want to use a different file path you can specify the filePath on <code>[CASStyler defaultStyler]</code></p>
+      {% highlight objective-c %}[CASStyler defaultStyler].filePath = [[NSBundle mainBundle] pathForResource:@"myStyles.cas" ofType:nil];{% endhighlight %}
+      
+      <p>If you want a reference to any errors that occurred while parsing you can use <code>-(void)setFilePath:error:</code> instead</p>
+      {% highlight bash %}
+NSError *error = nil;
+NSString filePath = [[NSBundle mainBundle] pathForResource:@"myStyles.cas" ofType:nil];
+[[CASStyler defaultStyler] setFilePath:filePath error:&error];{% endhighlight %}
+      
+      <p>If your main UIWindow is loaded from a XIB or storyboard you should set the filePath in your "main.m" file inside the <code>int main(int argc, char * argv[])</code> method. This ensures your stylesheet is loaded before any windows are created.</p>
+      
+      <p>Otherwise you can set the filePath in your application delegate in <code>
+- (BOOL)application:didFinishLaunchingWithOptions:</code> before you create your main UIWindow.</p>
+    
+    </div>
+    
+    <h3 id="install-reload">Live Reload</h3>
+    <div>
+      <p>Live reload can dramatically speed up your development time, with live reload enabled you can instantenously see your stylesheet changes.  Without having to rebuild and navigate back to the same spot within your app.</p>
+      
+      <p>To enable live reload you need to specify the absolute path to your stylesheet. You should only set this value when running from the simulator.</p>          
+{% highlight objective-c %}
+#if TARGET_IPHONE_SIMULATOR
+    [CASStyler defaultStyler].watchFilePath = @"/users/Bonno/Projects/MyApp/Styles/stylesheet.cas";
+#endif{% endhighlight %}
+   
+      
+      <p>However this path will be different across different computers. Classy provides a convienent macro which will grab the absolute path relative to the current file. So if we are setting the <code>watchFilePath</code> in MYAppDelegate.m and Imagine we have the following absolute paths.</p>
+      <table style="margin-top:10px; margin-bottom:20px">
+          <tr><td>MYAppDelegate.m:</td><td><code>/users/Bonno/Projects/MyApp/Classes/MYAppDelegate.m</code></td></tr>
+          <tr><td>stylesheet.cas:</td><td><code>/users/Bonno/Projects/MyApp/Styles/stylesheet.cas</code></td></tr>
+      </table>
+      
+      <p>Then we can use <code>CASAbsoluteFilePath()</code> determine the absolute path, with the relative path between "MYAppDelegate.m" and "stylesheet.cas"</p>
+      {% highlight objective-c %}
+#if TARGET_IPHONE_SIMULATOR
+    NSString *absoluteFilePath = CASAbsoluteFilePath(@"../Styles/stylesheet.cas");
+    [CASStyler defaultStyler].watchFilePath = absoluteFilePath;
+#endif{% endhighlight %}
+
+      <div class="bs-callout bs-callout-warning">
+        <h4>Some changes may require rebuilding and running your app.</h4>
+        <p>One thing to keep in mind is that Classy does not keep a history of changes that have been applied to views. Therefore deleting a style property such as background color, will seem to have no effect. You will need to set the property to another value to see a change. This of course does not apply if you rebuild and run your app.</p>
+      </div>
+    </div>
+    
+    
   </div>
   
   

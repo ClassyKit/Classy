@@ -551,7 +551,7 @@ body {
 
 /* Janky fix for preventing navbar from overlapping */
 h1[id] {
-  padding-top: 40px;
+  padding-top: 80px;
   margin-top: -45px;
 }
 
@@ -1189,10 +1189,4 @@ h1[id] {
   outline: thin dotted \9; /* IE6-9 */
   -moz-box-shadow: 0 0 8px rgba(82,168,236,.6);
        box-shadow: 0 0 8px rgba(82,168,236,.6);
-}
-
-/* Better spacing on download options in getting started */
-.bs-docs-dl-options h4 {
-  margin-top: 15px;
-  margin-bottom: 5px;
 }
