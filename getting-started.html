@@ -2,7 +2,7 @@
 layout: default
 title: Getting started
 slug: getting-started
-lead: "An overview of Classy, how to install and use, basic examples, and more."
+lead: "An overview of Classy, how to install and use, live reload, and more."
 base_url: "../"
 ---
 
@@ -14,7 +14,53 @@ base_url: "../"
     </div>
     <p class="lead"><b>Not CSS</b>. Instead of trying to force UIKit to fit CSS syntax, properties, conventions and constructs. Classy is a stylesheet system built from the ground up to work in harmony with UIKit. It borrows the best ideas from CSS and introduces new syntax, conventions and constructs where appropriate.
   </div>
+
+  <div class="bs-callout bs-callout-info">
+    <h4>Flexible, nestable syntax</h4>
+    <p>Classy makes <code>{</code> &nbsp; <code>}</code> &nbsp; <code>:</code> &nbsp; <code>;</code> all optional so you can choose a style that suits you.  It also saves you from worrying about small syntax mistakes like accidentally forgetting to end a line with a <code>;</code></p>
+  </div>
+
+  <p>This is a valid stylesheet</p>
   
+  <div class="highlight">
+    <pre>
+<code class="cas">$main-color = <span class="m">#e1e1e1</span>;
+
+<span class="nc">MYCustomView</span> {
+  background-color: <span class="m">$main-color</span>;
+  maximum-items: <span class="m">5</span>;
+  <span class="nc">> UIProgressView.tinted</span> {
+    progress-tint-color: <span class="m">black</span>;
+    track-tint-color: <span class="m">yellow</span>;
+  }
+}
+
+<span class="nc">^UIButton.warning</span>, <span class="nc">UIView.warning ^UIButton</span> {
+  title-color[state:highlighted]: <span class="m">#e3e3e3</span>;
+}</code>
+    </pre>
+  </div>
+
+  <p>This is also a valid stylesheet</p>
+  
+  <div class="highlight">
+    <pre>
+<code class="cas">$main-color = <span class="m">#e1e1e1</span>
+
+<span class="nc">MYCustomView</span> 
+  background-color <span class="m">$main-color</span>
+  maximum-items <span class="m">5</span>
+  <span class="nc">> UIProgressView.tinted</span> 
+    progress-tint-color <span class="m">black</span>
+    track-tint-color <span class="m">yellow</span>
+
+<span class="nc">^UIButton.warning</span>, <span class="nc">UIView.warning ^UIButton</span> 
+  title-color[state:highlighted] <span class="m">#e3e3e3</span>
+
+</code>
+    </pre>
+  </div>
+    
 <!-- Installing Classy
   ================================================== -->
   <div class="bs-docs-section">

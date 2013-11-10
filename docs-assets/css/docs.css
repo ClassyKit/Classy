@@ -552,7 +552,7 @@ code {
 
 /* Space things out */
 .bs-docs-section + .bs-docs-section {
-  padding-top: 20px;
+  padding-top: 10px;
 }
 
 /* Janky fix for preventing navbar from overlapping */
