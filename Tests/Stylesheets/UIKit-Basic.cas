@@ -20,8 +20,8 @@ UIView {
 
 UITextField {
   font: $defaultFontName 12;
-  font-color: #a0a0a0;
-  horizontal-alignment: right;
+  text-color: #a0a0a0;
+  text-alignment: right;
   content-vertical-alignment: bottom;
   background-image: test_image_5 1, 2, 3, 4;
   border-style:line;

@@ -332,8 +332,6 @@
     // TODO border insets
     objectClassDescriptor = [self objectClassDescriptorForClass:UITextField.class];
     objectClassDescriptor.propertyKeyAliases = @{
-        @"fontColor"           : @cas_propertykey(UITextField, textColor),
-        @"horizontalAlignment" : @cas_propertykey(UITextField, textAlignment),
         @"backgroundImage"     : @cas_propertykey(UITextField, background),
         @"textInsets"          : @cas_propertykey(UITextField, cas_textEdgeInsets),
     };

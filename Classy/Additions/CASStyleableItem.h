@@ -12,7 +12,7 @@
 
 @protocol CASStyleableItem <NSObject>
 
-@property (nonatomic, strong) NSString *cas_styleClass;
+@property (nonatomic, copy) NSString *cas_styleClass;
 @property (nonatomic, assign) BOOL cas_styleApplied;
 @property (nonatomic, weak) id<CASStyleableItem> cas_parent;
 
