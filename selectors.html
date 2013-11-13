@@ -2,6 +2,359 @@
 layout: default
 title: Selectors
 slug: selectors
-lead: "How to target different views for styling, by matching a view's ancestors, objectClass and styleClass"
+lead: "How to target views for styling, keeping it DRY and precedence"
 base_url: "../"
 ---
+    
+<!-- selector types
+  ================================================== -->
+  <div class="bs-docs-section">
+    <div class="page-header">
+      <h1 id="targeting">Targeting</h1>
+    </div>
+    <p class="lead">Style selectors are a way of specifying which views or view models should be targeted by your stylesheet. There are three main methods of targeting views:</p>
+    
+    <ol class="lead">
+      <li><a href="#objectClass">Object Class</a></li>
+      <li><a href="#hierarchy">View Hierarchy</a></li>
+      <li><a href="#styleClass">Style Class</a></li>
+    </ol>
+    
+    <p>You can mix and match the above methods. This is an example that uses all three.</p>
+  
+    <div class="highlight">
+      <pre>
+<code class="cas"><span class="c">/* match views
+ * where class is UIButton or UIButton subclass
+ * and styleClass is "large"
+ * and superview class is UITabBar
+ */</span>
+ 
+<span class="nc">UITabBar > ^UIButton.large</span> { }</code>
+      </pre>
+    </div>
+
+    <div class="bs-callout bs-callout-warning">
+      <p>The term <b>style selectors</b> will be used when refering to selectors within Classy stylesheets. To avoid confusing them with Objective-C message selectors</p>
+    
+    </div>
+  </div>
+  
+<!-- Object Class
+  ================================================== -->
+  <div class="bs-docs-section">
+    <div class="page-header">
+      <h1 id="objectClass">Object Class</h1>
+    </div>
+    <p class="lead">This is an Objective-C class that you want to style. Often this will be one of the UIKit classes such as UIButton, UINavigationBar etc. However you can also style your custom project specific UIView subclasses and also NSObject subclasses such as UIBarButtonItem</p>
+    
+    <div>
+      <h3>Inheritance</h3>
+      <p>UIKit classes utilise alot of inheritance, for example UISlider inherits from UIControl which in turn inherits from UIView. The default behaviour of style selectors is to <b>ignore subclasses</b></p>
+  
+      <div class="highlight">
+        <pre>
+<code class="cas"><span class="c">/* match views of class UIControl
+ * but not any subclasses such as UISlider, UIButton etc
+ */</span>
+
+<span class="nc">UIControl</span> { }</code>
+        </pre>
+      </div>
+      
+      <p>However in some cases you may want to apply styling to all UIButtons including subclasses. So Classy introduces a new modifier character <code>^</code> which when place infront of a style selector will <b>include subclasses</b></p>
+  
+      <div class="highlight">
+        <pre>
+<code class="cas"><span class="c">/* match views of class UIControl
+ * OR any subclasses such as UISlider, UIButton etc
+ */</span>
+
+<span class="nc">^UIControl</span> { }</code>
+        </pre>
+      </div>
+      
+    </div>
+  </div>
+          
+<!-- View Hierarchy
+  ================================================== -->
+  <div class="bs-docs-section">
+    <div class="page-header">
+      <h1 id="hierarchy">View Hierarchy</h1>
+    </div>
+    <p class="lead">An important way to distinguish between views is where they sit in the view hierarchy. For example a UILabel added to a UINavigationBar is likely to be styled alot differently to a UILabel which has been added to a UITableViewCell</p>
+    <div>
+      <p>You can choose whether or not the style selector should traverse up the view's superview chain when looking for matches. By default style selectors <b>will traverse</b> the superview chain.</p>
+      <div class="highlight">
+        <pre>
+<code class="cas"><span class="c">/* match views of class UIActivityIndicatorView
+ * where direct superview class is UINavigationBar
+ * OR  ancestor superview class is UINavigationBar
+ */</span>
+
+<span class="nc">UINavigationBar UIActivityIndicatorView</span> { }</code>
+        </pre>
+      </div>
+      
+      <p>However you can use the <code>></code> modifier character to specify that you only wish to match direct superviews. This will be a bit quicker as the style selector <b>will not traverse</b> the superview chain.</p>
+  
+      <div class="highlight">
+        <pre>
+<code class="cas"><span class="c">/* match views of class UIActivityIndicatorView
+ * where direct superview class is UINavigationBar
+ */</span>
+
+<span class="nc">UINavigationBar > UIActivityIndicatorView</span> { }</code>
+        </pre>
+      </div>
+      <p>You can inspect as many levels of the superview chain as you wish and mix both types of hierarchy style selectors.</p>
+  
+      <div class="highlight">
+        <pre>
+<code class="cas"><span class="nc">UITableView ^UITableViewCell > UIImageView</span> { }</code>
+        </pre>
+      </div>      
+      
+    </div>
+  </div>
+    
+<!-- Style Class
+  ================================================== -->
+  <div class="bs-docs-section">
+    <div class="page-header">
+      <h1 id="styleClass">Style Class</h1>
+    </div>
+    <p class="lead">In some cases the object class and view hierarchy alone are not enough to distinguish a view. Sometimes its useful to give style selectors a bit more semantic meaning. For this reason every view has the option of setting an associated NSString property called <code>cas_styleClass</code></p>
+    <div>
+      {% highlight objective-c %}
+UIButton *button = [UIButton buttonWithType:UIButtonTypeCustom];
+button.cas_styleClass = @"primary";
+{% endhighlight %}
+      <p>The above button will be styled by the style selector below as it matches the style class <code>.primary</code></p>
+  
+      <div class="highlight">
+        <pre>
+<code class="cas"><span class="c">/* match views of class UIButton
+ * where cas_styleClass is set to @"primary"
+ */</span>
+
+<span class="nc">UIButton.primary</span> { }</code>
+        </pre>
+      </div>
+      
+    </div>
+  </div>  
+      
+<!-- Keeping it DRY
+  ================================================== -->
+  <div class="bs-docs-section">
+    <div class="page-header">
+      <h1 id="dry">Keeping it DRY</h1>
+    </div>
+    <p class="lead">A fundamental principle of programming is to avoid repetition. This reduces duplication of code and leads to easier to maintain code. Classy has three features <b>grouping</b>, <b>nesting</b> and <b>variables</b> which help you to avoid repeating yourself. We will talk about variables in the next section of the docs.</p>
+    <div>
+      
+      <h3>Grouping</h3>
+      <p>If two or more style selectors share common properties. For example</p>
+  
+      <div class="highlight">
+        <pre>
+<code class="cas"><span class="nc">UISlider.info</span> {
+  minimum-track-tint-color <span class="m">black</span>
+  maximum-track-tint-color <span class="m">purple</span>
+}
+
+<span class="nc">UISlider.error</span> {
+  minimum-track-tint-color <span class="m">black</span>
+  maximum-track-tint-color <span class="m">purple</span>
+  thumb-tint-color <span class="m">red</span>
+}</code>
+        </pre>
+      </div>
+
+      <p>We can extract the common properties into a grouped style selector</p>
+      <div class="highlight">
+        <pre>
+<code class="cas"><span class="nc">UISlider.info</span>, <span class="nc">UISlider.error</span> {
+  minimum-track-tint-color <span class="m">black</span>
+  maximum-track-tint-color <span class="m">purple</span>
+}
+
+<span class="nc">UISlider.error</span> {
+  thumb-tint-color <span class="m">red</span>
+}</code>
+        </pre>
+      </div>    
+      <h3>Nesting</h3>
+
+      <p>If two or more style selectors share common view hierarchy. For example</p>
+  
+      <div class="highlight">
+        <pre>
+<code class="cas"><span class="nc">UICollectionView</span> {
+  background-color <span class="m">#a2a2a2</span>
+}
+
+<span class="nc">UICollectionView > UICollectionViewCell</span> {
+  clips-to-bounds <span class="m">NO</span>
+}
+
+<span class="nc">UICollectionView > UICollectionViewCell UILabel</span> {
+  text-color <span class="m">purple</span>
+}
+
+<span class="nc">UICollectionView > UICollectionViewCell UILabel.title</span> {
+  font <span class="m">20</span>
+}
+</code>
+        </pre>
+      </div>
+
+      <p>By using nesting we can express these view hierarchies in a more natural fashion</p>
+  
+      <div class="highlight">
+        <pre>
+<code class="cas"><span class="nc">UICollectionView</span> {
+  background-color <span class="m">#a2a2a2</span>
+  
+  <span class="nc">> UICollectionViewCell</span> {
+    clips-to-bounds <span class="m">NO</span>
+    
+    <span class="nc">UILabel</span> {
+      text-color <span class="m">purple</span>
+      
+      <span class="nc">&.title</span> {
+        font <span class="m">20</span>
+      }
+    }
+  }
+}
+</code>
+        </pre>
+      </div>    
+
+      <div class="bs-callout bs-callout-info">
+        <h4><code>&</code> Modifier</h4>
+        <p>The ampersand modifier character is a way of specifying that the nested style selector should be joined directly to its parent style selector with no spaces.</p>
+      </div>
+      
+    </div>
+  </div>
+  
+      
+<!-- Precedence
+  ================================================== -->
+  <div class="bs-docs-section">
+    <div class="page-header">
+      <h1 id="precedence">Precedence</h1>
+    </div>
+    <p class="lead">A view may be targeted by more than one style selector. The style selectors will be applied to the view in order of their <b>precedence score</b>. This score is generated by evaluating how <b>specific</b> a style selector is. </p>
+    <div>
+      <p>Consider the following button and stylesheet. The button will be targeted by all of the style selectors in the stylesheet</p>
+
+      {% highlight objective-c %}
+UIView *view = UIView.new;
+UIButton *button = [UIButton buttonWithType:UIButtonTypeCustom];
+button.cas_styleClass = @"main";
+[view addSubview:button];
+{% endhighlight %}
+
+      <div class="highlight">
+        <pre>
+<code class="cas"><span class="nc">UIView > UIButton</span> {
+  title-color blue
+  background-image bg_button_blue
+}
+
+<span class="nc">UIButton</span> {
+  title-color red
+  background-image bg_button_red
+}
+
+<span class="nc">UIButton.main</span> {
+  title-color yellow
+}</code>
+        </pre>
+      </div>
+      
+      <p>The style selectors will be applied in the following order:</p>
+      <table class="table">
+        <thead>
+          <tr>
+            <th style="width:30px"></th>
+            <th style="width:180px">Style Selector</th>
+            <th>Score</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>1.</td>
+            <td><code>UIButton.main</code></td>
+            <td>3004</td>
+          </tr>
+          <tr>
+            <td>2.</td>
+            <td><code>UIView > UIButton</code></td>
+            <td>7</td>
+          </tr>
+          <tr>
+            <td>3.</td>
+            <td><code>UIButton</code></td>
+            <td>4</td>
+          </tr>
+        </tbody>
+      </table>
+      
+      <p>Which results in:</p>
+      <code style="margin-top:10px">backgroundColor == yellow</code> AND <code>backgroundImage == bg_button_blue</code>
+      
+      <h3>Precedence Points</h3>
+      <table class="table">
+        <thead>
+          <tr>
+            <th style="width:80px">Points</th>
+            <th style="width:110px">Description</th>
+            <th>Conditions</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>3000</td>
+            <td>styleClass</td>
+            <td>match on view</td>
+          </tr>
+          <tr>
+            <td>2000</td>
+            <td>styleClass</td>
+            <td>match on direct superview</td>
+          </tr>
+          <tr>
+            <td>1000</td>
+            <td>styleClass</td>
+            <td>match on ancestor superview</td>
+          </tr>
+          <tr>
+            <td>4</td>
+            <td>objectClass</td>
+            <td>match on view</td>
+          </tr>
+          <tr>
+            <td>3</td>
+            <td>objectClass</td>
+            <td>match on direct superview</td>
+          </tr>
+          <tr>
+            <td>2</td>
+            <td>objectClass</td>
+            <td>match on ancestor superview</td>
+          </tr>
+          <tr>
+            <td>-2</td>
+            <td>objectClass</td>
+            <td>matches subclasses as well</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
