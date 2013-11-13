@@ -64,7 +64,7 @@
  *
  *  The Rules
  *
- *  ViewClass matches
+ *  ObjectClass matches
  *   +2 ancestor
  *   +3 superview
  *   +4 view

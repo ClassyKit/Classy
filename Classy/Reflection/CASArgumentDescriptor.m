@@ -80,6 +80,8 @@
     // check for structs
     if ([self.type hasPrefix:@"{CGSize"]) {
         return CASPrimitiveTypeCGSize;
+    } else if ([self.type hasPrefix:@"{CGPoint"]) {
+        return CASPrimitiveTypeCGPoint;
     } else if ([self.type hasPrefix:@"{CGRect"]) {
         return CASPrimitiveTypeCGRect;
     } else if ([self.type hasPrefix:@"{UIEdgeInsets"]) {

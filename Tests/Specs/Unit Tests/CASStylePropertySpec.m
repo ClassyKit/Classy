@@ -57,7 +57,7 @@ SpecBegin(CASStyleProperty)
 
     __block UIEdgeInsets insets = UIEdgeInsetsZero;
     expect([prop transformValuesToUIEdgeInsets:&insets]).to.beTruthy();
-    expect(insets).to.equal(UIEdgeInsetsMake(34, 3, 34, 3));
+    expect(insets).to.equal(UIEdgeInsetsMake(3, 34, 3, 34));
 }
 
 - (void)testResolveSimpleExpression {

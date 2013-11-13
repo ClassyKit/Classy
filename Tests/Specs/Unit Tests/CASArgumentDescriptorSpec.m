@@ -41,6 +41,10 @@ SpecBegin(CASArgumentDescriptor)
     expect([CASArgumentDescriptor argWithObjCType:@encode(CGRect)].primitiveType).to.equal(CASPrimitiveTypeCGRect);
 }
 
+- (void)testReturnCGPoint {
+    expect([CASArgumentDescriptor argWithObjCType:@encode(CGPoint)].primitiveType).to.equal(CASPrimitiveTypeCGPoint);
+}
+
 - (void)testReturnUIEdgeInsets {
     expect([CASArgumentDescriptor argWithObjCType:@encode(UIEdgeInsets)].primitiveType).to.equal(CASPrimitiveTypeUIEdgeInsets);
 }

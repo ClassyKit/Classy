@@ -95,6 +95,31 @@
     return NO;
 }
 
+- (BOOL)transformValuesToCGPoint:(CGPoint *)point {
+    NSArray *unitTokens = [self valuesOfTokenType:CASTokenTypeUnit];
+    if (unitTokens.count == 1) {
+        CGFloat value = [unitTokens[0] doubleValue];
+        *point = CGPointMake(value, value);
+        return YES;
+    }
+    if (unitTokens.count == 2) {
+        CGFloat value1 = [unitTokens[0] doubleValue];
+        CGFloat value2 = [unitTokens[1] doubleValue];
+        *point = CGPointMake(value1, value2);
+        return YES;
+    }
+    return NO;
+}
+
+- (BOOL)transformValuesToCGRect:(CGRect *)rect {
+    NSArray *unitTokens = [self valuesOfTokenType:CASTokenTypeUnit];
+    if (unitTokens.count == 4) {
+        *rect = CGRectMake([unitTokens[0] doubleValue], [unitTokens[1] doubleValue], [unitTokens[2] doubleValue], [unitTokens[3] doubleValue]);
+        return YES;
+    }
+    return NO;
+}
+
 - (BOOL)transformValuesToUIEdgeInsets:(UIEdgeInsets *)insets {
     NSArray *unitTokens = [self valuesOfTokenType:CASTokenTypeUnit];
     if (unitTokens.count == 1) {
@@ -105,7 +130,7 @@
     if (unitTokens.count == 2) {
         CGFloat value1 = [unitTokens[0] doubleValue];
         CGFloat value2 = [unitTokens[1] doubleValue];
-        *insets = UIEdgeInsetsMake(value2, value1, value2, value1);
+        *insets = UIEdgeInsetsMake(value1, value2, value1, value2);
         return YES;
     }
     if (unitTokens.count == 4) {

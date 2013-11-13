@@ -161,6 +161,18 @@
                 [invocation setArgument:&size atIndex:argIndex];
                 break;
             }
+            case CASPrimitiveTypeCGRect: {
+                CGRect rect;
+                [styleProperty transformValuesToCGRect:&rect];
+                [invocation setArgument:&rect atIndex:argIndex];
+                break;
+            }
+            case CASPrimitiveTypeCGPoint: {
+                CGPoint point;
+                [styleProperty transformValuesToCGPoint:&point];
+                [invocation setArgument:&point atIndex:argIndex];
+                break;
+            }
             case CASPrimitiveTypeUIEdgeInsets: {
                 UIEdgeInsets insets;
                 [styleProperty transformValuesToUIEdgeInsets:&insets];

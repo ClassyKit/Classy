@@ -76,6 +76,24 @@
 - (BOOL)transformValuesToCGSize:(CGSize *)size;
 
 /**
+ *  Attempts to extract a CGPoint from the valueTokens
+ *
+ *  @param size CGPoint pointer
+ *
+ *  @return whether the extraction succeeded
+ */
+- (BOOL)transformValuesToCGPoint:(CGPoint *)point;
+
+/**
+ *  Attempts to extract a CGRect from the valueTokens
+ *
+ *  @param size CGRect pointer
+ *
+ *  @return whether the extraction succeeded
+ */
+- (BOOL)transformValuesToCGRect:(CGRect *)rect;
+
+/**
  *  Attempts to extract a UIOffset from the valueTokens
  *
  *  @param offset UIOffset pointer
