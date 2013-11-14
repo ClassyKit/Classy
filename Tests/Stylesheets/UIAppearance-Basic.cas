@@ -169,9 +169,9 @@ UITableViewCell {
 UIToolbar {
   barTintColor magenta
   
-  background-image[barMetrics:landscape-phone, barPosition:top] test_image_4
+  background-image[barMetrics:landscape-phone, toolbarPosition:top] test_image_4
   
-  shadow-image[barMetrics:landscape-phone, barPosition:bottom] test_image_3
+  shadow-image[barMetrics:landscape-phone, toolbarPosition:bottom] test_image_3
 }
 
 UIView {

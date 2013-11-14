@@ -485,9 +485,9 @@
     // UIToolBar
     objectClassDescriptor = [self objectClassDescriptorForClass:UIToolbar.class];
 
-    [objectClassDescriptor setArgumentDescriptors:@[imageArg, barPositionArg, barMetricsArg] setter:@selector(setBackgroundImage:forToolbarPosition:barMetrics:) forPropertyKey:@"backgroundImage"];
+    [objectClassDescriptor setArgumentDescriptors:@[imageArg, [CASArgumentDescriptor argWithName:@"toolbarPosition" valuesByName:barPositionMap], barMetricsArg] setter:@selector(setBackgroundImage:forToolbarPosition:barMetrics:) forPropertyKey:@"backgroundImage"];
 
-    [objectClassDescriptor setArgumentDescriptors:@[imageArg, barPositionArg] setter:@selector(setShadowImage:forToolbarPosition:) forPropertyKey:@"shadowImage"];
+    [objectClassDescriptor setArgumentDescriptors:@[imageArg, [CASArgumentDescriptor argWithName:@"toolbarPosition" valuesByName:barPositionMap]] setter:@selector(setShadowImage:forToolbarPosition:) forPropertyKey:@"shadowImage"];
 
     // CASTextAttributes
     objectClassDescriptor = [self objectClassDescriptorForClass:CASTextAttributes.class];
