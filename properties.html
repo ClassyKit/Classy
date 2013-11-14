@@ -2,7 +2,458 @@
 layout: default
 title: Properties
 slug: properties
-lead: "Overview of supported view properties and how to use variables and expressions for common properties"
+lead: "Overview of supported properties and values, how to use variables and equations and more"
 base_url: "../"
 ---
 
+    
+<!-- Supported Properties
+  ================================================== -->
+  <div class="bs-docs-section">
+    <div class="page-header">
+      <h1 id="supported_properties">Supported Properties</h1>
+    </div>
+    <p class="lead">Classy supports all <a href="https://github.com/cloudkite/Classy/blob/master/Tests/UIAppearance-setters.md">UIAppearance properties and methods</a>. It also supports alot of properties that are not covered by UIAppearance. Wherever possible Classy uses the same naming used by UIKit, so you don't need to wonder which style properties map to which objective-c properties.</p>
+    <div>
+      <p>For example the following <code>UIPageControl</code> properties</p>
+{% highlight objective-c %}
+@property (nonatomic,retain) UIColor *pageIndicatorTintColor;
+@property (nonatomic,retain) UIColor *currentPageIndicatorTintColor;
+{% endhighlight %}
+      
+      <p>Can be styled using exactly the same property names</p>
+      <div class="highlight">
+        <pre>
+<code class="cas"><span class="nc">UIPageControl</span> {
+  pageIndicatorTintColor <span class="m">black</span>
+  currentPageIndicatorTintColor <span class="m">purple</span>
+}</code>
+        </pre>
+      </div>
+      
+      <p>Properties can also be defined using <b>kebab case</b></p>
+      <div class="highlight">
+        <pre>
+<code class="cas"><span class="nc">UIPageControl</span> {
+  page-indicator-tint-color <span class="m">black</span>
+  current-page-indicator-tint-color <span class="m">purple</span>
+}</code>
+        </pre>
+      </div>
+          
+    </div>
+  </div>
+
+<!-- arguments
+  ================================================== -->
+  <div class="bs-docs-section">
+    <div class="page-header">
+      <h1 id="arguments">Arguments</h1>
+    </div>
+    <p class="lead">Sometimes UIAppearance requires you to pass additional arguments when setting a property. For example the following <code>UIToolBar</code> UIAppearance setters</p>
+    <div>
+{% highlight java %}
+- (void)setBackgroundImage:(UIImage *)backgroundImage 
+        forToolbarPosition:(UIBarPosition)topOrBottom
+                barMetrics:(UIBarMetrics)barMetrics;
+                
+- (void)setShadowImage:(UIImage *)shadowImage
+    forToolbarPosition:(UIBarPosition)topOrBottom;
+{% endhighlight %}
+
+      <h4 style="margin-top:20px">Format</h4>    
+      <p>Classy allows you to specify these argument values with the following format</p>
+{% highlight objective-c %}
+<propertyName> [<argumentName> : <argumentValue>, ... ]
+{% endhighlight %}
+      <ul>
+        <li>Order of arguments is not important</li>
+        <li>Remove any "for" prefix from the argument name. ie <b>forToolbarPosition</b> becomes <b>toolbarPosition</b></li>
+      </ul>
+
+      <h4 style="margin-top:20px">Examples</h4>
+      <p>Heres an example of the <code>UIToolBar</code> UIAppearance methods with all the arguments set</p>
+      <div class="highlight">
+        <pre>
+<code class="cas"><span class="nc">UIToolBar</span> {
+  background-image[barMetrics:landscape-phone, toolbarPosition:top] <span class="m">test_image_4</span>
+  shadow-image[barMetrics:landscape-phone, toolbarPosition:bottom] <span class="m">test_image_3</span>
+}</code>
+        </pre>
+      </div>
+    
+      <p>If you leave out any arguments, the first enum value will be used</p>
+      <div class="highlight">
+        <pre>
+<code class="cas"><span class="nc">UIToolBar</span> {
+  background-image[toolbarPosition:top] <span class="m">test_image_4</span>
+  shadow-image[barMetrics:landscape-phone] <span class="m">test_image_3</span>
+}</code>
+        </pre>
+      </div>
+
+    </div>
+  </div>
+          
+<!-- Variables
+  ================================================== -->
+  <div class="bs-docs-section">
+    <div class="page-header">
+      <h1 id="variables">Variables</h1>
+    </div>
+    <p class="lead">It's always a good idea to avoid repeating yourself. Classy enables you to avoid repeating common style property values by defining them as a variable, which can then be used throughout the stylesheet.</p>
+    <div>
+      <p>A variable must be named according to the following rules</p>
+      <ul>
+        <li>Must begin with upper/lower case letter OR <code>$</code></li>
+        <li>Can contain <code>_</code>, <code>-</code>, or any alphanumeric char </li>
+      </ul>
+      <div class="highlight">
+        <pre>
+<code class="cas"><span class="c">// prefix with '$' to help distinguish variables</span>
+<span class="k">$brand-color</span> = <span class="m">#e1e1e1</span>
+
+<span class="c">// OR not</span>
+<span class="k">insets</span> = <span class="m">5, 10, 5, 10</span>
+
+<span class="nc">UIButton</span> {
+  background-color <span class="k">$brand-color</span>
+  contentEdgeInsets <span class="k">insets</span>
+  background-image[state:selected] <span class="m">bg_button</span> <span class="k">insets</span>
+}</code>
+        </pre>
+      </div>
+    </div>
+  </div>
+
+<!-- Equations
+  ================================================== -->
+  <div class="bs-docs-section">
+    <div class="page-header">
+      <h1 id="equations">Equations</h1>
+    </div>
+    <p class="lead">Variables and style property values can contain simple math expressions. </p>
+    <div>
+      <div class="highlight">
+        <pre>
+<code class="cas"><span class="k">$corner-radius</span> = <span class="m">2 + 2</span>
+<span class="k">$insets</span> = <span class="m">5, 10, 5, 10</span>
+
+<span class="nc">UIButton</span> {
+  layer @{
+    border-width <span class="m">10 - 5</span>
+    corner-radius <span class="k">$corner-radius</span> + 2
+  }
+  contentEdgeInsets <span class="k">$insets * 2</span>
+}</code>
+        </pre>
+      </div>
+    </div>
+  </div>
+
+  
+<!-- Nesting
+  ================================================== -->
+  <div class="bs-docs-section">
+    <div class="page-header">
+      <h1 id="nesting">Nesting</h1>
+    </div>
+    <p class="lead">Classy allows you to style properties of nested object keypaths, for example "view.layer.borderWidth" or "navigationBar.titleTextAttributes.font". To disambiguate between nested selectors and nested properties you must use the <code>@</code> after the property name.</p>
+    <div>
+      
+      <div class="highlight">
+        <pre>
+<code class="cas"><span class="nc">UINavigationBar</span> {
+  title-text-attributes: @{
+    font: <span class="m">HelveticaNeue 21</span>
+    foreground-color: <span class="m">magenta</span>
+    background-color: <span class="m">red</span>
+    ligature: <span class="m">6</span>
+    kern: <span class="m">0.6</span>
+    strikethrough-style: <span class="m">single</span>
+    underline-style: <span class="m">double</span>
+    stroke-color: <span class="m">blue</span>
+    paragraph-style: @{
+      line-spacing: <span class="m">20</span>
+      paragraph-spacing: <span class="m">15</span>
+      line-break-mode:<span class="m">truncatingTail</span>
+      alignment:<span class="m">center</span>
+    }
+    shadow: @{
+      shadow-offset: <span class="m">1,2</span>
+      shadow-blur-radius: <span class="m">10</span>
+      shadow-color: <span class="m">purple</span>
+    }
+  }
+}</code>
+        </pre>
+      </div>
+      
+      <div class="bs-callout bs-callout-info">
+        <h4>TextAttributes Special Case</h4>
+        <p>Any property that has a type of NSDictionary and suffix of "TextAttributes" will be treated as a <a href="{{ site.repo }}/blob/master/Classy/Parser/CASTextAttributes.h">CASTextAttributes</a></p>
+      </div>
+      
+      <p>As always <code>{</code> and <code>}</code> are optional</p>
+
+      <div class="highlight">
+        <pre>
+<code class="cas"><span class="nc">UIView</span>
+  background-color <span class="m">#A2A2A2</span>
+  layer @
+    border-width   <span class="m">2</span>
+    border-color   <span class="m">#A1A1A1</span>
+    corner-radius  <span class="m">8</span>
+    shadow-color   <span class="m">black</span>
+    shadow-offset  <span class="m">9,3</span>
+    shadow-opacity <span class="m">0.6</span>
+    shadow-radius  <span class="m">4</span>
+</code>
+        </pre>
+      </div>
+    </div>
+  </div>
+    
+<!-- Primitive Values
+  ================================================== -->
+  <div class="bs-docs-section">
+    <div class="page-header">
+      <h1 id="primitive-values">Primitive Values</h1>
+    </div>
+    <p class="lead"></p>
+    <div>
+      <table class="table table-values">
+        <thead>
+          <tr>
+            <th>Type</th>
+            <th>Example Value</th>
+            <th>Converted Value</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>NSInteger</td>
+            <td>12</td>
+            <td>12</td>
+          </tr>
+          
+          <tr>
+            <td>CGFloat</td>
+            <td>5.5</td>
+            <td>5.5</td>
+          </tr>
+          
+          <tr class="multi-first">
+            <td>BOOL</td>
+            <td>YES</td>
+            <td>YES</td>
+          </tr>
+          <tr class="multi">
+            <td></td>
+            <td>NO</td>
+            <td>NO</td>
+          </tr>
+          <tr class="multi">
+            <td></td>
+            <td>true</td>
+            <td>YES</td>
+          </tr>
+          <tr class="multi-last">
+            <td></td>
+            <td>false</td>
+            <td>NO</td>
+          </tr>
+          
+          <tr class="multi-first">
+            <td>UIEdgeInsets</td>
+            <td>20</td>
+            <td>{ .top = 20, .left = 20, .bottom = 20, .right = 20 }</td>
+          </tr>
+          <tr class="multi">
+            <td></td>
+            <td>20, 10</td>
+            <td>{ .top = 20, .left = 10, .bottom = 20, .right = 10 }</td>
+          </tr>
+          <tr class="multi-last">
+            <td></td>
+            <td>5, 10, 15, 20</td>
+            <td>{ .top = 5, .left = 10, .bottom = 15, .right = 20 }</td>
+          </tr>
+          
+          <tr class="multi-first">
+            <td>UIOffset</td>
+            <td>99</td>
+            <td>{ .horizontal  = 99, .vertical = 99 }</td>
+          </tr>
+          <tr class="multi-last">
+            <td></td>
+            <td>6, 7</td>
+            <td>{ .horizontal = 6, .vertical = 7 }</td>
+          </tr>
+          
+          <tr class="multi-first">
+            <td>CGSize</td>
+            <td>11</td>
+            <td>{ .width = 11, .height = 11 }</td>
+          </tr>
+          <tr class="multi-last">
+            <td></td>
+            <td>14, 15</td>
+            <td>{ .width = 14, .height = 15 }</td>
+          </tr>
+          
+          <tr class="multi-first">
+            <td>CGPoint</td>
+            <td>10</td>
+            <td>{ .x = 10, .y = 10 }</td>
+          </tr>
+          <tr class="multi-last">
+            <td></td>
+            <td>4, 5</td>
+            <td>{ .x = 4, .y = 5 }</td>
+          </tr>
+          
+          <tr>
+            <td>CGRect</td>
+            <td>3, 12, 15, 80</td>
+            <td>{ .origin.x = 3, .origin.y = 12, .size.width = 15, .size.height = 80 }</td>
+          </tr>
+        </tbody>
+      </table>
+      
+      <div class="bs-callout bs-callout-info">
+        <h4><code>,</code> Value Seperator</h4>
+        <p>The command value seperator character is optional. Which means that <code>12, 13</code> and <code>12 13</code> will both produce the same value</p>
+      </div>
+    </div>
+  </div>
+  
+<!-- Object Values
+  ================================================== -->
+  <div class="bs-docs-section">
+    <div class="page-header">
+      <h1 id="object-values">Object Values</h1>
+    </div>
+    <p class="lead"></p>
+    <div>
+      <table class="table table-values">
+        <thead>
+          <tr>
+            <th>Class</th>
+            <th>Example Value</th>
+            <th>Converted Value</th>
+          </tr>
+        </thead>
+        <tbody>
+          
+          <tr class="multi-first">
+            <td>UIImage</td>
+            <td>bg_button_selected</td>
+            <td>[UIImage imageNamed:@"bg_button_selected"]</td>
+          </tr>
+          <tr class="multi">
+            <td></td>
+            <td>bg_home 4,6,8,10</td>
+            <td>[[UIImage imageNamed:@"bg_home"] resizableImageWithCapInsets:insets]</td>
+          </tr>
+          <tr class="multi-last">
+            <td></td>
+            <td>"image with spaces"</td>
+            <td>[UIImage imageNamed:@"image with spaces"]</td>
+          </tr>
+          
+          <tr>
+            <td>UIColor</td>
+            <td>#e1e1e1</td>
+            <td>[UIColor cas_colorWithHex:@"#e1e1e1"]</td>
+          </tr>
+          <tr class="info">
+            <td></td>
+            <td></td>
+            <td>supports #rgb or #rrggbb or #rrggbbaa</td>
+          </tr>
+          <tr class="seperator">
+            <td style="border:none"></td>
+            <td>red</td>
+            <td>[UIColor redColor]</td>
+          </tr>
+          <tr class="info">
+            <td></td>
+            <td></td>
+            <td>supports your own colors</td>
+          </tr>
+          
+          <tr>
+            <td>UIFont</td>
+            <td>Avenir-Light 12</td>
+            <td>[UIFont fontWithName:@"Avenir-Light" size:12]</td>
+          </tr>
+          <tr class="info">
+            <td></td>
+            <td></td>
+            <td>check <a href="http://iosfonts.com/">iosfonts.com</a> for a list of fonts available</td>
+          </tr>
+          <tr class="seperator">
+            <td style="border:none"></td>
+            <td>20</td>
+            <td>[UIFont systemFontOfSize:20]</td>
+          </tr>
+          
+          <tr class="multi-first">
+            <td>NSString</td>
+            <td>'single quote string'</td>
+            <td>@"single quote string"</td>
+          </tr>
+          <tr class="multi-last">
+            <td></td>
+            <td>"double quote string"</td>
+            <td>@"double quote string"</td>
+          </tr>
+        </tbody>
+      </table>
+      
+    </div>
+  </div>
+
+<!-- Enum Values
+  ================================================== -->
+  <div class="bs-docs-section">
+    <div class="page-header">
+      <h1 id="enum-values">Enum Values</h1>
+    </div>
+    <div class="lead">Wherever possible Classy uses the following method to map enum values. <br/>
+      Given enum constant value (UIControlStateNormal), remove enum name (UIControlState), convert to lowercase, which results in <b>normal</b></div>
+    <div>
+      <table class="table table-values">
+        <thead>
+          <tr>
+            <th>Enum</th>
+            <th>Value</th>
+            <th>Converted Value</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr class="multi-first">
+            <td>UIControlState</td>
+            <td>normal</td>
+            <td>UIControlStateNormal</td>
+          </tr>
+          <tr class="multi">
+            <td></td>
+            <td>highlighted</td>
+            <td>UIControlStateHighlighted</td>
+          </tr>
+          <tr class="multi">
+            <td></td>
+            <td>disabled</td>
+            <td>UIControlStateDisabled</td>
+          </tr>
+          <tr class="multi-last">
+            <td></td>
+            <td>selected</td>
+            <td>UIControlStateSelected</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>

@@ -62,6 +62,40 @@ code {
   font-weight: normal;
 }
 
+.table-values tr td:nth-child(1){
+  color:#499AB1;
+}
+
+.table-values tr td:nth-child(2){
+  color:#FF6600;
+}
+
+.table-values tr.info td {
+  border:none;
+  padding:0px 8px 8px 8px;
+  color:#999;
+}
+
+.table-values tr.multi-first td {
+  padding: 8px 8px 4px 8px;
+}
+
+.table-values tr.multi-last td {
+  border:none;
+  padding: 4px 8px 8px 8px;
+}
+
+.table-values tr.multi td {
+  border:none;
+  padding: 4px 8px 4px 8px;
+}
+
+.table-values tr.seperator td:not(:first-child),
+.table-values tr.multi-last td:not(:first-child),
+.table-values tr.multi td:not(:first-child) {
+  border-top:1px solid #F2F2F2;
+}
+
 /* Outline button for use within the docs */
 .btn-outline {
   color: #0A64A4;
