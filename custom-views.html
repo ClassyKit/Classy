@@ -2,6 +2,127 @@
 layout: default
 title: Custom Views
 slug: custom-views
-lead: "How to use Classy with your own custom UIView subclasses or View Models"
+lead: "How to use Classy with your own custom UIView subclasses"
 base_url: "../"
 ---
+
+
+    
+<!-- Example
+  ================================================== -->
+  <div class="bs-docs-section">
+    <div class="page-header">
+      <h1 id="example">Example</h1>
+    </div>
+    <p class="lead">Imagine we are building a control called <b>MYCircularSlider</b> which will behave like a UISlider but will render in a circular/dial shape. We want the control to be highly configurable as its used throughout the app in different border styles, colors, radius etc.</p>
+    <div>
+      <p>This is what <code>MYCircularSlider.h</code> looks like</p>
+{% highlight objective-c %}
+typedef NS_ENUM(NSUInteger, MYBorderStyle) {
+    MYBorderStyleNone,
+    MYBorderStyleLine,
+    MYBorderStyleBezel,
+};
+
+@interface MYCircularSlider : UIControl
+
+@property (nonatomic, strong) UIColor *trackTintColor;
+@property (nonatomic, strong) UIColor *fillColor;
+@property (nonatomic, assign) CGFloat trackRadius;
+@property (nonatomic, assign) UIEdgeInsets thumbInsets;
+@property (nonatomic, assign) MYBorderStyle trackBorderStyle;
+
+- (void)setThumbTintColor:(UIColor *)thumbTintColor forState:(UIControlState)state;
+
+@end
+{% endhighlight %}
+    </div>
+  </div>
+  
+    
+<!-- Automagic
+  ================================================== -->
+  <div class="bs-docs-section">
+    <div class="page-header">
+      <h1 id="automagic">Automagic</h1>
+    </div>
+    <p class="lead">When classy encounters MYCircularSlider for the first time it will use reflection to determine the types of MYCircularSlider's properties.  So without doing any configuration you can style most of the properties</p>
+    <div>
+      <div class="highlight">
+        <pre>
+<code class="cas"><span class="nc">MYCircularSlider </span> { 
+  track-tint-color <span class="m">blue</span>
+  fill-color <span class="m">#CCDE73</span>
+  track-radius <span class="m">40</span>
+  thumb-insets <span class="m">2, 4, 2, 4</span>
+}</code>
+        </pre>
+      </div>
+    </div>
+  </div>
+  
+  
+<!-- Config
+  ================================================== -->
+  <div class="bs-docs-section">
+    <div class="page-header">
+      <h1 id="config">Configuration</h1>
+    </div>
+    <p class="lead">Unfortunately the Objective-C runtime doesn't give us back enough information to configure enums and selectors automatically. In these cases you can manually tell Classy what todo.</p>
+    <div>
+      <p>Configuration code should be placed before setting the <code>[CASStyler defaultStyler].filePath</code>.<br/>
+         See the <a href="/getting-started/#default-stylesheet">getting started section</a>.</p>
+      <h3>Enums</h3>
+      <p>To configure the MYBorderStyle property <code>trackBorderStyle</code></p>
+{% highlight objective-c %}
+// Retrieve class descriptor
+CASObjectClassDescriptor *sliderClassDescriptor = [CASStyler.defaultStyler objectClassDescriptorForClass:MYCircularSlider.class];
+
+// Creating border mapping
+NSDictionary *borderStyleMap = @{
+    @"none"   : @(MYBorderStyleNone),
+    @"line"   : @(MYBorderStyleLine),
+    @"bezel"  : @(MYBorderStyleBezel)
+};
+
+// Set mapping for property key
+[sliderClassDescriptor setArgumentDescriptors:@[[CASArgumentDescriptor argWithValuesByName:borderStyleMap]] forPropertyKey:@cas_propertykey(MYCircularSlider, trackBorderStyle)];
+{% endhighlight %}
+
+      <h3>Selectors</h3>
+      <p>To configure the selector <code>setThumbTintColor:forState:</code></p>
+{% highlight objective-c %}
+
+CASArgumentDescriptor *colorArg = [CASArgumentDescriptor argWithClass:UIColor.class];
+
+NSDictionary *controlStateMap = @{
+    @"normal"       : @(UIControlStateNormal),
+    @"highlighted"  : @(UIControlStateHighlighted),
+    @"disabled"     : @(UIControlStateDisabled),
+    @"selected"     : @(UIControlStateSelected),
+};
+CASArgumentDescriptor *stateArg = [CASArgumentDescriptor argWithName:@"state" valuesByName:controlStateMap];
+
+[sliderClassDescriptor setArgumentDescriptors:@[colorArg, stateArg] setter:@selector(setThumbTintColor:forState:) forPropertyKey:@"thumbTintColor"];
+{% endhighlight %}
+
+      <p>Now we can style MYCircularSlider completely</p>
+
+      <div class="highlight">
+        <pre>
+<code class="cas"><span class="nc">MYCircularSlider </span> { 
+  track-tint-color <span class="m">blue</span>
+  fill-color <span class="m">#CCDE73</span>
+  track-radius <span class="m">40</span>
+  thumb-insets <span class="m">2, 4, 2, 4</span>
+  
+  track-border-style <span class="m">bezel</span>
+  thumb-tint-color <span class="m">white</span>
+  thumb-tint-color[state:highlighted] <span class="m">green</span>
+  thumb-tint-color[state:disabled] <span class="m">#999</span>
+}</code>
+        </pre>
+      </div>
+    </div>
+  </div>
+  
