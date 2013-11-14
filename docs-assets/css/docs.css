@@ -96,6 +96,12 @@ code {
   border-top:1px solid #F2F2F2;
 }
 
+.about-list li {
+  font-size:1.3em;
+  font-weight: 200;
+  line-height: 2;
+}
+
 /* Outline button for use within the docs */
 .btn-outline {
   color: #0A64A4;
