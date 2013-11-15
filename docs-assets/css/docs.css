@@ -97,9 +97,15 @@ code {
 }
 
 .about-list li {
-  font-size:1.3em;
+  font-size:14px;
   font-weight: 200;
   line-height: 2;
+}
+
+@media (min-width: 768px) {
+  .about-list li {
+    font-size:18px;
+  }
 }
 
 /* Outline button for use within the docs */

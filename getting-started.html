@@ -119,10 +119,9 @@ NSString filePath = [[NSBundle mainBundle] pathForResource:@"myStyles.cas" ofTyp
    
       
       <p>However this path will be different across different computers. Classy provides a convienent macro which will grab the absolute path relative to the current file. So if we are setting the <code>watchFilePath</code> in MYAppDelegate.m and Imagine we have the following absolute paths.</p>
-      <table style="margin-top:10px; margin-bottom:20px">
-          <tr><td>MYAppDelegate.m:</td><td><code>/users/Bonno/Projects/MyApp/Classes/MYAppDelegate.m</code></td></tr>
-          <tr><td>stylesheet.cas:</td><td><code>/users/Bonno/Projects/MyApp/Styles/stylesheet.cas</code></td></tr>
-      </table>
+      <p>MYAppDelegate.m: <code>/users/Bonno/Projects/MyApp/Classes/MYAppDelegate.m</code></p>
+      <p>stylesheet.cas:&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <code>/users/Bonno/Projects/MyApp/Styles/stylesheet.cas</code></p>
+            
       
       <p>Then we can use <code>CASAbsoluteFilePath()</code> determine the absolute path, with the relative path between "MYAppDelegate.m" and "stylesheet.cas"</p>
       {% highlight objective-c %}
