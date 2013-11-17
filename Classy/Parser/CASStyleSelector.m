@@ -113,15 +113,25 @@
 #pragma mark - private
 
 - (BOOL)matchesAncestorsOfItem:(id<CASStyleableItem>)item traverse:(BOOL)traverse {
-    for (id<CASStyleableItem> ancestor = item.cas_parent; ancestor != nil; ancestor = ancestor.cas_parent) {
-        BOOL ancestorMatch = [self matchesItem:ancestor];
-        if (ancestorMatch) {
+    id<CASStyleableItem> currentItem = item;
+
+    while (currentItem.cas_parent != nil || currentItem.cas_alternativeParent != nil) {
+        id<CASStyleableItem> ancestor;
+        if ([self matchesItem:currentItem.cas_parent]) {
+            ancestor = currentItem.cas_parent;
+        } else if ([self matchesItem:currentItem.cas_alternativeParent]) {
+            ancestor = currentItem.cas_alternativeParent;
+        }
+
+        if (ancestor) {
             if (!self.parentSelector) return YES;
             BOOL traverse = self.shouldSelectIndirectSuperview;
             if ([self.parentSelector matchesAncestorsOfItem:ancestor traverse:traverse]) return YES;
         }
         if (!traverse) return NO;
+        currentItem = currentItem.cas_parent;
     }
+
     return NO;
 }
 

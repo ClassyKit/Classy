@@ -14,12 +14,12 @@
 
 @implementation UITabBar (CASAdditions)
 
-- (void)cas_applyStyle:(CASStyler *)styler {
-    [super cas_applyStyle:styler];
+- (void)cas_updateStyling {
+    [super cas_updateStyling];
 
     for (UITabBarItem *item in self.items) {
         item.cas_parent = self;
-        [styler styleItem:item];
+        [item cas_updateStyling];
     }
 }
 

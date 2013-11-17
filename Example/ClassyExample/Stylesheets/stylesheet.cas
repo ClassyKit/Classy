@@ -1,14 +1,7 @@
-$borderWidth = 1;
-$textInsets = 4 3 2 1;
-$defaultFontName = Avenir-Heavy;
+UILabel {
+  text-color red
+}
 
-UITextField {
-  font-name: $defaultFontName;
-  font-size: 12;
-  font-color: #a0a0a0;
-  horizontal-alignment: right;
-  content-vertical-alignment: bottom;
-  background-image: test_image_5 1, 2, 3, 4;
-  border-style:line;
-  text-insets: $textInsets
+UINavigationController > CASSimpleFormViewController > UIView {
+  background-color: blue;
 }

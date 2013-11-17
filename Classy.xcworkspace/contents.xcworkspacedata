@@ -143,6 +143,12 @@
          <FileRef
             location = "group:UIToolbar+CASAdditions.m">
          </FileRef>
+         <FileRef
+            location = "group:UIViewController+CASAdditions.h">
+         </FileRef>
+         <FileRef
+            location = "group:UIViewController+CASAdditions.m">
+         </FileRef>
       </Group>
       <Group
          location = "group:Reflection"

@@ -12,19 +12,7 @@
 
 @implementation UIBarItem (CASAdditions)
 
-- (void)cas_applyStyle:(CASStyler *)styler {
-    [styler styleItem:self];
-}
-
-#pragma mark - associated properties
-
-- (id<CASStyleableItem>)cas_parent {
-    return objc_getAssociatedObject(self, @selector(cas_parent));
-}
-
-- (void)setCas_parent:(id<CASStyleableItem>)parent {
-    objc_setAssociatedObject(self, @selector(cas_parent), parent, OBJC_ASSOCIATION_ASSIGN);
-}
+#pragma mark - CASStyleableItem
 
 - (NSString *)cas_styleClass {
     return objc_getAssociatedObject(self, @selector(cas_styleClass));
@@ -34,19 +22,37 @@
     if ([self.cas_styleClass isEqual:styleClass]) return;
     objc_setAssociatedObject(self, @selector(cas_styleClass), styleClass, OBJC_ASSOCIATION_RETAIN_NONATOMIC);
 
-    if (self.cas_parent) {
-        [self cas_applyStyle:CASStyler.defaultStyler];
-    } else {
-        self.cas_styleApplied = NO;
+    [self cas_setNeedsUpdateStyling];
+}
+
+- (id<CASStyleableItem>)cas_parent {
+    return objc_getAssociatedObject(self, @selector(cas_parent));
+}
+
+- (void)setCas_parent:(id<CASStyleableItem>)parent {
+    objc_setAssociatedObject(self, @selector(cas_parent), parent, OBJC_ASSOCIATION_ASSIGN);
+}
+
+- (id<CASStyleableItem>)cas_alternativeParent {
+    return nil;
+}
+
+- (void)cas_updateStylingIfNeeded {
+    if ([self cas_needsUpdateStyling] && self.cas_parent) {
+        [self cas_updateStyling];
     }
 }
 
-- (BOOL)cas_styleApplied {
-    return [objc_getAssociatedObject(self, @selector(cas_styleApplied)) boolValue];
+- (void)cas_updateStyling {
+    [CASStyler.defaultStyler styleItem:self];
 }
 
-- (void)setCas_styleApplied:(BOOL)styleApplied {
-    objc_setAssociatedObject(self, @selector(cas_styleApplied), @(styleApplied), OBJC_ASSOCIATION_RETAIN_NONATOMIC);
+- (BOOL)cas_needsUpdateStyling {
+    return [self.cas_parent cas_needsUpdateStyling];
+}
+
+- (void)cas_setNeedsUpdateStyling {
+    [self.cas_parent cas_setNeedsUpdateStyling];
 }
 
 @end

@@ -1,37 +1,30 @@
 //
-//  UIView+CASAdditions.m
-//  Classy
+//  UIViewController+CASAdditions.m
+//  
 //
-//  Created by Jonas Budelmann on 30/09/13.
-//  Copyright (c) 2013 cloudling. All rights reserved.
+//  Created by Jonas Budelmann on 17/11/13.
+//
 //
 
+#import "UIViewController+CASAdditions.h"
+#import "NSObject+CASSwizzle.h"
 #import "UIView+CASAdditions.h"
 #import <objc/runtime.h>
-#import <QuartzCore/QuartzCore.h>
-#import "NSObject+CASSwizzle.h"
 #import "CASStyler.h"
 
 static void *CASStyleHasBeenUpdatedKey = &CASStyleHasBeenUpdatedKey;
 
-@implementation UIView (CASAdditions)
+@implementation UIViewController (CASAdditions)
 
 + (void)load {
-    [self cas_swizzleInstanceSelector:@selector(didMoveToWindow)
-                      withNewSelector:@selector(cas_didMoveToWindow)];
+    [self cas_swizzleInstanceSelector:@selector(setView:)
+                      withNewSelector:@selector(cas_setView:)];
 }
 
-- (void)cas_didMoveToWindow {
-    [self cas_setNeedsUpdateStyling];
+- (void)cas_setView:(UIView *)view {
+    view.cas_alternativeParent = self;
 
-    [self cas_didMoveToWindow];
-}
-
-- (void)cas_setNeedsUpdateStylingForSubviews {
-    [self cas_setNeedsUpdateStyling];
-    for (UIView *view in self.subviews) {
-        [view cas_setNeedsUpdateStylingForSubviews];
-    }
+    [self cas_setView:view];
 }
 
 #pragma mark - CASStyleableItem
@@ -44,23 +37,20 @@ static void *CASStyleHasBeenUpdatedKey = &CASStyleHasBeenUpdatedKey;
     if ([self.cas_styleClass isEqual:styleClass]) return;
     objc_setAssociatedObject(self, @selector(cas_styleClass), styleClass, OBJC_ASSOCIATION_RETAIN_NONATOMIC);
 
-    [self cas_setNeedsUpdateStylingForSubviews];
+    [self cas_setNeedsUpdateStyling];
+    [self.view cas_setNeedsUpdateStylingForSubviews];
 }
 
 - (id<CASStyleableItem>)cas_parent {
-    return self.superview;
+    return self.view.superview;
 }
 
 - (id<CASStyleableItem>)cas_alternativeParent {
-    return objc_getAssociatedObject(self, @selector(cas_alternativeParent));
-}
-
-- (void)setCas_alternativeParent:(id<CASStyleableItem>)parent {
-    objc_setAssociatedObject(self, @selector(cas_alternativeParent), parent, OBJC_ASSOCIATION_ASSIGN);
+    return self.parentViewController;
 }
 
 - (void)cas_updateStylingIfNeeded {
-    if ([self cas_needsUpdateStyling] && self.window) {
+    if ([self cas_needsUpdateStyling] && self.view.window) {
         [self cas_updateStyling];
     }
 }
