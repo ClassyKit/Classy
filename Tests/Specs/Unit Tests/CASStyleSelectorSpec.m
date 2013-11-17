@@ -8,7 +8,9 @@
 
 #import "CASStyleSelector.h"
 #import "UIView+CASAdditions.h"
+#import "UIViewController+CASAdditions.h"
 #import "CASExampleView.h"
+#import "CASExampleViewController.h"
 
 /**
  *  Test helper method for making sure we have created correct view hierarchy
@@ -182,6 +184,44 @@ SpecBegin(CASStyleSelector)
 
     [exampleView addSubview:view];
     expect(CASStringViewHierarchyFromView(slider)).to.equal(@"UIButton.top > UIButton > CASExampleView > UIView > UIControl.mid > UISlider");
+    expect([selector shouldSelectItem:slider]).to.beTruthy();
+}
+
+- (void)testSelectViewWithAlternativeParents {
+    CASStyleSelector *parentSelector2 = CASStyleSelector.new;
+    parentSelector2.objectClass = UIButton.class;
+    parentSelector2.styleClass = @"top";
+    parentSelector2.parent = YES;
+
+    CASStyleSelector *parentSelector1 = CASStyleSelector.new;
+    parentSelector1.objectClass = CASExampleViewController.class;
+    parentSelector1.shouldSelectIndirectSuperview = NO;
+    parentSelector1.parent = YES;
+    parentSelector1.parentSelector = parentSelector2;
+
+    CASStyleSelector *selector = CASStyleSelector.new;
+    selector.objectClass = UISlider.class;
+    selector.shouldSelectIndirectSuperview = YES;
+    selector.parentSelector = parentSelector1;
+
+    expect(selector.stringValue).to.equal(@"UIButton.top > CASExampleViewController UISlider");
+
+    // view heirarchy 1
+    UIButton *topButton = UIButton.new;
+    topButton.cas_styleClass = @"top";
+
+    CASExampleViewController *viewController = CASExampleViewController.new;
+    [topButton addSubview:viewController.view];
+
+    UIView *view = UIView.new;
+    [viewController.view addSubview:view];
+
+    UISlider *slider = UISlider.new;
+    [view addSubview:slider];
+
+    expect(viewController.view.cas_alternativeParent).to.beIdenticalTo(viewController);
+    expect(CASStringViewHierarchyFromView(slider)).to.equal(@"UIButton.top > CASExampleView > UIView > UISlider");
+
     expect([selector shouldSelectItem:slider]).to.beTruthy();
 }
 

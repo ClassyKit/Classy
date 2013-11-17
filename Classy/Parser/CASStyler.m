@@ -21,6 +21,8 @@
 
 @property (nonatomic, strong) NSMutableArray *styleNodes;
 @property (nonatomic, strong) NSMapTable *objectClassDescriptorCache;
+@property (nonatomic, strong) NSHashTable *scheduledItems;
+@property (nonatomic, strong) NSTimer *updateTimer;
 
 @end
 
@@ -41,6 +43,7 @@
     if (!self) return nil;
 
     self.objectClassDescriptorCache = NSMapTable.strongToStrongObjectsMapTable;
+    self.scheduledItems = [NSHashTable hashTableWithOptions:NSHashTableWeakMemory];
     [self setupObjectClassDescriptors];
 
     return self;
@@ -61,8 +64,6 @@
             }
         }
     }
-
-    item.cas_styleApplied = YES;
 }
 
 - (void)setFilePath:(NSString *)filePath {
@@ -538,6 +539,36 @@
         [self.objectClassDescriptorCache setObject:objectClassDescriptor forKey:class];
     }
     return objectClassDescriptor;
+}
+
+#pragma mark - sceduling
+
+- (void)updateScheduledItems {
+    for (id<CASStyleableItem> item in self.scheduledItems.copy) {
+        if (!item) continue;
+        [item cas_updateStylingIfNeeded];
+        [self.scheduledItems removeObject:item];
+    }
+
+    [self.updateTimer invalidate];
+    self.updateTimer = nil;
+}
+
+- (void)scheduleUpdateForItem:(id<CASStyleableItem>)item {
+    [self.scheduledItems addObject:item];
+
+    if (self.scheduledItems.count && !self.updateTimer.isValid) {
+        self.updateTimer = [NSTimer scheduledTimerWithTimeInterval:0.0 target:self selector:@selector(updateScheduledItems) userInfo:nil repeats:YES];
+    }
+}
+
+- (void)unscheduleUpdateForItem:(id<CASStyleableItem>)item {
+    [self.scheduledItems removeObject:item];
+
+    if (!self.scheduledItems.count == 0) {
+        [self.updateTimer invalidate];
+        self.updateTimer = nil;
+    }
 }
 
 #pragma mark - file watcher

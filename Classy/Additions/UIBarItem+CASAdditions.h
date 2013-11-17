@@ -11,4 +11,6 @@
 
 @interface UIBarItem (CASAdditions) <CASStyleableItem>
 
+@property (nonatomic, weak, readwrite) id<CASStyleableItem> cas_parent;
+
 @end

@@ -48,4 +48,19 @@
  */
 - (CASObjectClassDescriptor *)objectClassDescriptorForClass:(Class)class;
 
+/**
+ *  Schedule update for styleable item.
+ *  This ensures we only update an item once per run loop
+ *
+ *  @param item CASStyleableItem to coalesce update calls
+ */
+- (void)scheduleUpdateForItem:(id<CASStyleableItem>)item;
+
+/**
+ *  Unschedule update for styleable item
+ *
+ *  @param item CASStyleableItem that no longer needs updating
+ */
+- (void)unscheduleUpdateForItem:(id<CASStyleableItem>)item;
+
 @end

@@ -13,17 +13,17 @@
 
 @implementation UINavigationBar (CASAdditions)
 
-- (void)cas_applyStyle:(CASStyler *)styler {
-    [super cas_applyStyle:styler];
+- (void)cas_updateStyling {
+    [super cas_updateStyling];
     
     for (UINavigationItem *navigationItem in self.items) {
         for (UIBarButtonItem *barButtonItem in navigationItem.leftBarButtonItems) {
             barButtonItem.cas_parent = self;
-            [styler styleItem:barButtonItem];
+            [barButtonItem cas_updateStyling];
         }
         for (UIBarButtonItem *barButtonItem in navigationItem.rightBarButtonItems) {
             barButtonItem.cas_parent = self;
-            [styler styleItem:barButtonItem];
+            [barButtonItem cas_updateStyling];
         }
     }
 }

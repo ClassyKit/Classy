@@ -8,6 +8,10 @@
 
 #import <Foundation/Foundation.h>
 
+/**
+ *  Each property maps directly to a attribute name
+ *  ie font = NSFontAttributeName
+ */
 @interface CASTextAttributes : NSObject
 
 @property (nonatomic, strong) UIFont *font;
@@ -22,8 +26,11 @@
 @property (nonatomic, assign) CGFloat strokeWidth;
 @property (nonatomic, strong) NSShadow *shadow;
 
-// TODO support relevant iOS 7 properties
-
+/**
+ *  Transformer receiver into appropriate NSDictionary
+ *
+ *  @return NSDictionary containing text attribute keys and values
+ */
 - (NSDictionary *)dictionary;
 
 @end

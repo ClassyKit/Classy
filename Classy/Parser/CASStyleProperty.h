@@ -153,7 +153,7 @@
 - (void)resolveExpressions;
 
 /**
- *  adds nested CASStyleProperty to the reciever
+ *  adds nested CASStyleProperty to the receiver
  */
 - (void)addChildStyleProperty:(CASStyleProperty *)styleProperty;
 

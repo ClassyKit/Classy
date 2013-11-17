@@ -34,6 +34,8 @@
 		DD175F921820C81A00139EBE /* test_image_4.png in Resources */ = {isa = PBXBuildFile; fileRef = DD175F8E1820C81900139EBE /* test_image_4.png */; };
 		DD592B13181DE5E800C30F7F /* Selectors-Nested.cas in Resources */ = {isa = PBXBuildFile; fileRef = DD592B12181DE5E800C30F7F /* Selectors-Nested.cas */; };
 		DD7C18441827464C008110D7 /* Properties-Nested.cas in Resources */ = {isa = PBXBuildFile; fileRef = DD7C18431827464C008110D7 /* Properties-Nested.cas */; };
+		DD824863183964CB00DDD6EF /* CASExampleViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = DD824862183964CB00DDD6EF /* CASExampleViewController.m */; };
+		DD8248651839684700DDD6EF /* UIView_CASAdditionsSpec.m in Sources */ = {isa = PBXBuildFile; fileRef = DD8248641839684700DDD6EF /* UIView_CASAdditionsSpec.m */; };
 		DD9389DE18206A0100C0FFA7 /* CASStyleSelectorSpec.m in Sources */ = {isa = PBXBuildFile; fileRef = DD9389DD18206A0100C0FFA7 /* CASStyleSelectorSpec.m */; };
 		DDBF583418113BC10059B8D3 /* XCTest.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DDBF582518112ECA0059B8D3 /* XCTest.framework */; };
 		DDBF583518113BC10059B8D3 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DDD3D48C1810D6DA00E378A2 /* Foundation.framework */; };
@@ -88,6 +90,9 @@
 		DD43DA8A1810F5D40058FBC1 /* Classy-Prefix.pch */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "Classy-Prefix.pch"; sourceTree = "<group>"; };
 		DD592B12181DE5E800C30F7F /* Selectors-Nested.cas */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = "Selectors-Nested.cas"; sourceTree = "<group>"; };
 		DD7C18431827464C008110D7 /* Properties-Nested.cas */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = "Properties-Nested.cas"; sourceTree = "<group>"; };
+		DD824861183964CB00DDD6EF /* CASExampleViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CASExampleViewController.h; sourceTree = "<group>"; };
+		DD824862183964CB00DDD6EF /* CASExampleViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CASExampleViewController.m; sourceTree = "<group>"; };
+		DD8248641839684700DDD6EF /* UIView_CASAdditionsSpec.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UIView_CASAdditionsSpec.m; sourceTree = "<group>"; };
 		DD9389DD18206A0100C0FFA7 /* CASStyleSelectorSpec.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CASStyleSelectorSpec.m; sourceTree = "<group>"; };
 		DDBF582518112ECA0059B8D3 /* XCTest.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = XCTest.framework; path = Library/Frameworks/XCTest.framework; sourceTree = DEVELOPER_DIR; };
 		DDBF583318113BC10059B8D3 /* ClassyTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = ClassyTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -155,6 +160,7 @@
 				DD10AD45181A16EA00A5B71D /* CASStylerSpec.m */,
 				DD10AD46181A16EA00A5B71D /* CASTokenSpec.m */,
 				DD9389DD18206A0100C0FFA7 /* CASStyleSelectorSpec.m */,
+				DD8248641839684700DDD6EF /* UIView_CASAdditionsSpec.m */,
 			);
 			path = "Unit Tests";
 			sourceTree = "<group>";
@@ -172,6 +178,8 @@
 		DDBF585A18113C850059B8D3 /* Supporting Files */ = {
 			isa = PBXGroup;
 			children = (
+				DD824861183964CB00DDD6EF /* CASExampleViewController.h */,
+				DD824862183964CB00DDD6EF /* CASExampleViewController.m */,
 				DDBF585F18113FCC0059B8D3 /* CASExampleView.h */,
 				DDBF586018113FCC0059B8D3 /* CASExampleView.m */,
 				DDBF585018113C750059B8D3 /* XCTest+Spec.h */,
@@ -434,10 +442,12 @@
 				DD10AD49181A16EA00A5B71D /* CASParserSpec.m in Sources */,
 				DD10AD53181A176000A5B71D /* CASCustomViewSpec.m in Sources */,
 				DDBF586818113FCC0059B8D3 /* CASExampleView.m in Sources */,
+				DD8248651839684700DDD6EF /* UIView_CASAdditionsSpec.m in Sources */,
 				DD9389DE18206A0100C0FFA7 /* CASStyleSelectorSpec.m in Sources */,
 				DD10AD4F181A172F00A5B71D /* CASUIKitSpec.m in Sources */,
 				DD10AD4B181A16EA00A5B71D /* CASStylePropertySpec.m in Sources */,
 				DD10AD4D181A16EA00A5B71D /* CASTokenSpec.m in Sources */,
+				DD824863183964CB00DDD6EF /* CASExampleViewController.m in Sources */,
 				DD10AD4C181A16EA00A5B71D /* CASStylerSpec.m in Sources */,
 				DD10AD48181A16EA00A5B71D /* CASLexerSpec.m in Sources */,
 				DD10AD4A181A16EA00A5B71D /* CASRuntimeExtensionsSpec.m in Sources */,
