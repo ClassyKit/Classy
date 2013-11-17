@@ -1,4 +1,6 @@
-UILabel {
+//TODO flesh out example
+
+UITableView UILabel {
   text-color red
 }
 
