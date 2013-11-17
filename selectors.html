@@ -115,6 +115,14 @@ base_url: "../"
 <code class="cas"><span class="nc">UITableView ^UITableViewCell > UIImageView</span> { }</code>
         </pre>
       </div>      
+
+      <p>You can also specify the type of <b>UIViewController</b> class/subclass you are expecting in the heirarchy</p>
+  
+      <div class="highlight">
+        <pre>
+<code class="cas"><span class="nc">UITableViewController UIImageView</span> { }</code>
+        </pre>
+      </div>    
       
     </div>
   </div>
@@ -127,10 +135,17 @@ base_url: "../"
     </div>
     <p class="lead">In some cases the object class and view hierarchy alone are not enough to distinguish a view. Sometimes its useful to give style selectors a bit more semantic meaning. For this reason every view has the option of setting an associated NSString property called <code>cas_styleClass</code></p>
     <div>
+      <h4>From Code</h4>
       {% highlight objective-c %}
 UIButton *button = [UIButton buttonWithType:UIButtonTypeCustom];
 button.cas_styleClass = @"primary";
 {% endhighlight %}
+
+      <h4>From Interface Builder</h4>
+      <p>You will need to set a runtime attribute for the element (in Identity Inspector > User Defined Runtime Attributes, click +). Set the Key Path = <code>cas_styleClass</code>, Type = <code>String</code>, and Value = <code>primary</code> </p>
+      <img src="{{ page.base_url }}docs-assets/img/XIB-styleClass.png"></img>
+
+      <h4>Stylesheet</h4>
       <p>The above button will be styled by the style selector below as it matches the style class <code>.primary</code></p>
   
       <div class="highlight">
@@ -309,43 +324,43 @@ button.cas_styleClass = @"main";
       <p>Which results in:</p>
       <code style="margin-top:10px">backgroundColor == yellow</code> AND <code>backgroundImage == bg_button_blue</code>
       
-      <h3>Precedence Points</h3>
+      <h3>Precedence Scoring</h3>
       <table class="table">
         <thead>
           <tr>
-            <th style="width:80px">Points</th>
+            <th style="width:80px">Score</th>
             <th style="width:110px">Description</th>
             <th>Conditions</th>
           </tr>
         </thead>
         <tbody>
           <tr>
-            <td>3000</td>
+            <td>+3000</td>
             <td>styleClass</td>
             <td>match on view</td>
           </tr>
           <tr>
-            <td>2000</td>
+            <td>+2000</td>
             <td>styleClass</td>
             <td>match on direct superview</td>
           </tr>
           <tr>
-            <td>1000</td>
+            <td>+1000</td>
             <td>styleClass</td>
             <td>match on ancestor superview</td>
           </tr>
           <tr>
-            <td>4</td>
+            <td>+4</td>
             <td>objectClass</td>
             <td>match on view</td>
           </tr>
           <tr>
-            <td>3</td>
+            <td>+3</td>
             <td>objectClass</td>
             <td>match on direct superview</td>
           </tr>
           <tr>
-            <td>2</td>
+            <td>+2</td>
             <td>objectClass</td>
             <td>match on ancestor superview</td>
           </tr>

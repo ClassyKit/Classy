@@ -56,6 +56,11 @@ code {
   border:1px solid #D1E0EB;
 }
 
+h4 {
+  margin-top: 20px;
+  margin-bottom: 10px;
+}
+
 /* Keep code small in tables on account of limited space */
 .table code {
   font-size: 13px;
