@@ -11,5 +11,5 @@ exclude:          [".gitignore", ".editorconfig", "CNAME", "LICENSE", "README.md
 port:             9001
 
 # Custom vars
-current_version:  0.0.1
+current_version:  0.0.2
 repo:             https://github.com/cloudkite/Classy
