@@ -10,7 +10,8 @@
 
 @interface TestView : UIView
 
-@property (nonatomic, assign) NSInteger styledCount;
+@property (nonatomic, assign) NSInteger updateStylingCount;
+@property (nonatomic, assign) NSInteger setNeedsUpdateStylingCount;
 
 @end
 
@@ -19,7 +20,13 @@
 - (void)cas_updateStyling {
     [super cas_updateStyling];
 
-    self.styledCount++;
+    self.updateStylingCount++;
+}
+
+- (void)cas_setNeedsUpdateStyling {
+    [super cas_setNeedsUpdateStyling];
+
+    self.setNeedsUpdateStylingCount++;
 }
 
 @end
@@ -42,7 +49,8 @@ SpecBegin(UIView_CASAdditions)
     [[NSRunLoop currentRunLoop] runMode:NSDefaultRunLoopMode
                                  beforeDate:[NSDate dateWithTimeIntervalSinceNow:0.1]];
 
-    expect(view.styledCount).to.equal(1);
+    expect(view.updateStylingCount).to.equal(1);
+    expect(view.setNeedsUpdateStylingCount).to.equal(3);
 }
 
 SpecEnd
