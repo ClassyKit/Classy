@@ -23,12 +23,12 @@ post_install do |installer|
 
   COV_TARGET_NAME = "Pods-ClassyTestsLoader-Classy"
   EXPORT_ENV_PHASE_NAME = "Export Environment Vars"
-  EXPORT_ENV_PHASE_SCRIPT = "export | egrep '( BUILT_PRODUCTS_DIR)|(CURRENT_ARCH)|(OBJECT_FILE_DIR_normal)|(SRCROOT)|(OBJROOT)' > " + config.installation_root + "/script/env.sh"
+  EXPORT_ENV_PHASE_SCRIPT = "export | egrep '( BUILT_PRODUCTS_DIR)|(CURRENT_ARCH)|(OBJECT_FILE_DIR_normal)|(SRCROOT)|(OBJROOT)' > " << File.join(config.installation_root, "/script/env.sh") 
   
   # find target
   classy_pods_target = installer.project.targets.find{ |target| target.name == COV_TARGET_NAME }
   unless classy_pods_target
-   raise ::Pod::Informative, "Failed to find '" + COV_TARGET_NAME + "' target"
+   raise ::Pod::Informative, "Failed to find '" << COV_TARGET_NAME << "' target"
   end
        
   # add build settings
