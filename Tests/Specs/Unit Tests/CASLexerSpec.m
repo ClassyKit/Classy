@@ -212,7 +212,6 @@ SpecBegin(CASLexer)
 
     lexer = [[CASLexer alloc] initWithString:@"/* hello \n \n world \n */  \n   \n stuff"];
     expect(lexer.peekToken.type).to.equal(CASTokenTypeSpace);
-    expect(lexer.peekToken.value).to.equal(nil);
     expect(lexer.peekToken.lineNumber).to.equal(4);
     expect(lexer.str).to.equal(@"\n   \n stuff");
 

@@ -376,7 +376,9 @@ NSString * const CASParseFailingStringErrorKey = @"CASParseFailingStringErrorKey
 }
 
 - (CASToken *)space {
-    return [self testForTokenType:CASTokenTypeSpace transformValueBlock:nil];
+    return [self testForTokenType:CASTokenTypeSpace transformValueBlock:^id(NSString *value, NSTextCheckingResult *match) {
+        return value;
+    }];
 }
 
 - (CASToken *)selector {

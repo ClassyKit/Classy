@@ -7,13 +7,23 @@
 //
 
 #import "CASStyleProperty.h"
+#import "CASLexer.h"
+
+NSArray *CASTokensFromString(NSString *string) {
+    NSMutableArray *tokens = NSMutableArray.new;
+    CASLexer *lexer = [[CASLexer alloc] initWithString:string];
+    while (lexer.peekToken && lexer.peekToken.type != CASTokenTypeEOS) {
+        [tokens addObject:lexer.nextToken];
+    }
+    return tokens;
+}
 
 SpecBegin(CASStyleProperty)
 
 - (void)testNotParseZeroUnits {
-    NSArray *valueTokens = (@[
+    NSArray *valueTokens = @[
         [CASToken tokenOfType:CASTokenTypeRef value:@3],
-    ]);
+    ];
 
     CASStyleProperty *prop = [[CASStyleProperty alloc] initWithNameToken:nil valueTokens:valueTokens];
 
@@ -24,13 +34,19 @@ SpecBegin(CASStyleProperty)
     __block UIEdgeInsets insets = UIEdgeInsetsZero;
     expect([prop transformValuesToUIEdgeInsets:&insets]).to.beFalsy();
     expect(insets).to.equal(UIEdgeInsetsZero);
+
+    __block CGRect rect = CGRectZero;
+    expect([prop transformValuesToCGRect:&rect]).to.beFalsy();
+    expect(rect).to.equal(CGRectZero);
+
+    __block CGPoint point = CGPointZero;
+    expect([prop transformValuesToCGPoint:&point]).to.beFalsy();
+    expect(point).to.equal(CGPointZero);
 }
 
 
 - (void)testParseOneUnit {
-    NSArray *valueTokens = (@[
-        [CASToken tokenOfType:CASTokenTypeUnit value:@3],
-    ]);
+    NSArray *valueTokens = CASTokensFromString(@"3");
 
     CASStyleProperty *prop = [[CASStyleProperty alloc] initWithNameToken:nil valueTokens:valueTokens];
 
@@ -41,13 +57,18 @@ SpecBegin(CASStyleProperty)
     __block UIEdgeInsets insets = UIEdgeInsetsZero;
     expect([prop transformValuesToUIEdgeInsets:&insets]).to.beTruthy();
     expect(insets).to.equal(UIEdgeInsetsMake(3, 3, 3, 3));
+
+    __block CGRect rect = CGRectZero;
+    expect([prop transformValuesToCGRect:&rect]).to.beFalsy();
+    expect(rect).to.equal(CGRectZero);
+
+    __block CGPoint point = CGPointZero;
+    expect([prop transformValuesToCGPoint:&point]).to.beTruthy();
+    expect(point).to.equal(CGPointMake(3, 3));
 }
 
 - (void)testParseTwoUnits {
-    NSArray *valueTokens = (@[
-        [CASToken tokenOfType:CASTokenTypeUnit value:@3],
-        [CASToken tokenOfType:CASTokenTypeUnit value:@34],
-    ]);
+    NSArray *valueTokens = CASTokensFromString(@"3 34");
 
     CASStyleProperty *prop = [[CASStyleProperty alloc] initWithNameToken:nil valueTokens:valueTokens];
 
@@ -58,143 +79,83 @@ SpecBegin(CASStyleProperty)
     __block UIEdgeInsets insets = UIEdgeInsetsZero;
     expect([prop transformValuesToUIEdgeInsets:&insets]).to.beTruthy();
     expect(insets).to.equal(UIEdgeInsetsMake(3, 34, 3, 34));
+
+    __block CGRect rect = CGRectZero;
+    expect([prop transformValuesToCGRect:&rect]).to.beFalsy();
+    expect(rect).to.equal(CGRectZero);
+
+    __block CGPoint point = CGPointZero;
+    expect([prop transformValuesToCGPoint:&point]).to.beTruthy();
+    expect(point).to.equal(CGPointMake(3, 34));
+}
+
+
+- (void)testParseFourUnits {
+    NSArray *valueTokens = CASTokensFromString(@"1, 2, 3, 4");
+
+    CASStyleProperty *prop = [[CASStyleProperty alloc] initWithNameToken:nil valueTokens:valueTokens];
+
+    __block CGSize size = CGSizeZero;
+    expect([prop transformValuesToCGSize:&size]).to.beFalsy();
+    expect(size).to.equal(CGSizeZero);
+
+    __block UIEdgeInsets insets = UIEdgeInsetsZero;
+    expect([prop transformValuesToUIEdgeInsets:&insets]).to.beTruthy();
+    expect(insets).to.equal(UIEdgeInsetsMake(1, 2, 3, 4));
+
+    __block CGRect rect = CGRectZero;
+    expect([prop transformValuesToCGRect:&rect]).to.beTruthy();
+    expect(rect).to.equal(CGRectMake(1, 2, 3, 4));
+
+    __block CGPoint point = CGPointZero;
+    expect([prop transformValuesToCGPoint:&point]).to.beFalsy();
+    expect(point).to.equal(CGPointZero);
 }
 
 - (void)testResolveSimpleExpression {
-    NSArray *valueTokens = (@[
-        [CASToken tokenOfType:CASTokenTypeUnit value:@3],
-        [CASToken tokenOfType:CASTokenTypeOperator value:@"*"],
-        [CASToken tokenOfType:CASTokenTypeUnit value:@2],
-        [CASToken tokenOfType:CASTokenTypeOperator value:@"+"],
-        [CASToken tokenOfType:CASTokenTypeUnit value:@5],
-    ]);
+    NSArray *valueTokens = CASTokensFromString(@"3 * 2 + 5");
 
     CASStyleProperty *prop = [[CASStyleProperty alloc] initWithNameToken:nil valueTokens:valueTokens];
-    expect([prop.values componentsJoinedByString:@""]).to.equal(@"3*2+5");
     [prop resolveExpressions];
     expect([prop.values componentsJoinedByString:@""]).to.equal(@"11");
 }
 
 - (void)testResolveExpressionWithFunction {
-    NSArray *valueTokens = (@[
-        [CASToken tokenOfType:CASTokenTypeRef value:@"floor"],
-        [CASToken tokenOfType:CASTokenTypeSpace value:@"  "],
-        [CASToken tokenOfType:CASTokenTypeLeftRoundBrace value:@"("],
-        [CASToken tokenOfType:CASTokenTypeUnit value:@4.5],
-        [CASToken tokenOfType:CASTokenTypeRightRoundBrace value:@")"],
-        [CASToken tokenOfType:CASTokenTypeOperator value:@"*"],
-        [CASToken tokenOfType:CASTokenTypeSpace value:@" "],
-        [CASToken tokenOfType:CASTokenTypeUnit value:@2],
-        [CASToken tokenOfType:CASTokenTypeSpace value:@" "],
-        [CASToken tokenOfType:CASTokenTypeOperator value:@"+"],
-        [CASToken tokenOfType:CASTokenTypeUnit value:@5],
-    ]);
+    NSArray *valueTokens = CASTokensFromString(@"floor  (4.5)* 2 +5");
 
     CASStyleProperty *prop = [[CASStyleProperty alloc] initWithNameToken:nil valueTokens:valueTokens];
-    expect([prop.values componentsJoinedByString:@""]).to.equal(@"floor  (4.5)* 2 +5");
     [prop resolveExpressions];
     expect([prop.values componentsJoinedByString:@""]).to.equal(@"13");
 }
 
 - (void)testResolveTwoTuple {
-    NSArray *valueTokens = (@[
-        [CASToken tokenOfType:CASTokenTypeLeftRoundBrace value:@"("],
-        [CASToken tokenOfType:CASTokenTypeUnit value:@4.5],
-        [CASToken tokenOfType:CASTokenTypeOperator value:@","],
-        [CASToken tokenOfType:CASTokenTypeUnit value:@2],
-        [CASToken tokenOfType:CASTokenTypeRightRoundBrace value:@")"],
-        [CASToken tokenOfType:CASTokenTypeOperator value:@"*"],
-        [CASToken tokenOfType:CASTokenTypeUnit value:@5],
-    ]);
+    NSArray *valueTokens = CASTokensFromString(@"(4.5,2)*5");
 
     CASStyleProperty *prop = [[CASStyleProperty alloc] initWithNameToken:nil valueTokens:valueTokens];
-    expect([prop.values componentsJoinedByString:@""]).to.equal(@"(4.5,2)*5");
     [prop resolveExpressions];
     expect([prop.values componentsJoinedByString:@""]).to.equal(@"(22.5,10)");
 }
 
 - (void)testResolveTwoTupleForwards {
-    NSArray *valueTokens = (@[
-        [CASToken tokenOfType:CASTokenTypeUnit value:@5],
-        [CASToken tokenOfType:CASTokenTypeOperator value:@"*"],
-        [CASToken tokenOfType:CASTokenTypeLeftRoundBrace value:@"("],
-        [CASToken tokenOfType:CASTokenTypeUnit value:@4.5],
-        [CASToken tokenOfType:CASTokenTypeOperator value:@","],
-        [CASToken tokenOfType:CASTokenTypeUnit value:@2],
-        [CASToken tokenOfType:CASTokenTypeRightRoundBrace value:@")"],
-    ]);
+    NSArray *valueTokens = CASTokensFromString(@"5*(4.5,2)");
 
     CASStyleProperty *prop = [[CASStyleProperty alloc] initWithNameToken:nil valueTokens:valueTokens];
-    expect([prop.values componentsJoinedByString:@""]).to.equal(@"5*(4.5,2)");
     [prop resolveExpressions];
     expect([prop.values componentsJoinedByString:@""]).to.equal(@"(22.5,10)");
 }
 
 - (void)testResolveQuadTuple {
-    NSArray *valueTokens = (@[
-        [CASToken tokenOfType:CASTokenTypeLeftRoundBrace value:@"("],
-        [CASToken tokenOfType:CASTokenTypeSpace value:@" "],
-        [CASToken tokenOfType:CASTokenTypeUnit value:@6],
-        [CASToken tokenOfType:CASTokenTypeOperator value:@","],
-        [CASToken tokenOfType:CASTokenTypeSpace value:@" "],
-        [CASToken tokenOfType:CASTokenTypeUnit value:@10],
-        [CASToken tokenOfType:CASTokenTypeSpace value:@" "],
-        [CASToken tokenOfType:CASTokenTypeUnit value:@12],
-        [CASToken tokenOfType:CASTokenTypeOperator value:@","],
-        [CASToken tokenOfType:CASTokenTypeSpace value:@" "],
-        [CASToken tokenOfType:CASTokenTypeUnit value:@8],
-        [CASToken tokenOfType:CASTokenTypeSpace value:@" "],
-        [CASToken tokenOfType:CASTokenTypeRightRoundBrace value:@")"],
-        [CASToken tokenOfType:CASTokenTypeOperator value:@" / "],
-        [CASToken tokenOfType:CASTokenTypeUnit value:@2],
-    ]);
+    NSArray *valueTokens = CASTokensFromString(@"( 6, 10 12, 8 ) / 2");
 
     CASStyleProperty *prop = [[CASStyleProperty alloc] initWithNameToken:nil valueTokens:valueTokens];
-    expect([prop.values componentsJoinedByString:@""]).to.equal(@"( 6, 10 12, 8 ) / 2");
     [prop resolveExpressions];
     expect([prop.values componentsJoinedByString:@""]).to.equal(@"(3,5,6,4)");
 }
 
 - (void)testSolveMixedExpression {
-    NSArray *valueTokens = (@[
-        [CASToken tokenOfType:CASTokenTypeRef value:@"tiger"],
-        [CASToken tokenOfType:CASTokenTypeSpace value:@" "],
-        [CASToken tokenOfType:CASTokenTypeSelector value:@"place"],
-        [CASToken tokenOfType:CASTokenTypeSpace value:@" "],
-        [CASToken tokenOfType:CASTokenTypeUnit value:@2],
-        [CASToken tokenOfType:CASTokenTypeSpace value:@" "],
-        [CASToken tokenOfType:CASTokenTypeOperator value:@"+"],
-        [CASToken tokenOfType:CASTokenTypeSpace value:@" "],
-        [CASToken tokenOfType:CASTokenTypeUnit value:@2],
-        [CASToken tokenOfType:CASTokenTypeSpace value:@" "],
-        [CASToken tokenOfType:CASTokenTypeLeftRoundBrace value:@"("],
-        [CASToken tokenOfType:CASTokenTypeUnit value:@1],
-        [CASToken tokenOfType:CASTokenTypeSpace value:@" "],
-        [CASToken tokenOfType:CASTokenTypeOperator value:@"+"],
-        [CASToken tokenOfType:CASTokenTypeSpace value:@" "],
-        [CASToken tokenOfType:CASTokenTypeLeftRoundBrace value:@"("],
-        [CASToken tokenOfType:CASTokenTypeUnit value:@2],
-        [CASToken tokenOfType:CASTokenTypeSpace value:@" "],
-        [CASToken tokenOfType:CASTokenTypeOperator value:@"*"],
-        [CASToken tokenOfType:CASTokenTypeSpace value:@" "],
-        [CASToken tokenOfType:CASTokenTypeUnit value:@3],
-        [CASToken tokenOfType:CASTokenTypeRightRoundBrace value:@")"],
-        [CASToken tokenOfType:CASTokenTypeSpace value:@" "],
-        [CASToken tokenOfType:CASTokenTypeUnit value:@3],
-        [CASToken tokenOfType:CASTokenTypeSpace value:@" "],
-        [CASToken tokenOfType:CASTokenTypeOperator value:@"+"],
-        [CASToken tokenOfType:CASTokenTypeSpace value:@" "],
-        [CASToken tokenOfType:CASTokenTypeUnit value:@0.5],
-        [CASToken tokenOfType:CASTokenTypeRightRoundBrace value:@")"],
-        [CASToken tokenOfType:CASTokenTypeOperator value:@" *"],
-        [CASToken tokenOfType:CASTokenTypeSpace value:@" "],
-        [CASToken tokenOfType:CASTokenTypeUnit value:@2],
-        [CASToken tokenOfType:CASTokenTypeOperator value:@" / "],
-        [CASToken tokenOfType:CASTokenTypeUnit value:@5],
-    ]);
+    NSArray *valueTokens = CASTokensFromString(@"tiger place 2 + 2 (1 + (2 * 3) 3 + 0.5) * 2 / 5");
 
     CASStyleProperty *prop = [[CASStyleProperty alloc] initWithNameToken:nil valueTokens:valueTokens];
-    expect([prop.values componentsJoinedByString:@""]).to.equal(@"tiger place 2 + 2 (1 + (2 * 3) 3 + 0.5) * 2 / 5");
     [prop resolveExpressions];
     expect([prop.values componentsJoinedByString:@""]).to.equal(@"tiger place 4(2,1.4)");
 }
