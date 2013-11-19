@@ -15,6 +15,17 @@
 /**
  *  Creates and returns an UIColor object containing a given value.
  *
+ *  @param rgb The value for the new color. The `rgb(` prefix is required.
+ *
+ *  @return An UIColor object containing a value.
+ *  You can specify numeric values in the following formats: `rgb(r,g,b)`, `rgb(r,g,b,a)`
+ *  The default alpha value is `1.0`.
+ */
++ (UIColor *)cas_colorWithRGB:(NSString *)rgb;
+
+/**
+ *  Creates and returns an UIColor object containing a given value.
+ *
  *  @param hex The value for the new color. The `#` sign is not required.
  *
  *  @return An UIColor object containing a value.
