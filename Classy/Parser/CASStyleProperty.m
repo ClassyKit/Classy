@@ -67,11 +67,13 @@
     return nil;
 }
 
-- (NSArray *)valuesOfTokenType:(CASTokenType)tokenType {
+- (NSArray *)consecutiveValuesOfTokenType:(CASTokenType)tokenType {
     NSMutableArray *tokens = NSMutableArray.new;
     for (CASToken *token in self.valueTokens) {
         if (token.type == tokenType) {
             [tokens addObject:token.value];
+        } else if (tokens.count && !token.isWhitespace && ![token valueIsEqualTo:@","]) {
+            return tokens;
         }
     }
     return tokens;
@@ -80,7 +82,7 @@
 #pragma - value transformation
 
 - (BOOL)transformValuesToCGSize:(CGSize *)size {
-    NSArray *unitTokens = [self valuesOfTokenType:CASTokenTypeUnit];
+    NSArray *unitTokens = [self consecutiveValuesOfTokenType:CASTokenTypeUnit];
     if (unitTokens.count == 1) {
         CGFloat value = [unitTokens[0] doubleValue];
         *size = CGSizeMake(value, value);
@@ -96,7 +98,7 @@
 }
 
 - (BOOL)transformValuesToCGPoint:(CGPoint *)point {
-    NSArray *unitTokens = [self valuesOfTokenType:CASTokenTypeUnit];
+    NSArray *unitTokens = [self consecutiveValuesOfTokenType:CASTokenTypeUnit];
     if (unitTokens.count == 1) {
         CGFloat value = [unitTokens[0] doubleValue];
         *point = CGPointMake(value, value);
@@ -112,7 +114,7 @@
 }
 
 - (BOOL)transformValuesToCGRect:(CGRect *)rect {
-    NSArray *unitTokens = [self valuesOfTokenType:CASTokenTypeUnit];
+    NSArray *unitTokens = [self consecutiveValuesOfTokenType:CASTokenTypeUnit];
     if (unitTokens.count == 4) {
         *rect = CGRectMake([unitTokens[0] doubleValue], [unitTokens[1] doubleValue], [unitTokens[2] doubleValue], [unitTokens[3] doubleValue]);
         return YES;
@@ -121,7 +123,7 @@
 }
 
 - (BOOL)transformValuesToUIEdgeInsets:(UIEdgeInsets *)insets {
-    NSArray *unitTokens = [self valuesOfTokenType:CASTokenTypeUnit];
+    NSArray *unitTokens = [self consecutiveValuesOfTokenType:CASTokenTypeUnit];
     if (unitTokens.count == 1) {
         CGFloat value = [unitTokens[0] doubleValue];
         *insets = UIEdgeInsetsMake(value, value, value, value);
@@ -141,7 +143,7 @@
 }
 
 - (BOOL)transformValuesToUIOffset:(UIOffset *)offset {
-    NSArray *unitTokens = [self valuesOfTokenType:CASTokenTypeUnit];
+    NSArray *unitTokens = [self consecutiveValuesOfTokenType:CASTokenTypeUnit];
     if (unitTokens.count == 1) {
         CGFloat value = [unitTokens[0] doubleValue];
         *offset = UIOffsetMake(value, value);
@@ -166,6 +168,21 @@
     NSString *value = [self valueOfTokenType:CASTokenTypeRef]
         ?: [self valueOfTokenType:CASTokenTypeSelector]
         ?: [self valueOfTokenType:CASTokenTypeString];
+
+    if ([value isEqualToString:@"rgb"] || [value isEqualToString:@"rgba"]) {
+        NSArray *unitTokens = [self consecutiveValuesOfTokenType:CASTokenTypeUnit];
+        CGFloat alpha = 1.0;
+
+        // invalid if you don't have 3 colors
+        if(unitTokens.count < 3) {
+            return NO;
+        } else if(unitTokens.count == 4){
+            alpha = [unitTokens[3] doubleValue];
+        }
+
+        *color = [UIColor colorWithRed:[unitTokens[0] doubleValue]/255.0 green:[unitTokens[1] doubleValue]/255.0 blue:[unitTokens[2] doubleValue]/255.0 alpha:alpha];
+        return YES;
+    }
 
     value = [value cas_stringByCamelCasing];
     SEL selector = NSSelectorFromString([NSString stringWithFormat:@"%@Color", value]);

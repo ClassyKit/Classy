@@ -58,13 +58,14 @@
 - (id)valueOfTokenType:(CASTokenType)tokenType;
 
 /**
- *  Returns all valueTokens of a specific token type
+ *  Returns all consecutive valueTokens of a specific token type
+ *  Will ignore whitespace and commas
  *
  *  @param tokenType `CASTokenType` sought
  *
  *  @return a `CASToken`
  */
-- (NSArray *)valuesOfTokenType:(CASTokenType)tokenType;
+- (NSArray *)consecutiveValuesOfTokenType:(CASTokenType)tokenType;
 
 /**
  *  Attempts to extract a CGSize from the valueTokens

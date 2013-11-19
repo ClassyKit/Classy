@@ -112,6 +112,56 @@ SpecBegin(CASStyleProperty)
     expect(point).to.equal(CGPointZero);
 }
 
+- (void)testNamedColor {
+    NSArray *valueTokens = CASTokensFromString(@"red");
+
+    CASStyleProperty *prop = [[CASStyleProperty alloc] initWithNameToken:nil valueTokens:valueTokens];
+
+    UIColor *color = nil;
+    [prop transformValuesToUIColor:&color];
+    expect(color).to.equal([UIColor redColor]);
+}
+
+- (void)testWellFormedRGBColor {
+    NSArray *valueTokens = CASTokensFromString(@"rgb(245, 215, 200)");
+
+    CASStyleProperty *prop = [[CASStyleProperty alloc] initWithNameToken:nil valueTokens:valueTokens];
+
+    UIColor *color = nil;
+    [prop transformValuesToUIColor:&color];
+    expect(color).to.equal([UIColor colorWithRed:245/255.0 green:215/255.0 blue:200/255.0 alpha:1]);
+}
+
+- (void)testWellFormedRGBAColor {
+    NSArray *valueTokens = CASTokensFromString(@"rgba(200, 215, 200, 0.5)");
+
+    CASStyleProperty *prop = [[CASStyleProperty alloc] initWithNameToken:nil valueTokens:valueTokens];
+
+    UIColor *color = nil;
+    [prop transformValuesToUIColor:&color];
+    expect(color).to.equal([UIColor colorWithRed:200/255.0 green:215/255.0 blue:200/255.0 alpha:0.5]);
+}
+
+- (void)testMalformedFormedRGBAColor {
+    NSArray *valueTokens = CASTokensFromString(@"rgba( 10 , 215   , 200   , 0.5  )");
+
+    CASStyleProperty *prop = [[CASStyleProperty alloc] initWithNameToken:nil valueTokens:valueTokens];
+
+    UIColor *color = nil;
+    [prop transformValuesToUIColor:&color];
+    expect(color).to.equal([UIColor colorWithRed:10/255.0 green:215/255.0 blue:200/255.0 alpha:0.5]);
+}
+
+- (void)testRGBAWithoutBracesColor {
+    NSArray *valueTokens = CASTokensFromString(@"rgba 10.1 215 200 0.5");
+
+    CASStyleProperty *prop = [[CASStyleProperty alloc] initWithNameToken:nil valueTokens:valueTokens];
+
+    UIColor *color = nil;
+    [prop transformValuesToUIColor:&color];
+    expect(color).to.equal([UIColor colorWithRed:10.1/255.0 green:215/255.0 blue:200/255.0 alpha:0.5]);
+}
+
 - (void)testResolveSimpleExpression {
     NSArray *valueTokens = CASTokensFromString(@"3 * 2 + 5");
 
