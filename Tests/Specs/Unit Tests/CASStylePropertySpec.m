@@ -162,6 +162,46 @@ SpecBegin(CASStyleProperty)
     expect(color).to.equal([UIColor colorWithRed:10.1/255.0 green:215/255.0 blue:200/255.0 alpha:0.5]);
 }
 
+- (void)testWellFormedHSLColor {
+    NSArray *valueTokens = CASTokensFromString(@"hsl(200, 60%, 100%)");
+    
+    CASStyleProperty *prop = [[CASStyleProperty alloc] initWithNameToken:nil valueTokens:valueTokens];
+    
+    UIColor *color = nil;
+    [prop transformValuesToUIColor:&color];
+    expect(color).to.equal([UIColor colorWithHue:200.0/360.0 saturation:60.0/100.0 brightness:100.0/100.0 alpha:1.0]);
+}
+
+- (void)testWellFormedHSLAColor {
+    NSArray *valueTokens = CASTokensFromString(@"hsla(200, 60%, 100%, 0.5)");
+    
+    CASStyleProperty *prop = [[CASStyleProperty alloc] initWithNameToken:nil valueTokens:valueTokens];
+    
+    UIColor *color = nil;
+    [prop transformValuesToUIColor:&color];
+    expect(color).to.equal([UIColor colorWithHue:200.0/360.0 saturation:60.0/100.0 brightness:100.0/100.0 alpha:0.5]);
+}
+
+- (void)testMalformedFormedHSLAColor {
+    NSArray *valueTokens = CASTokensFromString(@"hsla( 200 , 60%   , 100%   , 0.5  )");
+    
+    CASStyleProperty *prop = [[CASStyleProperty alloc] initWithNameToken:nil valueTokens:valueTokens];
+    
+    UIColor *color = nil;
+    [prop transformValuesToUIColor:&color];
+    expect(color).to.equal([UIColor colorWithHue:200.0/360.0 saturation:60.0/100.0 brightness:100.0/100.0 alpha:0.5]);
+}
+
+- (void)testHSLAWithoutBracesColor {
+    NSArray *valueTokens = CASTokensFromString(@"hsla 200 60% 100% 0.5");
+    
+    CASStyleProperty *prop = [[CASStyleProperty alloc] initWithNameToken:nil valueTokens:valueTokens];
+    
+    UIColor *color = nil;
+    [prop transformValuesToUIColor:&color];
+    expect(color).to.equal([UIColor colorWithHue:200.0/360.0 saturation:60.0/100.0 brightness:100.0/100.0 alpha:0.5]);
+}
+
 - (void)testResolveSimpleExpression {
     NSArray *valueTokens = CASTokensFromString(@"3 * 2 + 5");
 

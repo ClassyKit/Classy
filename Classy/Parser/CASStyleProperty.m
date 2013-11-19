@@ -72,7 +72,7 @@
     for (CASToken *token in self.valueTokens) {
         if (token.type == tokenType) {
             [tokens addObject:token.value];
-        } else if (tokens.count && !token.isWhitespace && ![token valueIsEqualTo:@","]) {
+        } else if (tokens.count && !token.isWhitespace && ![token valueIsEqualTo:@","] && ![token valueIsEqualTo:@"%"]) {
             return tokens;
         }
     }
@@ -169,7 +169,7 @@
         ?: [self valueOfTokenType:CASTokenTypeSelector]
         ?: [self valueOfTokenType:CASTokenTypeString];
 
-    if ([value isEqualToString:@"rgb"] || [value isEqualToString:@"rgba"]) {
+    if ([value isEqualToString:@"rgb"] || [value isEqualToString:@"rgba"] || [value isEqualToString:@"hsl"] || [value isEqualToString:@"hsla"]) {
         NSArray *unitTokens = [self consecutiveValuesOfTokenType:CASTokenTypeUnit];
         CGFloat alpha = 1.0;
 
@@ -179,8 +179,11 @@
         } else if(unitTokens.count == 4){
             alpha = [unitTokens[3] doubleValue];
         }
-
-        *color = [UIColor colorWithRed:[unitTokens[0] doubleValue]/255.0 green:[unitTokens[1] doubleValue]/255.0 blue:[unitTokens[2] doubleValue]/255.0 alpha:alpha];
+        if( [value isEqualToString:@"rgb"] || [value isEqualToString:@"rgba"] ) {
+            *color = [UIColor colorWithRed:[unitTokens[0] doubleValue]/255.0 green:[unitTokens[1] doubleValue]/255.0 blue:[unitTokens[2] doubleValue]/255.0 alpha:alpha];
+        } else if ( [value isEqualToString:@"hsl"] || [value isEqualToString:@"hsla"] ) {
+            *color = [UIColor colorWithHue:[unitTokens[0] doubleValue]/360.0 saturation:[unitTokens[1] doubleValue]/100.0 brightness:[unitTokens[2] doubleValue]/100.0 alpha:alpha];
+        }
         return YES;
     }
 
