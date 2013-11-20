@@ -6,6 +6,9 @@ For detailed usage docs go to [http://classy.as/](http://classy.as/)
 
 ##Example Stylesheets
 
+Classy features a very flexible, nestable syntax
+Classy makes `{`   `}`   `:`   `;` all optional so you can choose a style that suits you. It also saves you from worrying about small syntax mistakes like accidentally forgetting to end a line with a ;
+
 This is a valid stylesheet
 
 ```
