@@ -4,10 +4,14 @@ Not CSS. Instead of trying to force UIKit to fit CSS syntax, properties, convent
 
 For detailed usage docs go to [http://classy.as/](http://classy.as/)
 
+##Supports UIAppearance
+Classy supports all [UIAppearance properties and methods](https://github.com/cloudkite/Classy/blob/master/Tests/UIAppearance-setters.md). But instead of being limited to `+appearanceWhenContainedIn:` and `+appearance`,
+Classy gives you much more control over which views are styled and with what values.
+
 ##Example Stylesheets
 
-Classy features a very flexible, nestable syntax
-Classy makes `{`   `}`   `:`   `;` all optional so you can choose a style that suits you. It also saves you from worrying about small syntax mistakes like accidentally forgetting to end a line with a ;
+Classy features a very flexible, nestable syntax. 
+Classy makes `{`   `}`   `:`   `;` all optional so you can choose a style that suits you. It also saves you from worrying about small syntax mistakes like accidentally forgetting to end a line with a `;`
 
 This is a valid stylesheet
 
@@ -43,6 +47,11 @@ MYCustomView
 ^UIButton.warning, UIView.warning ^UIButton 
   title-color[state:highlighted] #e3e3e3
 ```
+
+## Live Reload
+Live reload can dramatically speed up your development time, with live reload enabled you can instantenously see your stylesheet changes. Without having to rebuild and navigate back to the same spot within your app.
+
+For more detail about these features go to [http://classy.as/](http://classy.as/)
 
 ## Inspiration
 - Syntax inspired by [stylus](http://learnboost.github.io/stylus/)
