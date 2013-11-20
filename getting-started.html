@@ -117,7 +117,7 @@ NSString filePath = [[NSBundle mainBundle] pathForResource:@"myStyles.cas" ofTyp
     [CASStyler defaultStyler].watchFilePath = @"/users/Bonno/Projects/MyApp/Styles/stylesheet.cas";
 #endif{% endhighlight %}
    
-      
+      <h3>Relative Path</h3>
       <p>However this path will be different across different computers. Classy provides a convienent macro which will grab the absolute path relative to the current file. So if we are setting the <code>watchFilePath</code> in MYAppDelegate.m and Imagine we have the following absolute paths.</p>
       <p>MYAppDelegate.m: <code>/users/Bonno/Projects/MyApp/Classes/MYAppDelegate.m</code></p>
       <p>stylesheet.cas:&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <code>/users/Bonno/Projects/MyApp/Styles/stylesheet.cas</code></p>
