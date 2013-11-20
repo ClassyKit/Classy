@@ -1,12 +1,12 @@
 Pod::Spec.new do |s|
   s.name     = 'Classy'
-  s.version  = '0.0.2'
+  s.version  = '0.0.3'
   s.license  = 'MIT'
   s.summary  = 'Expressive, flexible, and powerful stylesheets for native iOS apps.'
   s.homepage = 'http://classy.as'
   s.author   = { 'Jonas Budelmann' => 'jonas.budelmann@gmail.com' }
 
-  s.source   = { :git => 'https://github.com/cloudkite/Classy.git', :tag => 'v0.0.2' }
+  s.source   = { :git => 'https://github.com/cloudkite/Classy.git', :tag => 'v0.0.3' }
 
   s.description = %{
     Not CSS. Instead of trying to force UIKit to fit CSS syntax, properties, conventions and constructs.
