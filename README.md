@@ -2,10 +2,12 @@
 
 Not CSS. Instead of trying to force UIKit to fit CSS syntax, properties, conventions and constructs. Classy is a stylesheet system built from the ground up to work in harmony with UIKit. It borrows the best ideas from CSS and introduces new syntax, conventions and constructs where appropriate.
 
+Plays nice with Interface Builder and views created in code.
+
 For detailed usage docs go to [http://classy.as/](http://classy.as/)
 
 ##Supports UIAppearance
-Classy supports all [UIAppearance properties and methods](https://github.com/cloudkite/Classy/blob/master/Tests/UIAppearance-setters.md). But instead of being limited to `+appearanceWhenContainedIn:` and `+appearance`,
+Classy supports all [UIAppearance properties and methods](https://github.com/cloudkite/Classy/blob/master/Tests/UIAppearance-setters.md) and much more. But instead of being limited to `+appearanceWhenContainedIn:` and `+appearance`,
 Classy gives you much more control over which views are styled and with what values.
 
 ##Example Stylesheets
