@@ -7,6 +7,7 @@
 //
 
 #import "Classy.h"
+#import "XCTest+Spec.h"
 
 SpecBegin(CASUIKit)
 
@@ -27,6 +28,8 @@ SpecBegin(CASUIKit)
     expect(view.layer.shadowRadius).to.equal(4);
 
     expect(view.contentMode).to.equal(UIViewContentModeScaleAspectFill);
+
+    expect(view.tintColor).to.equal([UIColor blueColor]);
 }
 
 - (void)testSetUITextFieldProperties {

@@ -1,7 +1,8 @@
 //TODO flesh out example
+@import "variables.cas"
 
 UITableView UILabel {
-  text-color red
+  text-color $main-color
 }
 
 UINavigationController > CASSimpleFormViewController > UIView {

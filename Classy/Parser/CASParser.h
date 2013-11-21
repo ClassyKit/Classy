@@ -17,6 +17,6 @@ extern NSInteger const CASParseErrorFileContents;
 /**
  *  Return style data from the given file path
  */
-+ (NSArray *)stylesFromFilePath:(NSString *)filePath error:(NSError **)error;
++ (NSArray *)styleNodesFromFilePath:(NSString *)filePath error:(NSError **)error;
 
 @end

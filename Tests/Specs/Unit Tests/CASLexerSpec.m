@@ -7,6 +7,7 @@
 //
 
 #import "CASLexer.h"
+#import "XCTest+Spec.h"
 #import "UIColor+CASAdditions.h"
 
 @interface CASLexer ()

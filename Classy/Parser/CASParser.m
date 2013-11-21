@@ -23,12 +23,20 @@ NSInteger const CASParseErrorFileContents = 2;
 @property (nonatomic, strong) CASLexer *lexer;
 @property (nonatomic, strong) NSMutableDictionary *styleVars;
 @property (nonatomic, strong) NSError *error;
+@property (nonatomic, copy) NSString *filePath;
+@property (nonatomic, strong) NSArray *styleNodes;
 
 @end
 
 @implementation CASParser
 
-+ (NSArray *)stylesFromFilePath:(NSString *)filePath error:(NSError **)error {
+
++ (NSArray *)styleNodesFromFilePath:(NSString *)filePath error:(NSError **)error {
+    CASParser *parser = [self parserFromFilePath:filePath error:error];
+    return parser.styleNodes;
+}
+
++ (CASParser *)parserFromFilePath:(NSString *)filePath error:(NSError **)error {
     NSError *fileError = nil;
     NSString *contents = [NSString stringWithContentsOfFile:filePath
                                                    encoding:NSUTF8StringEncoding
@@ -53,7 +61,17 @@ NSInteger const CASParseErrorFileContents = 2;
 
     CASLog(@"Start parsing file \n%@", filePath);
     NSError *parseError = nil;
-    NSArray *styles = [self stylesFromString:contents error:&parseError];
+    CASParser *parser = CASParser.new;
+    parser.filePath = filePath;
+    parser.styleNodes = [parser parseString:contents error:&parseError];
+
+    if (parseError) {
+        if (error) {
+            *error = parseError;
+        }
+        return nil;
+    }
+
     if (parseError) {
         NSMutableDictionary *userInfo = parseError.userInfo.mutableCopy;
         [userInfo addEntriesFromDictionary:@{ CASParseFailingFilePathErrorKey : filePath }];
@@ -63,32 +81,7 @@ NSInteger const CASParseErrorFileContents = 2;
         return nil;
     }
 
-    return styles;
-}
-
-+ (NSArray *)stylesFromString:(NSString *)string error:(NSError **)error {
-    CASParser *parser = CASParser.new;
-    NSError *parseError = nil;
-    NSArray *styles = [parser parseString:string error:&parseError];
-
-    if (parseError) {
-        if (error) {
-            *error = parseError;
-        }
-        return nil;
-    }
-    if (!styles.count) {
-        NSDictionary *userInfo = @{
-            NSLocalizedDescriptionKey: @"Could not parse string",
-            NSLocalizedFailureReasonErrorKey: @"Could not find any styles"
-        };
-        if (error) {
-            *error = [NSError errorWithDomain:CASParseErrorDomain code:CASParseErrorFileContents userInfo:userInfo];
-        }
-        return nil;
-    }
-    
-    return styles;
+    return parser;
 }
 
 - (NSError *)error {
@@ -107,6 +100,63 @@ NSInteger const CASParseErrorFileContents = 2;
         if (self.error) {
             if (error) *error = self.error;
             return nil;
+        }
+
+        //check for import
+        if (self.peekToken.type == CASTokenTypeRef && [self.peekToken valueIsEqualTo:@"@import"]) {
+            if (styleNodesStack.count) {
+                // can't have vars inside styleNodes
+                if (error) {
+                    *error = [self.lexer errorWithDescription:@"@import cannot be used inside style selectors"
+                                                       reason:nil
+                                                         code:CASParseErrorFileContents];
+                }
+                return nil;
+            }
+
+            //skip import token
+            [self nextToken];
+
+            //skip whitespace
+            [self consumeTokensMatching:^BOOL(CASToken *token) {
+                return token.type == CASTokenTypeSpace;
+            }];
+
+            //combine all following tokens until newline | ;
+            NSMutableArray *fileNameComponents = NSMutableArray.new;
+            while (self.peekToken.type != CASTokenTypeNewline && self.peekToken.type != CASTokenTypeSemiColon) {
+                [fileNameComponents addObject:self.nextToken.stringValue];
+            }
+
+
+            NSString *fileName = [[fileNameComponents componentsJoinedByString:@""] cas_stringByTrimmingWhitespace];
+            fileName = [fileName stringByTrimmingCharactersInSet:[NSCharacterSet characterSetWithCharactersInString:@";"]];
+            if (!fileName.length) {
+                if (error) {
+                    *error = [self.lexer errorWithDescription:@"@import does not specify file to import"
+                                                       reason:nil
+                                                         code:CASParseErrorFileContents];
+                }
+                return nil;
+            }
+
+            NSString *filePath = [[self.filePath stringByDeletingLastPathComponent] stringByAppendingPathComponent:fileName];
+            NSError *importError = nil;
+            CASParser *parser = [CASParser parserFromFilePath:filePath error:&importError];
+            if (importError) {
+                if (error) {
+                    *error = importError;
+                }
+                return nil;
+            }
+
+            [allStyleNodes addObjectsFromArray:parser.styleNodes];
+            [self.styleVars addEntriesFromDictionary:parser.styleVars];
+
+            [self consumeTokensMatching:^BOOL(CASToken *token) {
+                return self.peekToken.type == CASTokenTypeNewline || self.peekToken.type == CASTokenTypeSemiColon;
+            }];
+            continue;
         }
 
         CASStyleProperty *styleVar = [self nextStyleVar];
@@ -323,7 +373,7 @@ NSInteger const CASParseErrorFileContents = 2;
         // collect value tokens, enclose in ()
         NSMutableArray *valueTokens = NSMutableArray.new;
         [valueTokens addObject:[CASToken tokenOfType:CASTokenTypeLeftRoundBrace]];
-        while (token.type != CASTokenTypeNewline && token.type != CASTokenTypeSemiColon) {
+        while (token.type != CASTokenTypeNewline && token.type != CASTokenTypeSemiColon && token.type != CASTokenTypeEOS) {
             [valueTokens addObject:token];
             token = [self nextToken];
         }

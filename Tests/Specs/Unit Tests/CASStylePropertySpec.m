@@ -7,6 +7,7 @@
 //
 
 #import "CASStyleProperty.h"
+#import "XCTest+Spec.h"
 #import "CASLexer.h"
 
 NSArray *CASTokensFromString(NSString *string) {

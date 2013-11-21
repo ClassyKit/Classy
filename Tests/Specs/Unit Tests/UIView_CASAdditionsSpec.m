@@ -7,6 +7,7 @@
 //
 
 #import "UIView+CASAdditions.h"
+#import "XCTest+Spec.h"
 
 @interface TestView : UIView
 

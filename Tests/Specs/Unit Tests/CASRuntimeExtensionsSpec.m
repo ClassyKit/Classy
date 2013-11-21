@@ -7,7 +7,8 @@
 //
 
 #import "CASRuntimeExtensions.h"
-#import <objc/runtime.h>  
+#import "XCTest+Spec.h"
+#import <objc/runtime.h>
 
 @protocol EXTRuntimeTestProtocol <NSObject>
 

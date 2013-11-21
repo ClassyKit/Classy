@@ -8,8 +8,6 @@
     #import <UIKit/UIKit.h>
     #import <Foundation/Foundation.h>
 
-    #import "XCTest+Spec.h"
-
     #define EXP_SHORTHAND
     #import "Expecta.h"
 #endif

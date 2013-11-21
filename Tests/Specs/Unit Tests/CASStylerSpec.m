@@ -7,6 +7,7 @@
 //
 
 #import "CASStyler.h"
+#import "XCTest+Spec.h"
 #import "UIColor+CASAdditions.h"
 #import "CASStyleSelector.h"
 #import "UIView+CASAdditions.h"
@@ -93,6 +94,41 @@ SpecBegin(CASStyler)
     expect([selector shouldSelectItem:UIControl.new]).to.equal(YES);
     expect([selector shouldSelectItem:UIView.new]).to.equal(NO);
     expect([selector shouldSelectItem:UIButton.new]).to.equal(YES);
+}
+
+- (void)testImport {
+    CASStyler *styler = CASStyler.new;
+    styler.filePath = [[NSBundle bundleForClass:self.class] pathForResource:@"Import-Base.cas" ofType:nil];
+
+    UIView *view = UIView.new;
+    CASStyleNode *node = styler.styleNodes[0];
+    expect(node.styleSelector.stringValue).to.equal(@"UIView.two");
+    view.cas_styleClass = @"two";
+    [styler styleItem:view];
+    expect(view.backgroundColor).to.equal([UIColor purpleColor]);
+    expect(view.layer.cornerRadius).to.equal(6);
+    expect(view.layer.shadowOffset).to.equal(UIOffsetMake(5, 5));
+
+    node = styler.styleNodes[1];
+    expect(node.styleSelector.stringValue).to.equal(@"UIView.one");
+    view.cas_styleClass = @"one";
+    [styler styleItem:view];
+    expect(view.backgroundColor).to.equal([UIColor blueColor]);
+    expect(view.layer.cornerRadius).to.equal(5);
+    expect(view.layer.shadowOffset).to.equal(UIOffsetMake(6, 6));
+    expect(view.layer.shadowOpacity).to.equal(3);
+    expect(view.layer.shadowRadius).to.equal(4);
+
+    node = styler.styleNodes[2];
+    expect(node.styleSelector.stringValue).to.equal(@"UIView.base");
+
+    view.cas_styleClass = @"base";
+    [styler styleItem:view];
+    expect(view.backgroundColor).to.equal([UIColor redColor]);
+    expect(view.layer.cornerRadius).to.equal(3);
+    expect(view.layer.shadowOffset).to.equal(UIOffsetMake(4, 4));
+    expect(view.layer.shadowOpacity).to.equal(5);
+    expect(view.layer.shadowRadius).to.equal(6);
 }
 
 SpecEnd

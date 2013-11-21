@@ -7,6 +7,7 @@
 //
 
 #import "Classy.h"
+#import "XCTest+Spec.h"
 #import "CASExampleView.h"
 
 SpecBegin(CASCustomView)

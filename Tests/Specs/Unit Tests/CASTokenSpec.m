@@ -7,6 +7,7 @@
 //
 
 #import "CASToken.h"
+#import "XCTest+Spec.h"
 
 SpecBegin(CASToken)
 

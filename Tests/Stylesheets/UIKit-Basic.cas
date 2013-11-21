@@ -5,6 +5,7 @@ $border-width = 2;
 $textInsets = 4 3 2 1; $defaultFontName = Avenir-Heavy;
 
 UIView {
+  tint-color:blue;
   background-color:#A2A2A2;
   content-mode: aspectFill;
   layer: @{

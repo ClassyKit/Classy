@@ -7,6 +7,7 @@
 //
 
 #import "CASArgumentDescriptor.h"
+#import "XCTest+Spec.h"
 
 struct CASStructExample {
     CGFloat dx;

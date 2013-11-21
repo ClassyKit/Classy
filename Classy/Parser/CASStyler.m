@@ -78,7 +78,7 @@
     if ([_filePath isEqualToString:filePath]) return;
     _filePath = filePath;
 
-    self.styleNodes = [[CASParser stylesFromFilePath:filePath error:error] mutableCopy];
+    self.styleNodes = [[CASParser styleNodesFromFilePath:filePath error:error] mutableCopy];
     if (!self.styleNodes.count) {
         return;
     }
@@ -332,6 +332,7 @@
 
     // some properties don't show up via reflection so we need to add them manually
     [objectClassDescriptor setArgumentDescriptors:@[colorArg] forPropertyKey:@cas_propertykey(UIView, backgroundColor)];
+    [objectClassDescriptor setArgumentDescriptors:@[colorArg] forPropertyKey:@cas_propertykey(UIView, tintColor)];
 
     // UIBarItem
     objectClassDescriptor = [self objectClassDescriptorForClass:UIBarItem.class];

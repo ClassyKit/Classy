@@ -1,0 +1,15 @@
+@import Import-2.cas;
+
+$var3 = 3
+$var4 = 4
+
+UIView.one {
+  background-color blue
+  
+  layer @{
+    corner-radius: $var5;
+    shadow-offset: $var6;
+    shadow-opacity: $var3;
+    shadow-radius: $var4;
+  }
+}
