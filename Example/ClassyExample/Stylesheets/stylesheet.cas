@@ -8,3 +8,8 @@ UITableView UILabel {
 UINavigationController > CASSimpleFormViewController > UIView {
   background-color: blue;
 }
+
+UITableViewCell {
+    imageView @
+        image: '/Library/Caches/Ball.png'
+}

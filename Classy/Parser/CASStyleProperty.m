@@ -217,7 +217,17 @@
     BOOL hasInsets = [self transformValuesToUIEdgeInsets:&insets];
 
     NSString *imageName = [self valueOfTokenType:CASTokenTypeString] ?: [self valueOfTokenType:CASTokenTypeRef];
-    UIImage *imageValue = [UIImage imageNamed:imageName];
+    
+    UIImage *imageValue = nil;
+    if([imageName rangeOfString:@"/"].location != NSNotFound) {
+        // We are a file path instead
+        imageValue = [UIImage imageWithContentsOfFile:[NSHomeDirectory() stringByAppendingPathComponent:imageName]];
+    } else {
+        // We're just an old boring image name
+        imageValue = [UIImage imageNamed:imageName];
+    }
+    
+    
     if (hasInsets) {
         imageValue = [imageValue resizableImageWithCapInsets:insets];
     }
