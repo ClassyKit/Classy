@@ -32,6 +32,9 @@
 		DD175F901820C81A00139EBE /* test_image_2.png in Resources */ = {isa = PBXBuildFile; fileRef = DD175F8C1820C81900139EBE /* test_image_2.png */; };
 		DD175F911820C81A00139EBE /* test_image_3.png in Resources */ = {isa = PBXBuildFile; fileRef = DD175F8D1820C81900139EBE /* test_image_3.png */; };
 		DD175F921820C81A00139EBE /* test_image_4.png in Resources */ = {isa = PBXBuildFile; fileRef = DD175F8E1820C81900139EBE /* test_image_4.png */; };
+		DD52F105183DCB2600F31A3F /* Import-1.cas in Resources */ = {isa = PBXBuildFile; fileRef = DD52F102183DCB2600F31A3F /* Import-1.cas */; };
+		DD52F106183DCB2600F31A3F /* Import-2.cas in Resources */ = {isa = PBXBuildFile; fileRef = DD52F103183DCB2600F31A3F /* Import-2.cas */; };
+		DD52F107183DCB2600F31A3F /* Import-Base.cas in Resources */ = {isa = PBXBuildFile; fileRef = DD52F104183DCB2600F31A3F /* Import-Base.cas */; };
 		DD592B13181DE5E800C30F7F /* Selectors-Nested.cas in Resources */ = {isa = PBXBuildFile; fileRef = DD592B12181DE5E800C30F7F /* Selectors-Nested.cas */; };
 		DD7C18441827464C008110D7 /* Properties-Nested.cas in Resources */ = {isa = PBXBuildFile; fileRef = DD7C18431827464C008110D7 /* Properties-Nested.cas */; };
 		DD824863183964CB00DDD6EF /* CASExampleViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = DD824862183964CB00DDD6EF /* CASExampleViewController.m */; };
@@ -90,6 +93,9 @@
 		DD175F8D1820C81900139EBE /* test_image_3.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = test_image_3.png; sourceTree = "<group>"; };
 		DD175F8E1820C81900139EBE /* test_image_4.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = test_image_4.png; sourceTree = "<group>"; };
 		DD43DA8A1810F5D40058FBC1 /* Classy-Prefix.pch */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "Classy-Prefix.pch"; sourceTree = "<group>"; };
+		DD52F102183DCB2600F31A3F /* Import-1.cas */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = "Import-1.cas"; sourceTree = "<group>"; };
+		DD52F103183DCB2600F31A3F /* Import-2.cas */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = "Import-2.cas"; sourceTree = "<group>"; };
+		DD52F104183DCB2600F31A3F /* Import-Base.cas */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = "Import-Base.cas"; sourceTree = "<group>"; };
 		DD592B12181DE5E800C30F7F /* Selectors-Nested.cas */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = "Selectors-Nested.cas"; sourceTree = "<group>"; };
 		DD7C18431827464C008110D7 /* Properties-Nested.cas */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = "Properties-Nested.cas"; sourceTree = "<group>"; };
 		DD824861183964CB00DDD6EF /* CASExampleViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CASExampleViewController.h; sourceTree = "<group>"; };
@@ -209,6 +215,9 @@
 				DD592B12181DE5E800C30F7F /* Selectors-Nested.cas */,
 				DD10AD341819FA6800A5B71D /* UIAppearance-Basic.cas */,
 				DD10AD351819FA6800A5B71D /* UIKit-Basic.cas */,
+				DD52F104183DCB2600F31A3F /* Import-Base.cas */,
+				DD52F102183DCB2600F31A3F /* Import-1.cas */,
+				DD52F103183DCB2600F31A3F /* Import-2.cas */,
 			);
 			path = Stylesheets;
 			sourceTree = "<group>";
@@ -353,11 +362,14 @@
 				DD10AD55181A1C9100A5B71D /* Properties-Args.cas in Resources */,
 				DD10AD3D1819FA6800A5B71D /* UIKit-Basic.cas in Resources */,
 				DD10AD361819FA6800A5B71D /* CustomView-Basic.cas in Resources */,
+				DD52F106183DCB2600F31A3F /* Import-2.cas in Resources */,
 				DD10AD371819FA6800A5B71D /* Properties-Basic.cas in Resources */,
 				DD10AD381819FA6800A5B71D /* Selectors-Messy.cas in Resources */,
 				DD7C18441827464C008110D7 /* Properties-Nested.cas in Resources */,
 				DD10AD3C1819FA6800A5B71D /* UIAppearance-Basic.cas in Resources */,
 				DD10AD3B1819FA6800A5B71D /* Selectors-Indentation.cas in Resources */,
+				DD52F107183DCB2600F31A3F /* Import-Base.cas in Resources */,
+				DD52F105183DCB2600F31A3F /* Import-1.cas in Resources */,
 				DD10AD391819FA6800A5B71D /* Selectors-Complex.cas in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

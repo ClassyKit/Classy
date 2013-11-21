@@ -1,0 +1,11 @@
+$var5 = 5
+$var6 = 6
+
+UIView.two {
+  background-color purple
+  
+  layer @{
+    corner-radius: $var6;
+    shadow-offset: $var5;
+  }
+}

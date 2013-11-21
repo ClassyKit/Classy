@@ -78,7 +78,7 @@
     if ([_filePath isEqualToString:filePath]) return;
     _filePath = filePath;
 
-    self.styleNodes = [[CASParser stylesFromFilePath:filePath error:error] mutableCopy];
+    self.styleNodes = [[CASParser styleNodesFromFilePath:filePath error:error] mutableCopy];
     if (!self.styleNodes.count) {
         return;
     }
