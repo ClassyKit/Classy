@@ -71,16 +71,6 @@ NSInteger const CASParseErrorFileContents = 2;
         }
         return nil;
     }
-    if (!parser.styleNodes.count) {
-        NSDictionary *userInfo = @{
-                                   NSLocalizedDescriptionKey: @"Could not parse string",
-                                   NSLocalizedFailureReasonErrorKey: @"Could not find any styles"
-                                   };
-        if (error) {
-            *error = [NSError errorWithDomain:CASParseErrorDomain code:CASParseErrorFileContents userInfo:userInfo];
-        }
-        return nil;
-    }
 
     if (parseError) {
         NSMutableDictionary *userInfo = parseError.userInfo.mutableCopy;
@@ -383,7 +373,7 @@ NSInteger const CASParseErrorFileContents = 2;
         // collect value tokens, enclose in ()
         NSMutableArray *valueTokens = NSMutableArray.new;
         [valueTokens addObject:[CASToken tokenOfType:CASTokenTypeLeftRoundBrace]];
-        while (token.type != CASTokenTypeNewline && token.type != CASTokenTypeSemiColon) {
+        while (token.type != CASTokenTypeNewline && token.type != CASTokenTypeSemiColon && token.type != CASTokenTypeEOS) {
             [valueTokens addObject:token];
             token = [self nextToken];
         }
