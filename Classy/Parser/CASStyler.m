@@ -332,6 +332,7 @@
 
     // some properties don't show up via reflection so we need to add them manually
     [objectClassDescriptor setArgumentDescriptors:@[colorArg] forPropertyKey:@cas_propertykey(UIView, backgroundColor)];
+    [objectClassDescriptor setArgumentDescriptors:@[colorArg] forPropertyKey:@cas_propertykey(UIView, tintColor)];
 
     // UIBarItem
     objectClassDescriptor = [self objectClassDescriptorForClass:UIBarItem.class];

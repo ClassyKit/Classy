@@ -7,6 +7,7 @@
 //
 
 #import "CASStyleSelector.h"
+#import "XCTest+Spec.h"
 #import "UIView+CASAdditions.h"
 #import "UIViewController+CASAdditions.h"
 #import "CASExampleView.h"

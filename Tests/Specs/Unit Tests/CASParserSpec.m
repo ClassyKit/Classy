@@ -7,6 +7,7 @@
 //
 
 #import "CASParser.h"
+#import "XCTest+Spec.h"
 #import "CASStyleNode.h"
 #import "CASToken.h"
 #import "UIColor+CASAdditions.h"

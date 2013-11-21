@@ -7,6 +7,7 @@
 //
 
 #import "Classy.h"
+#import "XCTest+Spec.h"
 #import "UIColor+CASAdditions.h"
 
 SpecBegin(CASUIAppearance)

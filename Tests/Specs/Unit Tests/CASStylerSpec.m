@@ -7,6 +7,7 @@
 //
 
 #import "CASStyler.h"
+#import "XCTest+Spec.h"
 #import "UIColor+CASAdditions.h"
 #import "CASStyleSelector.h"
 #import "UIView+CASAdditions.h"
@@ -14,7 +15,6 @@
 #import "CASExampleView.h"
 #import "UITextField+CASAdditions.h"
 #import "CASStyleNode.h"
-#import "XCTest+Spec.h"
 
 @interface CASStyler ()
 @property (nonatomic, strong) NSMutableArray *styleNodes;
