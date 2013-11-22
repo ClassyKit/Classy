@@ -219,9 +219,39 @@
     NSString *imageName = [self valueOfTokenType:CASTokenTypeString] ?: [self valueOfTokenType:CASTokenTypeRef];
     
     UIImage *imageValue = nil;
-    if([imageName rangeOfString:@"/"].location != NSNotFound) {
+    if([imageName rangeOfString:@"//"].location != NSNotFound) {
         // We are a file path instead
-        imageValue = [UIImage imageWithContentsOfFile:[NSHomeDirectory() stringByAppendingPathComponent:imageName]];
+        NSURL *schema = [NSURL URLWithString:imageName];
+        
+        NSSearchPathDirectory searchMask = 0;
+        
+        if([[schema scheme] isEqualToString:@"caches"]) {
+            searchMask = NSCachesDirectory;
+        } else if([[schema scheme] isEqualToString:@"documents"]) {
+            searchMask = NSDocumentDirectory;
+        }
+        
+        if(searchMask != 0) {
+            NSArray *paths = NSSearchPathForDirectoriesInDomains(searchMask, NSUserDomainMask, YES);
+            NSString *imagePath = [paths firstObject];
+            imageValue = [UIImage imageWithContentsOfFile:[imagePath stringByAppendingPathComponent:[schema host]]];
+        } else {
+            // We must be loading from bundle
+            NSBundle *bundle = [NSBundle mainBundle];
+            if([[schema scheme] rangeOfString:@"."].location != NSNotFound) {
+                bundle = [NSBundle bundleWithIdentifier:[schema scheme]];
+            }
+            
+            if(bundle != nil)
+            {
+                NSArray *parts = [imageName componentsSeparatedByString:@"."];
+                NSString *path = [parts firstObject];
+                NSString *ext = [parts count] > 1 ? [parts lastObject] : @"png";
+            
+                imageValue = [UIImage imageNamed:[bundle pathForResource:path ofType:ext]];
+            }
+        }
+        
     } else {
         // We're just an old boring image name
         imageValue = [UIImage imageNamed:imageName];

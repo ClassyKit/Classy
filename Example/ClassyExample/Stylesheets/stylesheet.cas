@@ -9,7 +9,19 @@ UINavigationController > CASSimpleFormViewController > UIView {
   background-color: blue;
 }
 
-UITableViewCell {
-    imageView @
-        image: '/Library/Caches/Ball.png'
+UIButton.documents {
+    background-color: yellow
+    background-image: 'documents://Ball.png' // You're in charge of the extension
+}
+
+UIButton.caches {
+    background-color: red
+    background-image: 'caches://Ball.png'
+}
+
+UIButton.bundle {
+    background-color: green
+    background-image: 'bundle://Ball'
+    // Optionally you could provide a bundleid to load from custom bundle
+    // Ex.  background-image: 'com.cloudling.ClassyExample://Ball'
 }
