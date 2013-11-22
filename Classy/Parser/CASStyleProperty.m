@@ -217,7 +217,40 @@
     BOOL hasInsets = [self transformValuesToUIEdgeInsets:&insets];
 
     NSString *imageName = [self valueOfTokenType:CASTokenTypeString] ?: [self valueOfTokenType:CASTokenTypeRef];
-    UIImage *imageValue = [UIImage imageNamed:imageName];
+    
+    UIImage *imageValue = nil;
+    NSRange schemeRange = [imageName rangeOfString:@"://"];
+    if(schemeRange.location != NSNotFound) {
+        
+        // We are a file path instead
+        NSString *scheme = [imageName substringToIndex:schemeRange.location];
+        NSString *path = [imageName substringFromIndex:NSMaxRange(schemeRange)];
+        
+        // Checking if we're fetching from one of our built in
+        // document uris
+        NSSearchPathDirectory searchMask = 0;
+        if([scheme isEqualToString:@"caches"]) {
+            searchMask = NSCachesDirectory;
+        } else if([scheme isEqualToString:@"documents"]) {
+            searchMask = NSDocumentDirectory;
+        }
+        
+        if(searchMask != 0) {
+            // If we found a search mask, then use that
+            NSArray *paths = NSSearchPathForDirectoriesInDomains(searchMask, NSUserDomainMask, YES);
+            NSString *imagePath = [paths firstObject];
+            imageValue = [UIImage imageWithContentsOfFile:[imagePath stringByAppendingPathComponent:path]];
+        } else {
+            // Otherwise load from imageNamed as per norm
+            imageValue = [UIImage imageNamed:path];
+        }
+        
+    } else {
+        // We're just an old boring image name
+        imageValue = [UIImage imageNamed:imageName];
+    }
+    
+    
     if (hasInsets) {
         imageValue = [imageValue resizableImageWithCapInsets:insets];
     }

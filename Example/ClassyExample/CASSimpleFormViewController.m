@@ -7,6 +7,7 @@
 //
 
 #import "CASSimpleFormViewController.h"
+#import <Classy/Classy.h>
 
 @interface CASSimpleFormViewController ()
 
@@ -27,6 +28,17 @@
     [super viewDidLoad];
 
     self.view.backgroundColor = [UIColor greenColor];
+    NSArray *classes = @[@"caches",@"documents",@"bundle"];
+    
+    float yOff = 100;
+    for( NSString * class in classes )
+    {
+        UIButton *b = [UIButton buttonWithType:UIButtonTypeRoundedRect];
+        b.cas_styleClass = class;
+        b.frame = CGRectMake(10, yOff, self.view.bounds.size.width-20, 40);
+        [self.view addSubview:b];
+        yOff += CGRectGetHeight(b.frame) + 10;
+    }
 }
 
 @end

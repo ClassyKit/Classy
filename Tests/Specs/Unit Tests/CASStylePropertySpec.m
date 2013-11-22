@@ -251,4 +251,65 @@ SpecBegin(CASStyleProperty)
     expect([prop.values componentsJoinedByString:@""]).to.equal(@"tiger place 4(2,1.4)");
 }
 
+- (void)testImageFromMainBundle {
+    NSArray *valueTokens = CASTokensFromString(@"test_image_1");
+    CASStyleProperty *prop = [[CASStyleProperty alloc] initWithNameToken:nil valueTokens:valueTokens];
+
+    __block UIImage *image = nil;
+    expect([prop transformValuesToUIImage:&image]).to.beTruthy();
+    expect(image).toNot.beNil();
+}
+
+- (void)testImageFromDocumentsDirectory {
+    
+    // First put the image in the documents directory
+    NSString *imageBundlePath = [[NSBundle mainBundle] pathForResource:@"test_image_2" ofType:@"png"];
+    NSArray *paths = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES);
+    NSString *docsPath = [paths firstObject];
+    [[NSFileManager defaultManager] copyItemAtPath:imageBundlePath toPath:[docsPath stringByAppendingPathComponent:@"test_image_2.png"] error:nil];
+    
+    // Test with no extension
+    NSArray *valueTokens = CASTokensFromString(@"'documents://test_image_2.png'");
+    CASStyleProperty *prop = [[CASStyleProperty alloc] initWithNameToken:nil valueTokens:valueTokens];
+    
+    __block UIImage *image = nil;
+    expect([prop transformValuesToUIImage:&image]).to.beTruthy();
+    expect(image).toNot.beNil();
+}
+
+- (void)testImageFromDocumentsDirectoryWithComplexPath {
+    
+    // First put the image in the documents directory
+    NSString *imageBundlePath = [[NSBundle mainBundle] pathForResource:@"test_image_2" ofType:@"png"];
+    NSArray *paths = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES);
+    NSString *docsPath = [[paths firstObject] stringByAppendingPathComponent:@"test/extra"];
+    [[NSFileManager defaultManager] createDirectoryAtPath:docsPath withIntermediateDirectories:YES attributes:nil error:nil];
+    [[NSFileManager defaultManager] copyItemAtPath:imageBundlePath toPath:[docsPath stringByAppendingPathComponent:@"test_image_2.png"] error:nil];
+    
+    // Test with no extension
+    NSArray *valueTokens = CASTokensFromString(@"'documents:///test/extra/test_image_2.png'");
+    CASStyleProperty *prop = [[CASStyleProperty alloc] initWithNameToken:nil valueTokens:valueTokens];
+    
+    __block UIImage *image = nil;
+    expect([prop transformValuesToUIImage:&image]).to.beTruthy();
+    expect(image).toNot.beNil();
+}
+
+- (void)testImageFromCachesDirectory {
+    // First put the image in the documents directory
+    NSString *imageBundlePath = [[NSBundle mainBundle] pathForResource:@"test_image_3" ofType:@"png"];
+    NSArray *paths = NSSearchPathForDirectoriesInDomains(NSCachesDirectory, NSUserDomainMask, YES);
+    NSString *docsPath = [paths firstObject];
+    [[NSFileManager defaultManager] createDirectoryAtPath:docsPath withIntermediateDirectories:YES attributes:nil error:nil];
+    [[NSFileManager defaultManager] copyItemAtPath:imageBundlePath toPath:[docsPath stringByAppendingPathComponent:@"test_image_3.png"] error:nil];
+    
+    // Test with no extension
+    NSArray *valueTokens = CASTokensFromString(@"'caches://test_image_3.png'");
+    CASStyleProperty *prop = [[CASStyleProperty alloc] initWithNameToken:nil valueTokens:valueTokens];
+    
+    __block UIImage *image = nil;
+    expect([prop transformValuesToUIImage:&image]).to.beTruthy();
+    expect(image).toNot.beNil();
+}
+
 SpecEnd
