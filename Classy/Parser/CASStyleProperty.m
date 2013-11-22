@@ -221,29 +221,29 @@
     UIImage *imageValue = nil;
     NSRange schemeRange = [imageName rangeOfString:@"://"];
     if(schemeRange.location != NSNotFound) {
+        
         // We are a file path instead
         NSString *scheme = [imageName substringToIndex:schemeRange.location];
         NSString *path = [imageName substringFromIndex:NSMaxRange(schemeRange)];
         
-        NSString *imagePath = nil;
+        // Checking if we're fetching from one of our built in
+        // document uris
         NSSearchPathDirectory searchMask = 0;
-        
         if([scheme isEqualToString:@"caches"]) {
             searchMask = NSCachesDirectory;
         } else if([scheme isEqualToString:@"documents"]) {
             searchMask = NSDocumentDirectory;
-        } else if([scheme isEqualToString:@"bundle"]) {
-            NSArray *parts = [path componentsSeparatedByString:@"."];
-            NSString *iPath = [parts firstObject];
-            NSString *ext = [parts count] > 1 ? [parts lastObject] : @"png";
-            imagePath = [[NSBundle mainBundle] pathForResource:iPath ofType:ext];
         }
         
         if(searchMask != 0) {
+            // If we found a search mask, then use that
             NSArray *paths = NSSearchPathForDirectoriesInDomains(searchMask, NSUserDomainMask, YES);
-            imagePath = [paths firstObject];
+            NSString *imagePath = [paths firstObject];
+            imageValue = [UIImage imageWithContentsOfFile:[imagePath stringByAppendingPathComponent:path]];
+        } else {
+            // Otherwise load from imageNamed as per norm
+            imageValue = [UIImage imageNamed:path];
         }
-        imageValue = [UIImage imageWithContentsOfFile:[imagePath stringByAppendingPathComponent:path]];
         
     } else {
         // We're just an old boring image name
