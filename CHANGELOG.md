@@ -1,3 +1,18 @@
+v0.1.0
+=======
+
+* Added ability to seperate stylesheets into multiple files then `@import` them
+```
+@import "variables.cas"
+
+UITableView UILabel {
+  text-color $main-color
+}
+```
+
+* Added UIView tintColor ([glancashire](https://github.com/glancashire))
+
+
 v0.0.3
 =======
 
