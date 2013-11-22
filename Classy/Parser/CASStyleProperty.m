@@ -234,11 +234,11 @@
         if(searchMask != 0) {
             NSArray *paths = NSSearchPathForDirectoriesInDomains(searchMask, NSUserDomainMask, YES);
             NSString *imagePath = [paths firstObject];
-            imageValue = [UIImage imageWithContentsOfFile:[imagePath stringByAppendingPathComponent:[schema host]]];
+            imageValue = [UIImage imageWithContentsOfFile:[imagePath stringByAppendingPathComponent:[schema path]]];
         } else {
             // We must be loading from bundle
             NSBundle *bundle = [NSBundle mainBundle];
-            if([[schema scheme] rangeOfString:@"."].location != NSNotFound) {
+            if(![[schema scheme] isEqualToString:@"bundle"]) {
                 bundle = [NSBundle bundleWithIdentifier:[schema scheme]];
             }
             
