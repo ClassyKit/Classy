@@ -78,7 +78,18 @@
     if ([_filePath isEqualToString:filePath]) return;
     _filePath = filePath;
 
-    self.styleNodes = [[CASParser styleNodesFromFilePath:filePath error:error] mutableCopy];
+    CASParser *parser = [CASParser parserFromFilePath:filePath error:error];
+    self.styleNodes = [parser.styleNodes mutableCopy];
+
+    if (self.watchFilePath) {
+        NSString *directoryPath = [self.watchFilePath stringByDeletingLastPathComponent];
+        for (NSString *fileName in parser.importedFileNames) {
+            NSString *resolvedPath = [directoryPath stringByAppendingPathComponent:fileName];
+            [self reloadOnChangesToFilePath:resolvedPath];
+        }
+    }
+
+
     if (!self.styleNodes.count) {
         return;
     }
@@ -578,11 +589,15 @@
     _watchFilePath = watchFilePath;
     self.filePath = watchFilePath;
 
-    [self.class watchForChangesToFilePath:watchFilePath withCallback:^{
+    [self reloadOnChangesToFilePath:watchFilePath];
+}
+
+- (void)reloadOnChangesToFilePath:(NSString *)filePath {
+    [self.class watchForChangesToFilePath:filePath withCallback:^{
         dispatch_async(dispatch_get_main_queue(), ^{
             // reload styles
             _filePath = nil;
-            self.filePath = watchFilePath;
+            self.filePath = _watchFilePath;
 
             // reapply styles
             for (UIWindow *window in UIApplication.sharedApplication.windows) {

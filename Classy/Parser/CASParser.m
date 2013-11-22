@@ -21,19 +21,15 @@ NSInteger const CASParseErrorFileContents = 2;
 @interface CASParser ()
 
 @property (nonatomic, strong) CASLexer *lexer;
+@property (nonatomic, strong, readwrite) NSArray *styleNodes;
 @property (nonatomic, strong) NSMutableDictionary *styleVars;
 @property (nonatomic, strong) NSError *error;
 @property (nonatomic, copy) NSString *filePath;
-@property (nonatomic, strong) NSArray *styleNodes;
 
 @end
 
-@implementation CASParser
-
-
-+ (NSArray *)styleNodesFromFilePath:(NSString *)filePath error:(NSError **)error {
-    CASParser *parser = [self parserFromFilePath:filePath error:error];
-    return parser.styleNodes;
+@implementation CASParser {
+    NSMutableArray *_importedFileNames;
 }
 
 + (CASParser *)parserFromFilePath:(NSString *)filePath error:(NSError **)error {
@@ -88,9 +84,14 @@ NSInteger const CASParseErrorFileContents = 2;
     return _error ?: self.lexer.error;
 }
 
+- (NSMutableArray *)importedFileNames {
+    return _importedFileNames;
+}
+
 - (NSArray *)parseString:(NSString *)string error:(NSError **)error {
     self.lexer = [[CASLexer alloc] initWithString:string];
     self.styleVars = NSMutableDictionary.new;
+    _importedFileNames = NSMutableArray.new;
 
     NSMutableArray *allStyleNodes = NSMutableArray.new;
     NSMutableArray *styleNodesStack = NSMutableArray.new;
@@ -140,6 +141,7 @@ NSInteger const CASParseErrorFileContents = 2;
                 return nil;
             }
 
+            [_importedFileNames addObject:fileName];
             NSString *filePath = [[self.filePath stringByDeletingLastPathComponent] stringByAppendingPathComponent:fileName];
             NSError *importError = nil;
             CASParser *parser = [CASParser parserFromFilePath:filePath error:&importError];
@@ -152,6 +154,7 @@ NSInteger const CASParseErrorFileContents = 2;
 
             [allStyleNodes addObjectsFromArray:parser.styleNodes];
             [self.styleVars addEntriesFromDictionary:parser.styleVars];
+            [_importedFileNames addObjectsFromArray:parser.importedFileNames];
 
             [self consumeTokensMatching:^BOOL(CASToken *token) {
                 return self.peekToken.type == CASTokenTypeNewline || self.peekToken.type == CASTokenTypeSemiColon;
