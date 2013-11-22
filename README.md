@@ -15,20 +15,26 @@ Classy gives you much more control over which views are styled and with what val
 Classy features a very flexible, nestable syntax. 
 Classy makes `{`   `}`   `:`   `;` all optional so you can choose a style that suits you. It also saves you from worrying about small syntax mistakes like accidentally forgetting to end a line with a `;`
 
-This is a valid stylesheet
+This is a valid stylesheet 
 
-```
-$main-color = #e1e1e1;
+```Scala
+@import "other_stylesheet.cas";
 
+$mainColor = #e1e1e1;
+
+// Comments! Supports your custom UIView subclasses
 MYCustomView {
-  background-color: $main-color;
+  background-color: $mainColor;
   title-insets: 5, 10, 5, 10;
   > UIProgressView.tinted {
-    progress-tint-color: black;
+    progress-tint-color: rgb(200, 155, 110, 0.6);
     track-tint-color: yellow;
   }
 }
 
+/*
+ * Single or Multi-line comments
+ */
 ^UIButton.warning, UIView.warning ^UIButton {
   title-color[state:highlighted]: #e3e3e3;
 }
@@ -36,16 +42,22 @@ MYCustomView {
 
 This is also a valid stylesheet
 
-```
-$main-color = #e1e1e1
+```Scala
+@import "other_stylesheet.cas"
 
+$mainColor = #e1e1e1
+
+// Comments! Supports your custom UIView subclasses
 MYCustomView 
-  background-color $main-color
+  background-color $mainColor
   title-insets 5, 10, 5, 10
   > UIProgressView.tinted 
-    progress-tint-color black
+    progress-tint-color rgb(200, 155, 110, 0.6)
     track-tint-color yellow
 
+/*
+ * Single or Multi-line comments
+ */
 ^UIButton.warning, UIView.warning ^UIButton 
   title-color[state:highlighted] #e3e3e3
 ```
