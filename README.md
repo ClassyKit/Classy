@@ -22,7 +22,7 @@ This is a valid stylesheet
 
 $mainColor = #e1e1e1;
 
-// Comments! Supports your custom UIView subclasses
+// Supports your custom UIView subclasses
 MYCustomView {
   background-color: $mainColor;
   title-insets: 5, 10, 5, 10;
@@ -33,7 +33,7 @@ MYCustomView {
 }
 
 /*
- * Single or Multi-line comments
+ * Supports Single or Multi-line comments
  */
 ^UIButton.warning, UIView.warning ^UIButton {
   title-color[state:highlighted]: #e3e3e3;
@@ -47,7 +47,7 @@ This is also a valid stylesheet
 
 $mainColor = #e1e1e1
 
-// Comments! Supports your custom UIView subclasses
+// Supports your custom UIView subclasses
 MYCustomView 
   background-color $mainColor
   title-insets 5, 10, 5, 10
@@ -56,7 +56,7 @@ MYCustomView
     track-tint-color yellow
 
 /*
- * Single or Multi-line comments
+ * Supports Single or Multi-line comments
  */
 ^UIButton.warning, UIView.warning ^UIButton 
   title-color[state:highlighted] #e3e3e3
