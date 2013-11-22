@@ -221,25 +221,25 @@
     UIImage *imageValue = nil;
     if([imageName rangeOfString:@"//"].location != NSNotFound) {
         // We are a file path instead
-        NSURL *schema = [NSURL URLWithString:imageName];
+        NSURL *fileURL = [NSURL URLWithString:imageName];
         
         NSSearchPathDirectory searchMask = 0;
         
-        if([[schema scheme] isEqualToString:@"caches"]) {
+        if([[fileURL scheme] isEqualToString:@"caches"]) {
             searchMask = NSCachesDirectory;
-        } else if([[schema scheme] isEqualToString:@"documents"]) {
+        } else if([[fileURL scheme] isEqualToString:@"documents"]) {
             searchMask = NSDocumentDirectory;
         }
         
         if(searchMask != 0) {
             NSArray *paths = NSSearchPathForDirectoriesInDomains(searchMask, NSUserDomainMask, YES);
             NSString *imagePath = [paths firstObject];
-            imageValue = [UIImage imageWithContentsOfFile:[imagePath stringByAppendingPathComponent:[schema path]]];
+            imageValue = [UIImage imageWithContentsOfFile:[imagePath stringByAppendingPathComponent:[fileURL path]]];
         } else {
             // We must be loading from bundle
             NSBundle *bundle = [NSBundle mainBundle];
-            if(![[schema scheme] isEqualToString:@"bundle"]) {
-                bundle = [NSBundle bundleWithIdentifier:[schema scheme]];
+            if(![[fileURL scheme] isEqualToString:@"bundle"]) {
+                bundle = [NSBundle bundleWithIdentifier:[fileURL scheme]];
             }
             
             if(bundle != nil)
