@@ -312,34 +312,4 @@ SpecBegin(CASStyleProperty)
     expect(image).toNot.beNil();
 }
 
-- (void)testImageFromBundleWithIdentifier {
-    NSArray *valueTokens = CASTokensFromString(@"'com.cloudling.ClassyTestLoader://test_image_4'");
-    CASStyleProperty *prop = [[CASStyleProperty alloc] initWithNameToken:nil valueTokens:valueTokens];
-    
-    UIImage *image = nil;
-    BOOL success = [prop transformValuesToUIImage:&image];
-    expect(success).to.beFalsy();
-    expect(image).to.beNil();
-}
-
-- (void)testImageFromBundleWithIdentifierWithExtension {
-    NSArray *valueTokens = CASTokensFromString(@"'com.cloudling.ClassyTestLoader://test_image_4.png'");
-    CASStyleProperty *prop = [[CASStyleProperty alloc] initWithNameToken:nil valueTokens:valueTokens];
-    
-    UIImage *image = nil;
-    BOOL success = [prop transformValuesToUIImage:&image];
-    expect(success).to.beFalsy();
-    expect(image).to.beNil();
-}
-
-- (void)testImageWithInvalidBundle {
-    NSArray *valueTokens = CASTokensFromString(@"'bundle.test.1://Ball'");
-    CASStyleProperty *prop = [[CASStyleProperty alloc] initWithNameToken:nil valueTokens:valueTokens];
-    
-    UIImage *image = nil;
-    BOOL success = [prop transformValuesToUIImage:&image];
-    expect(success).to.beFalsy();
-    expect(image).to.beNil();
-}
-
 SpecEnd
