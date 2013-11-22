@@ -223,22 +223,34 @@
         // We are a file path instead
         NSURL *fileURL = [NSURL URLWithString:imageName];
         
+        NSString *imagePath = nil;
         NSSearchPathDirectory searchMask = 0;
+        
         
         if([[fileURL scheme] isEqualToString:@"caches"]) {
             searchMask = NSCachesDirectory;
         } else if([[fileURL scheme] isEqualToString:@"documents"]) {
             searchMask = NSDocumentDirectory;
+        } else if([[fileURL scheme] isEqualToString:@"bundle"]) {
+            NSArray *parts = [imageName componentsSeparatedByString:@"."];
+            NSString *path = [parts firstObject];
+            NSString *ext = [parts count] > 1 ? [parts lastObject] : @"png";
+            imagePath = [[NSBundle mainBundle] pathForResource:path ofType:ext];
         }
         
         if(searchMask != 0) {
             NSArray *paths = NSSearchPathForDirectoriesInDomains(searchMask, NSUserDomainMask, YES);
-            NSString *imagePath = [paths firstObject];
-            imageValue = [UIImage imageWithContentsOfFile:[imagePath stringByAppendingPathComponent:[fileURL path]]];
+            imagePath = [paths firstObject];
+        }
+        imageValue = [UIImage imageWithContentsOfFile:[imagePath stringByAppendingPathComponent:[fileURL path]]];
+        
+    /**
+    *   TODO: Add support for different bundles
         } else {
             // We must be loading from bundle
             NSBundle *bundle = [NSBundle mainBundle];
-            if(![[fileURL scheme] isEqualToString:@"bundle"]) {
+            if(![[fileURL scheme] isEqualToString:@"bundle"])
+            {
                 bundle = [NSBundle bundleWithIdentifier:[fileURL scheme]];
             }
             
@@ -251,6 +263,7 @@
                 imageValue = [UIImage imageNamed:[bundle pathForResource:path ofType:ext]];
             }
         }
+      */
         
     } else {
         // We're just an old boring image name
