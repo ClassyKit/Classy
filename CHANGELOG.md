@@ -1,7 +1,8 @@
 v0.1.0
 =======
 
-* Added ability to seperate stylesheets into multiple files then `@import` them
+* Added ability to seperate stylesheets into multiple files and `@import` them
+
 ```
 @import "variables.cas"
 
@@ -16,7 +17,7 @@ UITableView UILabel {
 v0.0.3
 =======
 
-* Ability to use rgb, rgba, hsl and hsla colors ([avalanched](https://github.com/avalanched))
+* Added ability to use rgb, rgba, hsl and hsla colors ([avalanched](https://github.com/avalanched))
 
 ```
   background-color  rgb(200, 100, 150)
@@ -30,7 +31,7 @@ v0.0.3
 v0.0.2
 =======
 
-* Ability to specify UIViewController class/subclass in style selector hierarchy. eg
+* Added ability to specify UIViewController class/subclass in style selector hierarchy. eg
 
 ```
 MYHomeViewController > UIButton.main { 
