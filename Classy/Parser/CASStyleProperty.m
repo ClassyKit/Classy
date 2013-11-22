@@ -219,9 +219,9 @@
     NSString *imageName = [self valueOfTokenType:CASTokenTypeString] ?: [self valueOfTokenType:CASTokenTypeRef];
     
     UIImage *imageValue = nil;
-    if([imageName rangeOfString:@"//"].location != NSNotFound) {
+    NSRange schemeRange = [imageName rangeOfString:@"://"];
+    if(schemeRange.location != NSNotFound) {
         // We are a file path instead
-        NSRange schemeRange = [imageName rangeOfString:@"://"];
         NSString *scheme = [imageName substringToIndex:schemeRange.location];
         NSString *path = [imageName substringFromIndex:NSMaxRange(schemeRange)];
         
