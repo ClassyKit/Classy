@@ -2,7 +2,7 @@ Next Version
 ===========
 
 * Added support for images from documents/caches folder as well as from bundle. ([flippinjoe21](https://github.com/flippinjoe21))
-* Style views as soon as they move to window. Fixes [issue #16](https://github.com/cloudkite/Classy/issues/16)
+* Fixed Style views as soon as they move to window. Fixes [issue #16](https://github.com/cloudkite/Classy/issues/16)
 
 v0.1.0
 =======
