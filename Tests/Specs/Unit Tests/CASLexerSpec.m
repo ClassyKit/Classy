@@ -9,6 +9,7 @@
 #import "CASLexer.h"
 #import "XCTest+Spec.h"
 #import "UIColor+CASAdditions.h"
+#import "CASUnitToken.h"
 
 @interface CASLexer ()
 @property (nonatomic, strong) NSMutableString *str;
@@ -136,18 +137,32 @@ SpecBegin(CASLexer)
 
 - (void)testReturnUnit {
     CASLexer *lexer = [[CASLexer alloc] initWithString:@"1.5px   hello"];
-    expect(lexer.peekToken.type).to.equal(CASTokenTypeUnit);
-    expect(lexer.peekToken.value).to.equal(@1.5);
+
+    CASUnitToken *unitToken = (id)lexer.peekToken;
+    expect(unitToken.type).to.equal(CASTokenTypeUnit);
+    expect(unitToken.value).to.equal(@1.5);
+    expect(unitToken.suffix).to.equal(@"px");
     expect(lexer.str).to.equal(@"hello");
 
     lexer = [[CASLexer alloc] initWithString:@"-10.5pt   hello"];
-    expect(lexer.peekToken.type).to.equal(CASTokenTypeUnit);
-    expect(lexer.peekToken.value).to.equal(@-10.5);
+    unitToken = (id)lexer.peekToken;
+    expect(unitToken.type).to.equal(CASTokenTypeUnit);
+    expect(unitToken.value).to.equal(@-10.5);
+    expect(unitToken.suffix).to.equal(@"pt");
     expect(lexer.str).to.equal(@"hello");
 
     lexer = [[CASLexer alloc] initWithString:@"-20.5   hello"];
-    expect(lexer.peekToken.type).to.equal(CASTokenTypeUnit);
-    expect(lexer.peekToken.value).to.equal(@-20.5);
+    unitToken = (id)lexer.peekToken;
+    expect(unitToken.type).to.equal(CASTokenTypeUnit);
+    expect(unitToken.value).to.equal(@-20.5);
+    expect(unitToken.suffix).to.equal(nil);
+    expect(lexer.str).to.equal(@"hello");
+
+    lexer = [[CASLexer alloc] initWithString:@"20%   hello"];
+    unitToken = (id)lexer.peekToken;
+    expect(unitToken.type).to.equal(CASTokenTypeUnit);
+    expect(unitToken.value).to.equal(@20);
+    expect(unitToken.suffix).to.equal(@"%");
     expect(lexer.str).to.equal(@"hello");
 }
 

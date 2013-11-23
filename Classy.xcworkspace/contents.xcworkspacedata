@@ -71,6 +71,12 @@
             location = "group:CASTextAttributes.m">
          </FileRef>
          <FileRef
+            location = "group:CASUnitToken.h">
+         </FileRef>
+         <FileRef
+            location = "group:CASUnitToken.m">
+         </FileRef>
+         <FileRef
             location = "group:CASUtilities.h">
          </FileRef>
          <FileRef

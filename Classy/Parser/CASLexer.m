@@ -10,6 +10,7 @@
 #import "NSRegularExpression+CASAdditions.h"
 #import "NSString+CASAdditions.h"
 #import "UIColor+CASAdditions.h"
+#import "CASUnitToken.h"
 
 NSString * const CASParseErrorDomain = @"CASParseErrorDomain";
 NSInteger const CASParseErrorInvalidToken = 1;
@@ -47,7 +48,7 @@ NSString * const CASParseFailingStringErrorKey = @"CASParseFailingStringErrorKey
     // trim whitespace & newlines from end of string
     [CASRegex(@"\\s+$") cas_replaceMatchesInString:self.str withTemplate:@"\n"];
 
-    NSString *units = [@[@"pt", @"px"] componentsJoinedByString:@"|"];
+    NSString *units = [@[@"pt", @"px", @"%"] componentsJoinedByString:@"|"];
 
     // cache regex's
     self.regexCache = @{
@@ -350,11 +351,21 @@ NSString * const CASParseFailingStringErrorKey = @"CASParseFailingStringErrorKey
 }
 
 - (CASToken *)unit {
-    return [self testForTokenType:CASTokenTypeUnit transformValueBlock:^id(NSString *value, NSTextCheckingResult *match){
-        //px,pt,% etc NSString *type = [self.str substringWithRange:[match rangeAtIndex:match.numberOfRanges-1]];
+    __block NSString *suffix;
+    CASUnitToken *unitToken = (id)[self testForTokenType:CASTokenTypeUnit tokenClass:CASUnitToken.class transformValueBlock:^id(NSString *value, NSTextCheckingResult *match){
+        NSRange suffixRange = [match rangeAtIndex:match.numberOfRanges-1];
+        if (suffixRange.location != NSNotFound) {
+            suffix = [value substringWithRange:suffixRange];
+        }
         NSString *string = [value cas_stringByTrimmingWhitespace];
         return @([string doubleValue]);
     }];
+
+    if (unitToken) {
+        unitToken.suffix = suffix;
+    }
+
+    return unitToken;
 }
 
 - (CASToken *)boolean {
@@ -390,12 +401,16 @@ NSString * const CASParseFailingStringErrorKey = @"CASParseFailingStringErrorKey
 #pragma mark - helpers
 
 - (CASToken *)testForTokenType:(CASTokenType)tokenType transformValueBlock:(id(^)(NSString *value, NSTextCheckingResult *match))transformValueBlock {
+    return [self testForTokenType:tokenType tokenClass:CASToken.class transformValueBlock:transformValueBlock];
+}
+
+- (CASToken *)testForTokenType:(CASTokenType)tokenType tokenClass:(Class)tokenClass transformValueBlock:(id(^)(NSString *value, NSTextCheckingResult *match))transformValueBlock {
     NSArray *regexes = self.regexCache[@(tokenType)];
     NSAssert(regexes.count, @"Invalid cache. No cached regex for CASTokenType `%@`", [CASToken stringForType:tokenType]);
     for (NSRegularExpression *regex in regexes) {
         NSTextCheckingResult *match = [regex firstMatchInString:self.str options:0 range:NSMakeRange(0, self.str.length)];
         if (match) {
-            CASToken *token = [CASToken tokenOfType:tokenType];
+            CASToken *token = [tokenClass tokenOfType:tokenType];
             if (transformValueBlock) {
                 token.value = transformValueBlock([self.str substringWithRange:match.range], match);
             }

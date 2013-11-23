@@ -72,7 +72,7 @@
     for (CASToken *token in self.valueTokens) {
         if (token.type == tokenType) {
             [tokens addObject:token.value];
-        } else if (tokens.count && !token.isWhitespace && ![token valueIsEqualTo:@","] && ![token valueIsEqualTo:@"%"]) {
+        } else if (tokens.count && !token.isWhitespace && ![token valueIsEqualTo:@","]) {
             return tokens;
         }
     }

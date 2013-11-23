@@ -75,13 +75,13 @@
 #pragma mark - Factory
 
 + (instancetype)tokenOfType:(CASTokenType)type {
-    CASToken *token = CASToken.new;
+    CASToken *token = self.class.new;
     token.type = type;
     return token;
 }
 
 + (instancetype)tokenOfType:(CASTokenType)type value:(id)value {
-    CASToken *token = CASToken.new;
+    CASToken *token = self.class.new;
     token.type = type;
     token.value = value;
     return token;
