@@ -570,7 +570,8 @@
     [self.scheduledItems addObject:item];
 
     if (self.scheduledItems.count && !self.updateTimer.isValid) {
-        self.updateTimer = [NSTimer scheduledTimerWithTimeInterval:0.0 target:self selector:@selector(updateScheduledItems) userInfo:nil repeats:YES];
+        self.updateTimer = [NSTimer timerWithTimeInterval:0.0 target:self selector:@selector(updateScheduledItems) userInfo:nil repeats:YES];
+        [NSRunLoop.mainRunLoop addTimer:self.updateTimer forMode:NSRunLoopCommonModes];
     }
 }
 
