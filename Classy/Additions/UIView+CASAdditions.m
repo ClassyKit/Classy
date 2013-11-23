@@ -22,7 +22,7 @@ static void *CASStyleHasBeenUpdatedKey = &CASStyleHasBeenUpdatedKey;
 }
 
 - (void)cas_didMoveToWindow {
-    [self cas_setNeedsUpdateStyling];
+    [self cas_updateStyling];
 
     [self cas_didMoveToWindow];
 }
