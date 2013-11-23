@@ -128,6 +128,25 @@ SpecBegin(CASStyleSelector)
     expect([selector shouldSelectItem:UINavigationBar.new]).to.beFalsy();
 }
 
+- (void)testSelectViewWithSubclassMatchAndStyleClass {
+    CASStyleSelector *selector = CASStyleSelector.new;
+    selector.objectClass = UIControl.class;
+    selector.shouldSelectSubclasses = YES;
+    selector.styleClass = @"big";
+
+    expect(selector.stringValue).to.equal(@"^UIControl.big");
+    expect([selector shouldSelectItem:UIControl.new]).to.beFalsy();
+    expect([selector shouldSelectItem:UIButton.new]).to.beFalsy();
+
+    UIControl *control = UIControl.new;
+    control.cas_styleClass = @"big";
+    expect([selector shouldSelectItem:control]).to.beTruthy();
+
+    UIButton *button = UIButton.new;
+    button.cas_styleClass = @"big";
+    expect([selector shouldSelectItem:button]).to.beTruthy();
+}
+
 - (void)testSelectViewWithComplexMixedMatchers {
     CASStyleSelector *parentSelector3 = CASStyleSelector.new;
     parentSelector3.objectClass = UIButton.class;
