@@ -467,9 +467,9 @@ NSInteger const CASParseErrorFileContents = 2;
                     styleSelector.shouldSelectIndirectSuperview = shouldSelectIndirectSuperview;
                     styleSelector.shouldConcatToParent = shouldConcatToParent;
                 }
+                styleSelector.shouldSelectSubclasses = shouldSelectSubclasses;
             }
 
-            styleSelector.shouldSelectSubclasses = shouldSelectSubclasses;
 
             if ([tokenValue hasPrefix:@"."]) {
                 styleSelector.styleClass = [tokenValue substringFromIndex:1];
