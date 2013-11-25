@@ -13,6 +13,7 @@
 #import "CASUtilities.h"
 #import "CASStyleProperty.h"
 #import "CASStyleSelector.h"
+#import "CASDeviceSelector.h"
 #import "NSString+CASAdditions.h"
 
 NSString * const CASParseFailingFilePathErrorKey = @"CASParseFailingFilePathErrorKey";
@@ -162,30 +163,6 @@ NSInteger const CASParseErrorFileContents = 2;
             continue;
         }
 
-        CASStyleProperty *styleVar = [self nextStyleVar];
-        if (self.error) {
-            if (error) *error = self.error;
-            return nil;
-        }
-
-        if (styleVar) {
-            if (styleNodesStack.count) {
-                // can't have vars inside styleNodes
-                if (error) {
-                    *error = [self.lexer errorWithDescription:@"Variables cannot be declared inside style selectors"
-                                                       reason:[NSString stringWithFormat:@"Variable: %@", styleVar]
-                                                         code:CASParseErrorFileContents];
-                }
-                return nil;
-            }
-            [styleVar resolveExpressions];
-            self.styleVars[styleVar.nameToken.value] = styleVar;
-            [self consumeTokensMatching:^BOOL(CASToken *token) {
-                return token.type == CASTokenTypeSpace || token.type == CASTokenTypeSemiColon;
-            }];
-            continue;
-        }
-
         NSArray *styleNodes = [self nextStyleNodes];
         if (self.error) {
             if (error) *error = self.error;
@@ -197,9 +174,17 @@ NSInteger const CASParseErrorFileContents = 2;
             for (CASStyleNode *parentNode in styleNodesStack.lastObject) {
                 for (CASStyleNode *styleNode in styleNodes) {
                     CASStyleNode *flattenStyleNode = CASStyleNode.new;
+                    flattenStyleNode.deviceSelector = styleNode.deviceSelector;
+                    if (!flattenStyleNode.deviceSelector && parentNode.deviceSelector) {
+                        flattenStyleNode.deviceSelector = CASDeviceSelector.new;
+                    }
+                    [flattenStyleNode.deviceSelector addItems:parentNode.deviceSelector.items];
                     CASStyleSelector *parentSelector = [parentNode.styleSelector copy];
                     parentSelector.parent = YES;
-                    if (styleNode.styleSelector.lastSelector.shouldConcatToParent) {
+                    if (!styleNode.styleSelector) {
+                        flattenStyleNode.styleSelector = parentSelector;
+                        parentSelector.parent = NO;
+                    } else if (styleNode.styleSelector.lastSelector.shouldConcatToParent) {
                         CASStyleSelector *styleSelector = styleNode.styleSelector;
                         if (styleSelector.styleClass) {
                             parentSelector.styleClass = styleSelector.styleClass;
@@ -223,6 +208,30 @@ NSInteger const CASParseErrorFileContents = 2;
             [styleNodesStack addObject:styleNodes];
             [self consumeTokenOfType:CASTokenTypeLeftCurlyBrace];
             [self consumeTokenOfType:CASTokenTypeIndent];
+            continue;
+        }
+        
+        CASStyleProperty *styleVar = [self nextStyleVar];
+        if (self.error) {
+            if (error) *error = self.error;
+            return nil;
+        }
+
+        if (styleVar) {
+            if (styleNodesStack.count) {
+                // can't have vars inside styleNodes
+                if (error) {
+                    *error = [self.lexer errorWithDescription:@"Variables cannot be declared inside style selectors"
+                                                       reason:[NSString stringWithFormat:@"Variable: %@", styleVar]
+                                                         code:CASParseErrorFileContents];
+                }
+                return nil;
+            }
+            [styleVar resolveExpressions];
+            self.styleVars[styleVar.nameToken.value] = styleVar;
+            [self consumeTokensMatching:^BOOL(CASToken *token) {
+                return token.type == CASTokenTypeSpace || token.type == CASTokenTypeSemiColon;
+            }];
             continue;
         }
 
@@ -387,7 +396,113 @@ NSInteger const CASParseErrorFileContents = 2;
     return nil;
 }
 
+- (NSArray *)nextDeviceQueries {
+    NSInteger i = 1;
+    CASToken *token = [self lookaheadByCount:i];
+    BOOL isDeviceQuery = NO;
+    while (token && token.type != CASTokenTypeEOS
+           && token.type != CASTokenTypeNewline
+           && token.type != CASTokenTypeIndent
+           && token.type != CASTokenTypeOutdent
+           && token.type != CASTokenTypeLeftCurlyBrace) {
+
+        if (!isDeviceQuery && token.type != CASTokenTypeSpace) {
+            if ([token valueIsEqualTo:@"@media"] || [token valueIsEqualTo:@"@device"]) {
+                isDeviceQuery = YES;
+            } else {
+                break;
+            }
+        }
+        token = [self lookaheadByCount:++i];
+    }
+
+    if (!isDeviceQuery) return nil;
+
+    CASStyleNode *currentNode = CASStyleNode.new;
+    currentNode.deviceSelector = CASDeviceSelector.new;
+    NSMutableArray *nodes = NSMutableArray.new;
+    [nodes addObject:currentNode];
+    
+    BOOL waitingForRightRoundBrace = NO;
+
+    NSString *itemName;
+    NSMutableString *itemValue = NSMutableString.new;
+    NSMutableString *itemRelation = NSMutableString.new;
+
+    while (--i > 0) {
+        token = [self nextToken];
+
+        if (token.type == CASTokenTypeSpace) {
+            continue;
+        }
+
+        if (waitingForRightRoundBrace) {
+            if (!itemName) {
+                if (token.type == CASTokenTypeRef) {
+                    itemName = token.value;
+                } else {
+                    //TODO unexpected token error
+                }
+                continue;
+            }
+
+            if (token.type == CASTokenTypeRightRoundBrace) {
+                waitingForRightRoundBrace = NO;
+                if ([itemName isEqualToString:@"version"]) {
+                    NSString *versionString = [(itemRelation ?: @"") stringByAppendingString:(itemValue ?: @"")];
+
+                    [currentNode.deviceSelector addOSVersion:versionString];
+                }
+            } else if (token.type == CASTokenTypeLeftRoundBrace) {
+                //TODO unexpected token error
+            } else if (token.type == CASTokenTypeRef) {
+                itemName = token.value;
+            } else if (token.type == CASTokenTypeOperator) {
+                if ([token valueIsEqualTo:@":"]) {
+                    continue;
+                } else {
+                    [itemRelation appendString:token.value];
+                }
+            } else if (token.type == CASTokenTypeUnit) {
+                [itemRelation appendString:token.stringValue];
+            }
+
+            continue;
+        }
+
+        if (token.type == CASTokenTypeLeftRoundBrace) {
+            waitingForRightRoundBrace = YES;
+        } else if (token.type == CASTokenTypeRightRoundBrace) {
+            //TODO unexpected token error
+        } else if (token.type == CASTokenTypeOperator) {
+            if ([token valueIsEqualTo:@","]) {
+                currentNode = CASStyleNode.new;
+                currentNode.deviceSelector = CASDeviceSelector.new;
+                [nodes addObject:currentNode];
+            }
+        } else if (token.type == CASTokenTypeRef) {
+            NSString *lowercaseValue = [token.value lowercaseString];
+            if ([lowercaseValue isEqualToString:@"ipad"] || [lowercaseValue isEqualToString:@"pad"]) {
+                [currentNode.deviceSelector addDeviceType:CASDeviceTypePad];
+            } else if ([lowercaseValue isEqualToString:@"iphone"] || [lowercaseValue isEqualToString:@"phone"]) {
+                [currentNode.deviceSelector addDeviceType:CASDeviceTypePhone];
+            } else if ([lowercaseValue isEqualToString:@"and"]) {
+                continue;
+            } else {
+                //TODO unexpected token error
+            }
+        } else {
+            //TODO unexpected token error
+        }
+    }
+
+    return nodes;
+}
+
 - (NSArray *)nextStyleNodes {
+    NSArray *deviceQueryNodes = [self nextDeviceQueries];
+    if (deviceQueryNodes) return deviceQueryNodes;
+
     NSInteger i = 1;
     CASToken *token = [self lookaheadByCount:i];
     while (token && token.isPossiblySelector) {

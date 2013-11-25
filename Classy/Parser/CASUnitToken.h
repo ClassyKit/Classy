@@ -11,5 +11,6 @@
 @interface CASUnitToken : CASToken
 
 @property (nonatomic, copy) NSString *suffix;
+@property (nonatomic, copy) NSString *rawValue;
 
 @end

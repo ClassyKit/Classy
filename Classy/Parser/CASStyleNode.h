@@ -9,6 +9,7 @@
 #import <Foundation/Foundation.h>
 #import "CASStyleProperty.h"
 #import "CASStyleSelector.h"
+#import "CASDeviceSelector.h"
 
 @interface CASStyleNode : NSObject
 
@@ -23,9 +24,14 @@
 @property (nonatomic, strong, readonly) NSArray *styleProperties;
 
 /**
- *  selector related to this node
+ *  style selector related to this node
  */
 @property (nonatomic, strong) CASStyleSelector *styleSelector;
+
+/**
+ *  device selector related to this node
+ */
+@property (nonatomic, strong) CASDeviceSelector *deviceSelector;
 
 /**
  *  Add a style property to the receiver

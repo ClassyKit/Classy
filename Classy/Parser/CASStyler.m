@@ -94,6 +94,19 @@
         return;
     }
 
+    // filter redundant nodes
+    [self.styleNodes.copy enumerateObjectsUsingBlock:^(CASStyleNode *node, NSUInteger idx, BOOL *stop) {
+        // filter nodes with no properties
+        if (!node.styleProperties.count) {
+            [self.styleNodes removeObjectAtIndex:idx];
+        }
+
+        // filter nodes where device selector is not valid
+        if (node.deviceSelector && !node.deviceSelector.isValid) {
+            [self.styleNodes removeObjectAtIndex:idx];
+        }
+    }];
+
     // order descending by precedence
     [self.styleNodes sortWithOptions:NSSortStable usingComparator:^NSComparisonResult(CASStyleNode *n1, CASStyleNode *n2) {
         if (n1.styleSelector.precedence == n2.styleSelector.precedence) return NSOrderedSame;

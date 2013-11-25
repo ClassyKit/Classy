@@ -10,4 +10,10 @@
 
 @implementation CASUnitToken
 
+#pragma mark - Helpers
+
+- (NSString *)stringValue {
+    return self.rawValue;
+}
+
 @end

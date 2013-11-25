@@ -1,0 +1,39 @@
+// nesting! use indentation or { }
+
+UIButton
+  background-color1:#fff;
+  @media ipad, (version:>= 6)
+    background-color2:black;
+    text-color:orange;
+  @media (version:>=7.0.1)
+    background-color3:blue;
+  @device phone
+    > UIControl
+      amazing 23
+  UISlider
+    @media phone
+      @media (version: <= 6.1) {
+        text-color: brown
+      }
+    hello: 61
+
+UIView
+  @device ipad {
+    UINavigationBar
+      > UIView {
+        @media (version:5.0.1) {
+          background-color:#eee
+        }
+      }
+    border-color: #ddd
+  }
+
+UITabBar.nice, UISegmentedControl.nice {
+  UITextField {
+    border-width 2
+    @device (version:>5) {
+      &.nicer
+        border-width 3
+    }
+  }
+}

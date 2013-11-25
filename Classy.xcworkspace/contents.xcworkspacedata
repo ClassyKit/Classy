@@ -35,6 +35,27 @@
             location = "group:CASParser.m">
          </FileRef>
          <FileRef
+            location = "group:CASDeviceSelectorItem.h">
+         </FileRef>
+         <FileRef
+            location = "group:CASDeviceOSVersionItem.h">
+         </FileRef>
+         <FileRef
+            location = "group:CASDeviceOSVersionItem.m">
+         </FileRef>
+         <FileRef
+            location = "group:CASDeviceTypeItem.h">
+         </FileRef>
+         <FileRef
+            location = "group:CASDeviceTypeItem.m">
+         </FileRef>
+         <FileRef
+            location = "group:/Users/jonas/Projects/Classy/Classy/Parser/CASDeviceSelector.h">
+         </FileRef>
+         <FileRef
+            location = "group:/Users/jonas/Projects/Classy/Classy/Parser/CASDeviceSelector.m">
+         </FileRef>
+         <FileRef
             location = "group:CASStyleNode.h">
          </FileRef>
          <FileRef

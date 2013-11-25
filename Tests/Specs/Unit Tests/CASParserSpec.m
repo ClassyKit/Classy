@@ -24,7 +24,7 @@ SpecBegin(CASParser)
 
     NSError *underlyingError = error.userInfo[NSUnderlyingErrorKey];
     expect(underlyingError.domain).to.equal(NSCocoaErrorDomain);
-//    expect(underlyingError.code).to.equal(NSFileReadNoSuchFileError);
+    expect(underlyingError.code).to.equal(NSFileReadNoSuchFileError);
     expect(styles).to.beNil();
 }
 
@@ -309,6 +309,173 @@ SpecBegin(CASParser)
     expect(node.styleSelector.stringValue).to.equal(@"UIButton UISlider");
     expect(node.styleProperties).to.haveCountOf(1);
     expect([node.styleProperties[0] name]).to.equal(@"another");
+}
+
+- (void)testMediaQueries {
+    NSError *error = nil;
+    NSString *filePath = [[NSBundle bundleForClass:self.class] pathForResource:@"Selectors-Media-Queries.cas" ofType:nil];
+    NSArray *styles = [CASParser parserFromFilePath:filePath error:&error].styleNodes;
+    expect(error).to.beNil();
+
+    expect(styles).to.haveCountOf(22);
+
+    CASStyleProperty *property;
+    CASStyleNode *node;
+
+    node = styles[0];
+    expect(node.styleSelector.stringValue).to.equal(@"UIButton");
+    expect(node.styleProperties).to.haveCountOf(1);
+    property = node.styleProperties[0];
+    expect(property.name).to.equal(@"backgroundColor1");
+    expect(property.values).to.equal(@[[UIColor cas_colorWithHex:@"#fff"]]);
+    expect(node.deviceSelector.stringValue).to.beNil();
+
+    node = styles[1];
+    expect(node.styleSelector.stringValue).to.equal(@"UIButton");
+    expect(node.styleProperties).to.haveCountOf(2);
+    property = node.styleProperties[0];
+    expect(property.name).to.equal(@"backgroundColor2");
+    expect(property.values).to.equal(@[@"black"]);
+    property = node.styleProperties[1];
+    expect(property.name).to.equal(@"textColor");
+    expect(property.values).to.equal(@[@"orange"]);
+    expect(node.deviceSelector.stringValue).to.equal(@"pad");
+
+    node = styles[2];
+    expect(node.styleSelector.stringValue).to.equal(@"UIButton");
+    expect(node.styleProperties).to.haveCountOf(2);
+    property = node.styleProperties[0];
+    expect(property.name).to.equal(@"backgroundColor2");
+    expect(property.values).to.equal(@[@"black"]);
+    property = node.styleProperties[1];
+    expect(property.name).to.equal(@"textColor");
+    expect(property.values).to.equal(@[@"orange"]);
+    expect(node.deviceSelector.stringValue).to.equal(@"(version:>=6)");
+
+    node = styles[3];
+    expect(node.styleSelector.stringValue).to.equal(@"UIButton");
+    expect(node.styleProperties).to.haveCountOf(1);
+    property = node.styleProperties[0];
+    expect(property.name).to.equal(@"backgroundColor3");
+    expect(property.values).to.equal(@[@"blue"]);
+    expect(node.deviceSelector.stringValue).to.equal(@"(version:>=7.0.1)");
+
+    node = styles[4];
+    expect(node.styleSelector.stringValue).to.equal(@"UIButton");
+    expect(node.styleProperties).to.haveCountOf(0);
+    expect(node.deviceSelector.stringValue).to.equal(@"phone");
+
+    node = styles[5];
+    expect(node.styleSelector.stringValue).to.equal(@"UIButton > UIControl");
+    expect(node.styleProperties).to.haveCountOf(1);
+    property = node.styleProperties[0];
+    expect(property.name).to.equal(@"amazing");
+    expect(property.values).to.equal(@[@23]);
+    expect(node.deviceSelector.stringValue).to.equal(@"phone");
+
+    node = styles[6];
+    expect(node.styleSelector.stringValue).to.equal(@"UIButton UISlider");
+    expect(node.styleProperties).to.haveCountOf(1);
+    property = node.styleProperties[0];
+    expect(property.name).to.equal(@"hello");
+    expect(property.values).to.equal(@[@61]);
+    expect(node.deviceSelector.stringValue).to.beNil();
+
+    node = styles[7];
+    expect(node.styleSelector.stringValue).to.equal(@"UIButton UISlider");
+    expect(node.styleProperties).to.haveCountOf(0);
+    expect(node.deviceSelector.stringValue).to.equal(@"phone");
+
+    node = styles[8];
+    expect(node.styleSelector.stringValue).to.equal(@"UIButton UISlider");
+    expect(node.styleProperties).to.haveCountOf(1);
+    property = node.styleProperties[0];
+    expect(property.name).to.equal(@"textColor");
+    expect(property.values).to.equal(@[@"brown"]);
+    expect(node.deviceSelector.stringValue).to.equal(@"(version:<=6.1) and phone");
+
+    node = styles[9];
+    expect(node.styleSelector.stringValue).to.equal(@"UIView");
+    expect(node.styleProperties).to.haveCountOf(0);
+    expect(node.deviceSelector.stringValue).to.beNil();
+
+    node = styles[10];
+    expect(node.styleSelector.stringValue).to.equal(@"UIView");
+    expect(node.styleProperties).to.haveCountOf(1);
+    property = node.styleProperties[0];
+    expect(property.name).to.equal(@"borderColor");
+    expect(property.values).to.equal(@[[UIColor cas_colorWithHex:@"#ddd"]]);
+    expect(node.deviceSelector.stringValue).to.equal(@"pad");
+
+    node = styles[11];
+    expect(node.styleSelector.stringValue).to.equal(@"UIView UINavigationBar");
+    expect(node.styleProperties).to.haveCountOf(0);
+    expect(node.deviceSelector.stringValue).to.equal(@"pad");
+
+    node = styles[12];
+    expect(node.styleSelector.stringValue).to.equal(@"UIView UINavigationBar > UIView");
+    expect(node.styleProperties).to.haveCountOf(0);
+    expect(node.deviceSelector.stringValue).to.equal(@"pad");
+
+    node = styles[13];
+    expect(node.styleSelector.stringValue).to.equal(@"UIView UINavigationBar > UIView");
+    expect(node.styleProperties).to.haveCountOf(1);
+    property = node.styleProperties[0];
+    expect(property.name).to.equal(@"backgroundColor");
+    expect(property.values).to.equal(@[[UIColor cas_colorWithHex:@"#eee"]]);
+    expect(node.deviceSelector.stringValue).to.equal(@"(version:5.0.1) and pad");
+
+    node = styles[14];
+    expect(node.styleSelector.stringValue).to.equal(@"UITabBar.nice");
+    expect(node.styleProperties).to.haveCountOf(0);
+    expect(node.deviceSelector.stringValue).to.beNil();
+
+    node = styles[15];
+    expect(node.styleSelector.stringValue).to.equal(@"UISegmentedControl.nice");
+    expect(node.styleProperties).to.haveCountOf(0);
+    expect(node.deviceSelector.stringValue).to.beNil();
+
+    node = styles[16];
+    expect(node.styleSelector.stringValue).to.equal(@"UITabBar.nice UITextField");
+    expect(node.styleProperties).to.haveCountOf(1);
+    property = node.styleProperties[0];
+    expect(property.name).to.equal(@"borderWidth");
+    expect(property.values).to.equal(@[@2]);
+    expect(node.deviceSelector.stringValue).to.beNil();
+
+    node = styles[17];
+    expect(node.styleSelector.stringValue).to.equal(@"UISegmentedControl.nice UITextField");
+    expect(node.styleProperties).to.haveCountOf(1);
+    property = node.styleProperties[0];
+    expect(property.name).to.equal(@"borderWidth");
+    expect(property.values).to.equal(@[@2]);
+    expect(node.deviceSelector.stringValue).to.beNil();
+
+    node = styles[18];
+    expect(node.styleSelector.stringValue).to.equal(@"UITabBar.nice UITextField");
+    expect(node.styleProperties).to.haveCountOf(0);
+    expect(node.deviceSelector.stringValue).to.equal(@"(version:>5)");
+
+    node = styles[19];
+    expect(node.styleSelector.stringValue).to.equal(@"UISegmentedControl.nice UITextField");
+    expect(node.styleProperties).to.haveCountOf(0);
+    expect(node.deviceSelector.stringValue).to.equal(@"(version:>5)");
+
+    node = styles[20];
+    expect(node.styleSelector.stringValue).to.equal(@"UITabBar.nice UITextField.nicer");
+    expect(node.styleProperties).to.haveCountOf(1);
+    property = node.styleProperties[0];
+    expect(property.name).to.equal(@"borderWidth");
+    expect(property.values).to.equal(@[@3]);
+    expect(node.deviceSelector.stringValue).to.equal(@"(version:>5)");
+
+    node = styles[21];
+    expect(node.styleSelector.stringValue).to.equal(@"UISegmentedControl.nice UITextField.nicer");
+    expect(node.styleProperties).to.haveCountOf(1);
+    property = node.styleProperties[0];
+    expect(property.name).to.equal(@"borderWidth");
+    expect(property.values).to.equal(@[@3]);
+    expect(node.deviceSelector.stringValue).to.equal(@"(version:>5)");
 }
 
 SpecEnd

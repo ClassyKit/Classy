@@ -41,6 +41,7 @@
 		DD8248651839684700DDD6EF /* UIView_CASAdditionsSpec.m in Sources */ = {isa = PBXBuildFile; fileRef = DD8248641839684700DDD6EF /* UIView_CASAdditionsSpec.m */; };
 		DD84B3E0183ACB0A0009ACAA /* CASTestsAppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = DD84B3DF183ACB0A0009ACAA /* CASTestsAppDelegate.m */; };
 		DD84B3E3183ACC370009ACAA /* GcovTestObserver.m in Sources */ = {isa = PBXBuildFile; fileRef = DD84B3E2183ACC370009ACAA /* GcovTestObserver.m */; };
+		DD85DDBF1841C1DC00126E8C /* Selectors-Media-Queries.cas in Resources */ = {isa = PBXBuildFile; fileRef = DD85DDBE1841C1DC00126E8C /* Selectors-Media-Queries.cas */; };
 		DD9389DE18206A0100C0FFA7 /* CASStyleSelectorSpec.m in Sources */ = {isa = PBXBuildFile; fileRef = DD9389DD18206A0100C0FFA7 /* CASStyleSelectorSpec.m */; };
 		DDBF583418113BC10059B8D3 /* XCTest.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DDBF582518112ECA0059B8D3 /* XCTest.framework */; };
 		DDBF583518113BC10059B8D3 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DDD3D48C1810D6DA00E378A2 /* Foundation.framework */; };
@@ -104,6 +105,7 @@
 		DD84B3DE183ACB0A0009ACAA /* CASTestsAppDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CASTestsAppDelegate.h; sourceTree = "<group>"; };
 		DD84B3DF183ACB0A0009ACAA /* CASTestsAppDelegate.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CASTestsAppDelegate.m; sourceTree = "<group>"; };
 		DD84B3E2183ACC370009ACAA /* GcovTestObserver.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GcovTestObserver.m; sourceTree = "<group>"; };
+		DD85DDBE1841C1DC00126E8C /* Selectors-Media-Queries.cas */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = "Selectors-Media-Queries.cas"; sourceTree = "<group>"; };
 		DD9389DD18206A0100C0FFA7 /* CASStyleSelectorSpec.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CASStyleSelectorSpec.m; sourceTree = "<group>"; };
 		DDBF582518112ECA0059B8D3 /* XCTest.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = XCTest.framework; path = Library/Frameworks/XCTest.framework; sourceTree = DEVELOPER_DIR; };
 		DDBF583318113BC10059B8D3 /* ClassyTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = ClassyTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -213,6 +215,7 @@
 				DD10AD321819FA6800A5B71D /* Selectors-Hierarchy.cas */,
 				DD10AD331819FA6800A5B71D /* Selectors-Indentation.cas */,
 				DD592B12181DE5E800C30F7F /* Selectors-Nested.cas */,
+				DD85DDBE1841C1DC00126E8C /* Selectors-Media-Queries.cas */,
 				DD10AD341819FA6800A5B71D /* UIAppearance-Basic.cas */,
 				DD10AD351819FA6800A5B71D /* UIKit-Basic.cas */,
 				DD52F104183DCB2600F31A3F /* Import-Base.cas */,
@@ -364,6 +367,7 @@
 				DD10AD361819FA6800A5B71D /* CustomView-Basic.cas in Resources */,
 				DD52F106183DCB2600F31A3F /* Import-2.cas in Resources */,
 				DD10AD371819FA6800A5B71D /* Properties-Basic.cas in Resources */,
+				DD85DDBF1841C1DC00126E8C /* Selectors-Media-Queries.cas in Resources */,
 				DD10AD381819FA6800A5B71D /* Selectors-Messy.cas in Resources */,
 				DD7C18441827464C008110D7 /* Properties-Nested.cas in Resources */,
 				DD10AD3C1819FA6800A5B71D /* UIAppearance-Basic.cas in Resources */,

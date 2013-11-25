@@ -34,4 +34,12 @@
     return camelCasedString;
 }
 
+- (NSString *)cas_stringByTrimmingLeadingCharactersInSet:(NSCharacterSet *)characterSet {
+    NSInteger i = 0;
+    while ((i < self.length) && [characterSet characterIsMember:[self characterAtIndex:i]]) {
+        i++;
+    }
+    return [self substringFromIndex:i];
+}
+
 @end

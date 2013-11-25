@@ -352,17 +352,23 @@ NSString * const CASParseFailingStringErrorKey = @"CASParseFailingStringErrorKey
 
 - (CASToken *)unit {
     __block NSString *suffix;
+    __block NSString *rawValue;
     CASUnitToken *unitToken = (id)[self testForTokenType:CASTokenTypeUnit tokenClass:CASUnitToken.class transformValueBlock:^id(NSString *value, NSTextCheckingResult *match){
         NSRange suffixRange = [match rangeAtIndex:match.numberOfRanges-1];
         if (suffixRange.location != NSNotFound) {
             suffix = [value substringWithRange:suffixRange];
         }
-        NSString *string = [value cas_stringByTrimmingWhitespace];
-        return @([string doubleValue]);
+
+        NSRange valueRange = [match rangeAtIndex:0];
+        if (valueRange.location != NSNotFound) {
+            rawValue = [value substringWithRange:valueRange];
+        }
+        return @([rawValue doubleValue]);
     }];
 
     if (unitToken) {
         unitToken.suffix = suffix;
+        unitToken.rawValue = rawValue;
     }
 
     return unitToken;
