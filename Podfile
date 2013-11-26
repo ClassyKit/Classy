@@ -16,6 +16,7 @@ end
 target 'ClassyTests', :exclusive => true do
   xcodeproj 'Tests/ClassyTests'
   pod 'Expecta'
+  pod 'OCMockito'
 end
 
 # add settings needed to generate test coverage data

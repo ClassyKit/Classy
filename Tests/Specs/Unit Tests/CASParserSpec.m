@@ -12,8 +12,20 @@
 #import "CASToken.h"
 #import "UIColor+CASAdditions.h"
 #import "CASStyleSelector.h"
+#import "UIDevice+CASMockDevice.h"
 
-SpecBegin(CASParser)
+SpecBegin(CASParser) {
+    UIDevice *mockDevice;
+}
+
+- (void)setUp {
+    mockDevice = mock(UIDevice.class);
+    [UIDevice setMockDevice:mockDevice];
+}
+
+- (void)tearDown {
+    [UIDevice setMockDevice:nil];
+}
 
 - (void)testErrorWhenNoFile {
     NSError *error = nil;
@@ -340,6 +352,10 @@ SpecBegin(CASParser)
     expect(property.name).to.equal(@"textColor");
     expect(property.values).to.equal(@[@"orange"]);
     expect(node.deviceSelector.stringValue).to.equal(@"pad");
+    [given([mockDevice userInterfaceIdiom]) willReturnInteger:UIUserInterfaceIdiomPad];
+    expect(node.deviceSelector.isValid).to.beTruthy();
+    [given([mockDevice userInterfaceIdiom]) willReturnInteger:UIUserInterfaceIdiomPhone];
+    expect(node.deviceSelector.isValid).to.beFalsy();
 
     node = styles[2];
     expect(node.styleSelector.stringValue).to.equal(@"UIButton");
@@ -351,6 +367,15 @@ SpecBegin(CASParser)
     expect(property.name).to.equal(@"textColor");
     expect(property.values).to.equal(@[@"orange"]);
     expect(node.deviceSelector.stringValue).to.equal(@"(version:>=6)");
+
+    [given([mockDevice systemVersion]) willReturn:@"6.1"];
+    expect(node.deviceSelector.isValid).to.beTruthy();
+    [given([mockDevice systemVersion]) willReturn:@"6.0.0"];
+    expect(node.deviceSelector.isValid).to.beTruthy();
+    [given([mockDevice systemVersion]) willReturn:@"7.0.4"];
+    expect(node.deviceSelector.isValid).to.beTruthy();
+    [given([mockDevice systemVersion]) willReturn:@"4.0.0"];
+    expect(node.deviceSelector.isValid).to.beFalsy();
 
     node = styles[3];
     expect(node.styleSelector.stringValue).to.equal(@"UIButton");
@@ -364,6 +389,11 @@ SpecBegin(CASParser)
     expect(node.styleSelector.stringValue).to.equal(@"UIButton");
     expect(node.styleProperties).to.haveCountOf(0);
     expect(node.deviceSelector.stringValue).to.equal(@"phone");
+
+    [given([mockDevice userInterfaceIdiom]) willReturnInteger:UIUserInterfaceIdiomPad];
+    expect(node.deviceSelector.isValid).to.beFalsy();
+    [given([mockDevice userInterfaceIdiom]) willReturnInteger:UIUserInterfaceIdiomPhone];
+    expect(node.deviceSelector.isValid).to.beTruthy();
 
     node = styles[5];
     expect(node.styleSelector.stringValue).to.equal(@"UIButton > UIControl");
@@ -393,6 +423,13 @@ SpecBegin(CASParser)
     expect(property.name).to.equal(@"textColor");
     expect(property.values).to.equal(@[@"brown"]);
     expect(node.deviceSelector.stringValue).to.equal(@"(version:<=6.1) and phone");
+
+    [given([mockDevice systemVersion]) willReturn:@"5.2"];
+    [given([mockDevice userInterfaceIdiom]) willReturnInteger:UIUserInterfaceIdiomPhone];
+    expect(node.deviceSelector.isValid).to.beTruthy();
+
+    [given([mockDevice userInterfaceIdiom]) willReturnInteger:UIUserInterfaceIdiomPad];
+    expect(node.deviceSelector.isValid).to.beFalsy();
 
     node = styles[9];
     expect(node.styleSelector.stringValue).to.equal(@"UIView");

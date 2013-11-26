@@ -36,6 +36,7 @@
 		DD52F106183DCB2600F31A3F /* Import-2.cas in Resources */ = {isa = PBXBuildFile; fileRef = DD52F103183DCB2600F31A3F /* Import-2.cas */; };
 		DD52F107183DCB2600F31A3F /* Import-Base.cas in Resources */ = {isa = PBXBuildFile; fileRef = DD52F104183DCB2600F31A3F /* Import-Base.cas */; };
 		DD592B13181DE5E800C30F7F /* Selectors-Nested.cas in Resources */ = {isa = PBXBuildFile; fileRef = DD592B12181DE5E800C30F7F /* Selectors-Nested.cas */; };
+		DD748A5C184446A700DE426A /* UIDevice+CASMockDevice.m in Sources */ = {isa = PBXBuildFile; fileRef = DD748A5B184446A700DE426A /* UIDevice+CASMockDevice.m */; };
 		DD7C18441827464C008110D7 /* Properties-Nested.cas in Resources */ = {isa = PBXBuildFile; fileRef = DD7C18431827464C008110D7 /* Properties-Nested.cas */; };
 		DD824863183964CB00DDD6EF /* CASExampleViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = DD824862183964CB00DDD6EF /* CASExampleViewController.m */; };
 		DD8248651839684700DDD6EF /* UIView_CASAdditionsSpec.m in Sources */ = {isa = PBXBuildFile; fileRef = DD8248641839684700DDD6EF /* UIView_CASAdditionsSpec.m */; };
@@ -98,6 +99,9 @@
 		DD52F103183DCB2600F31A3F /* Import-2.cas */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = "Import-2.cas"; sourceTree = "<group>"; };
 		DD52F104183DCB2600F31A3F /* Import-Base.cas */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = "Import-Base.cas"; sourceTree = "<group>"; };
 		DD592B12181DE5E800C30F7F /* Selectors-Nested.cas */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = "Selectors-Nested.cas"; sourceTree = "<group>"; };
+		DD748A5A184446A700DE426A /* UIDevice+CASMockDevice.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIDevice+CASMockDevice.h"; sourceTree = "<group>"; };
+		DD748A5B184446A700DE426A /* UIDevice+CASMockDevice.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIDevice+CASMockDevice.m"; sourceTree = "<group>"; };
+		DD748A5D184446F900DE426A /* CASSwizzler.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CASSwizzler.h; sourceTree = "<group>"; };
 		DD7C18431827464C008110D7 /* Properties-Nested.cas */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = "Properties-Nested.cas"; sourceTree = "<group>"; };
 		DD824861183964CB00DDD6EF /* CASExampleViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CASExampleViewController.h; sourceTree = "<group>"; };
 		DD824862183964CB00DDD6EF /* CASExampleViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CASExampleViewController.m; sourceTree = "<group>"; };
@@ -183,7 +187,6 @@
 			children = (
 				DD10AD3E181A16EA00A5B71D /* Integration Tests */,
 				DD10AD3F181A16EA00A5B71D /* Unit Tests */,
-				DDBF585A18113C850059B8D3 /* Supporting Files */,
 			);
 			path = Specs;
 			sourceTree = "<group>";
@@ -191,6 +194,10 @@
 		DDBF585A18113C850059B8D3 /* Supporting Files */ = {
 			isa = PBXGroup;
 			children = (
+				DDD3D4BB1810D8B100E378A2 /* ClassyTestsLoader */,
+				DD748A5D184446F900DE426A /* CASSwizzler.h */,
+				DD748A5A184446A700DE426A /* UIDevice+CASMockDevice.h */,
+				DD748A5B184446A700DE426A /* UIDevice+CASMockDevice.m */,
 				DD824861183964CB00DDD6EF /* CASExampleViewController.h */,
 				DD824862183964CB00DDD6EF /* CASExampleViewController.m */,
 				DDBF585F18113FCC0059B8D3 /* CASExampleView.h */,
@@ -201,6 +208,7 @@
 				DDBF585C18113C980059B8D3 /* ClassyTests-Prefix.pch */,
 			);
 			name = "Supporting Files";
+			path = Specs;
 			sourceTree = "<group>";
 		};
 		DDBF586F181145760059B8D3 /* Stylesheets */ = {
@@ -230,7 +238,7 @@
 			children = (
 				DDBF586F181145760059B8D3 /* Stylesheets */,
 				DDBF584518113C750059B8D3 /* Specs */,
-				DDD3D4BB1810D8B100E378A2 /* ClassyTestsLoader */,
+				DDBF585A18113C850059B8D3 /* Supporting Files */,
 				DDD3D48B1810D6DA00E378A2 /* Frameworks */,
 				DDD3D48A1810D6DA00E378A2 /* Products */,
 				5548B765C39C4F0FA776C911 /* Pods-ClassyTests.xcconfig */,
@@ -277,7 +285,8 @@
 				DDD3D4BE1810D8B100E378A2 /* main.m */,
 				DD43DA8A1810F5D40058FBC1 /* Classy-Prefix.pch */,
 			);
-			path = ClassyTestsLoader;
+			name = ClassyTestsLoader;
+			path = ../ClassyTestsLoader;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -461,6 +470,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				DD748A5C184446A700DE426A /* UIDevice+CASMockDevice.m in Sources */,
 				DD10AD51181A174A00A5B71D /* CASUIAppearanceSpec.m in Sources */,
 				DD10AD47181A16EA00A5B71D /* CASArgumentDescriptorSpec.m in Sources */,
 				DD10AD49181A16EA00A5B71D /* CASParserSpec.m in Sources */,

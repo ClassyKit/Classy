@@ -12,9 +12,9 @@
 
 - (BOOL)isValid {
     if (self.deviceType == CASDeviceTypePhone) {
-        return UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPhone;
+        return UIDevice.currentDevice.userInterfaceIdiom == UIUserInterfaceIdiomPhone;
     } else {
-        return UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPad;
+        return UIDevice.currentDevice.userInterfaceIdiom == UIUserInterfaceIdiomPad;
     }
 }
 
