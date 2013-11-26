@@ -17,6 +17,7 @@ UIView.widget {
 
 * Added support for images from documents/caches folder as well as from bundle. ([flippinjoe21](https://github.com/flippinjoe21))
 * Fixed Scrolling delaying the update of styling. Fixes [issue #16](https://github.com/cloudkite/Classy/issues/16)
+* Fixed style selector subclass matching with styleClass. Fixes [issue #18](https://github.com/cloudkite/Classy/issues/18)
 
 v0.1.0
 =======
