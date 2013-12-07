@@ -15,7 +15,7 @@ Classy gives you much greater control over which views are styled and with what 
 Classy features a very flexible, nestable syntax. 
 Classy makes `{`   `}`   `:`   `;` all optional so you can choose a style that suits you. It also saves you from worrying about small syntax mistakes like accidentally forgetting to end a line with a `;`
 
-This is a valid stylesheet 
+You can use `{`   `}`   `:`   `;` to delimit your stylesheets
 
 ```Scala
 @import "other_stylesheet.cas";
@@ -40,7 +40,7 @@ MYCustomView {
 }
 ```
 
-This is also a valid stylesheet
+**OR** you can use whitespace to delimit your sytlesheets
 
 ```Scala
 @import "other_stylesheet.cas"
