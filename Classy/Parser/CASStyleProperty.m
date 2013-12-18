@@ -233,6 +233,8 @@
             searchMask = NSCachesDirectory;
         } else if([scheme isEqualToString:@"documents"]) {
             searchMask = NSDocumentDirectory;
+        } else if([scheme isEqualToString:@"appsupport"]) {
+            searchMask = NSApplicationSupportDirectory;
         }
         
         if(searchMask != 0) {
