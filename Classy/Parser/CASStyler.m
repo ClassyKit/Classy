@@ -96,13 +96,11 @@
 
     // filter redundant nodes
     [self.styleNodes.copy enumerateObjectsUsingBlock:^(CASStyleNode *node, NSUInteger idx, BOOL *stop) {
-        // filter nodes with no properties
         if (!node.styleProperties.count) {
+            // remove nodes with no properties
             [self.styleNodes removeObjectAtIndex:idx];
-        }
-
-        // filter nodes where device selector is not valid
-        if (node.deviceSelector && !node.deviceSelector.isValid) {
+        } else if (node.deviceSelector && !node.deviceSelector.isValid) {
+            // remove nodes where device selector is not valid
             [self.styleNodes removeObjectAtIndex:idx];
         }
     }];
@@ -365,6 +363,7 @@
     // UILabel
     objectClassDescriptor = [self objectClassDescriptorForClass:UILabel.class];
     [objectClassDescriptor setArgumentDescriptors:@[lineBreakModeArg] forPropertyKey:@cas_propertykey(UILabel, lineBreakMode)];
+    [objectClassDescriptor setArgumentDescriptors:@[textAlignmentArg] forPropertyKey:@cas_propertykey(UILabel, textAlignment)];
 
     // UITextField
     // TODO border insets
