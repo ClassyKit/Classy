@@ -20,11 +20,11 @@
 
 @implementation CASObjectClassDescriptor
 
-- (id)initWithClass:(Class)class {
+- (id)initWithClass:(Class)aClass {
     self = [super init];
     if (!self) return nil;
 
-    self.objectClass = class;
+    self.objectClass = aClass;
     self.propertyDescriptorCache = NSMutableDictionary.new;
 
     return self;

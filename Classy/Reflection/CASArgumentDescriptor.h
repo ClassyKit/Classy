@@ -36,7 +36,7 @@ typedef NS_ENUM(NSUInteger, CASPrimitiveType) {
 
 + (instancetype)argWithObjCType:(const char *)type;
 + (instancetype)argWithType:(NSString *)type;
-+ (instancetype)argWithClass:(Class)class;
++ (instancetype)argWithClass:(Class)aClass;
 + (instancetype)argWithValuesByName:(NSDictionary *)valuesByName;
 + (instancetype)argWithName:(NSString *)name valuesByName:(NSDictionary *)valuesByName;
 
