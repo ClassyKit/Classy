@@ -32,9 +32,9 @@
     return descriptor;
 }
 
-+ (instancetype)argWithClass:(Class)class {
++ (instancetype)argWithClass:(Class)aClass {
     CASArgumentDescriptor *descriptor = CASArgumentDescriptor.new;
-    descriptor.argumentClass = class;
+    descriptor.argumentClass = aClass;
     return descriptor;
 }
 
