@@ -46,7 +46,7 @@
 /**
  *  Returns a cached CASObjectClassDescriptor if it exists or creates one
  */
-- (CASObjectClassDescriptor *)objectClassDescriptorForClass:(Class)class_;
+- (CASObjectClassDescriptor *)objectClassDescriptorForClass:(Class)aClass;
 
 /**
  *  Schedule update for styleable item.

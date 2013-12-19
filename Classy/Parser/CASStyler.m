@@ -128,8 +128,8 @@
 
 #pragma mark - private
 
-- (NSArray *)invocationsForClass:(Class)class_ styleProperty:(CASStyleProperty *)styleProperty keyPath:(NSString *)keypath {
-    CASObjectClassDescriptor *objectClassDescriptor = [self objectClassDescriptorForClass:class_];
+- (NSArray *)invocationsForClass:(Class)aClass styleProperty:(CASStyleProperty *)styleProperty keyPath:(NSString *)keypath {
+    CASObjectClassDescriptor *objectClassDescriptor = [self objectClassDescriptorForClass:aClass];
     CASPropertyDescriptor *propertyDescriptor = [objectClassDescriptor propertyDescriptorForKey:styleProperty.name];
 
     //Special case textAttributes
@@ -554,14 +554,14 @@
     [objectClassDescriptor setArgumentDescriptors:@[colorArg] forPropertyKey:@cas_propertykey(NSShadow, shadowColor)];
 }
 
-- (CASObjectClassDescriptor *)objectClassDescriptorForClass:(Class)class_ {
-    CASObjectClassDescriptor *objectClassDescriptor = [self.objectClassDescriptorCache objectForKey:class_];
+- (CASObjectClassDescriptor *)objectClassDescriptorForClass:(Class)aClass {
+    CASObjectClassDescriptor *objectClassDescriptor = [self.objectClassDescriptorCache objectForKey:aClass];
     if (!objectClassDescriptor) {
-        objectClassDescriptor = [[CASObjectClassDescriptor alloc] initWithClass:class_];
-        if (class_.superclass && ![NSObject.class isSubclassOfClass:class_.superclass] && ![UIResponder.class isSubclassOfClass:class_.superclass]) {
-            objectClassDescriptor.parent = [self objectClassDescriptorForClass:class_.superclass];
+        objectClassDescriptor = [[CASObjectClassDescriptor alloc] initWithClass:aClass];
+        if (aClass.superclass && ![NSObject.class isSubclassOfClass:aClass.superclass] && ![UIResponder.class isSubclassOfClass:aClass.superclass]) {
+            objectClassDescriptor.parent = [self objectClassDescriptorForClass:aClass.superclass];
         }
-        [self.objectClassDescriptorCache setObject:objectClassDescriptor forKey:class_];
+        [self.objectClassDescriptorCache setObject:objectClassDescriptor forKey:aClass];
     }
     return objectClassDescriptor;
 }

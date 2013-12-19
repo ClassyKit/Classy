@@ -26,7 +26,7 @@
  */
 @property (nonatomic, strong) NSDictionary *propertyKeyAliases;
 
-- (id)initWithClass:(Class)class_;
+- (id)initWithClass:(Class)aClass;
 
 - (NSInvocation *)invocationForPropertyDescriptor:(CASPropertyDescriptor *)propertyDescriptor;
 
