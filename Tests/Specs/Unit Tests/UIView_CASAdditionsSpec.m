@@ -44,19 +44,19 @@ SpecBegin(UIView_CASAdditions)
     window.hidden = NO;
     [window addSubview:view];
 
-    expect(view.updateStylingCount).to.equal(0);
+    expect(view.updateStylingCount).to.equal(1);
 
     view.cas_styleClass = @"change";
 
-    expect(view.updateStylingCount).to.equal(0);
-    expect(view.setNeedsUpdateStylingCount).to.equal(3);
+    expect(view.updateStylingCount).to.equal(1);
+    expect(view.setNeedsUpdateStylingCount).to.equal(2);
 
     // Run the loop
     [[NSRunLoop currentRunLoop] runMode:NSDefaultRunLoopMode
                                  beforeDate:[NSDate dateWithTimeIntervalSinceNow:0.1]];
 
-    expect(view.updateStylingCount).to.equal(1);
-    expect(view.setNeedsUpdateStylingCount).to.equal(3);
+    expect(view.updateStylingCount).to.equal(2);
+    expect(view.setNeedsUpdateStylingCount).to.equal(2);
 }
 
 SpecEnd
