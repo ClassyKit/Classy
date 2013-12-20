@@ -1,3 +1,11 @@
+v0.2.1
+======
+
+* Fixed crash when using media queries [issue #24](https://github.com/cloudkite/Classy/issues/24)
+* Added UILabel textAlignment
+* Fixed error with style selector nesting
+* Removed delay in style updates in didMoveToWindow
+
 v0.2.0
 ======
 
