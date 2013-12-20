@@ -15,12 +15,25 @@
 #import "CASExampleView.h"
 #import "UITextField+CASAdditions.h"
 #import "CASStyleNode.h"
+#import "UIDevice+CASMockDevice.h"
+
 
 @interface CASStyler ()
 @property (nonatomic, strong) NSMutableArray *styleNodes;
 @end
 
-SpecBegin(CASStyler)
+SpecBegin(CASStyler){
+    UIDevice *mockDevice;
+}
+
+- (void)setUp {
+    mockDevice = mock(UIDevice.class);
+    [UIDevice setMockDevice:mockDevice];
+}
+
+- (void)tearDown {
+    [UIDevice setMockDevice:nil];
+}
 
 - (void)testGetViewDescriptor {
     CASStyler *styler = CASStyler.new;
@@ -129,6 +142,64 @@ SpecBegin(CASStyler)
     expect(view.layer.shadowOffset).to.equal(UIOffsetMake(4, 4));
     expect(view.layer.shadowOpacity).to.equal(5);
     expect(view.layer.shadowRadius).to.equal(6);
+}
+
+- (void)testMediaQueriesOnPad {
+    [given([mockDevice userInterfaceIdiom]) willReturnInteger:UIUserInterfaceIdiomPad];
+    [given([mockDevice systemVersion]) willReturn:@"7.0.1"];
+    
+    CASStyler *styler = CASStyler.new;
+    NSString *filePath = [[NSBundle bundleForClass:self.class] pathForResource:@"Selectors-Media-Queries-styler.cas" ofType:nil];
+    
+    NSError *error = nil;
+    [styler setFilePath:filePath error:&error];
+    expect(error).to.beNil();
+    
+    expect(styler.styleNodes).to.haveCountOf(0);
+}
+
+- (void)testMediaQueriesOnPhone {
+    [given([mockDevice userInterfaceIdiom]) willReturnInteger:UIUserInterfaceIdiomPhone];
+    [given([mockDevice systemVersion]) willReturn:@"7.0.1"];
+    
+    CASStyler *styler = CASStyler.new;
+    NSString *filePath = [[NSBundle bundleForClass:self.class] pathForResource:@"Selectors-Media-Queries-styler.cas" ofType:nil];
+    
+    NSError *error = nil;
+    [styler setFilePath:filePath error:&error];
+    expect(error).to.beNil();
+    
+    expect(styler.styleNodes).to.haveCountOf(2);
+    
+    UILabel *view = UILabel.new;
+    CASStyleNode *node = styler.styleNodes[0];
+    expect(node.styleSelector.stringValue).to.equal(@"UILabel.label2");
+    view.cas_styleClass = @"label2";
+    [styler styleItem:view];
+    expect(view.textColor).to.equal([UIColor cas_colorWithHex:@"#00f"]);
+    expect(view.font).to.equal([UIFont fontWithName:@"HelveticaNeue" size:120]);
+}
+
+- (void)testMediaQueriesOnPhoneLessThan7 {
+    [given([mockDevice userInterfaceIdiom]) willReturnInteger:UIUserInterfaceIdiomPhone];
+    [given([mockDevice systemVersion]) willReturn:@"6.1"];
+    
+    CASStyler *styler = CASStyler.new;
+    NSString *filePath = [[NSBundle bundleForClass:self.class] pathForResource:@"Selectors-Media-Queries-styler.cas" ofType:nil];
+    
+    NSError *error = nil;
+    [styler setFilePath:filePath error:&error];
+    expect(error).to.beNil();
+    
+    expect(styler.styleNodes).to.haveCountOf(2);
+    
+    UILabel *view = UILabel.new;
+    CASStyleNode *node = styler.styleNodes[0];
+    expect(node.styleSelector.stringValue).to.equal(@"UILabel.label2");
+    view.cas_styleClass = @"label2";
+    [styler styleItem:view];
+    expect(view.textColor).to.equal([UIColor cas_colorWithHex:@"#0f0"]);
+    expect(view.font).to.equal([UIFont fontWithName:@"HelveticaNeue" size:120]);
 }
 
 SpecEnd

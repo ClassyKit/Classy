@@ -79,7 +79,7 @@
     _filePath = filePath;
 
     CASParser *parser = [CASParser parserFromFilePath:filePath error:error];
-    self.styleNodes = [parser.styleNodes mutableCopy];
+    NSArray *styleNodes = parser.styleNodes;
 
     if (self.watchFilePath) {
         NSString *directoryPath = [self.watchFilePath stringByDeletingLastPathComponent];
@@ -90,20 +90,23 @@
     }
 
 
-    if (!self.styleNodes.count) {
+    if (!styleNodes.count) {
         return;
     }
 
     // filter redundant nodes
-    [self.styleNodes.copy enumerateObjectsUsingBlock:^(CASStyleNode *node, NSUInteger idx, BOOL *stop) {
-        if (!node.styleProperties.count) {
-            // remove nodes with no properties
-            [self.styleNodes removeObjectAtIndex:idx];
-        } else if (node.deviceSelector && !node.deviceSelector.isValid) {
-            // remove nodes where device selector is not valid
-            [self.styleNodes removeObjectAtIndex:idx];
+    NSMutableArray *filteredNodes = NSMutableArray.new;
+    for (CASStyleNode *styleNode in styleNodes) {
+        // invalid if does not have any properties
+        BOOL invalid = !styleNode.styleProperties.count;
+        
+        // invalid if has deviceSelector and deviceSelector is not valid
+        invalid = invalid || (styleNode.deviceSelector && !styleNode.deviceSelector.isValid);
+        if (!invalid) {
+            [filteredNodes addObject:styleNode];
         }
-    }];
+    }
+    self.styleNodes = filteredNodes;
 
     // order descending by precedence
     [self.styleNodes sortWithOptions:NSSortStable usingComparator:^NSComparisonResult(CASStyleNode *n1, CASStyleNode *n2) {

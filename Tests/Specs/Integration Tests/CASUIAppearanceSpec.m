@@ -209,7 +209,6 @@ SpecBegin(CASUIAppearance)
     [CASStyler.defaultStyler styleItem:view];
 
     expect([view barTintColor]).to.equal([UIColor redColor]);
-    expect([view selectedImageTintColor]).to.equal([UIColor orangeColor]);
     expect([view backgroundImage].CGImage).to.equal([UIImage imageNamed:@"test_image_1"].CGImage);
     expect([view selectionIndicatorImage]).to.equal([UIImage imageNamed:@"test_image_2"]);
     expect([view shadowImage].CGImage).to.equal([UIImage imageNamed:@"test_image_3"].CGImage);

@@ -1,0 +1,11 @@
+@device iphone {
+    UILabel.label2 {
+        @media (version: < 7.0) {
+            text-color: #0f0;
+        }
+        @media (version: >= 7.0) {
+            text-color: #00f;
+        }
+        font: HelveticaNeue 120;
+    }
+}
