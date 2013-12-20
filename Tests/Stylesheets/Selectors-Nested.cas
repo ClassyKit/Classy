@@ -22,3 +22,13 @@ UITabBar.nice, UISegmentedControl.nice {
       border-width 3
   }
 }
+
+UITableViewCell {
+    normalBgColor $blue-color
+    selectedBgColor $light-blue-color
+    
+    UILabel {
+        font HelveticaNeue 14
+        text-alignment center
+    }
+}

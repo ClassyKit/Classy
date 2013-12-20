@@ -11,8 +11,7 @@ UIView.bordered, UIView.panel
     border-thickness: 2;
 
 UISlider,
-UINavigationBar.videoNavBar
-UIButton
+UINavigationBar.videoNavBar UIButton
 
  background-color #ffffff
  border-width: 3;

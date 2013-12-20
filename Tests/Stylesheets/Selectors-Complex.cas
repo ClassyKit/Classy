@@ -14,8 +14,7 @@ UIView.bordered, UIView.panel {
 }
 
 UISlider,
-UINavigationBar.videoNavBar
-UIButton[state:highlighted]
+UINavigationBar.videoNavBar UIButton[state:highlighted]
 {
     background-color #ffffff
     border-width: 3;

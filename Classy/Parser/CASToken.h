@@ -114,4 +114,13 @@ typedef NS_ENUM(NSInteger, CASTokenType) {
  */
 - (BOOL)isPossiblyExpression;
 
+
+/**
+ *  Returns whether the receiver could be a valid selector delimiting token.
+ *  However context will determine if it is definitely a selector delimiter
+ *
+ *  @return `YES` if it is possible that the receiver is a selector delimiter
+ */
+- (BOOL)isPossiblySelectorDelimiter;
+
 @end

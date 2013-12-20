@@ -135,4 +135,8 @@
         || (self.type == CASTokenTypeOperator);
 }
 
+- (BOOL)isPossiblySelectorDelimiter{
+    return self.type == CASTokenTypeLeftCurlyBrace || self.type == CASTokenTypeIndent;
+}
+
 @end

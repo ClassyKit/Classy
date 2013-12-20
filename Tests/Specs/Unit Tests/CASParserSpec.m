@@ -142,7 +142,7 @@ SpecBegin(CASParser) {
 
     expect(error).to.beNil();
 
-    expect(styles.count).to.equal(12);
+    expect(styles.count).to.equal(14);
     expect([styles[0] styleSelector].stringValue).to.equal(@"UIButton");
     expect([styles[1] styleSelector].stringValue).to.equal(@"UIButton > UIControl");
     expect([styles[2] styleSelector].stringValue).to.equal(@"UIButton UISlider");
@@ -155,6 +155,8 @@ SpecBegin(CASParser) {
     expect([styles[9] styleSelector].stringValue).to.equal(@"UISegmentedControl.nice UITextField");
     expect([styles[10] styleSelector].stringValue).to.equal(@"UITabBar.nice UITextField.nicer");
     expect([styles[11] styleSelector].stringValue).to.equal(@"UISegmentedControl.nice UITextField.nicer");
+    expect([styles[12] styleSelector].stringValue).to.equal(@"UITableViewCell");
+    expect([styles[13] styleSelector].stringValue).to.equal(@"UITableViewCell UILabel");
 
     // node 1
     CASStyleNode *node = styles[0];
@@ -218,11 +220,28 @@ SpecBegin(CASParser) {
     expect([node.styleProperties[0] name]).to.equal(@"borderWidth");
     expect([node.styleProperties[0] values]).to.equal(@[@3]);
 
-    // node 11
+    // node 12
     node = styles[11];
     expect(node.styleProperties).to.haveCountOf(1);
     expect([node.styleProperties[0] name]).to.equal(@"borderWidth");
     expect([node.styleProperties[0] values]).to.equal(@[@3]);
+    
+    // node 13
+    node = styles[12];
+    expect(node.styleProperties).to.haveCountOf(2);
+    expect([node.styleProperties[0] name]).to.equal(@"normalBgColor");
+    expect([node.styleProperties[0] values]).to.equal(@[@"$blue-color"]);
+    
+    expect([node.styleProperties[1] name]).to.equal(@"selectedBgColor");
+    expect([node.styleProperties[1] values]).to.equal(@[@"$light-blue-color"]);
+    
+    // node 14
+    node = styles[13];
+    expect(node.styleProperties).to.haveCountOf(2);
+    expect([node.styleProperties[0] name]).to.equal(@"font");
+    expect([node.styleProperties[0] values]).to.equal((@[@"HelveticaNeue", @14]));
+    expect([node.styleProperties[1] name]).to.equal(@"textAlignment");
+    expect([node.styleProperties[1] values]).to.equal((@[@"center"]));
 }
 
 - (void)testParseProperties {

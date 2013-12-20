@@ -14,8 +14,7 @@ UIView.bordered, UIControl.border {
 
 // you can seperate selectors on newlines
 UISlider,
-UINavigationBar
-UIButton
+UINavigationBar UIButton
     font-name helvetica
     size 40  50
     text-color: #444

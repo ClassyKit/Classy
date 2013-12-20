@@ -505,15 +505,24 @@ NSInteger const CASParseErrorFileContents = 2;
 
     NSInteger i = 1;
     CASToken *token = [self lookaheadByCount:i];
+    CASToken *previousNonWhitespaceToken;
     while (token && token.isPossiblySelector) {
-        token = [self lookaheadByCount:++i];
+        CASToken *nextToken = [self lookaheadByCount:++i];
+        //newline must be preceded by comma unless next token is selector delimiter
+        if (token.type == CASTokenTypeNewline && previousNonWhitespaceToken && ![previousNonWhitespaceToken valueIsEqualTo:@","] && !nextToken.isPossiblySelectorDelimiter) {
+            return nil;
+        }
+        if (![token isWhitespace]) {
+            previousNonWhitespaceToken = token;
+        }
+        token = nextToken;
     }
 
     if ([self isNestedPropertyAtIndex:i]) {
         return nil;
     }
 
-    if (token.type != CASTokenTypeLeftCurlyBrace && token.type != CASTokenTypeIndent) {
+    if (!token.isPossiblySelectorDelimiter) {
         return nil;
     }
 
