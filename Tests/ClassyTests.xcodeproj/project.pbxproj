@@ -28,6 +28,7 @@
 		DD10AD51181A174A00A5B71D /* CASUIAppearanceSpec.m in Sources */ = {isa = PBXBuildFile; fileRef = DD10AD50181A174A00A5B71D /* CASUIAppearanceSpec.m */; };
 		DD10AD53181A176000A5B71D /* CASCustomViewSpec.m in Sources */ = {isa = PBXBuildFile; fileRef = DD10AD52181A176000A5B71D /* CASCustomViewSpec.m */; };
 		DD10AD55181A1C9100A5B71D /* Properties-Args.cas in Resources */ = {isa = PBXBuildFile; fileRef = DD10AD54181A1C9100A5B71D /* Properties-Args.cas */; };
+		DD148307186482AC00E0F5EF /* Variables-Basic.cas in Resources */ = {isa = PBXBuildFile; fileRef = DD148306186482AC00E0F5EF /* Variables-Basic.cas */; };
 		DD175F8F1820C81900139EBE /* test_image_1.png in Resources */ = {isa = PBXBuildFile; fileRef = DD175F8B1820C81900139EBE /* test_image_1.png */; };
 		DD175F901820C81A00139EBE /* test_image_2.png in Resources */ = {isa = PBXBuildFile; fileRef = DD175F8C1820C81900139EBE /* test_image_2.png */; };
 		DD175F911820C81A00139EBE /* test_image_3.png in Resources */ = {isa = PBXBuildFile; fileRef = DD175F8D1820C81900139EBE /* test_image_3.png */; };
@@ -91,6 +92,7 @@
 		DD10AD50181A174A00A5B71D /* CASUIAppearanceSpec.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CASUIAppearanceSpec.m; sourceTree = "<group>"; };
 		DD10AD52181A176000A5B71D /* CASCustomViewSpec.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CASCustomViewSpec.m; sourceTree = "<group>"; };
 		DD10AD54181A1C9100A5B71D /* Properties-Args.cas */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = "Properties-Args.cas"; sourceTree = "<group>"; };
+		DD148306186482AC00E0F5EF /* Variables-Basic.cas */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = "Variables-Basic.cas"; sourceTree = "<group>"; };
 		DD175F8B1820C81900139EBE /* test_image_1.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = test_image_1.png; sourceTree = "<group>"; };
 		DD175F8C1820C81900139EBE /* test_image_2.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = test_image_2.png; sourceTree = "<group>"; };
 		DD175F8D1820C81900139EBE /* test_image_3.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = test_image_3.png; sourceTree = "<group>"; };
@@ -232,6 +234,7 @@
 				DD52F104183DCB2600F31A3F /* Import-Base.cas */,
 				DD52F102183DCB2600F31A3F /* Import-1.cas */,
 				DD52F103183DCB2600F31A3F /* Import-2.cas */,
+				DD148306186482AC00E0F5EF /* Variables-Basic.cas */,
 			);
 			path = Stylesheets;
 			sourceTree = "<group>";
@@ -374,6 +377,7 @@
 			files = (
 				DD10AD3A1819FA6800A5B71D /* Selectors-Hierarchy.cas in Resources */,
 				DD592B13181DE5E800C30F7F /* Selectors-Nested.cas in Resources */,
+				DD148307186482AC00E0F5EF /* Variables-Basic.cas in Resources */,
 				DD10AD55181A1C9100A5B71D /* Properties-Args.cas in Resources */,
 				DD10AD3D1819FA6800A5B71D /* UIKit-Basic.cas in Resources */,
 				DD10AD361819FA6800A5B71D /* CustomView-Basic.cas in Resources */,

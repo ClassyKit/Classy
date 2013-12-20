@@ -1,0 +1,23 @@
+$border-width = 2
+
+// vars delimited by ; or by newline
+$textInsets = 4 3 2 1; $defaultFontName = Avenir-Heavy;
+
+// semi colon optional
+$another-var =  2000
+
+UIView {
+  layer: @{
+    border-width: $border-width
+    shadow-radius: $another-var;
+  }
+}
+
+UITextField.one {
+  font: $defaultFontName 12;
+  text-insets: $textInsets
+}
+
+UITextField.two {
+  text-insets: 10 $another-var 20 30;
+}

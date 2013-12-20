@@ -384,12 +384,20 @@ NSInteger const CASParseErrorFileContents = 2;
 
         // collect value tokens, enclose in ()
         NSMutableArray *valueTokens = NSMutableArray.new;
-        [valueTokens addObject:[CASToken tokenOfType:CASTokenTypeLeftRoundBrace]];
+        NSInteger nonWhitespaceTokenCount = 0;
         while (token.type != CASTokenTypeNewline && token.type != CASTokenTypeSemiColon && token.type != CASTokenTypeEOS) {
             [valueTokens addObject:token];
+            if (!token.isWhitespace) {
+                nonWhitespaceTokenCount++;
+            }
             token = [self nextToken];
         }
-        [valueTokens addObject:[CASToken tokenOfType:CASTokenTypeRightRoundBrace]];
+        
+        // only wrap in braces if more than one non-whitespace token present
+        if (nonWhitespaceTokenCount > 1) {
+            [valueTokens insertObject:[CASToken tokenOfType:CASTokenTypeLeftRoundBrace value:@"("] atIndex:0];
+            [valueTokens addObject:[CASToken tokenOfType:CASTokenTypeRightRoundBrace value:@")"]];
+        }
 
         return [[CASStyleProperty alloc] initWithNameToken:refToken valueTokens:valueTokens];
     }

@@ -534,4 +534,54 @@ SpecBegin(CASParser) {
     expect(node.deviceSelector.stringValue).to.equal(@"(version:>5)");
 }
 
+- (void)testVariablesBasic {
+    NSError *error = nil;
+    NSString *filePath = [[NSBundle bundleForClass:self.class] pathForResource:@"Variables-Basic.cas" ofType:nil];
+    NSArray *styles = [CASParser parserFromFilePath:filePath error:&error].styleNodes;
+    expect(error).to.beNil();
+    
+    expect(styles).to.haveCountOf(3);
+    
+    CASStyleProperty *property;
+    CASStyleNode *node;
+    
+    node = styles[0];
+    expect(node.styleSelector.stringValue).to.equal(@"UIView");
+    expect(node.styleProperties).to.haveCountOf(1);
+    property = node.styleProperties[0];
+    expect(property.name).to.equal(@"layer");
+    
+    property = property.childStyleProperties[0];
+    expect(property.name).to.equal(@"borderWidth");
+    expect(property.values).to.equal(@[@2]);
+    expect(node.deviceSelector.stringValue).to.beNil();
+    
+    property = node.styleProperties[0];
+    property = property.childStyleProperties[1];
+    expect(property.name).to.equal(@"shadowRadius");
+    expect(property.values).to.equal(@[@2000]);
+    expect(node.deviceSelector.stringValue).to.beNil();
+    
+    node = styles[1];
+    expect(node.styleSelector.stringValue).to.equal(@"UITextField.one");
+    expect(node.styleProperties).to.haveCountOf(2);
+    property = node.styleProperties[0];
+    expect(property.name).to.equal(@"font");
+    expect(property.values).to.equal((@[@"Avenir-Heavy", @12]));
+    expect(node.deviceSelector.stringValue).to.beNil();
+    
+    property = node.styleProperties[1];
+    expect(property.name).to.equal(@"textInsets");
+    expect(property.values).to.equal((@[@"(", @4, @3, @2, @1, @")"]));
+    expect(node.deviceSelector.stringValue).to.beNil();
+    
+    node = styles[2];
+    expect(node.styleSelector.stringValue).to.equal(@"UITextField.two");
+    expect(node.styleProperties).to.haveCountOf(1);
+    property = node.styleProperties[0];
+    expect(property.name).to.equal(@"textInsets");
+    expect(property.values).to.equal((@[@10, @2000, @20, @30]));
+    expect(node.deviceSelector.stringValue).to.beNil();
+}
+
 SpecEnd
