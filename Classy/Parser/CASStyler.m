@@ -412,6 +412,10 @@
     [objectClassDescriptor setArgumentDescriptors:@[colorArg, stateArg] setter:@selector(setTitleShadowColor:forState:) forPropertyKey:@"titleShadowColor"];
 
     [objectClassDescriptor setArgumentDescriptors:@[imageArg, stateArg] setter:@selector(setBackgroundImage:forState:) forPropertyKey:@"backgroundImage"];
+    
+    [objectClassDescriptor setArgumentDescriptors:@[imageArg, stateArg] setter:@selector(setImage:forState:) forPropertyKey:@"image"];
+    
+    
 
     // UIBarButtonItem
     objectClassDescriptor = [self objectClassDescriptorForClass:UIBarButtonItem.class];
