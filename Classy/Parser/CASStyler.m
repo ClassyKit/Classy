@@ -629,7 +629,7 @@
 
 - (void)styleSubviewsOfView:(UIView *)view {
     for (UIView *subview in view.subviews) {
-        [self styleItem:subview];
+        [subview cas_updateStyling];
         [self styleSubviewsOfView:subview];
     }
 }
