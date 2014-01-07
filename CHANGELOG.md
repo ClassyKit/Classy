@@ -1,3 +1,10 @@
+v0.2.2
+======
+
+* Call `cas_updateStyling` on live reload
+* Added support for `[UIButton setImage:forState:]` ([skeeet](https://github.com/skeeet))
+* Only wrap variable values in brackets if variable has more than one value
+
 v0.2.1
 ======
 
