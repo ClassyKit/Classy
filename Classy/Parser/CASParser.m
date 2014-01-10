@@ -30,7 +30,7 @@ NSInteger const CASParseErrorFileContents = 2;
 @end
 
 @implementation CASParser {
-    NSMutableArray *_importedFileNames;
+    NSMutableSet *_importedFileNames;
 }
 
 + (CASParser *)parserFromFilePath:(NSString *)filePath error:(NSError **)error {
@@ -85,14 +85,14 @@ NSInteger const CASParseErrorFileContents = 2;
     return _error ?: self.lexer.error;
 }
 
-- (NSMutableArray *)importedFileNames {
+- (NSSet *)importedFileNames {
     return _importedFileNames;
 }
 
 - (NSArray *)parseString:(NSString *)string error:(NSError **)error {
     self.lexer = [[CASLexer alloc] initWithString:string];
     self.styleVars = NSMutableDictionary.new;
-    _importedFileNames = NSMutableArray.new;
+    _importedFileNames = NSMutableSet.new;
 
     NSMutableArray *allStyleNodes = NSMutableArray.new;
     NSMutableArray *styleNodesStack = NSMutableArray.new;
@@ -155,7 +155,7 @@ NSInteger const CASParseErrorFileContents = 2;
 
             [allStyleNodes addObjectsFromArray:parser.styleNodes];
             [self.styleVars addEntriesFromDictionary:parser.styleVars];
-            [_importedFileNames addObjectsFromArray:parser.importedFileNames];
+            [_importedFileNames addObjectsFromArray:parser.importedFileNames.allObjects];
 
             [self consumeTokensMatching:^BOOL(CASToken *token) {
                 return self.peekToken.type == CASTokenTypeNewline || self.peekToken.type == CASTokenTypeSemiColon;
