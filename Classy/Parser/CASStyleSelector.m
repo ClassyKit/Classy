@@ -54,7 +54,7 @@
             precedence += 4;
         }
         if (self.shouldSelectSubclasses) {
-            precedence -= 2;
+            precedence -= 1;
         }
     }
 

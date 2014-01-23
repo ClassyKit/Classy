@@ -56,6 +56,8 @@
 		DDD3D4C01810D8B100E378A2 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = DDD3D4BD1810D8B100E378A2 /* Images.xcassets */; };
 		DDD3D4C11810D8B100E378A2 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = DDD3D4BE1810D8B100E378A2 /* main.m */; };
 		DDD3D5001810DF7C00E378A2 /* test_image_5.png in Resources */ = {isa = PBXBuildFile; fileRef = DDD3D4FF1810DF7C00E378A2 /* test_image_5.png */; };
+		DDE7E51F18915B0600BA5718 /* Precedence-1.cas in Resources */ = {isa = PBXBuildFile; fileRef = DDE7E51D18915B0600BA5718 /* Precedence-1.cas */; };
+		DDE7E52018915B0600BA5718 /* Precedence-2.cas in Resources */ = {isa = PBXBuildFile; fileRef = DDE7E51E18915B0600BA5718 /* Precedence-2.cas */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -132,6 +134,8 @@
 		DDD3D4C71810D9A400E378A2 /* SenTestingKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SenTestingKit.framework; path = Library/Frameworks/SenTestingKit.framework; sourceTree = DEVELOPER_DIR; };
 		DDD3D4FF1810DF7C00E378A2 /* test_image_5.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = test_image_5.png; sourceTree = "<group>"; };
 		DDD3D5011810E02F00E378A2 /* QuartzCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = QuartzCore.framework; path = System/Library/Frameworks/QuartzCore.framework; sourceTree = SDKROOT; };
+		DDE7E51D18915B0600BA5718 /* Precedence-1.cas */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = "Precedence-1.cas"; sourceTree = "<group>"; };
+		DDE7E51E18915B0600BA5718 /* Precedence-2.cas */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = "Precedence-2.cas"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -235,6 +239,8 @@
 				DD52F102183DCB2600F31A3F /* Import-1.cas */,
 				DD52F103183DCB2600F31A3F /* Import-2.cas */,
 				DD148306186482AC00E0F5EF /* Variables-Basic.cas */,
+				DDE7E51D18915B0600BA5718 /* Precedence-1.cas */,
+				DDE7E51E18915B0600BA5718 /* Precedence-2.cas */,
 			);
 			path = Stylesheets;
 			sourceTree = "<group>";
@@ -375,6 +381,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				DDE7E51F18915B0600BA5718 /* Precedence-1.cas in Resources */,
 				DD10AD3A1819FA6800A5B71D /* Selectors-Hierarchy.cas in Resources */,
 				DD592B13181DE5E800C30F7F /* Selectors-Nested.cas in Resources */,
 				DD148307186482AC00E0F5EF /* Variables-Basic.cas in Resources */,
@@ -391,6 +398,7 @@
 				DD52F107183DCB2600F31A3F /* Import-Base.cas in Resources */,
 				DD2C8C931863D7E300F06746 /* Selectors-Media-Queries-styler.cas in Resources */,
 				DD52F105183DCB2600F31A3F /* Import-1.cas in Resources */,
+				DDE7E52018915B0600BA5718 /* Precedence-2.cas in Resources */,
 				DD10AD391819FA6800A5B71D /* Selectors-Complex.cas in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

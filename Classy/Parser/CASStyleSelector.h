@@ -70,7 +70,7 @@
  *   +4 view
  *
  *   if loose match (shouldSelectSubclasses)
- *    -2
+ *    -1
  *
  *  StyleClass matches
  *   +1000 ancestor

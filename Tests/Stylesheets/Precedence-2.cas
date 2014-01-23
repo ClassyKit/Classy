@@ -1,0 +1,13 @@
+^UIView {
+  UITextField {
+    text-insets: 5
+  }
+}
+
+UITextField {
+  text-insets: 10
+}
+
+UITextField.twenty {
+  text-insets: 20
+}

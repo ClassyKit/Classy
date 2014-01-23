@@ -122,7 +122,7 @@ SpecBegin(CASParser) {
     expect([styles[0] styleProperties]).to.haveCountOf(1);
 
     expect([styles[1] styleSelector].stringValue).to.equal(@"^UIView > UINavigationBar");
-    expect([styles[1] styleSelector].precedence).to.equal(4);
+    expect([styles[1] styleSelector].precedence).to.equal(5);
     expect([styles[1] styleProperties]).to.haveCountOf(2);
 
     expect([styles[2] styleSelector].stringValue).to.equal(@"UIView.bordered > UIView.panel");
@@ -131,7 +131,7 @@ SpecBegin(CASParser) {
     expect([styles[2] styleProperties]).to.haveCountOf(3);
 
     expect([styles[3] styleSelector].stringValue).to.equal(@"^UIView[state:selected] > UIImageView");
-    expect([styles[3] styleSelector].precedence).to.equal(4);
+    expect([styles[3] styleSelector].precedence).to.equal(5);
     expect([styles[3] styleProperties]).to.haveCountOf(4);
 }
 

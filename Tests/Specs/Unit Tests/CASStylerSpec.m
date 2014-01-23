@@ -202,4 +202,52 @@ SpecBegin(CASStyler){
     expect(view.font).to.equal([UIFont fontWithName:@"HelveticaNeue" size:120]);
 }
 
+- (void)testPrecedence1 {
+    CASStyler *styler = CASStyler.new;
+    NSString *filePath = [[NSBundle bundleForClass:self.class] pathForResource:@"Precedence-1.cas" ofType:nil];
+
+    NSError *error = nil;
+    [styler setFilePath:filePath error:&error];
+    expect(error).to.beNil();
+
+    expect(styler.styleNodes).to.haveCountOf(3);
+
+    UITextField *view = UITextField.new;
+    [styler styleItem:view];
+    expect(view.cas_textEdgeInsets).to.equal(UIEdgeInsetsMake(10, 10, 10, 10));
+
+    UIView *superview = UIView.new;
+    [superview addSubview:view];
+    [styler styleItem:view];
+    expect(view.cas_textEdgeInsets).to.equal(UIEdgeInsetsMake(5, 5, 5, 5));
+
+    view.cas_styleClass = @"twenty";
+    [styler styleItem:view];
+    expect(view.cas_textEdgeInsets).to.equal(UIEdgeInsetsMake(20, 20, 20, 20));
+}
+
+- (void)testPrecedence2 {
+    CASStyler *styler = CASStyler.new;
+    NSString *filePath = [[NSBundle bundleForClass:self.class] pathForResource:@"Precedence-2.cas" ofType:nil];
+
+    NSError *error = nil;
+    [styler setFilePath:filePath error:&error];
+    expect(error).to.beNil();
+
+    expect(styler.styleNodes).to.haveCountOf(3);
+
+    UITextField *view = UITextField.new;
+    [styler styleItem:view];
+    expect(view.cas_textEdgeInsets).to.equal(UIEdgeInsetsMake(10, 10, 10, 10));
+
+    UIView *superview = UIView.new;
+    [superview addSubview:view];
+    [styler styleItem:view];
+    expect(view.cas_textEdgeInsets).to.equal(UIEdgeInsetsMake(5, 5, 5, 5));
+
+    view.cas_styleClass = @"twenty";
+    [styler styleItem:view];
+    expect(view.cas_textEdgeInsets).to.equal(UIEdgeInsetsMake(20, 20, 20, 20));
+}
+
 SpecEnd
