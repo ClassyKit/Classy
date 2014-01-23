@@ -1,3 +1,9 @@
+v0.2.3
+======
+
+* Live reload, ensure imported stylesheet files are not watched more than once.
+* Subtract less precedence points for subclass matching [issue #30](https://github.com/cloudkite/Classy/issues/30)
+
 v0.2.2
 ======
 
