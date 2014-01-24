@@ -386,6 +386,15 @@
     };
     [objectClassDescriptor setArgumentDescriptors:@[[CASArgumentDescriptor argWithValuesByName:borderStyleMap]] forPropertyKey:@cas_propertykey(UITextField, borderStyle)];
 
+    NSDictionary *textFieldViewModeMap = @{
+                                           @"never"           : @(UITextFieldViewModeNever),
+                                           @"whileEditing"    : @(UITextFieldViewModeWhileEditing),
+                                           @"unlessEditing"   : @(UITextFieldViewModeUnlessEditing),
+                                           @"always"          : @(UITextFieldViewModeAlways),
+                                           };
+    [objectClassDescriptor setArgumentDescriptors:@[[CASArgumentDescriptor argWithValuesByName:textFieldViewModeMap]] forPropertyKey:@cas_propertykey(UITextField, leftViewMode)];
+    [objectClassDescriptor setArgumentDescriptors:@[[CASArgumentDescriptor argWithValuesByName:textFieldViewModeMap]] forPropertyKey:@cas_propertykey(UITextField, rightViewMode)];
+    [objectClassDescriptor setArgumentDescriptors:@[[CASArgumentDescriptor argWithValuesByName:textFieldViewModeMap]] forPropertyKey:@cas_propertykey(UITextField, clearButtonMode)];
     
     // UIControl
     objectClassDescriptor = [self objectClassDescriptorForClass:UIControl.class];
