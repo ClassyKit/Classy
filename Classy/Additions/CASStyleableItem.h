@@ -27,6 +27,18 @@
  */
 @property (nonatomic, weak, readonly) id<CASStyleableItem> cas_alternativeParent;
 
+//__AKN
+
+/**
+ *  adds a style class if it was not set previosly
+ */
+- (void) cas_addStyleClass:(NSString *)styleClass;
+
+/**
+ *  removes a style class if it was set previosly
+ */
+- (void) cas_removeStyleClass:(NSString *)styleClass;
+
 /**
  *  Peforms styling now if receiver needs styling
  */

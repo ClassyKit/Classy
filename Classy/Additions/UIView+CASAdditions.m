@@ -11,6 +11,7 @@
 #import <QuartzCore/QuartzCore.h>
 #import "NSObject+CASSwizzle.h"
 #import "CASStyler.h"
+#import "NSString+CASAdditions.h"
 
 static void *CASStyleHasBeenUpdatedKey = &CASStyleHasBeenUpdatedKey;
 
@@ -45,6 +46,16 @@ static void *CASStyleHasBeenUpdatedKey = &CASStyleHasBeenUpdatedKey;
     objc_setAssociatedObject(self, @selector(cas_styleClass), styleClass, OBJC_ASSOCIATION_RETAIN_NONATOMIC);
 
     [self cas_setNeedsUpdateStylingForSubviews];
+}
+
+- (void) cas_addStyleClass:(NSString *)styleClass
+{
+    self.cas_styleClass = [self.cas_styleClass cas_stringByAddingStyleClass:styleClass];
+}
+
+- (void)cas_removeStyleClass:(NSString *)styleClass
+{
+    self.cas_styleClass = [self.cas_styleClass cas_stringByRemovingStyleClass:styleClass];
 }
 
 - (id<CASStyleableItem>)cas_parent {

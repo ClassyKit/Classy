@@ -42,4 +42,26 @@
     return [self substringFromIndex:i];
 }
 
+
+- (NSString *)cas_stringByAddingStyleClass:(NSString *)styleClass
+{
+    NSArray *styleClasses = [self componentsSeparatedByCharactersInSet:[NSCharacterSet whitespaceCharacterSet]];
+    
+    if([styleClasses containsObject:styleClass])
+    {
+        return [self copy];
+    }
+    else
+    {
+        return [self stringByAppendingFormat:@" %@", styleClass];
+    }
+}
+
+- (NSString *)cas_stringByRemovingStyleClass:(NSString *)styleClass
+{
+    NSMutableArray *styleClasses = [[self componentsSeparatedByCharactersInSet:[NSCharacterSet whitespaceCharacterSet]] mutableCopy];
+    [styleClasses removeObject:styleClass];
+    
+    return [styleClasses componentsJoinedByString:@" "];
+}
 @end
