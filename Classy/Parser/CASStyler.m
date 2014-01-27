@@ -78,7 +78,7 @@
     if ([_filePath isEqualToString:filePath]) return;
     _filePath = filePath;
 
-    CASParser *parser = [CASParser parserFromFilePath:filePath error:error];
+    CASParser *parser = [CASParser parserFromFilePath:filePath variables:self.variables error:error];
     NSArray *styleNodes = parser.styleNodes;
 
     if (self.watchFilePath) {
@@ -161,8 +161,9 @@
 
         switch (argDescriptor.primitiveType) {
             case CASPrimitiveTypeBOOL: {
-                BOOL value = [[styleProperty valueOfTokenType:CASTokenTypeBoolean] boolValue];
-                [invocation setArgument:&value atIndex:argIndex];
+                id value = [styleProperty valueOfTokenType:CASTokenTypeBoolean] ?: [styleProperty valueOfTokenType:CASTokenTypeUnit];
+                BOOL boolValue = [value boolValue];
+                [invocation setArgument:&boolValue atIndex:argIndex];
                 break;
             }
             case CASPrimitiveTypeInteger: {

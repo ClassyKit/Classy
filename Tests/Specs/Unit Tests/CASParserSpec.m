@@ -30,7 +30,7 @@ SpecBegin(CASParser) {
 - (void)testErrorWhenNoFile {
     NSError *error = nil;
 
-    NSArray *styles = [CASParser parserFromFilePath:@"dummy.txt" error:&error].styleNodes;
+    NSArray *styles = [CASParser parserFromFilePath:@"dummy.txt" variables:nil error:&error].styleNodes;
     expect(error.domain).to.equal(CASParseErrorDomain);
     expect(error.code).to.equal(CASParseErrorFileContents);
 
@@ -44,14 +44,14 @@ SpecBegin(CASParser) {
     NSString *filePath = [[NSBundle bundleForClass:self.class] pathForResource:@"Selectors-Messy.cas" ofType:nil];
     NSError *error = nil;
 
-    NSArray *styles = [CASParser parserFromFilePath:filePath error:&error].styleNodes;
+    NSArray *styles = [CASParser parserFromFilePath:filePath variables:nil error:&error].styleNodes;
     expect(styles).notTo.beNil();
     expect(error).to.beNil();
 }
 
 - (void)testParseBasic {
     NSString *filePath = [[NSBundle bundleForClass:self.class] pathForResource:@"Selectors-Messy.cas" ofType:nil];
-    NSArray *styles = [CASParser parserFromFilePath:filePath error:nil].styleNodes;
+    NSArray *styles = [CASParser parserFromFilePath:filePath variables:nil error:nil].styleNodes;
 
     expect(styles.count).to.equal(7);
 
@@ -66,7 +66,7 @@ SpecBegin(CASParser) {
 
 - (void)testParseComplex {
     NSString *filePath = [[NSBundle bundleForClass:self.class] pathForResource:@"Selectors-Complex.cas" ofType:nil];
-    NSArray *styles = [CASParser parserFromFilePath:filePath error:nil].styleNodes;
+    NSArray *styles = [CASParser parserFromFilePath:filePath variables:nil error:nil].styleNodes;
 
     expect(styles.count).to.equal(6);
 
@@ -80,7 +80,7 @@ SpecBegin(CASParser) {
 
 - (void)testParseWithoutBraces {
     NSString *filePath = [[NSBundle bundleForClass:self.class] pathForResource:@"Selectors-Indentation.cas" ofType:nil];
-    NSArray *styles = [CASParser parserFromFilePath:filePath error:nil].styleNodes;
+    NSArray *styles = [CASParser parserFromFilePath:filePath variables:nil error:nil].styleNodes;
 
     expect(styles.count).to.equal(6);
 
@@ -112,7 +112,7 @@ SpecBegin(CASParser) {
 - (void)testParseDirectDescendant {
     NSError *error = nil;
     NSString *filePath = [[NSBundle bundleForClass:self.class] pathForResource:@"Selectors-Hierarchy.cas" ofType:nil];
-    NSArray *styles = [CASParser parserFromFilePath:filePath error:&error].styleNodes;
+    NSArray *styles = [CASParser parserFromFilePath:filePath variables:nil error:&error].styleNodes;
 
     expect(error).to.beNil();
     expect(styles.count).to.equal(4);
@@ -138,7 +138,7 @@ SpecBegin(CASParser) {
 - (void)testParseNestedSelectors {
     NSError *error = nil;
     NSString *filePath = [[NSBundle bundleForClass:self.class] pathForResource:@"Selectors-Nested.cas" ofType:nil];
-    NSArray *styles = [CASParser parserFromFilePath:filePath error:&error].styleNodes;
+    NSArray *styles = [CASParser parserFromFilePath:filePath variables:nil error:&error].styleNodes;
 
     expect(error).to.beNil();
 
@@ -246,7 +246,7 @@ SpecBegin(CASParser) {
 
 - (void)testParseProperties {
     NSString *filePath = [[NSBundle bundleForClass:self.class] pathForResource:@"Properties-Basic.cas" ofType:nil];
-    NSArray *styles = [CASParser parserFromFilePath:filePath error:nil].styleNodes;
+    NSArray *styles = [CASParser parserFromFilePath:filePath variables:nil error:nil].styleNodes;
 
     expect(styles.count).to.equal(5);
 
@@ -279,7 +279,7 @@ SpecBegin(CASParser) {
 
 - (void)testParsePropertyArguments {
     NSString *filePath = [[NSBundle bundleForClass:self.class] pathForResource:@"Properties-Args.cas" ofType:nil];
-    NSArray *styles = [CASParser parserFromFilePath:filePath error:nil].styleNodes;
+    NSArray *styles = [CASParser parserFromFilePath:filePath variables:nil error:nil].styleNodes;
 
     expect(styles.count).to.equal(1);
     CASStyleNode *node = styles[0];
@@ -299,7 +299,7 @@ SpecBegin(CASParser) {
 - (void)testParseNestedProperties {
     NSError *error = nil;
     NSString *filePath = [[NSBundle bundleForClass:self.class] pathForResource:@"Properties-Nested.cas" ofType:nil];
-    NSArray *styles = [CASParser parserFromFilePath:filePath error:&error].styleNodes;
+    NSArray *styles = [CASParser parserFromFilePath:filePath variables:nil error:&error].styleNodes;
     expect(error).to.beNil();
 
     expect(styles).to.haveCountOf(3);
@@ -345,7 +345,7 @@ SpecBegin(CASParser) {
 - (void)testMediaQueries {
     NSError *error = nil;
     NSString *filePath = [[NSBundle bundleForClass:self.class] pathForResource:@"Selectors-Media-Queries.cas" ofType:nil];
-    NSArray *styles = [CASParser parserFromFilePath:filePath error:&error].styleNodes;
+    NSArray *styles = [CASParser parserFromFilePath:filePath variables:nil error:&error].styleNodes;
     expect(error).to.beNil();
 
     expect(styles).to.haveCountOf(22);
@@ -537,7 +537,7 @@ SpecBegin(CASParser) {
 - (void)testVariablesBasic {
     NSError *error = nil;
     NSString *filePath = [[NSBundle bundleForClass:self.class] pathForResource:@"Variables-Basic.cas" ofType:nil];
-    NSArray *styles = [CASParser parserFromFilePath:filePath error:&error].styleNodes;
+    NSArray *styles = [CASParser parserFromFilePath:filePath variables:nil error:&error].styleNodes;
     expect(error).to.beNil();
     
     expect(styles).to.haveCountOf(3);

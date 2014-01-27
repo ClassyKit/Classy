@@ -250,4 +250,39 @@ SpecBegin(CASStyler){
     expect(view.cas_textEdgeInsets).to.equal(UIEdgeInsetsMake(20, 20, 20, 20));
 }
 
+- (void)testVariablesInjection {
+    CASStyler *styler = CASStyler.new;
+    NSString *filePath = [[NSBundle bundleForClass:self.class] pathForResource:@"Variables-Injection.cas" ofType:nil];
+
+    NSError *error = nil;
+    styler.variables = @{
+        @"$filename" : @"'Injected-File.cas'",
+        @"$namedColor" : @"purple",
+        @"$hexColor" : @"#333",
+        @"$bool" : @YES,
+        @"$unit" : @200,
+        @"$insets" : @"20, 15, 12, 10",
+    };
+    [styler setFilePath:filePath error:&error];
+    expect(error).to.beNil();
+
+    expect(styler.styleNodes).to.haveCountOf(2);
+
+    CASStyleNode *node = styler.styleNodes[0];
+    expect(node.styleSelector.stringValue).to.equal(@"UIView");
+    UIView *view2 = UIView.new;
+    [styler styleItem:view2];
+    expect(view2.backgroundColor).to.equal([UIColor purpleColor]);
+
+    node = styler.styleNodes[1];
+    expect(node.styleSelector.stringValue).to.equal(@"UITextField");
+
+    UITextField *view = UITextField.new;
+    [styler styleItem:view];
+    expect(view.textColor).to.equal([UIColor cas_colorWithHex:@"#333"]);
+    expect(view.cas_textEdgeInsets).to.equal(UIEdgeInsetsMake(20, 15, 12, 10));
+    expect(view.clearsOnBeginEditing).to.equal(YES);
+    expect(view.minimumFontSize).to.equal(200);
+}
+
 SpecEnd

@@ -33,7 +33,7 @@ NSInteger const CASParseErrorFileContents = 2;
     NSMutableSet *_importedFileNames;
 }
 
-+ (CASParser *)parserFromFilePath:(NSString *)filePath error:(NSError **)error {
++ (CASParser *)parserFromFilePath:(NSString *)filePath variables:(NSDictionary *)variables error:(NSError **)error {
     NSError *fileError = nil;
     NSString *contents = [NSString stringWithContentsOfFile:filePath
                                                    encoding:NSUTF8StringEncoding
@@ -60,6 +60,24 @@ NSInteger const CASParseErrorFileContents = 2;
     NSError *parseError = nil;
     CASParser *parser = CASParser.new;
     parser.filePath = filePath;
+    parser.styleVars = NSMutableDictionary.new;
+
+    //transform variables into tokens
+    [variables enumerateKeysAndObjectsUsingBlock:^(NSString *key, id obj, BOOL *stop) {
+        if ([obj isKindOfClass:CASStyleProperty.class]) {
+            parser.styleVars[key] = obj;
+            return;
+        }
+        NSString *stringValue = [obj isKindOfClass:NSString.class] ? obj : [obj stringValue];
+        CASLexer *lexer = [[CASLexer alloc] initWithString:stringValue];
+        CASToken *nameToken = [CASToken tokenOfType:CASTokenTypeRef value:key];
+
+        NSMutableArray *tokens = NSMutableArray.new;
+        while (lexer.peekToken && lexer.peekToken.type != CASTokenTypeEOS) {
+            [tokens addObject:lexer.nextToken];
+        }
+        parser.styleVars[key] = [[CASStyleProperty alloc] initWithNameToken:nameToken valueTokens:tokens];
+    }];
     parser.styleNodes = [parser parseString:contents error:&parseError];
 
     if (parseError) {
@@ -91,7 +109,6 @@ NSInteger const CASParseErrorFileContents = 2;
 
 - (NSArray *)parseString:(NSString *)string error:(NSError **)error {
     self.lexer = [[CASLexer alloc] initWithString:string];
-    self.styleVars = NSMutableDictionary.new;
     _importedFileNames = NSMutableSet.new;
 
     NSMutableArray *allStyleNodes = NSMutableArray.new;
@@ -133,6 +150,14 @@ NSInteger const CASParseErrorFileContents = 2;
 
             NSString *fileName = [[fileNameComponents componentsJoinedByString:@""] cas_stringByTrimmingWhitespace];
             fileName = [fileName stringByTrimmingCharactersInSet:[NSCharacterSet characterSetWithCharactersInString:@";"]];
+
+            if ([fileName hasPrefix:@"$"]) {
+                CASStyleProperty *property = self.styleVars[fileName];
+                if (property) {
+                    fileName = [property.values componentsJoinedByString:@""];
+                }
+            }
+
             if (!fileName.length) {
                 if (error) {
                     *error = [self.lexer errorWithDescription:@"@import does not specify file to import"
@@ -145,7 +170,7 @@ NSInteger const CASParseErrorFileContents = 2;
             [_importedFileNames addObject:fileName];
             NSString *filePath = [[self.filePath stringByDeletingLastPathComponent] stringByAppendingPathComponent:fileName];
             NSError *importError = nil;
-            CASParser *parser = [CASParser parserFromFilePath:filePath error:&importError];
+            CASParser *parser = [CASParser parserFromFilePath:filePath variables:self.styleVars error:&importError];
             if (importError) {
                 if (error) {
                     *error = importError;

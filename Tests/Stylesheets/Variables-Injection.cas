@@ -1,0 +1,8 @@
+@import $filename
+
+UITextField {
+  text-color $hexColor
+  clearsOnBeginEditing $bool
+  text-insets $insets
+  minimumFontSize $unit
+}

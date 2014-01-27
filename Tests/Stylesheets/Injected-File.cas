@@ -1,0 +1,3 @@
+UIView {
+  background-color $namedColor
+}

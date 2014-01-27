@@ -38,6 +38,7 @@
 		DD52F106183DCB2600F31A3F /* Import-2.cas in Resources */ = {isa = PBXBuildFile; fileRef = DD52F103183DCB2600F31A3F /* Import-2.cas */; };
 		DD52F107183DCB2600F31A3F /* Import-Base.cas in Resources */ = {isa = PBXBuildFile; fileRef = DD52F104183DCB2600F31A3F /* Import-Base.cas */; };
 		DD592B13181DE5E800C30F7F /* Selectors-Nested.cas in Resources */ = {isa = PBXBuildFile; fileRef = DD592B12181DE5E800C30F7F /* Selectors-Nested.cas */; };
+		DD5B2DB0189532DC00CB6531 /* Variables-Injection.cas in Resources */ = {isa = PBXBuildFile; fileRef = DD5B2DAF189532DC00CB6531 /* Variables-Injection.cas */; };
 		DD748A5C184446A700DE426A /* UIDevice+CASMockDevice.m in Sources */ = {isa = PBXBuildFile; fileRef = DD748A5B184446A700DE426A /* UIDevice+CASMockDevice.m */; };
 		DD7C18441827464C008110D7 /* Properties-Nested.cas in Resources */ = {isa = PBXBuildFile; fileRef = DD7C18431827464C008110D7 /* Properties-Nested.cas */; };
 		DD824863183964CB00DDD6EF /* CASExampleViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = DD824862183964CB00DDD6EF /* CASExampleViewController.m */; };
@@ -46,6 +47,7 @@
 		DD84B3E3183ACC370009ACAA /* GcovTestObserver.m in Sources */ = {isa = PBXBuildFile; fileRef = DD84B3E2183ACC370009ACAA /* GcovTestObserver.m */; };
 		DD85DDBF1841C1DC00126E8C /* Selectors-Media-Queries.cas in Resources */ = {isa = PBXBuildFile; fileRef = DD85DDBE1841C1DC00126E8C /* Selectors-Media-Queries.cas */; };
 		DD9389DE18206A0100C0FFA7 /* CASStyleSelectorSpec.m in Sources */ = {isa = PBXBuildFile; fileRef = DD9389DD18206A0100C0FFA7 /* CASStyleSelectorSpec.m */; };
+		DDB16C9A1895563900256EC6 /* Injected-File.cas in Resources */ = {isa = PBXBuildFile; fileRef = DDB16C991895563900256EC6 /* Injected-File.cas */; };
 		DDBF583418113BC10059B8D3 /* XCTest.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DDBF582518112ECA0059B8D3 /* XCTest.framework */; };
 		DDBF583518113BC10059B8D3 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DDD3D48C1810D6DA00E378A2 /* Foundation.framework */; };
 		DDBF583618113BC10059B8D3 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DDD3D4901810D6DA00E378A2 /* UIKit.framework */; };
@@ -105,6 +107,7 @@
 		DD52F103183DCB2600F31A3F /* Import-2.cas */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = "Import-2.cas"; sourceTree = "<group>"; };
 		DD52F104183DCB2600F31A3F /* Import-Base.cas */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = "Import-Base.cas"; sourceTree = "<group>"; };
 		DD592B12181DE5E800C30F7F /* Selectors-Nested.cas */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = "Selectors-Nested.cas"; sourceTree = "<group>"; };
+		DD5B2DAF189532DC00CB6531 /* Variables-Injection.cas */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = "Variables-Injection.cas"; sourceTree = "<group>"; };
 		DD748A5A184446A700DE426A /* UIDevice+CASMockDevice.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIDevice+CASMockDevice.h"; sourceTree = "<group>"; };
 		DD748A5B184446A700DE426A /* UIDevice+CASMockDevice.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIDevice+CASMockDevice.m"; sourceTree = "<group>"; };
 		DD748A5D184446F900DE426A /* CASSwizzler.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CASSwizzler.h; sourceTree = "<group>"; };
@@ -117,6 +120,7 @@
 		DD84B3E2183ACC370009ACAA /* GcovTestObserver.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GcovTestObserver.m; sourceTree = "<group>"; };
 		DD85DDBE1841C1DC00126E8C /* Selectors-Media-Queries.cas */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = "Selectors-Media-Queries.cas"; sourceTree = "<group>"; };
 		DD9389DD18206A0100C0FFA7 /* CASStyleSelectorSpec.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CASStyleSelectorSpec.m; sourceTree = "<group>"; };
+		DDB16C991895563900256EC6 /* Injected-File.cas */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = "Injected-File.cas"; sourceTree = "<group>"; };
 		DDBF582518112ECA0059B8D3 /* XCTest.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = XCTest.framework; path = Library/Frameworks/XCTest.framework; sourceTree = DEVELOPER_DIR; };
 		DDBF583318113BC10059B8D3 /* ClassyTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = ClassyTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		DDBF585018113C750059B8D3 /* XCTest+Spec.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "XCTest+Spec.h"; sourceTree = "<group>"; };
@@ -239,6 +243,8 @@
 				DD52F102183DCB2600F31A3F /* Import-1.cas */,
 				DD52F103183DCB2600F31A3F /* Import-2.cas */,
 				DD148306186482AC00E0F5EF /* Variables-Basic.cas */,
+				DD5B2DAF189532DC00CB6531 /* Variables-Injection.cas */,
+				DDB16C991895563900256EC6 /* Injected-File.cas */,
 				DDE7E51D18915B0600BA5718 /* Precedence-1.cas */,
 				DDE7E51E18915B0600BA5718 /* Precedence-2.cas */,
 			);
@@ -385,6 +391,7 @@
 				DD10AD3A1819FA6800A5B71D /* Selectors-Hierarchy.cas in Resources */,
 				DD592B13181DE5E800C30F7F /* Selectors-Nested.cas in Resources */,
 				DD148307186482AC00E0F5EF /* Variables-Basic.cas in Resources */,
+				DDB16C9A1895563900256EC6 /* Injected-File.cas in Resources */,
 				DD10AD55181A1C9100A5B71D /* Properties-Args.cas in Resources */,
 				DD10AD3D1819FA6800A5B71D /* UIKit-Basic.cas in Resources */,
 				DD10AD361819FA6800A5B71D /* CustomView-Basic.cas in Resources */,
@@ -398,6 +405,7 @@
 				DD52F107183DCB2600F31A3F /* Import-Base.cas in Resources */,
 				DD2C8C931863D7E300F06746 /* Selectors-Media-Queries-styler.cas in Resources */,
 				DD52F105183DCB2600F31A3F /* Import-1.cas in Resources */,
+				DD5B2DB0189532DC00CB6531 /* Variables-Injection.cas in Resources */,
 				DDE7E52018915B0600BA5718 /* Precedence-2.cas in Resources */,
 				DD10AD391819FA6800A5B71D /* Selectors-Complex.cas in Resources */,
 			);

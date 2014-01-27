@@ -17,6 +17,8 @@
  */
 + (instancetype)defaultStyler;
 
+@property (nonatomic, copy) NSDictionary *variables;
+
 /**
  *  File path which contains style data
  */
