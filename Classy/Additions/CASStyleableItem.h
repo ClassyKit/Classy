@@ -27,8 +27,6 @@
  */
 @property (nonatomic, weak, readonly) id<CASStyleableItem> cas_alternativeParent;
 
-//__AKN
-
 /**
  *  adds a style class if it was not set previosly
  */
