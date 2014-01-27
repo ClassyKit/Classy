@@ -143,7 +143,11 @@
             if (![item isMemberOfClass:self.objectClass]) return NO;
         }
     }
-    if (self.styleClass.length && ![self.styleClass isEqualToString:item.cas_styleClass]) {
+    
+    //get all styleClasses
+    NSArray *styleClasses = [item.cas_styleClass componentsSeparatedByCharactersInSet:[NSCharacterSet whitespaceCharacterSet]];
+    
+    if (self.styleClass.length && ![styleClasses containsObject:self.styleClass]) {
         return NO;
     }
     return YES;

@@ -55,8 +55,7 @@
         self.filePath = [[NSBundle mainBundle] pathForResource:@"stylesheet.cas" ofType:nil];
     }
     // TODO style lookup table to improve speed.
-
-    for (CASStyleNode *styleNode in self.styleNodes.reverseObjectEnumerator) {
+    for (CASStyleNode *styleNode in self.styleNodes) {
         if ([styleNode.styleSelector shouldSelectItem:item]) {
             // apply style nodes
             for (CASInvocation *invocation in styleNode.invocations) {
@@ -111,7 +110,7 @@
     // order descending by precedence
     [self.styleNodes sortWithOptions:NSSortStable usingComparator:^NSComparisonResult(CASStyleNode *n1, CASStyleNode *n2) {
         if (n1.styleSelector.precedence == n2.styleSelector.precedence) return NSOrderedSame;
-        if (n1.styleSelector.precedence <  n2.styleSelector.precedence) return NSOrderedDescending;
+        if (n1.styleSelector.precedence >  n2.styleSelector.precedence) return NSOrderedDescending;
         return NSOrderedAscending;
     }];
 
@@ -387,11 +386,11 @@
     [objectClassDescriptor setArgumentDescriptors:@[[CASArgumentDescriptor argWithValuesByName:borderStyleMap]] forPropertyKey:@cas_propertykey(UITextField, borderStyle)];
 
     NSDictionary *textFieldViewModeMap = @{
-                                           @"never"           : @(UITextFieldViewModeNever),
-                                           @"whileEditing"    : @(UITextFieldViewModeWhileEditing),
-                                           @"unlessEditing"   : @(UITextFieldViewModeUnlessEditing),
-                                           @"always"          : @(UITextFieldViewModeAlways),
-                                           };
+        @"never"           : @(UITextFieldViewModeNever),
+        @"whileEditing"    : @(UITextFieldViewModeWhileEditing),
+        @"unlessEditing"   : @(UITextFieldViewModeUnlessEditing),
+        @"always"          : @(UITextFieldViewModeAlways),
+    };
     [objectClassDescriptor setArgumentDescriptors:@[[CASArgumentDescriptor argWithValuesByName:textFieldViewModeMap]] forPropertyKey:@cas_propertykey(UITextField, leftViewMode)];
     [objectClassDescriptor setArgumentDescriptors:@[[CASArgumentDescriptor argWithValuesByName:textFieldViewModeMap]] forPropertyKey:@cas_propertykey(UITextField, rightViewMode)];
     [objectClassDescriptor setArgumentDescriptors:@[[CASArgumentDescriptor argWithValuesByName:textFieldViewModeMap]] forPropertyKey:@cas_propertykey(UITextField, clearButtonMode)];
