@@ -23,6 +23,7 @@
 @property (nonatomic, strong) NSMapTable *objectClassDescriptorCache;
 @property (nonatomic, strong) NSHashTable *scheduledItems;
 @property (nonatomic, strong) NSTimer *updateTimer;
+@property (nonatomic, strong) NSMutableArray *fileWatchers;
 
 @end
 
@@ -44,6 +45,7 @@
 
     self.objectClassDescriptorCache = NSMapTable.strongToStrongObjectsMapTable;
     self.scheduledItems = [NSHashTable hashTableWithOptions:NSHashTableWeakMemory];
+    self.fileWatchers = NSMutableArray.new;
     [self setupObjectClassDescriptors];
 
     return self;
@@ -66,6 +68,21 @@
     }
 }
 
+- (void)setVariables:(NSDictionary *)variables {
+    _variables = variables;
+
+    if (!self.filePath) return;
+
+    // if stylesheet has already been loaded. reload stylesheet
+    _filePath = nil;
+    self.filePath = _filePath;
+
+    // reapply styles
+    for (UIWindow *window in UIApplication.sharedApplication.windows) {
+        [self styleSubviewsOfView:window];
+    }
+}
+
 - (void)setFilePath:(NSString *)filePath {
     NSError *error = nil;
     [self setFilePath:filePath error:&error];
@@ -82,6 +99,11 @@
     NSArray *styleNodes = parser.styleNodes;
 
     if (self.watchFilePath) {
+        for (dispatch_source_t source in self.fileWatchers) {
+            dispatch_source_cancel(source);
+        }
+        [self.fileWatchers removeAllObjects];
+        [self reloadOnChangesToFilePath:self.watchFilePath];
         NSString *directoryPath = [self.watchFilePath stringByDeletingLastPathComponent];
         for (NSString *fileName in parser.importedFileNames) {
             NSString *resolvedPath = [directoryPath stringByAppendingPathComponent:fileName];
@@ -618,12 +640,10 @@
 - (void)setWatchFilePath:(NSString *)watchFilePath {
     _watchFilePath = watchFilePath;
     self.filePath = watchFilePath;
-
-    [self reloadOnChangesToFilePath:watchFilePath];
 }
 
 - (void)reloadOnChangesToFilePath:(NSString *)filePath {
-    [self.class watchForChangesToFilePath:filePath withCallback:^{
+    dispatch_source_t source = [self.class watchForChangesToFilePath:filePath withCallback:^{
         dispatch_async(dispatch_get_main_queue(), ^{
             // reload styles
             _filePath = nil;
@@ -635,6 +655,7 @@
             }
         });
     }];
+    [self.fileWatchers addObject:source];
 }
 
 - (void)styleSubviewsOfView:(UIView *)view {
@@ -644,7 +665,7 @@
     }
 }
 
-+ (void)watchForChangesToFilePath:(NSString *)filePath withCallback:(dispatch_block_t)callback {
++ (dispatch_source_t)watchForChangesToFilePath:(NSString *)filePath withCallback:(dispatch_block_t)callback {
     dispatch_queue_t queue = dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0);
     int fileDescriptor = open([filePath UTF8String], O_EVTONLY);
 
@@ -665,6 +686,7 @@
         close(fileDescriptor);
     });
     dispatch_resume(source);
+    return source;
 }
 
 @end
