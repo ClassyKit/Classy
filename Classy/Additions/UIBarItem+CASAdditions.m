@@ -9,6 +9,7 @@
 #import "UIBarItem+CASAdditions.h"
 #import <objc/runtime.h>
 #import "CASStyler.h"
+#import "NSString+CASAdditions.h"
 
 @implementation UIBarItem (CASAdditions)
 
@@ -23,6 +24,16 @@
     objc_setAssociatedObject(self, @selector(cas_styleClass), styleClass, OBJC_ASSOCIATION_RETAIN_NONATOMIC);
 
     [self cas_setNeedsUpdateStyling];
+}
+
+- (void) cas_addStyleClass:(NSString *)styleClass
+{
+    self.cas_styleClass = [self.cas_styleClass cas_stringByAddingStyleClass:styleClass];
+}
+
+- (void)cas_removeStyleClass:(NSString *)styleClass
+{
+    self.cas_styleClass = [self.cas_styleClass cas_stringByRemovingStyleClass:styleClass];
 }
 
 - (id<CASStyleableItem>)cas_parent {

@@ -11,6 +11,8 @@
 #import "UIView+CASAdditions.h"
 #import <objc/runtime.h>
 #import "CASStyler.h"
+#import "NSString+CASAdditions.h"
+
 
 static void *CASStyleHasBeenUpdatedKey = &CASStyleHasBeenUpdatedKey;
 
@@ -39,6 +41,16 @@ static void *CASStyleHasBeenUpdatedKey = &CASStyleHasBeenUpdatedKey;
 
     [self cas_setNeedsUpdateStyling];
     [self.view cas_setNeedsUpdateStylingForSubviews];
+}
+
+- (void) cas_addStyleClass:(NSString *)styleClass
+{
+    self.cas_styleClass = [self.cas_styleClass cas_stringByAddingStyleClass:styleClass];
+}
+
+- (void)cas_removeStyleClass:(NSString *)styleClass
+{
+    self.cas_styleClass = [self.cas_styleClass cas_stringByRemovingStyleClass:styleClass];
 }
 
 - (id<CASStyleableItem>)cas_parent {
