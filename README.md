@@ -71,4 +71,4 @@ For more details about these features and more visit [classy.as](http://classy.a
 - Syntax inspired by [stylus](http://learnboost.github.io/stylus/)
 - Property reflection [Mantle](https://github.com/github/mantle)
 
-
+[![Bitdeli Badge](https://d2weczhvl823v0.cloudfront.net/cloudkite/classy/trend.png)](https://bitdeli.com/free "Bitdeli Badge")
