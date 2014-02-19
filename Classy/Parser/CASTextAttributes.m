@@ -47,7 +47,8 @@
     dictionary[NSKernAttributeName] = @(self.kern);
     dictionary[NSStrikethroughStyleAttributeName] = @(self.strikethroughStyle);
     dictionary[NSUnderlineStyleAttributeName] = @(self.underlineStyle);
-
+    dictionary[NSBaselineOffsetAttributeName] = @(self.baselineOffset);
+    
     if (self.strokeColor) {
         dictionary[NSStrokeColorAttributeName] = self.strokeColor;
     }
