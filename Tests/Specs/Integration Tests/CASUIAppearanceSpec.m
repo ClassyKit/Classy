@@ -174,6 +174,17 @@ SpecBegin(CASUIAppearance)
     UISlider *view = UISlider.new;
     [CASStyler.defaultStyler styleItem:view];
 
+    expect([view minimumTrackImageForState:UIControlStateNormal]).to.equal([UIImage imageNamed:@"test_image_1"]);
+    expect([view minimumTrackImageForState:UIControlStateHighlighted]).to.equal([UIImage imageNamed:@"test_image_2"]);
+    expect([view maximumTrackImageForState:UIControlStateNormal]).to.equal([UIImage imageNamed:@"test_image_1"]);
+    expect([view maximumTrackImageForState:UIControlStateHighlighted]).to.equal([UIImage imageNamed:@"test_image_2"]);
+    expect([view thumbImageForState:UIControlStateNormal]).to.equal([UIImage imageNamed:@"test_image_1"]);
+    expect([view thumbImageForState:UIControlStateHighlighted]).to.equal([UIImage imageNamed:@"test_image_2"]);
+
+    // The slider cannot have both tint colors and custom images. So we need to test seperately
+    view.cas_styleClass = @"tinted";
+    [CASStyler.defaultStyler styleItem:view];
+    
     expect([view minimumTrackTintColor]).to.equal([UIColor blackColor]);
     expect([view maximumTrackTintColor]).to.equal([UIColor purpleColor]);
     expect([view thumbTintColor]).to.equal([UIColor yellowColor]);

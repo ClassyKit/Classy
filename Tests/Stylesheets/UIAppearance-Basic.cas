@@ -116,10 +116,19 @@ UISegmentedControl {
   contentPositionAdjustment[segmentType:left, barMetrics:landscape-phone] 1, 6
 }
 
-UISlider {
+UISlider.tinted {
   minimumTrackTintColor black
   maximumTrackTintColor purple
   thumbTintColor yellow
+}
+
+UISlider {
+  minimum-track-image[state:normal] test_image_1
+  minimum-track-image[state:highlighted] test_image_2
+  maximum-track-image[state:normal] test_image_1
+  maximum-track-image[state:highlighted] test_image_2
+  thumb-image[state:normal] test_image_1
+  thumb-image[state:highlighted] test_image_2
 }
 
 UIStepper {
