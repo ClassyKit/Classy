@@ -590,6 +590,12 @@
     // NSShadow
     objectClassDescriptor = [self objectClassDescriptorForClass:NSShadow.class];
     [objectClassDescriptor setArgumentDescriptors:@[colorArg] forPropertyKey:@cas_propertykey(NSShadow, shadowColor)];
+
+    // UISlider
+    objectClassDescriptor = [self objectClassDescriptorForClass:UISlider.class];
+    [objectClassDescriptor setArgumentDescriptors:@[imageArg, stateArg] setter:@selector(setMinimumTrackImage:forState:) forPropertyKey:@"minimumTrackImage"];
+    [objectClassDescriptor setArgumentDescriptors:@[imageArg, stateArg] setter:@selector(setMaximumTrackImage:forState:) forPropertyKey:@"maximumTrackImage"];
+    [objectClassDescriptor setArgumentDescriptors:@[imageArg, stateArg] setter:@selector(setThumbImage:forState:) forPropertyKey:@"thumbImage"];
 }
 
 - (CASObjectClassDescriptor *)objectClassDescriptorForClass:(Class)aClass {
