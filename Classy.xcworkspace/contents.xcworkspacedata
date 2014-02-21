@@ -176,6 +176,12 @@
          <FileRef
             location = "group:UIViewController+CASAdditions.m">
          </FileRef>
+         <FileRef
+            location = "group:UISlider+CASAdditions.h">
+         </FileRef>
+         <FileRef
+            location = "group:UISlider+CASAdditions.m">
+         </FileRef>
       </Group>
       <Group
          location = "group:Reflection"
