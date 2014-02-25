@@ -25,6 +25,7 @@
 @property (nonatomic, strong) UIColor *strokeColor;
 @property (nonatomic, assign) CGFloat strokeWidth;
 @property (nonatomic, strong) NSShadow *shadow;
+@property (nonatomic, assign) CGFloat baselineOffset;
 
 /**
  *  Transformer receiver into appropriate NSDictionary
