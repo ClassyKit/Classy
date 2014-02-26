@@ -477,6 +477,7 @@
         [objectClassDescriptor setArgumentDescriptors:@[imageArg, barMetricsArg] setter:@selector(setBackgroundImage:forBarMetrics:) forPropertyKey:@"backgroundImage"];
     }
 
+    [objectClassDescriptor setArgumentDescriptors:@[boolArg] forPropertyKey:@cas_propertykey(UINavigationBar, translucent)];
     [objectClassDescriptor setArgumentDescriptors:@[floatArg, barMetricsArg] setter:@selector(setTitleVerticalPositionAdjustment:forBarMetrics:) forPropertyKey:@"titleVerticalPositionAdjustment"];
 
     // UISearchBar
@@ -542,6 +543,8 @@
             @"black"   : @(UIBarStyleBlack),
         };
         [objectClassDescriptor setArgumentDescriptors:@[[CASArgumentDescriptor argWithValuesByName:barStyleMap]] forPropertyKey:@cas_propertykey(UITabBar, barStyle)];
+        
+        [objectClassDescriptor setArgumentDescriptors:@[boolArg] forPropertyKey:@cas_propertykey(UITabBar, translucent)];
     }
 
     // UITabBarItem
