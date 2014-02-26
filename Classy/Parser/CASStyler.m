@@ -353,6 +353,7 @@
     CASArgumentDescriptor *imageArg = [CASArgumentDescriptor argWithClass:UIImage.class];
     CASArgumentDescriptor *barMetricsArg = [CASArgumentDescriptor argWithName:@"barMetrics" valuesByName:barMetricsMap];
     CASArgumentDescriptor *floatArg = [CASArgumentDescriptor argWithObjCType:@encode(CGFloat)];
+    CASArgumentDescriptor *boolArg = [CASArgumentDescriptor argWithObjCType:@encode(BOOL)];
     CASArgumentDescriptor *offsetArg = [CASArgumentDescriptor argWithObjCType:@encode(UIOffset)];
     CASArgumentDescriptor *searchIconArg = [CASArgumentDescriptor argWithName:@"icon" valuesByName:searchBarIconMap];
 
@@ -379,6 +380,7 @@
     [objectClassDescriptor setArgumentDescriptors:@[[CASArgumentDescriptor argWithValuesByName:contentModeMap]] forPropertyKey:@cas_propertykey(UIView, contentMode)];
 
     // some properties don't show up via reflection so we need to add them manually
+    [objectClassDescriptor setArgumentDescriptors:@[boolArg] forPropertyKey:@cas_propertykey(UIView, clipsToBounds)];
     [objectClassDescriptor setArgumentDescriptors:@[colorArg] forPropertyKey:@cas_propertykey(UIView, backgroundColor)];
     [objectClassDescriptor setArgumentDescriptors:@[colorArg] forPropertyKey:@cas_propertykey(UIView, tintColor)];
 

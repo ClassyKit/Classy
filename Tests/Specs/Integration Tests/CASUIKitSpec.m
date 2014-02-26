@@ -28,6 +28,7 @@ SpecBegin(CASUIKit)
     expect(view.layer.shadowRadius).to.equal(4);
 
     expect(view.contentMode).to.equal(UIViewContentModeScaleAspectFill);
+    expect(view.clipsToBounds).to.equal(YES);
 
     expect(view.tintColor).to.equal([UIColor blueColor]);
 }
