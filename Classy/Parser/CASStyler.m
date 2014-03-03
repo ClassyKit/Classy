@@ -621,11 +621,7 @@
     for (id<CASStyleableItem> item in self.scheduledItems.copy) {
         if (!item) continue;
         [item cas_updateStylingIfNeeded];
-        [self.scheduledItems removeObject:item];
     }
-
-    [self.updateTimer invalidate];
-    self.updateTimer = nil;
 }
 
 - (void)scheduleUpdateForItem:(id<CASStyleableItem>)item {
@@ -640,7 +636,7 @@
 - (void)unscheduleUpdateForItem:(id<CASStyleableItem>)item {
     [self.scheduledItems removeObject:item];
 
-    if (!self.scheduledItems.count == 0) {
+    if (self.scheduledItems.count == 0) {
         [self.updateTimer invalidate];
         self.updateTimer = nil;
     }
