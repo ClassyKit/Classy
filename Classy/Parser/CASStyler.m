@@ -24,6 +24,7 @@
 @property (nonatomic, strong) NSHashTable *scheduledItems;
 @property (nonatomic, strong) NSTimer *updateTimer;
 @property (nonatomic, strong) NSMutableArray *fileWatchers;
+@property (nonatomic, strong) NSMutableArray *invocationObjectArguments;
 
 @end
 
@@ -137,6 +138,7 @@
         return NSOrderedAscending;
     }];
 
+    self.invocationObjectArguments = NSMutableArray.new;
     // precompute values
     for (CASStyleNode *styleNode in self.styleNodes.reverseObjectEnumerator) {
         NSMutableArray *invocations = NSMutableArray.new;
@@ -163,7 +165,6 @@
     NSMutableArray *invocations = NSMutableArray.new;
     if (isTextAttributesProperty || !styleProperty.childStyleProperties.count) {
         invocation = [objectClassDescriptor invocationForPropertyDescriptor:propertyDescriptor];
-        [invocation retainArguments];
         invocationWrapper = [[CASInvocation alloc] initWithInvocation:invocation forKeyPath:keypath];
         [invocations addObject:invocationWrapper];
     }
@@ -237,6 +238,9 @@
             case CASPrimitiveTypeCGColorRef : {
                 UIColor *color = nil;
                 [styleProperty transformValuesToUIColor:&color];
+                if (color) {
+                    [self.invocationObjectArguments addObject:color];
+                }
                 CGColorRef colorRef = color.CGColor;
                 [invocation setArgument:&colorRef atIndex:argIndex];
             }
@@ -244,22 +248,15 @@
                 break;
         }
 
+        id objectArg = nil;
         if (argDescriptor.argumentClass == UIImage.class) {
-            UIImage *image = nil;
-            [styleProperty transformValuesToUIImage:&image];
-            [invocation setArgument:&image atIndex:argIndex];
+            [styleProperty transformValuesToUIImage:&objectArg];
         } else if (argDescriptor.argumentClass == UIColor.class) {
-            UIColor *color = nil;
-            [styleProperty transformValuesToUIColor:&color];
-            [invocation setArgument:&color atIndex:argIndex];
+            [styleProperty transformValuesToUIColor:&objectArg];
         } else if (argDescriptor.argumentClass == NSString.class) {
-            NSString *string = nil;
-            [styleProperty transformValuesToNSString:&string];
-            [invocation setArgument:&string atIndex:argIndex];
+            [styleProperty transformValuesToNSString:&objectArg];
         } else if (argDescriptor.argumentClass == UIFont.class) {
-            UIFont *font = nil;
-            [styleProperty transformValuesToUIFont:&font];
-            [invocation setArgument:&font atIndex:argIndex];
+            [styleProperty transformValuesToUIFont:&objectArg];
         }
 
         if (styleProperty.childStyleProperties.count) {
@@ -288,9 +285,14 @@
 
             // if textAttributes set argument to dictionary value
             if (isTextAttributesArg) {
-                NSDictionary *value = [target dictionary];
-                [invocation setArgument:&value atIndex:argIndex];
+                objectArg = [target dictionary];
+                [invocation setArgument:&objectArg atIndex:argIndex];
             }
+        }
+
+        if (objectArg != nil) {
+            [invocation setArgument:&objectArg atIndex:argIndex];
+            [self.invocationObjectArguments addObject:objectArg];
         }
     }];
     return invocations;
