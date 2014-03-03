@@ -5,21 +5,6 @@ UITableView UILabel {
   text-color $main-color
 }
 
-UINavigationController > CASSimpleFormViewController > UIView {
+^UIViewController > UIView {
   background-color: blue;
-}
-
-UIButton.documents {
-    background-color: yellow
-    background-image: 'documents://Ball.png' // You're in charge of the extension
-}
-
-UIButton.caches {
-    background-color: red
-    background-image: 'caches://Ball.png'
-}
-
-UIButton.bundle {
-    background-color: green
-    background-image: 'bundle://Ball'
 }
