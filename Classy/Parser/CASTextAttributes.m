@@ -7,6 +7,7 @@
 //
 
 #import "CASTextAttributes.h"
+#import "CASUtilities.h"
 
 @implementation CASTextAttributes
 
