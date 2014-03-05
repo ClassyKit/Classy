@@ -50,7 +50,7 @@ static void *CASStyleHasBeenUpdatedKey = &CASStyleHasBeenUpdatedKey;
 }
 
 - (void)cas_updateStylingIfNeeded {
-    if ([self cas_needsUpdateStyling] && self.view.window) {
+    if ([self cas_needsUpdateStyling]) {
         [self cas_updateStyling];
     }
 }
