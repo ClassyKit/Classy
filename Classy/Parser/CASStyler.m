@@ -625,6 +625,10 @@
         [item cas_updateStylingIfNeeded];
     }
 
+    if (self.scheduledItems.allObjects.count == 0) {
+        [self.updateTimer invalidate];
+        self.updateTimer = nil;
+    }
 }
 
 - (void)scheduleUpdateForItem:(id<CASStyleableItem>)item {
