@@ -1,3 +1,10 @@
+v0.2.4
+======
+
+* Fixed memory leak
+* Added ability to inject variables into stylesheets
+* Added various UIKit properties. Thanks awesome contributors
+
 v0.2.3
 ======
 
