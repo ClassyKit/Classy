@@ -620,16 +620,17 @@
 #pragma mark - sceduling
 
 - (void)updateScheduledItems {
-    for (id<CASStyleableItem> item in self.scheduledItems.copy) {
+    for (id<CASStyleableItem> item in self.scheduledItems.allObjects.copy) {
         if (!item) continue;
         [item cas_updateStylingIfNeeded];
     }
+
 }
 
 - (void)scheduleUpdateForItem:(id<CASStyleableItem>)item {
     [self.scheduledItems addObject:item];
 
-    if (self.scheduledItems.count && !self.updateTimer.isValid) {
+    if (self.scheduledItems.allObjects.count && !self.updateTimer.isValid) {
         self.updateTimer = [NSTimer timerWithTimeInterval:0.0 target:self selector:@selector(updateScheduledItems) userInfo:nil repeats:YES];
         [NSRunLoop.mainRunLoop addTimer:self.updateTimer forMode:NSRunLoopCommonModes];
     }
@@ -638,7 +639,7 @@
 - (void)unscheduleUpdateForItem:(id<CASStyleableItem>)item {
     [self.scheduledItems removeObject:item];
 
-    if (self.scheduledItems.count == 0) {
+    if (self.scheduledItems.allObjects.count == 0) {
         [self.updateTimer invalidate];
         self.updateTimer = nil;
     }
