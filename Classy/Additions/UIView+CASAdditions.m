@@ -51,7 +51,6 @@ static void *CASStyleHasBeenUpdatedKey = &CASStyleHasBeenUpdatedKey;
         }
     }];
     self.cas_styleClasses = [newStyleClasses copy];
-    [self cas_setNeedsUpdateStylingForSubviews];
 }
 
 - (NSSet *)cas_styleClasses {
@@ -61,7 +60,7 @@ static void *CASStyleHasBeenUpdatedKey = &CASStyleHasBeenUpdatedKey;
 - (void)setCas_styleClasses:(NSSet *)cas_styleClasses {
     if ([self.cas_styleClasses isEqual:cas_styleClasses]) return;
     objc_setAssociatedObject(self, @selector(cas_styleClasses), cas_styleClasses, OBJC_ASSOCIATION_RETAIN_NONATOMIC);
-    
+
     [self cas_setNeedsUpdateStylingForSubviews];
 }
 
