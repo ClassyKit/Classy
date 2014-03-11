@@ -144,10 +144,7 @@
         }
     }
     
-    //get all styleClasses
-    NSArray *styleClasses = [item.cas_styleClass componentsSeparatedByCharactersInSet:[NSCharacterSet whitespaceCharacterSet]];
-    
-    if (self.styleClass.length && ![styleClasses containsObject:self.styleClass]) {
+    if (self.styleClass.length && ![item.cas_styleClasses member:self.styleClass]) {
         return NO;
     }
     return YES;

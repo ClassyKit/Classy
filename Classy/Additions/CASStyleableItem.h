@@ -8,12 +8,24 @@
 
 #import <Foundation/Foundation.h>
 
+/**
+ *  separator string used to seperate multiple classes in the cas_styleClass property
+ */
+extern NSString *const CASStyleClassSeparator;
+
 @protocol CASStyleableItem <NSObject>
 
 /**
  *  NSString which should relate to a styleClass in your stylesheet
+ *  multiple style classes can be set by separating them with the string defined as CASStyleClassSeparator
+ *  this property will change cas_styleClasses and is a alternative accessor for the set of style classes (e.g. interface builder etc.)
  */
 @property (nonatomic, copy) NSString *cas_styleClass;
+
+/**
+ * NSSet of NSString elements which should relate to a styleClass in your stylesheet
+ */
+@property (nonatomic, copy) NSSet *cas_styleClasses;
 
 /**
  *  Direct parent of receiver

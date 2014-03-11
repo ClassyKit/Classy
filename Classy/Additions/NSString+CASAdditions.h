@@ -14,7 +14,5 @@
 - (NSString *)cas_stringByTrimmingWhitespace;
 - (NSString *)cas_stringByCamelCasing;
 - (NSString *)cas_stringByTrimmingLeadingCharactersInSet:(NSCharacterSet *)characterSet;
-- (NSString *)cas_stringByAddingStyleClass:(NSString *)styleClass;
-- (NSString *)cas_stringByRemovingStyleClass:(NSString *)styleClass;
 
 @end
