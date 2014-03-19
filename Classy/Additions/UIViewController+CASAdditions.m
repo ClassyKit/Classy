@@ -12,7 +12,6 @@
 #import <objc/runtime.h>
 #import "CASStyler.h"
 
-static void *CASStyleHasBeenUpdatedKey = &CASStyleHasBeenUpdatedKey;
 
 @implementation UIViewController (CASAdditions)
 
@@ -25,6 +24,8 @@ static void *CASStyleHasBeenUpdatedKey = &CASStyleHasBeenUpdatedKey;
     view.cas_alternativeParent = self;
 
     [self cas_setView:view];
+    
+    [self cas_setNeedsUpdateStyling];
 }
 
 #pragma mark - CASStyleableItem
@@ -57,16 +58,16 @@ static void *CASStyleHasBeenUpdatedKey = &CASStyleHasBeenUpdatedKey;
 
 - (void)cas_updateStyling {
     [CASStyler.defaultStyler styleItem:self];
-    objc_setAssociatedObject(self, CASStyleHasBeenUpdatedKey, @(YES), OBJC_ASSOCIATION_RETAIN_NONATOMIC);
+    objc_setAssociatedObject(self, @selector(cas_needsUpdateStyling), @(NO), OBJC_ASSOCIATION_RETAIN_NONATOMIC);
     [CASStyler.defaultStyler unscheduleUpdateForItem:self];
 }
 
 - (BOOL)cas_needsUpdateStyling {
-    return ![objc_getAssociatedObject(self, @selector(cas_needsUpdateStyling)) boolValue];
+    return [objc_getAssociatedObject(self, @selector(cas_needsUpdateStyling)) boolValue];
 }
 
 - (void)cas_setNeedsUpdateStyling {
-    objc_setAssociatedObject(self, CASStyleHasBeenUpdatedKey, @(NO), OBJC_ASSOCIATION_RETAIN_NONATOMIC);
+    objc_setAssociatedObject(self, @selector(cas_needsUpdateStyling), @(YES), OBJC_ASSOCIATION_RETAIN_NONATOMIC);
     [CASStyler.defaultStyler scheduleUpdateForItem:self];
 }
 
