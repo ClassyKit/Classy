@@ -38,6 +38,7 @@
 - (void)setCas_styleClasses:(NSSet *)cas_styleClasses {
     if ([self.cas_styleClasses isEqual:cas_styleClasses]) return;
     objc_setAssociatedObject(self, @selector(cas_styleClasses), cas_styleClasses, OBJC_ASSOCIATION_RETAIN_NONATOMIC);
+    [self cas_setNeedsUpdateStyling];
 }
 
 - (void) cas_addStyleClass:(NSString *)styleClass {
