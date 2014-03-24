@@ -58,6 +58,10 @@
     self.cas_styleClasses = [styleClasses copy];
 }
 
+- (BOOL)cas_hasStyleClass:(NSString *)styleClass {
+    return [self.cas_styleClasses containsObject:styleClass];
+}
+
 - (id<CASStyleableItem>)cas_parent {
     return objc_getAssociatedObject(self, @selector(cas_parent));
 }

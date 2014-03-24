@@ -85,6 +85,10 @@ static void *CASStyleHasBeenUpdatedKey = &CASStyleHasBeenUpdatedKey;
     [self cas_setNeedsUpdateStylingForSubviews];
 }
 
+- (BOOL)cas_hasStyleClass:(NSString *)styleClass {
+    return [self.cas_styleClasses containsObject:styleClass];
+}
+
 - (id<CASStyleableItem>)cas_parent {
     return self.superview;
 }

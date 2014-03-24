@@ -144,7 +144,7 @@
         }
     }
     
-    if (self.styleClass.length && ![item.cas_styleClasses member:self.styleClass]) {
+    if (self.styleClass.length && ![item cas_hasStyleClass:self.styleClass]) {
         return NO;
     }
     return YES;

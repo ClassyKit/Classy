@@ -58,7 +58,7 @@ static void *CASStyleHasBeenUpdatedKey = &CASStyleHasBeenUpdatedKey;
     [self.view cas_setNeedsUpdateStylingForSubviews];
 }
 
-- (void) cas_addStyleClass:(NSString *)styleClass {
+- (void)cas_addStyleClass:(NSString *)styleClass {
     if (styleClass.length == 0) return;
     if (self.cas_styleClasses == nil) {
         self.cas_styleClasses = [NSSet setWithObject:styleClass];
@@ -73,6 +73,10 @@ static void *CASStyleHasBeenUpdatedKey = &CASStyleHasBeenUpdatedKey;
     NSMutableSet *styleClasses = [NSMutableSet setWithSet:self.cas_styleClasses];
     [styleClasses removeObject:styleClass];
     self.cas_styleClasses = [styleClasses copy];
+}
+
+- (BOOL)cas_hasStyleClass:(NSString *)styleClass {
+    return [self.cas_styleClasses containsObject:styleClass];
 }
 
 - (id<CASStyleableItem>)cas_parent {

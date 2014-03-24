@@ -23,11 +23,6 @@ extern NSString *const CASStyleClassSeparator;
 @property (nonatomic, copy) NSString *cas_styleClass;
 
 /**
- * NSSet of NSString elements which should relate to a styleClass in your stylesheet
- */
-@property (nonatomic, copy) NSSet *cas_styleClasses;
-
-/**
  *  Direct parent of receiver
  *  ie in case of UIView will be self.superview
  */
@@ -42,12 +37,17 @@ extern NSString *const CASStyleClassSeparator;
 /**
  *  adds a style class if it was not set previosly
  */
-- (void) cas_addStyleClass:(NSString *)styleClass;
+- (void)cas_addStyleClass:(NSString *)styleClass;
 
 /**
  *  removes a style class if it was set previosly
  */
-- (void) cas_removeStyleClass:(NSString *)styleClass;
+- (void)cas_removeStyleClass:(NSString *)styleClass;
+
+/**
+ * Returns wether or not the receiver has a specific style class assigned
+ */
+- (BOOL)cas_hasStyleClass:(NSString *)styleClass;
 
 /**
  *  Peforms styling now if receiver needs styling
