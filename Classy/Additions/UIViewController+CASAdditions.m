@@ -12,6 +12,7 @@
 #import <objc/runtime.h>
 #import "CASStyler.h"
 #import "NSString+CASAdditions.h"
+#import "CASStyleClassUtilities.h"
 
 
 static void *CASStyleHasBeenUpdatedKey = &CASStyleHasBeenUpdatedKey;
@@ -27,56 +28,35 @@ static void *CASStyleHasBeenUpdatedKey = &CASStyleHasBeenUpdatedKey;
     view.cas_alternativeParent = self;
 
     [self cas_setView:view];
+    [self cas_setNeedsUpdateStyling];
 }
 
 #pragma mark - CASStyleableItem
 
 - (NSString *)cas_styleClass {
-    NSSet *styleClasses = self.cas_styleClasses;
-    return [styleClasses.allObjects componentsJoinedByString:CASStyleClassSeparator];
+    return [CASStyleClassUtilities styleClassForItem:self];
 }
 
 - (void)setCas_styleClass:(NSString *)styleClass {
-    NSArray *classCandidates = [styleClass componentsSeparatedByString:CASStyleClassSeparator];
-    NSMutableSet *newStyleClasses = [NSMutableSet set];
-    [classCandidates enumerateObjectsUsingBlock:^(NSString *styleClass, NSUInteger idx, BOOL *stop) {
-        if ([styleClass isKindOfClass:NSString.class] && styleClass.length > 0) {
-            [newStyleClasses addObject:styleClass];
-        }
-    }];
-    self.cas_styleClasses = [newStyleClasses copy];
-}
-
-- (NSSet *)cas_styleClasses {
-    return objc_getAssociatedObject(self, @selector(cas_styleClasses));
-}
-
-- (void)setCas_styleClasses:(NSSet *)cas_styleClasses {
-    if ([self.cas_styleClasses isEqual:cas_styleClasses]) return;
-    objc_setAssociatedObject(self, @selector(cas_styleClasses), cas_styleClasses, OBJC_ASSOCIATION_RETAIN_NONATOMIC);
+    [CASStyleClassUtilities setStyleClass:styleClass forItem:self];
     [self cas_setNeedsUpdateStyling];
     [self.view cas_setNeedsUpdateStylingForSubviews];
 }
 
 - (void)cas_addStyleClass:(NSString *)styleClass {
-    if (styleClass.length == 0) return;
-    if (self.cas_styleClasses == nil) {
-        self.cas_styleClasses = [NSSet setWithObject:styleClass];
-    }
-    else {
-        self.cas_styleClasses = [self.cas_styleClasses setByAddingObject:styleClass];
-    }
+    [CASStyleClassUtilities addStyleClass:styleClass forItem:self];
+    [self cas_setNeedsUpdateStyling];
+    [self.view cas_setNeedsUpdateStylingForSubviews];
 }
 
 - (void)cas_removeStyleClass:(NSString *)styleClass {
-    if (self.cas_styleClasses == nil || styleClass.length == 0) return;
-    NSMutableSet *styleClasses = [NSMutableSet setWithSet:self.cas_styleClasses];
-    [styleClasses removeObject:styleClass];
-    self.cas_styleClasses = [styleClasses copy];
+    [CASStyleClassUtilities removeStyleClass:styleClass forItem:self];
+    [self cas_setNeedsUpdateStyling];
+    [self.view cas_setNeedsUpdateStylingForSubviews];
 }
 
 - (BOOL)cas_hasStyleClass:(NSString *)styleClass {
-    return [self.cas_styleClasses containsObject:styleClass];
+    return [CASStyleClassUtilities item:self hasStyleClass:styleClass];
 }
 
 - (id<CASStyleableItem>)cas_parent {

@@ -18,10 +18,7 @@
 }
 
 - (void)cas_didMoveToWindow {
-    if (self.window) {
-        [self cas_updateStyling];
-    }
-
+    [self cas_updateStyling];
     [self cas_didMoveToWindow];
 }
 

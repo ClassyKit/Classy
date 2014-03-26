@@ -111,6 +111,12 @@
             location = "group:CASStyleableItem.h">
          </FileRef>
          <FileRef
+            location = "group:CASStyleClassUtilities.h">
+         </FileRef>
+         <FileRef
+            location = "group:CASStyleClassUtilities.m">
+         </FileRef>
+         <FileRef
             location = "group:NSObject+CASSwizzle.h">
          </FileRef>
          <FileRef
