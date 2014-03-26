@@ -58,7 +58,6 @@
         self.filePath = [[NSBundle mainBundle] pathForResource:@"stylesheet.cas" ofType:nil];
     }
     // TODO style lookup table to improve speed.
-
     for (CASStyleNode *styleNode in self.styleNodes.reverseObjectEnumerator) {
         if ([styleNode.styleSelector shouldSelectItem:item]) {
             // apply style nodes
@@ -414,11 +413,11 @@
     [objectClassDescriptor setArgumentDescriptors:@[[CASArgumentDescriptor argWithValuesByName:borderStyleMap]] forPropertyKey:@cas_propertykey(UITextField, borderStyle)];
 
     NSDictionary *textFieldViewModeMap = @{
-                                           @"never"           : @(UITextFieldViewModeNever),
-                                           @"whileEditing"    : @(UITextFieldViewModeWhileEditing),
-                                           @"unlessEditing"   : @(UITextFieldViewModeUnlessEditing),
-                                           @"always"          : @(UITextFieldViewModeAlways),
-                                           };
+        @"never"           : @(UITextFieldViewModeNever),
+        @"whileEditing"    : @(UITextFieldViewModeWhileEditing),
+        @"unlessEditing"   : @(UITextFieldViewModeUnlessEditing),
+        @"always"          : @(UITextFieldViewModeAlways),
+    };
     [objectClassDescriptor setArgumentDescriptors:@[[CASArgumentDescriptor argWithValuesByName:textFieldViewModeMap]] forPropertyKey:@cas_propertykey(UITextField, leftViewMode)];
     [objectClassDescriptor setArgumentDescriptors:@[[CASArgumentDescriptor argWithValuesByName:textFieldViewModeMap]] forPropertyKey:@cas_propertykey(UITextField, rightViewMode)];
     [objectClassDescriptor setArgumentDescriptors:@[[CASArgumentDescriptor argWithValuesByName:textFieldViewModeMap]] forPropertyKey:@cas_propertykey(UITextField, clearButtonMode)];

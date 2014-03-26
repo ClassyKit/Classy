@@ -143,7 +143,8 @@
             if (![item isMemberOfClass:self.objectClass]) return NO;
         }
     }
-    if (self.styleClass.length && ![self.styleClass isEqualToString:item.cas_styleClass]) {
+    
+    if (self.styleClass.length && ![item cas_hasStyleClass:self.styleClass]) {
         return NO;
     }
     return YES;
