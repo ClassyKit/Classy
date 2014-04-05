@@ -8,6 +8,7 @@
 
 #import "CASDeviceSelector.h"
 #import "NSString+CASAdditions.h"
+#import "CASDeviceScreenSize.h"
 
 @implementation CASDeviceSelector {
     NSMutableArray *_items;
@@ -36,33 +37,59 @@
     [_items addObject:item];
 }
 
-- (BOOL)addOSVersion:(NSString *)version {
-    CASRelation relation = CASRelationEqual;
+- (BOOL)addOSVersion:(NSString *)versionConstraint {
+    NSString *valueString = [self valueFromConstraint:versionConstraint];
+    NSString *relationString = [versionConstraint substringToIndex:versionConstraint.length - valueString.length];
 
-    NSCharacterSet *equalityCharacterSet = [NSCharacterSet characterSetWithCharactersInString:@">=<"];
-    NSString *versionNumberString = [version cas_stringByTrimmingLeadingCharactersInSet:equalityCharacterSet];
-    NSString *relationString = [version substringToIndex:version.length - versionNumberString.length];
-
-    if ([relationString isEqualToString:@"<"]) {
-        relation = CASRelationLessThan;
-    } else if ([relationString isEqualToString:@"<="]) {
-        relation = CASRelationLessThanOrEqual;
-    } else if ([relationString isEqualToString:@"=="]) {
-        relation = CASRelationEqual;
-    } else if ([relationString isEqualToString:@">="]) {
-        relation = CASRelationGreaterThanOrEqual;
-    } else if ([relationString isEqualToString:@">"]) {
-        relation = CASRelationGreaterThan;
-    } else if (relation == CASRelationEqual && relationString.length) {
-        return NO;
-    }
+    CASRelation relation = [self relationFromConstraint:relationString];
+    if (relation == CASRelationUndefined) return NO;
 
     CASDeviceOSVersionItem *item = CASDeviceOSVersionItem.new;
-    item.version = versionNumberString;
+    item.version = valueString;
     item.relation = relation;
     [_items addObject:item];
 
     return YES;
+}
+
+- (BOOL)addScreenSize:(NSString *)sizeConstraint dimension:(CASDeviceSelectorScreenDimension)dimension {
+    NSString *valueString = [self valueFromConstraint:sizeConstraint];
+    NSString *relationString = [sizeConstraint substringToIndex:sizeConstraint.length - valueString.length];
+
+    CASRelation relation = [self relationFromConstraint:relationString];
+    if (relation == CASRelationUndefined) return NO;
+
+    CASDeviceScreenSize *item = CASDeviceScreenSize.new;
+    item.value = valueString.floatValue;
+    item.relation = relation;
+    item.dimension = dimension;
+    [_items addObject:item];
+
+    return YES;
+}
+
+- (NSString *)valueFromConstraint:(NSString *)relation {
+    NSCharacterSet *equalityCharacterSet = [NSCharacterSet characterSetWithCharactersInString:@">=<"];
+    NSString *valueString = [relation cas_stringByTrimmingLeadingCharactersInSet:equalityCharacterSet];
+    return valueString;
+}
+
+- (CASRelation)relationFromConstraint:(NSString *)constraintString {
+    CASRelation relation = CASRelationEqual;
+    if ([constraintString isEqualToString:@"<"]) {
+        relation = CASRelationLessThan;
+    } else if ([constraintString isEqualToString:@"<="]) {
+        relation = CASRelationLessThanOrEqual;
+    } else if ([constraintString isEqualToString:@"=="]) {
+        relation = CASRelationEqual;
+    } else if ([constraintString isEqualToString:@">="]) {
+        relation = CASRelationGreaterThanOrEqual;
+    } else if ([constraintString isEqualToString:@">"]) {
+        relation = CASRelationGreaterThan;
+    } else if (relation == CASRelationEqual && constraintString.length) {
+       relation = CASRelationUndefined;
+    }
+    return relation;
 }
 
 - (BOOL)isValid {

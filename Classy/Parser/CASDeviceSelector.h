@@ -10,13 +10,19 @@
 #import "CASDeviceTypeItem.h"
 #import "CASDeviceOSVersionItem.h"
 
+typedef NS_ENUM(NSUInteger, CASDeviceSelectorScreenDimension) {
+    CASDeviceSelectorScreenDimensionWidth = 0,
+    CASDeviceSelectorScreenDimensionHeight,
+};
+
 @interface CASDeviceSelector : NSObject
 
 @property (nonatomic, strong, readonly) NSArray *items;
 
 - (void)addItems:(NSArray *)items;
 - (void)addDeviceType:(CASDeviceType)deviceType;
-- (BOOL)addOSVersion:(NSString *)version;
+- (BOOL)addOSVersion:(NSString *)versionConstraint;
+- (BOOL)addScreenSize:(NSString *)sizeConstraint dimension:(CASDeviceSelectorScreenDimension)dimension;
 
 - (BOOL)isValid;
 - (NSString *)stringValue;

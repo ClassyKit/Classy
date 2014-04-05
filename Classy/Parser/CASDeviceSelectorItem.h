@@ -14,6 +14,7 @@ typedef NS_ENUM(NSInteger, CASRelation) {
     CASRelationEqual = 0,
     CASRelationGreaterThanOrEqual = 1,
     CASRelationGreaterThan = 2,
+    CASRelationUndefined = NSNotFound,
 };
 
 @protocol CASDeviceSelectorItem <NSObject>
