@@ -79,9 +79,7 @@ static void *CASStyleHasBeenUpdatedKey = &CASStyleHasBeenUpdatedKey;
 }
 
 - (void)cas_updateStyling {
-    if (self.window) {
-        [CASStyler.defaultStyler styleItem:self];
-    }
+    [CASStyler.defaultStyler styleItem:self];
     objc_setAssociatedObject(self, CASStyleHasBeenUpdatedKey, @(YES), OBJC_ASSOCIATION_RETAIN_NONATOMIC);
     [CASStyler.defaultStyler unscheduleUpdateForItem:self];
 }
