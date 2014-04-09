@@ -492,6 +492,9 @@ NSInteger const CASParseErrorFileContents = 2;
                     NSString *heightConstraintString = [(itemRelation ?: @"") stringByAppendingString:(itemValue ?: @"")];
                     [currentNode.deviceSelector addScreenSize:heightConstraintString dimension:CASDeviceSelectorScreenDimensionHeight];
                 }
+				itemRelation = NSMutableString.new;
+				itemValue = NSMutableString.new;
+				
             } else if (token.type == CASTokenTypeLeftRoundBrace) {
                 //TODO unexpected token error
             } else if (token.type == CASTokenTypeRef) {

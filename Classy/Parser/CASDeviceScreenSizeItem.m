@@ -38,7 +38,7 @@
 
 - (NSString *)stringValue {
     NSString *dimensionString = self.dimension == CASDeviceSelectorScreenDimensionWidth ? @"width" : @"height";
-    return [NSString stringWithFormat:@"(size-%@:%@%.1f)", dimensionString, [CASDeviceSelector stringFromRelation:self.relation], self.value];
+    return [NSString stringWithFormat:@"(screen-%@:%@%.0f)", dimensionString, [CASDeviceSelector stringFromRelation:self.relation], self.value];
 }
 
 

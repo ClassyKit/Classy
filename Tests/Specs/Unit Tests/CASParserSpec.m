@@ -348,7 +348,7 @@ SpecBegin(CASParser) {
     NSArray *styles = [CASParser parserFromFilePath:filePath variables:nil error:&error].styleNodes;
     expect(error).to.beNil();
 
-    expect(styles).to.haveCountOf(22);
+    expect(styles).to.haveCountOf(26);
 
     CASStyleProperty *property;
     CASStyleNode *node;
@@ -532,6 +532,33 @@ SpecBegin(CASParser) {
     expect(property.name).to.equal(@"borderWidth");
     expect(property.values).to.equal(@[@3]);
     expect(node.deviceSelector.stringValue).to.equal(@"(version:>5)");
+	
+	node = styles[22];
+    property = node.styleProperties[0];
+    expect(property.name).to.equal(@"always");
+    expect(property.values).to.equal(@[@1]);
+	
+	node = styles[23];
+    property = node.styleProperties[0];
+    expect(property.name).to.equal(@"heighty");
+    expect(property.values).to.equal(@[@2]);
+	expect(node.deviceSelector.stringValue).to.equal(@"(screen-height:>200)");
+	
+	node = styles[24];
+    property = node.styleProperties[0];
+    expect(property.name).to.equal(@"combinedtrue");
+    expect(property.values).to.equal(@[@3]);
+	[given([mockDevice systemVersion]) willReturn:@"7.0"];
+	expect(node.deviceSelector.stringValue).to.equal(@"(screen-width:>100) and (version:>=6.0)");
+	expect(node.deviceSelector.isValid).to.beTruthy();
+	
+	node = styles[25];
+    property = node.styleProperties[0];
+    expect(property.name).to.equal(@"combinedfalse");
+    expect(property.values).to.equal(@[@4]);
+	[given([mockDevice systemVersion]) willReturn:@"6.0"];
+	expect(node.deviceSelector.stringValue).to.equal(@"(version:<6.0) and (screen-width:>100)");
+	expect(node.deviceSelector.isValid).to.beFalsy();
 }
 
 - (void)testVariablesBasic {
