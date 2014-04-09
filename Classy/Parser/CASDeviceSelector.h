@@ -23,8 +23,8 @@ typedef NS_ENUM(NSUInteger, CASDeviceSelectorScreenDimension) {
 
 - (void)addItems:(NSArray *)items;
 - (void)addDeviceType:(CASDeviceType)deviceType;
-- (BOOL)addOSVersion:(NSString *)versionConstraint;
-- (BOOL)addScreenSize:(NSString *)sizeConstraint dimension:(CASDeviceSelectorScreenDimension)dimension;
+- (BOOL)addOSVersion:(NSString *)versionExpression;
+- (BOOL)addScreenSize:(NSString *)sizeExpression dimension:(CASDeviceSelectorScreenDimension)dimension;
 
 - (BOOL)isValid;
 - (NSString *)stringValue;

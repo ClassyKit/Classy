@@ -37,11 +37,11 @@
     [_items addObject:item];
 }
 
-- (BOOL)addOSVersion:(NSString *)versionConstraint {
-    NSString *valueString = [self valueFromConstraint:versionConstraint];
-    NSString *relationString = [versionConstraint substringToIndex:versionConstraint.length - valueString.length];
+- (BOOL)addOSVersion:(NSString *)versionExpression {
+    NSString *valueString = [self valueFromExpression:versionExpression];
+    NSString *relationString = [versionExpression substringToIndex:versionExpression.length - valueString.length];
 
-    CASRelation relation = [self relationFromConstraint:relationString];
+    CASRelation relation = [self relationFromExpression:relationString];
     if (relation == CASRelationUndefined) return NO;
 
     CASDeviceOSVersionItem *item = CASDeviceOSVersionItem.new;
@@ -52,11 +52,11 @@
     return YES;
 }
 
-- (BOOL)addScreenSize:(NSString *)sizeConstraint dimension:(CASDeviceSelectorScreenDimension)dimension {
-    NSString *valueString = [self valueFromConstraint:sizeConstraint];
-    NSString *relationString = [sizeConstraint substringToIndex:sizeConstraint.length - valueString.length];
+- (BOOL)addScreenSize:(NSString *)sizeExpression dimension:(CASDeviceSelectorScreenDimension)dimension {
+    NSString *valueString = [self valueFromExpression:sizeExpression];
+    NSString *relationString = [sizeExpression substringToIndex:sizeExpression.length - valueString.length];
 
-    CASRelation relation = [self relationFromConstraint:relationString];
+    CASRelation relation = [self relationFromExpression:relationString];
     if (relation == CASRelationUndefined) return NO;
 
     CASDeviceScreenSizeItem *item = CASDeviceScreenSizeItem.new;
@@ -68,25 +68,25 @@
     return YES;
 }
 
-- (NSString *)valueFromConstraint:(NSString *)relation {
+- (NSString *)valueFromExpression:(NSString *)relation {
     NSCharacterSet *equalityCharacterSet = [NSCharacterSet characterSetWithCharactersInString:@">=<"];
     NSString *valueString = [relation cas_stringByTrimmingLeadingCharactersInSet:equalityCharacterSet];
     return valueString;
 }
 
-- (CASRelation)relationFromConstraint:(NSString *)constraintString {
+- (CASRelation)relationFromExpression:(NSString *)expression {
     CASRelation relation = CASRelationEqual;
-    if ([constraintString isEqualToString:@"<"]) {
+    if ([expression isEqualToString:@"<"]) {
         relation = CASRelationLessThan;
-    } else if ([constraintString isEqualToString:@"<="]) {
+    } else if ([expression isEqualToString:@"<="]) {
         relation = CASRelationLessThanOrEqual;
-    } else if ([constraintString isEqualToString:@"=="]) {
+    } else if ([expression isEqualToString:@"=="]) {
         relation = CASRelationEqual;
-    } else if ([constraintString isEqualToString:@">="]) {
+    } else if ([expression isEqualToString:@">="]) {
         relation = CASRelationGreaterThanOrEqual;
-    } else if ([constraintString isEqualToString:@">"]) {
+    } else if ([expression isEqualToString:@">"]) {
         relation = CASRelationGreaterThan;
-    } else if (relation == CASRelationEqual && constraintString.length) {
+    } else if (relation == CASRelationEqual && expression.length) {
        relation = CASRelationUndefined;
     }
     return relation;
