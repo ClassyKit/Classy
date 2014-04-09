@@ -19,6 +19,8 @@ typedef NS_ENUM(NSUInteger, CASDeviceSelectorScreenDimension) {
 
 @property (nonatomic, strong, readonly) NSArray *items;
 
++ (NSString *)stringFromRelation:(CASRelation)relation;
+
 - (void)addItems:(NSArray *)items;
 - (void)addDeviceType:(CASDeviceType)deviceType;
 - (BOOL)addOSVersion:(NSString *)versionConstraint;
