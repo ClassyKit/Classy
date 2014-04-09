@@ -8,7 +8,7 @@
 #import "CASDeviceSelector.h"
 
 
-@interface CASDeviceScreenSize : NSObject <CASDeviceSelectorItem>
+@interface CASDeviceScreenSizeItem : NSObject <CASDeviceSelectorItem>
 
 @property (nonatomic, assign) float value;
 @property (nonatomic, assign) CASRelation relation;

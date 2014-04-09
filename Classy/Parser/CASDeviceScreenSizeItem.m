@@ -3,9 +3,9 @@
 //  Copyright (c) 2014 SHAPE A/S. All rights reserved.
 //
 
-#import "CASDeviceScreenSize.h"
+#import "CASDeviceScreenSizeItem.h"
 
-@implementation CASDeviceScreenSize {
+@implementation CASDeviceScreenSizeItem {
 
 }
 

@@ -8,7 +8,7 @@
 
 #import "CASDeviceSelector.h"
 #import "NSString+CASAdditions.h"
-#import "CASDeviceScreenSize.h"
+#import "CASDeviceScreenSizeItem.h"
 
 @implementation CASDeviceSelector {
     NSMutableArray *_items;
@@ -59,7 +59,7 @@
     CASRelation relation = [self relationFromConstraint:relationString];
     if (relation == CASRelationUndefined) return NO;
 
-    CASDeviceScreenSize *item = CASDeviceScreenSize.new;
+    CASDeviceScreenSizeItem *item = CASDeviceScreenSizeItem.new;
     item.value = valueString.floatValue;
     item.relation = relation;
     item.dimension = dimension;
