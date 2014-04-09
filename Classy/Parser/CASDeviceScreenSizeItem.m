@@ -11,7 +11,13 @@
 
 - (BOOL)isValid {
     CGSize screenSize = [[UIScreen mainScreen] bounds].size;
-    CGFloat sizeInDimension = self.dimension == CASDeviceSelectorScreenDimensionWidth ? screenSize.width : screenSize.height;
+	BOOL isPad = UIDevice.currentDevice.userInterfaceIdiom == UIUserInterfaceIdiomPad;
+	CGFloat minDimension = MIN(screenSize.width, screenSize.height);
+	CGFloat maxDimension = MAX(screenSize.width, screenSize.height);
+	CGFloat width = isPad ?  maxDimension : minDimension;
+	CGFloat height = isPad ? minDimension : maxDimension;
+
+    CGFloat sizeInDimension = self.dimension == CASDeviceSelectorScreenDimensionWidth ? width : height;
 
     switch (self.relation) {
         case CASRelationLessThan:
