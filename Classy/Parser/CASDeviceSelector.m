@@ -115,24 +115,24 @@
 }
 
 + (NSString *)stringFromRelation:(CASRelation)relation {
-	switch (relation) {
-		case CASRelationLessThan:
-			return @"<";
-		case CASRelationLessThanOrEqual:
-			return @"<=";
-		case CASRelationEqual:
-			return @"";
-		case CASRelationGreaterThanOrEqual:
-			return @">=";
-		case CASRelationGreaterThan:
-			return @">";
-		case CASRelationUndefined:
-			NSAssert(NO, @"Relation should not be undefined");
-			return nil;
-		default:
-			NSAssert(NO, @"Relation should not be an undefined enum value");
-			return nil;
-	}
+    switch (relation) {
+        case CASRelationLessThan:
+            return @"<";
+        case CASRelationLessThanOrEqual:
+            return @"<=";
+        case CASRelationEqual:
+            return @"";
+        case CASRelationGreaterThanOrEqual:
+            return @">=";
+        case CASRelationGreaterThan:
+            return @">";
+        case CASRelationUndefined:
+            NSAssert(NO, @"Relation should not be undefined");
+            return nil;
+        default:
+            NSAssert(NO, @"Relation should not be an undefined enum value");
+            return nil;
+    }
 }
 
 @end

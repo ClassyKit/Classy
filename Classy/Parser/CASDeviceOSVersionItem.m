@@ -24,9 +24,9 @@
             return CASDeviceSystemVersionIsGreaterThanOrEqualTo(self.version);
         case CASRelationGreaterThan:
             return CASDeviceSystemVersionIsGreaterThan(self.version);
-		default:
-			NSAssert(NO, @"Invalid ralation");
-			return NO;
+        default:
+            NSAssert(NO, @"Invalid ralation");
+            return NO;
     }
 }
 
