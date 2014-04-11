@@ -116,7 +116,7 @@ SpecBegin(CASParser) {
 
     expect(error).to.beNil();
     expect(styles.count).to.equal(4);
-    
+
     expect([styles[0] styleSelector].stringValue).to.equal(@"UIButton > UIImageView.starImage");
     expect([styles[0] styleSelector].precedence).to.equal(3006);
     expect([styles[0] styleProperties]).to.haveCountOf(1);
@@ -225,16 +225,16 @@ SpecBegin(CASParser) {
     expect(node.styleProperties).to.haveCountOf(1);
     expect([node.styleProperties[0] name]).to.equal(@"borderWidth");
     expect([node.styleProperties[0] values]).to.equal(@[@3]);
-    
+
     // node 13
     node = styles[12];
     expect(node.styleProperties).to.haveCountOf(2);
     expect([node.styleProperties[0] name]).to.equal(@"normalBgColor");
     expect([node.styleProperties[0] values]).to.equal(@[@"$blue-color"]);
-    
+
     expect([node.styleProperties[1] name]).to.equal(@"selectedBgColor");
     expect([node.styleProperties[1] values]).to.equal(@[@"$light-blue-color"]);
-    
+
     // node 14
     node = styles[13];
     expect(node.styleProperties).to.haveCountOf(2);
@@ -348,7 +348,7 @@ SpecBegin(CASParser) {
     NSArray *styles = [CASParser parserFromFilePath:filePath variables:nil error:&error].styleNodes;
     expect(error).to.beNil();
 
-    expect(styles).to.haveCountOf(22);
+    expect(styles).to.haveCountOf(26);
 
     CASStyleProperty *property;
     CASStyleNode *node;
@@ -532,6 +532,33 @@ SpecBegin(CASParser) {
     expect(property.name).to.equal(@"borderWidth");
     expect(property.values).to.equal(@[@3]);
     expect(node.deviceSelector.stringValue).to.equal(@"(version:>5)");
+
+    node = styles[22];
+    property = node.styleProperties[0];
+    expect(property.name).to.equal(@"always");
+    expect(property.values).to.equal(@[@1]);
+
+    node = styles[23];
+    property = node.styleProperties[0];
+    expect(property.name).to.equal(@"heighty");
+    expect(property.values).to.equal(@[@2]);
+    expect(node.deviceSelector.stringValue).to.equal(@"(screen-height:>200)");
+
+    node = styles[24];
+    property = node.styleProperties[0];
+    expect(property.name).to.equal(@"combinedtrue");
+    expect(property.values).to.equal(@[@3]);
+    [given([mockDevice systemVersion]) willReturn:@"7.0"];
+    expect(node.deviceSelector.stringValue).to.equal(@"(screen-width:>100) and (version:>=6.0)");
+    expect(node.deviceSelector.isValid).to.beTruthy();
+
+    node = styles[25];
+    property = node.styleProperties[0];
+    expect(property.name).to.equal(@"combinedfalse");
+    expect(property.values).to.equal(@[@4]);
+    [given([mockDevice systemVersion]) willReturn:@"6.0"];
+    expect(node.deviceSelector.stringValue).to.equal(@"(version:<6.0) and (screen-width:>100)");
+    expect(node.deviceSelector.isValid).to.beFalsy();
 }
 
 - (void)testVariablesBasic {
@@ -539,29 +566,29 @@ SpecBegin(CASParser) {
     NSString *filePath = [[NSBundle bundleForClass:self.class] pathForResource:@"Variables-Basic.cas" ofType:nil];
     NSArray *styles = [CASParser parserFromFilePath:filePath variables:nil error:&error].styleNodes;
     expect(error).to.beNil();
-    
+
     expect(styles).to.haveCountOf(3);
-    
+
     CASStyleProperty *property;
     CASStyleNode *node;
-    
+
     node = styles[0];
     expect(node.styleSelector.stringValue).to.equal(@"UIView");
     expect(node.styleProperties).to.haveCountOf(1);
     property = node.styleProperties[0];
     expect(property.name).to.equal(@"layer");
-    
+
     property = property.childStyleProperties[0];
     expect(property.name).to.equal(@"borderWidth");
     expect(property.values).to.equal(@[@2]);
     expect(node.deviceSelector.stringValue).to.beNil();
-    
+
     property = node.styleProperties[0];
     property = property.childStyleProperties[1];
     expect(property.name).to.equal(@"shadowRadius");
     expect(property.values).to.equal(@[@2000]);
     expect(node.deviceSelector.stringValue).to.beNil();
-    
+
     node = styles[1];
     expect(node.styleSelector.stringValue).to.equal(@"UITextField.one");
     expect(node.styleProperties).to.haveCountOf(2);
@@ -569,12 +596,12 @@ SpecBegin(CASParser) {
     expect(property.name).to.equal(@"font");
     expect(property.values).to.equal((@[@"Avenir-Heavy", @12]));
     expect(node.deviceSelector.stringValue).to.beNil();
-    
+
     property = node.styleProperties[1];
     expect(property.name).to.equal(@"textInsets");
     expect(property.values).to.equal((@[@"(", @4, @3, @2, @1, @")"]));
     expect(node.deviceSelector.stringValue).to.beNil();
-    
+
     node = styles[2];
     expect(node.styleSelector.stringValue).to.equal(@"UITextField.two");
     expect(node.styleProperties).to.haveCountOf(1);

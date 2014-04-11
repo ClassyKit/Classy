@@ -8,6 +8,7 @@
 
 #import "CASDeviceSelector.h"
 #import "NSString+CASAdditions.h"
+#import "CASDeviceScreenSizeItem.h"
 
 @implementation CASDeviceSelector {
     NSMutableArray *_items;
@@ -36,33 +37,59 @@
     [_items addObject:item];
 }
 
-- (BOOL)addOSVersion:(NSString *)version {
-    CASRelation relation = CASRelationEqual;
+- (BOOL)addOSVersion:(NSString *)versionExpression {
+    NSString *valueString = [self valueFromExpression:versionExpression];
+    NSString *relationString = [versionExpression substringToIndex:versionExpression.length - valueString.length];
 
-    NSCharacterSet *equalityCharacterSet = [NSCharacterSet characterSetWithCharactersInString:@">=<"];
-    NSString *versionNumberString = [version cas_stringByTrimmingLeadingCharactersInSet:equalityCharacterSet];
-    NSString *relationString = [version substringToIndex:version.length - versionNumberString.length];
-
-    if ([relationString isEqualToString:@"<"]) {
-        relation = CASRelationLessThan;
-    } else if ([relationString isEqualToString:@"<="]) {
-        relation = CASRelationLessThanOrEqual;
-    } else if ([relationString isEqualToString:@"=="]) {
-        relation = CASRelationEqual;
-    } else if ([relationString isEqualToString:@">="]) {
-        relation = CASRelationGreaterThanOrEqual;
-    } else if ([relationString isEqualToString:@">"]) {
-        relation = CASRelationGreaterThan;
-    } else if (relation == CASRelationEqual && relationString.length) {
-        return NO;
-    }
+    CASRelation relation = [self relationFromExpression:relationString];
+    if (relation == CASRelationUndefined) return NO;
 
     CASDeviceOSVersionItem *item = CASDeviceOSVersionItem.new;
-    item.version = versionNumberString;
+    item.version = valueString;
     item.relation = relation;
     [_items addObject:item];
 
     return YES;
+}
+
+- (BOOL)addScreenSize:(NSString *)sizeExpression dimension:(CASDeviceSelectorScreenDimension)dimension {
+    NSString *valueString = [self valueFromExpression:sizeExpression];
+    NSString *relationString = [sizeExpression substringToIndex:sizeExpression.length - valueString.length];
+
+    CASRelation relation = [self relationFromExpression:relationString];
+    if (relation == CASRelationUndefined) return NO;
+
+    CASDeviceScreenSizeItem *item = CASDeviceScreenSizeItem.new;
+    item.value = valueString.floatValue;
+    item.relation = relation;
+    item.dimension = dimension;
+    [_items addObject:item];
+
+    return YES;
+}
+
+- (NSString *)valueFromExpression:(NSString *)relation {
+    NSCharacterSet *equalityCharacterSet = [NSCharacterSet characterSetWithCharactersInString:@">=<"];
+    NSString *valueString = [relation cas_stringByTrimmingLeadingCharactersInSet:equalityCharacterSet];
+    return valueString;
+}
+
+- (CASRelation)relationFromExpression:(NSString *)expression {
+    CASRelation relation = CASRelationEqual;
+    if ([expression isEqualToString:@"<"]) {
+        relation = CASRelationLessThan;
+    } else if ([expression isEqualToString:@"<="]) {
+        relation = CASRelationLessThanOrEqual;
+    } else if ([expression isEqualToString:@"=="]) {
+        relation = CASRelationEqual;
+    } else if ([expression isEqualToString:@">="]) {
+        relation = CASRelationGreaterThanOrEqual;
+    } else if ([expression isEqualToString:@">"]) {
+        relation = CASRelationGreaterThan;
+    } else if (relation == CASRelationEqual && expression.length) {
+       relation = CASRelationUndefined;
+    }
+    return relation;
 }
 
 - (BOOL)isValid {
@@ -85,6 +112,27 @@
     }];
 
     return string;
+}
+
++ (NSString *)stringFromRelation:(CASRelation)relation {
+    switch (relation) {
+        case CASRelationLessThan:
+            return @"<";
+        case CASRelationLessThanOrEqual:
+            return @"<=";
+        case CASRelationEqual:
+            return @"";
+        case CASRelationGreaterThanOrEqual:
+            return @">=";
+        case CASRelationGreaterThan:
+            return @">";
+        case CASRelationUndefined:
+            NSAssert(NO, @"Relation should not be undefined");
+            return nil;
+        default:
+            NSAssert(NO, @"Relation should not be an undefined enum value");
+            return nil;
+    }
 }
 
 @end

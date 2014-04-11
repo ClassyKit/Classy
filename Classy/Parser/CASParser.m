@@ -52,7 +52,7 @@ NSInteger const CASParseErrorFileContents = 2;
         if (error) {
             *error = [NSError errorWithDomain:CASParseErrorDomain code:CASParseErrorFileContents userInfo:userInfo];
         }
-        
+
         return nil;
     }
 
@@ -235,7 +235,7 @@ NSInteger const CASParseErrorFileContents = 2;
             [self consumeTokenOfType:CASTokenTypeIndent];
             continue;
         }
-        
+
         CASStyleProperty *styleVar = [self nextStyleVar];
         if (self.error) {
             if (error) *error = self.error;
@@ -417,7 +417,7 @@ NSInteger const CASParseErrorFileContents = 2;
             }
             token = [self nextToken];
         }
-        
+
         // only wrap in braces if more than one non-whitespace token present
         if (nonWhitespaceTokenCount > 1) {
             [valueTokens insertObject:[CASToken tokenOfType:CASTokenTypeLeftRoundBrace value:@"("] atIndex:0];
@@ -455,7 +455,7 @@ NSInteger const CASParseErrorFileContents = 2;
     currentNode.deviceSelector = CASDeviceSelector.new;
     NSMutableArray *nodes = NSMutableArray.new;
     [nodes addObject:currentNode];
-    
+
     BOOL waitingForRightRoundBrace = NO;
 
     NSString *itemName;
@@ -485,7 +485,16 @@ NSInteger const CASParseErrorFileContents = 2;
                     NSString *versionString = [(itemRelation ?: @"") stringByAppendingString:(itemValue ?: @"")];
 
                     [currentNode.deviceSelector addOSVersion:versionString];
+                } else if ([itemName isEqualToString:@"screen-width"]) {
+                    NSString *widthConstraintString = [(itemRelation ?: @"") stringByAppendingString:(itemValue ?: @"")];
+                    [currentNode.deviceSelector addScreenSize:widthConstraintString dimension:CASDeviceSelectorScreenDimensionWidth];
+                } else if ([itemName isEqualToString:@"screen-height"]) {
+                    NSString *heightConstraintString = [(itemRelation ?: @"") stringByAppendingString:(itemValue ?: @"")];
+                    [currentNode.deviceSelector addScreenSize:heightConstraintString dimension:CASDeviceSelectorScreenDimensionHeight];
                 }
+                itemRelation = NSMutableString.new;
+                itemValue = NSMutableString.new;
+
             } else if (token.type == CASTokenTypeLeftRoundBrace) {
                 //TODO unexpected token error
             } else if (token.type == CASTokenTypeRef) {

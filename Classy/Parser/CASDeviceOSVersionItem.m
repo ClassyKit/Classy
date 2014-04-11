@@ -8,23 +8,9 @@
 
 #import "CASDeviceOSVersionItem.h"
 #import "CASUtilities.h"
+#import "CASDeviceSelector.h"
 
 @implementation CASDeviceOSVersionItem
-
-- (NSString *)relationString {
-    switch (self.relation) {
-        case CASRelationLessThan:
-            return @"<";
-        case CASRelationLessThanOrEqual:
-            return @"<=";
-        case CASRelationEqual:
-            return @"";
-        case CASRelationGreaterThanOrEqual:
-            return @">=";
-        case CASRelationGreaterThan:
-            return @">";
-    }
-}
 
 - (BOOL)isValid {
     switch (self.relation) {
@@ -38,11 +24,14 @@
             return CASDeviceSystemVersionIsGreaterThanOrEqualTo(self.version);
         case CASRelationGreaterThan:
             return CASDeviceSystemVersionIsGreaterThan(self.version);
+        default:
+            NSAssert(NO, @"Invalid ralation");
+            return NO;
     }
 }
 
 - (NSString *)stringValue {
-    return [NSString stringWithFormat:@"(version:%@%@)", self.relationString, self.version];
+    return [NSString stringWithFormat:@"(version:%@%@)", [CASDeviceSelector stringFromRelation:self.relation], self.version];
 }
 
 @end

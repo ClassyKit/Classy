@@ -37,3 +37,16 @@ UITabBar.nice, UISegmentedControl.nice {
     }
   }
 }
+
+UIView.size-query {
+  always: 1;
+  @media (screen-height: > 200) {
+    heighty: 2;
+  }
+  @media (screen-width: > 100) and (version: >= 6.0) {
+    combinedtrue: 3;
+  }
+  @media (version: < 6.0) and (screen-width: > 100) {
+    combinedfalse: 4;
+  }
+}
