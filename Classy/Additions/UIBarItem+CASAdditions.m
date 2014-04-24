@@ -11,8 +11,20 @@
 #import "CASStyler.h"
 #import "NSString+CASAdditions.h"
 #import "CASStyleClassUtilities.h"
+#import "NSObject+CASSwizzle.h"
 
 @implementation UIBarItem (CASAdditions)
+
++ (void)load {
+    [self cas_swizzleInstanceSelector:@selector(init)
+                      withNewSelector:@selector(cas_init)];
+}
+
+- (id)cas_init {
+    [self cas_init];
+    [self cas_updateStyling];
+    return self;
+}
 
 #pragma mark - CASStyleableItem
 
