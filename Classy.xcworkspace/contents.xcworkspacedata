@@ -111,6 +111,9 @@
             location = "group:CASStyleableItem.h">
          </FileRef>
          <FileRef
+            location = "group:CASStyleableItem.m">
+         </FileRef>
+         <FileRef
             location = "group:CASStyleClassUtilities.h">
          </FileRef>
          <FileRef
