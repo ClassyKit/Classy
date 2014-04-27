@@ -63,6 +63,7 @@
         dictionary[NSShadowAttributeName] = _shadow;
     }
 
+#if __IPHONE_OS_VERSION_MIN_REQUIRED < __IPHONE_7_0
     if ([[[UIDevice currentDevice] systemVersion] floatValue] < 7) {
         if (self.font) {
             dictionary[UITextAttributeFont] = self.font;
@@ -75,6 +76,7 @@
         }
         dictionary[UITextAttributeTextShadowOffset] = [NSValue valueWithCGSize:_shadow.shadowOffset];
     }
+#endif
     return dictionary;
 }
 
