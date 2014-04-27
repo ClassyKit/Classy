@@ -63,6 +63,18 @@
         dictionary[NSShadowAttributeName] = _shadow;
     }
 
+    if ([[[UIDevice currentDevice] systemVersion] floatValue] < 7) {
+        if (self.font) {
+            dictionary[UITextAttributeFont] = self.font;
+        }
+        if (self.foregroundColor) {
+            dictionary[UITextAttributeTextColor] = self.foregroundColor;
+        }
+        if (_shadow.shadowColor) {
+            dictionary[UITextAttributeTextShadowColor] = _shadow.shadowColor;
+        }
+        dictionary[UITextAttributeTextShadowOffset] = [NSValue valueWithCGSize:_shadow.shadowOffset];
+    }
     return dictionary;
 }
 
