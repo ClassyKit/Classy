@@ -157,7 +157,7 @@
     CASPropertyDescriptor *propertyDescriptor = [objectClassDescriptor propertyDescriptorForKey:styleProperty.name];
 
     //Special case textAttributes
-    BOOL isTextAttributesProperty = styleProperty.childStyleProperties.count && [styleProperty.name hasSuffix:@"TextAttributes"];
+    BOOL isTextAttributesProperty = styleProperty.childStyleProperties.count && [[styleProperty.name lowercaseString] hasSuffix:@"textattributes"];
 
     NSInvocation *invocation;
     CASInvocation *invocationWrapper;;
