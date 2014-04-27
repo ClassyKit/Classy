@@ -305,6 +305,8 @@
         @"highlighted"  : @(UIControlStateHighlighted),
         @"disabled"     : @(UIControlStateDisabled),
         @"selected"     : @(UIControlStateSelected),
+        @"selectedHighlighted" : @(UIControlStateSelected|UIControlStateHighlighted),
+        @"selectedDisabled" : @(UIControlStateSelected|UIControlStateDisabled),
     };
 
     NSDictionary *textAlignmentMap = @{
