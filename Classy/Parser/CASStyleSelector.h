@@ -59,7 +59,7 @@
 @property (nonatomic, readonly) CASStyleSelector *lastSelector;
 
 /**
- *  Returns a integer representation of how specific this selector is.
+ *  Returns a numeric representation of how specific this selector is.
  *  Provides a way to order selectors.
  *
  *  The Rules
@@ -72,6 +72,9 @@
  *   if loose match (shouldSelectSubclasses)
  *    -1
  *
+ *   class hierarchy
+ *    +0.01*n where n = number of super classes
+ *
  *  StyleClass matches
  *   +1000 ancestor
  *   +2000 superview
@@ -79,7 +82,7 @@
  *
  *  @return Precendence score
  */
-- (NSInteger)precedence;
+- (CGFloat)precedence;
 
 /**
  *  Whether is selector matches the given item
