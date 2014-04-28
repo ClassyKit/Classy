@@ -57,8 +57,8 @@ SpecBegin(CASStyler){
     [styler setFilePath:filePath error:&error];
     expect(error).to.beNil();
 
-    expect([[styler.styleNodes[0] styleSelector] stringValue]).to.equal(@"UIView.bordered");
-    expect([[styler.styleNodes[1] styleSelector] stringValue]).to.equal(@"UIControl.border");
+    expect([[styler.styleNodes[0] styleSelector] stringValue]).to.equal(@"UIControl.border");
+    expect([[styler.styleNodes[1] styleSelector] stringValue]).to.equal(@"UIView.bordered");
     expect([[styler.styleNodes[2] styleSelector] stringValue]).to.equal(@"UIButton UIControl[state:selected]");
     expect([[styler.styleNodes[3] styleSelector] stringValue]).to.equal(@"UINavigationBar UIButton");
     expect([[styler.styleNodes[4] styleSelector] stringValue]).to.equal(@"UISlider");
@@ -68,7 +68,7 @@ SpecBegin(CASStyler){
     CASStyler *styler = CASStyler.new;
     styler.filePath = [[NSBundle bundleForClass:self.class] pathForResource:@"Properties-Basic.cas" ofType:nil];
 
-    CASStyleSelector *selector = [styler.styleNodes[0] styleSelector];
+    CASStyleSelector *selector = [styler.styleNodes[1] styleSelector];
     expect([selector stringValue]).to.equal(@"UIView.bordered");
     expect([selector shouldSelectItem:UIView.new]).to.beFalsy();
 
@@ -268,13 +268,13 @@ SpecBegin(CASStyler){
 
     expect(styler.styleNodes).to.haveCountOf(2);
 
-    CASStyleNode *node = styler.styleNodes[0];
+    CASStyleNode *node = styler.styleNodes[1];
     expect(node.styleSelector.stringValue).to.equal(@"UIView");
     UIView *view2 = UIView.new;
     [styler styleItem:view2];
     expect(view2.backgroundColor).to.equal([UIColor purpleColor]);
 
-    node = styler.styleNodes[1];
+    node = styler.styleNodes[0];
     expect(node.styleSelector.stringValue).to.equal(@"UITextField");
 
     UITextField *view = UITextField.new;
