@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		4E506422190EF2F8003A03B0 /* Ball.png in Resources */ = {isa = PBXBuildFile; fileRef = 4E506421190EF2F8003A03B0 /* Ball.png */; };
 		BA23251D9EB84FA09338B05C /* libPods-ClassyExample.a in Frameworks */ = {isa = PBXBuildFile; fileRef = E9C8ED2DF59B45B2A38549AB /* libPods-ClassyExample.a */; };
 		DD355BDB183E9CD30071E543 /* variables.cas in Resources */ = {isa = PBXBuildFile; fileRef = DD355BDA183E9CD30071E543 /* variables.cas */; };
 		DD61F4441816370F004A8777 /* stylesheet.cas in Resources */ = {isa = PBXBuildFile; fileRef = DD61F4431816370F004A8777 /* stylesheet.cas */; };
@@ -24,6 +25,7 @@
 
 /* Begin PBXFileReference section */
 		136384E66419452BA007511C /* Pods-ClassyExample.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-ClassyExample.xcconfig"; path = "../Pods/Pods-ClassyExample.xcconfig"; sourceTree = "<group>"; };
+		4E506421190EF2F8003A03B0 /* Ball.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Ball.png; sourceTree = "<group>"; };
 		DD355BDA183E9CD30071E543 /* variables.cas */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = variables.cas; sourceTree = "<group>"; };
 		DD61F4431816370F004A8777 /* stylesheet.cas */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = stylesheet.cas; sourceTree = "<group>"; };
 		DDAB25671814BBBB00F3DAAE /* ClassyExample.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = ClassyExample.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -62,6 +64,14 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		4E506420190EF2E6003A03B0 /* Images */ = {
+			isa = PBXGroup;
+			children = (
+				4E506421190EF2F8003A03B0 /* Ball.png */,
+			);
+			name = Images;
+			sourceTree = "<group>";
+		};
 		DD61F4421816370F004A8777 /* Stylesheets */ = {
 			isa = PBXGroup;
 			children = (
@@ -114,6 +124,7 @@
 				DDFE54AA1814EF41003BF9C6 /* CASCatalogViewController.m */,
 				DDAB257C1814BBBB00F3DAAE /* Images.xcassets */,
 				DD61F4421816370F004A8777 /* Stylesheets */,
+				4E506420190EF2E6003A03B0 /* Images */,
 				DDAB25711814BBBB00F3DAAE /* Supporting Files */,
 			);
 			path = ClassyExample;
@@ -187,6 +198,7 @@
 				DDAB25751814BBBB00F3DAAE /* InfoPlist.strings in Resources */,
 				DDAB257D1814BBBB00F3DAAE /* Images.xcassets in Resources */,
 				DD61F4441816370F004A8777 /* stylesheet.cas in Resources */,
+				4E506422190EF2F8003A03B0 /* Ball.png in Resources */,
 				DD355BDB183E9CD30071E543 /* variables.cas in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
