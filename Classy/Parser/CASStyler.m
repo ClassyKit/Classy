@@ -58,18 +58,6 @@
         self.filePath = [[NSBundle mainBundle] pathForResource:@"stylesheet.cas" ofType:nil];
     }
     
-    // order ascending by precedence
-    [self.styleNodes sortWithOptions:NSSortStable usingComparator:^NSComparisonResult(CASStyleNode *n1, CASStyleNode *n2) {
-        NSInteger precedence1 = [n1.styleSelector precedence];
-        NSInteger precedence2 = [n2.styleSelector precedence];
-        if (precedence2 > precedence1) {
-            return NSOrderedAscending;
-        } else if (precedence2 < precedence1) {
-            return NSOrderedDescending;
-        }
-        return NSOrderedSame;
-    }];
-    
     // TODO style lookup table to improve speed.
     for (CASStyleNode *styleNode in self.styleNodes) {
         if ([styleNode.styleSelector shouldSelectItem:item]) {
