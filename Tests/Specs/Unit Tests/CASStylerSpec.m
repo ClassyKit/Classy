@@ -210,7 +210,7 @@ SpecBegin(CASStyler){
     [styler setFilePath:filePath error:&error];
     expect(error).to.beNil();
 
-    expect(styler.styleNodes).to.haveCountOf(3);
+    expect(styler.styleNodes).to.haveCountOf(4);
 
     UITextField *view = UITextField.new;
     [styler styleItem:view];
@@ -220,6 +220,16 @@ SpecBegin(CASStyler){
     [superview addSubview:view];
     [styler styleItem:view];
     expect(view.cas_textEdgeInsets).to.equal(UIEdgeInsetsMake(5, 5, 5, 5));
+	
+    UILabel *label = UILabel.new;
+    [label addSubview:view];
+    [styler styleItem:view];
+    expect(view.cas_textEdgeInsets).to.equal(UIEdgeInsetsMake(5, 5, 5, 5));
+	
+    UIButton *button = UIButton.new;
+    [button addSubview:view];
+    [styler styleItem:view];
+    expect(view.cas_textEdgeInsets).to.equal(UIEdgeInsetsMake(1, 1, 1, 1));
 
     view.cas_styleClass = @"twenty";
     [styler styleItem:view];
@@ -234,7 +244,7 @@ SpecBegin(CASStyler){
     [styler setFilePath:filePath error:&error];
     expect(error).to.beNil();
 
-    expect(styler.styleNodes).to.haveCountOf(3);
+    expect(styler.styleNodes).to.haveCountOf(4);
 
     UITextField *view = UITextField.new;
     [styler styleItem:view];
@@ -244,6 +254,16 @@ SpecBegin(CASStyler){
     [superview addSubview:view];
     [styler styleItem:view];
     expect(view.cas_textEdgeInsets).to.equal(UIEdgeInsetsMake(5, 5, 5, 5));
+	
+    UILabel *label = UILabel.new;
+    [label addSubview:view];
+    [styler styleItem:view];
+    expect(view.cas_textEdgeInsets).to.equal(UIEdgeInsetsMake(5, 5, 5, 5));
+	
+    UIButton *button = UIButton.new;
+    [button addSubview:view];
+    [styler styleItem:view];
+    expect(view.cas_textEdgeInsets).to.equal(UIEdgeInsetsMake(1, 1, 1, 1));
 
     view.cas_styleClass = @"twenty";
     [styler styleItem:view];
