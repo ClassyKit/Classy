@@ -57,18 +57,18 @@ SpecBegin(CASStyler){
     [styler setFilePath:filePath error:&error];
     expect(error).to.beNil();
 
-    expect([[styler.styleNodes[0] styleSelector] stringValue]).to.equal(@"UIView.bordered");
-    expect([[styler.styleNodes[1] styleSelector] stringValue]).to.equal(@"UIControl.border");
-    expect([[styler.styleNodes[2] styleSelector] stringValue]).to.equal(@"UIButton UIControl[state:selected]");
-    expect([[styler.styleNodes[3] styleSelector] stringValue]).to.equal(@"UINavigationBar UIButton");
-    expect([[styler.styleNodes[4] styleSelector] stringValue]).to.equal(@"UISlider");
+    expect([[styler.styleNodes[0] styleSelector] stringValue]).to.equal(@"UISlider");
+    expect([[styler.styleNodes[1] styleSelector] stringValue]).to.equal(@"UIButton UIControl[state:selected]");
+    expect([[styler.styleNodes[2] styleSelector] stringValue]).to.equal(@"UINavigationBar UIButton");
+    expect([[styler.styleNodes[3] styleSelector] stringValue]).to.equal(@"UIView.bordered");
+    expect([[styler.styleNodes[4] styleSelector] stringValue]).to.equal(@"UIControl.border");
 }
 
 - (void)testSelectViewWithStyleClass {
     CASStyler *styler = CASStyler.new;
     styler.filePath = [[NSBundle bundleForClass:self.class] pathForResource:@"Properties-Basic.cas" ofType:nil];
 
-    CASStyleSelector *selector = [styler.styleNodes[0] styleSelector];
+    CASStyleSelector *selector = [styler.styleNodes[3] styleSelector];
     expect([selector stringValue]).to.equal(@"UIView.bordered");
     expect([selector shouldSelectItem:UIView.new]).to.beFalsy();
 
@@ -81,7 +81,7 @@ SpecBegin(CASStyler){
     CASStyler *styler = CASStyler.new;
     styler.filePath = [[NSBundle bundleForClass:self.class] pathForResource:@"Properties-Basic.cas" ofType:nil];
 
-    CASStyleSelector *selector = [styler.styleNodes[3] styleSelector];
+    CASStyleSelector *selector = [styler.styleNodes[2] styleSelector];
     expect([selector stringValue]).to.equal(@"UINavigationBar UIButton");
     expect([selector shouldSelectItem:UIButton.new]).to.beFalsy();
 
@@ -210,7 +210,7 @@ SpecBegin(CASStyler){
     [styler setFilePath:filePath error:&error];
     expect(error).to.beNil();
 
-    expect(styler.styleNodes).to.haveCountOf(3);
+    expect(styler.styleNodes).to.haveCountOf(5);
 
     UITextField *view = UITextField.new;
     [styler styleItem:view];
@@ -224,6 +224,10 @@ SpecBegin(CASStyler){
     view.cas_styleClass = @"twenty";
     [styler styleItem:view];
     expect(view.cas_textEdgeInsets).to.equal(UIEdgeInsetsMake(20, 20, 20, 20));
+    
+    UILabel *label = UILabel.new;
+    [styler styleItem:label];
+    expect(label.textColor).to.equal([UIColor cas_colorWithHex:@"#f00"]);
 }
 
 - (void)testPrecedence2 {

@@ -57,8 +57,9 @@
         // load default style file
         self.filePath = [[NSBundle mainBundle] pathForResource:@"stylesheet.cas" ofType:nil];
     }
+    
     // TODO style lookup table to improve speed.
-    for (CASStyleNode *styleNode in self.styleNodes.reverseObjectEnumerator) {
+    for (CASStyleNode *styleNode in self.styleNodes) {
         if ([styleNode.styleSelector shouldSelectItem:item]) {
             // apply style nodes
             for (CASInvocation *invocation in styleNode.invocations) {
@@ -130,16 +131,21 @@
     }
     self.styleNodes = filteredNodes;
 
-    // order descending by precedence
+    // order ascending by precedence
     [self.styleNodes sortWithOptions:NSSortStable usingComparator:^NSComparisonResult(CASStyleNode *n1, CASStyleNode *n2) {
-        if (n1.styleSelector.precedence == n2.styleSelector.precedence) return NSOrderedSame;
-        if (n1.styleSelector.precedence <  n2.styleSelector.precedence) return NSOrderedDescending;
-        return NSOrderedAscending;
+        NSInteger precedence1 = [n1.styleSelector precedence];
+        NSInteger precedence2 = [n2.styleSelector precedence];
+        if (precedence2 > precedence1) {
+            return NSOrderedAscending;
+        } else if (precedence2 < precedence1) {
+            return NSOrderedDescending;
+        }
+        return NSOrderedSame;
     }];
 
     self.invocationObjectArguments = NSMutableArray.new;
     // precompute values
-    for (CASStyleNode *styleNode in self.styleNodes.reverseObjectEnumerator) {
+    for (CASStyleNode *styleNode in self.styleNodes) {
         NSMutableArray *invocations = NSMutableArray.new;
         for (CASStyleProperty *styleProperty in styleNode.styleProperties) {
             // TODO type checking and throw errors

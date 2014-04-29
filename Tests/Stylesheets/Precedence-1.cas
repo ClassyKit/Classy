@@ -6,8 +6,16 @@ UITextField {
   text-insets: 10
 }
 
-^UIView {
+UIView {
   UITextField {
     text-insets: 5
   }
+}
+
+UILabel {
+  text-color: blue
+}
+
+UILabel {
+  text-color: red
 }
