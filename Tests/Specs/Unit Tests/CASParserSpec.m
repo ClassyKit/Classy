@@ -86,27 +86,27 @@ SpecBegin(CASParser) {
 
     expect([styles[0] styleSelector].stringValue).to.equal(@"UIButton UIControl");
     expect([styles[0] styleProperties]).to.haveCountOf(2);
-    expect([styles[0] styleSelector].precedence).to.equal(6.07);
+    expect([styles[0] styleSelector].precedence).to.equal(607);
 
     expect([styles[1] styleSelector].stringValue).to.equal(@"UIButton UIImageView.starImage");
     expect([styles[1] styleProperties]).to.haveCountOf(2);
-    expect([styles[1] styleSelector].precedence).to.equal(3006.07);
+    expect([styles[1] styleSelector].precedence).to.equal(30607);
 
     expect([styles[2] styleSelector].stringValue).to.equal(@"UIView.bordered");
     expect([styles[2] styleProperties]).to.haveCountOf(3);
-    expect([styles[2] styleSelector].precedence).to.equal(3004.02);
+    expect([styles[2] styleSelector].precedence).to.equal(30402);
 
     expect([styles[3] styleSelector].stringValue).to.equal(@"UIView.panel");
     expect([styles[3] styleProperties]).to.haveCountOf(3);
-    expect([styles[3] styleSelector].precedence).to.equal(3004.02);
+    expect([styles[3] styleSelector].precedence).to.equal(30402);
 
     expect([styles[4] styleSelector].stringValue).to.equal(@"UISlider");
     expect([styles[4] styleProperties]).to.haveCountOf(4);
-    expect([styles[4] styleSelector].precedence).to.equal(4.04);
+    expect([styles[4] styleSelector].precedence).to.equal(404);
 
     expect([styles[5] styleSelector].stringValue).to.equal(@"UINavigationBar.videoNavBar UIButton");
     expect([styles[5] styleProperties]).to.haveCountOf(4);
-    expect([styles[5] styleSelector].precedence).to.equal(1006.07);
+    expect([styles[5] styleSelector].precedence).to.equal(10607);
 }
 
 - (void)testParseDirectDescendant {
@@ -118,20 +118,20 @@ SpecBegin(CASParser) {
     expect(styles.count).to.equal(4);
 
     expect([styles[0] styleSelector].stringValue).to.equal(@"UIButton > UIImageView.starImage");
-    expect([styles[0] styleSelector].precedence).to.equal(3006.07);
+    expect([styles[0] styleSelector].precedence).to.equal(30607);
     expect([styles[0] styleProperties]).to.haveCountOf(1);
 
     expect([styles[1] styleSelector].stringValue).to.equal(@"^UIView > UINavigationBar");
-    expect([styles[1] styleSelector].precedence).to.equal(5.05);
+    expect([styles[1] styleSelector].precedence).to.equal(505);
     expect([styles[1] styleProperties]).to.haveCountOf(2);
 
     expect([styles[2] styleSelector].stringValue).to.equal(@"UIView.bordered > UIView.panel");
     expect([styles[2] styleSelector].parentSelector).notTo.beNil();
-    expect([styles[2] styleSelector].precedence).to.equal(4006.04);
+    expect([styles[2] styleSelector].precedence).to.equal(40604);
     expect([styles[2] styleProperties]).to.haveCountOf(3);
 
     expect([styles[3] styleSelector].stringValue).to.equal(@"^UIView[state:selected] > UIImageView");
-    expect([styles[3] styleSelector].precedence).to.equal(5.05);
+    expect([styles[3] styleSelector].precedence).to.equal(505);
     expect([styles[3] styleProperties]).to.haveCountOf(4);
 }
 
