@@ -82,7 +82,7 @@
  *
  *  @return Precendence score
  */
-- (NSInteger)precedence;
+- (CGFloat)precedence;
 
 /**
  *  Whether is selector matches the given item

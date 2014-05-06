@@ -45,29 +45,29 @@
 
 #pragma mark - public
 
-- (NSInteger)precedence {
-    NSInteger precedence = 0;
+- (CGFloat)precedence {
+    CGFloat precedence = 0;
     Class class = self.objectClass;
     while ((class = class.superclass)) {
-        precedence += 1;
+        precedence += 0.01;
     }
 
     if (self.objectClass) {
         if (self.isParent) {
-            precedence += self.shouldSelectIndirectSuperview ? 200 : 300;
+            precedence += self.shouldSelectIndirectSuperview ? 2 : 3;
         } else {
-            precedence += 400;
+            precedence += 4;
         }
         if (self.shouldSelectSubclasses) {
-            precedence -= 100;
+            precedence -= 1;
         }
     }
 
     if (self.styleClass) {
         if (self.isParent) {
-            precedence += self.shouldSelectIndirectSuperview ? 10000 : 20000;
+            precedence += self.shouldSelectIndirectSuperview ? 1000 : 2000;
         } else {
-            precedence += 30000;
+            precedence += 3000;
         }
     }
 
