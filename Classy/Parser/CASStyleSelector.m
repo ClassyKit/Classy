@@ -45,13 +45,8 @@
 
 #pragma mark - public
 
-- (CGFloat)precedence {
-    CGFloat precedence = 0;
-    Class class = self.objectClass;
-    while ((class = class.superclass)) {
-        precedence += 0.01;
-    }
-
+- (NSInteger)precedence {
+    NSInteger precedence = 0;
     if (self.objectClass) {
         if (self.isParent) {
             precedence += self.shouldSelectIndirectSuperview ? 2 : 3;
