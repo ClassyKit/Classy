@@ -11,7 +11,6 @@
 #import "CASStyleableItem.h"
 
 
-NSString *const CASStyleClassSeparator = @" ";
 static void *CASStyleClassesKey = &CASStyleClassesKey;
 
 @implementation CASStyleClassUtilities
