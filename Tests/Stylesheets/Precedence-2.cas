@@ -11,9 +11,3 @@ UITextField {
 UITextField.twenty {
   text-insets: 20
 }
-
-^UIButton {
-  UITextField {
-    text-insets: 1
-  }
-}
