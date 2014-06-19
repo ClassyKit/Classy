@@ -63,6 +63,20 @@
         dictionary[NSShadowAttributeName] = _shadow;
     }
 
+#if __IPHONE_OS_VERSION_MIN_REQUIRED < __IPHONE_7_0
+    if (CASKeyDeviceSystemMajorVersion() < 7) {
+        if (self.font) {
+            dictionary[UITextAttributeFont] = self.font;
+        }
+        if (self.foregroundColor) {
+            dictionary[UITextAttributeTextColor] = self.foregroundColor;
+        }
+        if (_shadow.shadowColor) {
+            dictionary[UITextAttributeTextShadowColor] = _shadow.shadowColor;
+        }
+        dictionary[UITextAttributeTextShadowOffset] = [NSValue valueWithCGSize:_shadow.shadowOffset];
+    }
+#endif
     return dictionary;
 }
 

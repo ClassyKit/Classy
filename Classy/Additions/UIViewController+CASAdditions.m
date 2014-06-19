@@ -80,7 +80,7 @@ static void *CASStyleHasBeenUpdatedKey = &CASStyleHasBeenUpdatedKey;
 }
 
 - (BOOL)cas_needsUpdateStyling {
-    return ![objc_getAssociatedObject(self, @selector(cas_needsUpdateStyling)) boolValue];
+    return ![objc_getAssociatedObject(self, CASStyleHasBeenUpdatedKey) boolValue];
 }
 
 - (void)cas_setNeedsUpdateStyling {
