@@ -136,6 +136,10 @@ NSArray *ClassGetSubclasses(Class parentClass) {
     if ([_filePath isEqualToString:filePath]) return;
     _filePath = filePath;
     
+    self.styleNodeIndex = [NSMutableDictionary new];
+    [self.styleNodeIndex setObject:[@{} mutableCopy] forKey:kStyleNodeIndexObjectClassKey];
+    [self.styleNodeIndex setObject:[@{} mutableCopy] forKey:kStyleNodeIndexStyleClassKey];
+    
     CASParser *parser = [CASParser parserFromFilePath:filePath variables:self.variables error:error];
     NSArray *styleNodes = parser.styleNodes;
     
