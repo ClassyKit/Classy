@@ -18,9 +18,6 @@
 #import "CASInvocation.h"
 #import <objc/runtime.h>
 
-static NSString* const kStyleNodeIndexStyleClassKey = @"styleClass";
-static NSString* const kStyleNodeIndexObjectClassKey = @"objectClass";
-
 // http://www.cocoawithlove.com/2010/01/getting-subclasses-of-objective-c-class.html
 NSArray *ClassGetSubclasses(Class parentClass) {
     int numClasses = objc_getClassList(NULL, 0);
@@ -53,7 +50,8 @@ NSArray *ClassGetSubclasses(Class parentClass) {
 @property (nonatomic, strong) NSTimer *updateTimer;
 @property (nonatomic, strong) NSMutableArray *fileWatchers;
 @property (nonatomic, strong) NSMutableArray *invocationObjectArguments;
-@property (nonatomic, strong) NSMutableDictionary *styleNodeIndex;
+@property (nonatomic, strong) NSMutableDictionary *styleClassIndex;
+@property (nonatomic, strong) NSMutableDictionary *objectClassIndex;
 
 @end
 
@@ -76,9 +74,8 @@ NSArray *ClassGetSubclasses(Class parentClass) {
     self.objectClassDescriptorCache = NSMapTable.strongToStrongObjectsMapTable;
     self.scheduledItems = [NSHashTable hashTableWithOptions:NSHashTableWeakMemory];
     self.fileWatchers = NSMutableArray.new;
-    self.styleNodeIndex = [NSMutableDictionary new];
-    [self.styleNodeIndex setObject:[@{} mutableCopy] forKey:kStyleNodeIndexObjectClassKey];
-    [self.styleNodeIndex setObject:[@{} mutableCopy] forKey:kStyleNodeIndexStyleClassKey];
+    self.styleClassIndex = [NSMutableDictionary new];
+    self.objectClassIndex = [NSMutableDictionary new];
     [self setupObjectClassDescriptors];
 
     return self;
@@ -93,10 +90,10 @@ NSArray *ClassGetSubclasses(Class parentClass) {
     NSMutableArray *possibleStyleNodes = [NSMutableArray new];
     
     Class class = [item class];
-    [possibleStyleNodes addObjectsFromArray:[[self.styleNodeIndex valueForKey:kStyleNodeIndexObjectClassKey] valueForKey:NSStringFromClass(class)]];
+    [possibleStyleNodes addObjectsFromArray:[self.objectClassIndex valueForKey:NSStringFromClass(class)]];
     
     if (item.cas_styleClass) {
-        [possibleStyleNodes addObjectsFromArray:[[self.styleNodeIndex valueForKey:kStyleNodeIndexStyleClassKey] valueForKey:item.cas_styleClass]];
+        [possibleStyleNodes addObjectsFromArray:[self.styleClassIndex valueForKey:item.cas_styleClass]];
     }
     
     for (CASStyleNode *styleNode in possibleStyleNodes) {
@@ -136,9 +133,8 @@ NSArray *ClassGetSubclasses(Class parentClass) {
     if ([_filePath isEqualToString:filePath]) return;
     _filePath = filePath;
     
-    self.styleNodeIndex = [NSMutableDictionary new];
-    [self.styleNodeIndex setObject:[@{} mutableCopy] forKey:kStyleNodeIndexObjectClassKey];
-    [self.styleNodeIndex setObject:[@{} mutableCopy] forKey:kStyleNodeIndexStyleClassKey];
+    self.styleClassIndex = [NSMutableDictionary new];
+    self.objectClassIndex = [NSMutableDictionary new];
     
     CASParser *parser = [CASParser parserFromFilePath:filePath variables:self.variables error:error];
     NSArray *styleNodes = parser.styleNodes;
@@ -209,33 +205,30 @@ NSArray *ClassGetSubclasses(Class parentClass) {
 }
 
 - (void)populateStyleLookupTables:(NSArray *)styleNodes {
-    for (CASStyleNode *styleNode in self.styleNodes) {
+    for (CASStyleNode *styleNode in styleNodes) {
         if (styleNode.styleSelector.styleClass) {
-            NSMutableDictionary *index = [self.styleNodeIndex valueForKey:kStyleNodeIndexStyleClassKey];
-            if (![index valueForKey:styleNode.styleSelector.styleClass]) {
-                [index setValue:[@[] mutableCopy] forKey:styleNode.styleSelector.styleClass];
+            if (![self.styleClassIndex valueForKey:styleNode.styleSelector.styleClass]) {
+                [self.styleClassIndex setValue:[@[] mutableCopy] forKey:styleNode.styleSelector.styleClass];
             }
-            [[index valueForKey:styleNode.styleSelector.styleClass] addObject:styleNode];
+            [[self.styleClassIndex valueForKey:styleNode.styleSelector.styleClass] addObject:styleNode];
         } else {
             
-            NSMutableDictionary *objectClassIndex = [self.styleNodeIndex valueForKey:kStyleNodeIndexObjectClassKey];
             Class class = styleNode.styleSelector.objectClass;
-            if (![objectClassIndex valueForKey:NSStringFromClass(class)]) {
-                [objectClassIndex setValue:[@[] mutableCopy] forKey:NSStringFromClass(class)];
+            if (![self.objectClassIndex valueForKey:NSStringFromClass(class)]) {
+                [self.objectClassIndex setValue:[@[] mutableCopy] forKey:NSStringFromClass(class)];
             }
-            [[objectClassIndex valueForKey:NSStringFromClass(class)] addObject:styleNode];
+            [[self.objectClassIndex valueForKey:NSStringFromClass(class)] addObject:styleNode];
             
             if (styleNode.styleSelector.shouldSelectSubclasses) {
                 // add an entry in the lookup table for each subclass
                 NSArray *subclasses = ClassGetSubclasses(class);
                 for (Class class in subclasses) {
-                    if (![objectClassIndex valueForKey:NSStringFromClass(class)]) {
-                        [objectClassIndex setValue:[@[] mutableCopy] forKey:NSStringFromClass(class)];
+                    if (![self.objectClassIndex valueForKey:NSStringFromClass(class)]) {
+                        [self.objectClassIndex setValue:[@[] mutableCopy] forKey:NSStringFromClass(class)];
                     }
-                    [[objectClassIndex valueForKey:NSStringFromClass(class)] addObject:styleNode];
+                    [[self.objectClassIndex valueForKey:NSStringFromClass(class)] addObject:styleNode];
                 }
             }
-            [[objectClassIndex valueForKey:NSStringFromClass(styleNode.styleSelector.objectClass)] addObject:styleNode];
         }
     }
 }
