@@ -54,4 +54,18 @@ SpecBegin(CASUIKit)
     expect(view.background.capInsets).to.equal(UIEdgeInsetsMake(1, 2, 3, 4));
 }
 
+- (void)testMultipleStyleClasses {
+    CASStyler *styler = CASStyler.new;
+    styler.filePath = [[NSBundle bundleForClass:self.class] pathForResource:@"UIKit-MultipleClasses.cas" ofType:nil];
+    UIView *view = UIView.new;
+    view.cas_styleClass = @"class1";
+    [view cas_addStyleClass:@"class2"];
+    [styler styleItem:view];
+    expect(view.backgroundColor).to.equal([UIColor redColor]);
+    expect(view.layer.cornerRadius).to.equal(2);
+    [view cas_addStyleClass:@"class3"];
+    [styler styleItem:view];
+    expect(view.backgroundColor).to.equal([UIColor greenColor]);
+}
+
 SpecEnd

@@ -92,8 +92,9 @@ NSArray *ClassGetSubclasses(Class parentClass) {
     Class class = [item class];
     [possibleStyleNodes addObjectsFromArray:[self.objectClassIndex valueForKey:NSStringFromClass(class)]];
     
-    if (item.cas_styleClass) {
-        [possibleStyleNodes addObjectsFromArray:[self.styleClassIndex valueForKey:item.cas_styleClass]];
+    NSArray *styleClasses = [item.cas_styleClass componentsSeparatedByString:CASStyleClassSeparator];
+    for (NSString *styleClass in styleClasses.reverseObjectEnumerator) {
+        [possibleStyleNodes addObjectsFromArray:[self.styleClassIndex valueForKey:styleClass]];
     }
     
     for (CASStyleNode *styleNode in possibleStyleNodes) {
@@ -207,10 +208,11 @@ NSArray *ClassGetSubclasses(Class parentClass) {
 - (void)populateStyleLookupTables:(NSArray *)styleNodes {
     for (CASStyleNode *styleNode in styleNodes) {
         if (styleNode.styleSelector.styleClass) {
-            if (![self.styleClassIndex valueForKey:styleNode.styleSelector.styleClass]) {
-                [self.styleClassIndex setValue:[@[] mutableCopy] forKey:styleNode.styleSelector.styleClass];
+            NSString *styleClassKey = styleNode.styleSelector.styleClass;
+            if (![self.styleClassIndex valueForKey:styleClassKey]) {
+                [self.styleClassIndex setValue:[@[] mutableCopy] forKey:styleClassKey];
             }
-            [[self.styleClassIndex valueForKey:styleNode.styleSelector.styleClass] addObject:styleNode];
+            [[self.styleClassIndex valueForKey:styleClassKey] addObject:styleNode];
         } else {
             
             Class class = styleNode.styleSelector.objectClass;
