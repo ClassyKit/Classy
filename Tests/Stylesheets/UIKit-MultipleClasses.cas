@@ -1,0 +1,13 @@
+UIView.class1 {
+    background-color: red;
+}
+
+UIView.class2 {
+    layer: @{
+        corner-radius: 2;
+    }
+}
+
+UIView.class3 {
+    background-color: green;
+}

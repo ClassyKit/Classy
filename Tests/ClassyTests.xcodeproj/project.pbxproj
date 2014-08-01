@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		4ED0F9A3198B476E00C9FE2C /* UIKit-MultipleClasses.cas in Resources */ = {isa = PBXBuildFile; fileRef = 4ED0F9A1198B465600C9FE2C /* UIKit-MultipleClasses.cas */; };
 		9980D2916D344434ACF1CB78 /* libPods-ClassyTests.a in Frameworks */ = {isa = PBXBuildFile; fileRef = C594C855E67D4ABAAB9D8034 /* libPods-ClassyTests.a */; };
 		BDABE4F7F7AD42D589D779BD /* libPods-ClassyTestsLoader.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 13B648C088D7485783343464 /* libPods-ClassyTestsLoader.a */; };
 		DD10AD361819FA6800A5B71D /* CustomView-Basic.cas in Resources */ = {isa = PBXBuildFile; fileRef = DD10AD2E1819FA6800A5B71D /* CustomView-Basic.cas */; };
@@ -75,6 +76,7 @@
 /* Begin PBXFileReference section */
 		13B648C088D7485783343464 /* libPods-ClassyTestsLoader.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-ClassyTestsLoader.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		34BACA8D71A54943A4505935 /* Pods-ClassyTestsLoader.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-ClassyTestsLoader.xcconfig"; path = "../Pods/Pods-ClassyTestsLoader.xcconfig"; sourceTree = "<group>"; };
+		4ED0F9A1198B465600C9FE2C /* UIKit-MultipleClasses.cas */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = "UIKit-MultipleClasses.cas"; sourceTree = "<group>"; };
 		5548B765C39C4F0FA776C911 /* Pods-ClassyTests.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-ClassyTests.xcconfig"; path = "../Pods/Pods-ClassyTests.xcconfig"; sourceTree = "<group>"; };
 		C594C855E67D4ABAAB9D8034 /* libPods-ClassyTests.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-ClassyTests.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		DD10AD2E1819FA6800A5B71D /* CustomView-Basic.cas */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = "CustomView-Basic.cas"; sourceTree = "<group>"; };
@@ -247,6 +249,7 @@
 				DDB16C991895563900256EC6 /* Injected-File.cas */,
 				DDE7E51D18915B0600BA5718 /* Precedence-1.cas */,
 				DDE7E51E18915B0600BA5718 /* Precedence-2.cas */,
+				4ED0F9A1198B465600C9FE2C /* UIKit-MultipleClasses.cas */,
 			);
 			path = Stylesheets;
 			sourceTree = "<group>";
@@ -408,6 +411,7 @@
 				DD5B2DB0189532DC00CB6531 /* Variables-Injection.cas in Resources */,
 				DDE7E52018915B0600BA5718 /* Precedence-2.cas in Resources */,
 				DD10AD391819FA6800A5B71D /* Selectors-Complex.cas in Resources */,
+				4ED0F9A3198B476E00C9FE2C /* UIKit-MultipleClasses.cas in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
