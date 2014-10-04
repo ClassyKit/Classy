@@ -143,7 +143,9 @@ NSInteger const CASParseErrorFileContents = 2;
 
             //combine all following tokens until newline | ;
             NSMutableArray *fileNameComponents = NSMutableArray.new;
-            while (self.peekToken.type != CASTokenTypeNewline && self.peekToken.type != CASTokenTypeSemiColon) {
+            while (self.peekToken.type != CASTokenTypeNewline &&
+                   self.peekToken.type != CASTokenTypeSemiColon &&
+                   self.peekToken.type != CASTokenTypeEOS) {
                 [fileNameComponents addObject:self.nextToken.stringValue];
             }
 
