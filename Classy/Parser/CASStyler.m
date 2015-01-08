@@ -384,10 +384,11 @@ NSArray *ClassGetSubclasses(Class parentClass) {
 
     // Common ENUM maps
     NSDictionary *controlStateMap = @{
-        @"normal"       : @(UIControlStateNormal),
-        @"highlighted"  : @(UIControlStateHighlighted),
-        @"disabled"     : @(UIControlStateDisabled),
-        @"selected"     : @(UIControlStateSelected),
+        @"normal"               : @(UIControlStateNormal),
+        @"highlighted"          : @(UIControlStateHighlighted),
+        @"disabled"             : @(UIControlStateDisabled),
+        @"selected"             : @(UIControlStateSelected),
+        @"selectedHighlighted"  : @(UIControlStateSelected|UIControlStateHighlighted)
     };
 
     NSDictionary *textAlignmentMap = @{
