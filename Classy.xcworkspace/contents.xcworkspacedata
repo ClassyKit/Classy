@@ -191,6 +191,12 @@
          <FileRef
             location = "group:UISlider+CASAdditions.m">
          </FileRef>
+         <FileRef
+            location = "group:UINavigationItem+CASAdditions.h">
+         </FileRef>
+         <FileRef
+            location = "group:UINavigationItem+CASAdditions.m">
+         </FileRef>
       </Group>
       <Group
          location = "group:Reflection"
