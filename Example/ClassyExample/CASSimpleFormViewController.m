@@ -26,6 +26,11 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
+    
+    UIView *v = [[UIView alloc] initWithFrame:CGRectMake(100, 100, 100, 100)];
+    v.backgroundColor = [UIColor redColor];
+    v.cas_styleClass = @"shadow-view";
+    [self.view addSubview:v];
 }
 
 @end
