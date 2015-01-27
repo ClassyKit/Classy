@@ -15,9 +15,9 @@
 
 + (void)setStyleClass:(NSString *)styleClass forItem:(id<CASStyleableItem>)item;
 
-+ (NSMutableSet *)styleClassesForItem:(id<CASStyleableItem>)item;
++ (NSMutableArray *)styleClassesForItem:(id<CASStyleableItem>)item;
 
-+ (void)setStyleClasses:(NSMutableSet *)styleClasses forItem:(id<CASStyleableItem>)item;
++ (void)setStyleClasses:(NSMutableArray *)styleClasses forItem:(id<CASStyleableItem>)item;
 
 + (void)addStyleClass:(NSString *)styleClass forItem:(id<CASStyleableItem>)item;
 

@@ -16,13 +16,13 @@ static void *CASStyleClassesKey = &CASStyleClassesKey;
 @implementation CASStyleClassUtilities
 
 + (NSString *)styleClassForItem:(id<CASStyleableItem>)item {
-    NSMutableSet *styleClasses = [self styleClassesForItem:item];
-    return [styleClasses.allObjects componentsJoinedByString:CASStyleClassSeparator];
+    NSMutableArray *styleClasses = [self styleClassesForItem:item];
+    return [styleClasses componentsJoinedByString:CASStyleClassSeparator];
 }
 
 + (void)setStyleClass:(NSString *)styleClass forItem:(id<CASStyleableItem>)item {
     NSArray *classCandidates = [styleClass componentsSeparatedByCharactersInSet:[NSCharacterSet whitespaceCharacterSet]];
-    NSMutableSet *styleClasses = [self styleClassesForItem:item];
+    NSMutableArray *styleClasses = [self styleClassesForItem:item];
     [styleClasses removeAllObjects];
 
     if (!classCandidates.count) {
@@ -30,7 +30,7 @@ static void *CASStyleClassesKey = &CASStyleClassesKey;
         return;
     }
     if (!styleClasses) {
-        styleClasses = [NSMutableSet set];
+        styleClasses = [NSMutableArray array];
         [self setStyleClasses:styleClasses forItem:item];
     }
     for (NSString *styleClass in classCandidates) {
@@ -40,20 +40,20 @@ static void *CASStyleClassesKey = &CASStyleClassesKey;
     }
 }
 
-+ (NSMutableSet *)styleClassesForItem:(id<CASStyleableItem>)item {
++ (NSMutableArray *)styleClassesForItem:(id<CASStyleableItem>)item {
     return objc_getAssociatedObject(item, CASStyleClassesKey);
 }
 
-+ (void)setStyleClasses:(NSMutableSet *)styleClasses forItem:(id<CASStyleableItem>)item {
++ (void)setStyleClasses:(NSMutableArray *)styleClasses forItem:(id<CASStyleableItem>)item {
     objc_setAssociatedObject(item, CASStyleClassesKey, styleClasses, OBJC_ASSOCIATION_RETAIN_NONATOMIC);
 }
 
 + (void)addStyleClass:(NSString *)styleClass forItem:(id<CASStyleableItem>)item {
     if (![styleClass isKindOfClass:NSString.class] || !styleClass.length) return;
 
-    NSMutableSet *styleClasses = [self styleClassesForItem:item];
+    NSMutableArray *styleClasses = [self styleClassesForItem:item];
     if (!styleClasses) {
-        styleClasses = [NSMutableSet set];
+        styleClasses = [NSMutableArray array];
         [self setStyleClasses:styleClasses forItem:item];
     }
     [styleClasses addObject:styleClass];
@@ -62,7 +62,7 @@ static void *CASStyleClassesKey = &CASStyleClassesKey;
 + (void)removeStyleClass:(NSString *)styleClass forItem:(id<CASStyleableItem>)item {
     if (![styleClass isKindOfClass:NSString.class] || !styleClass.length) return;
 
-    NSMutableSet *styleClasses = [self styleClassesForItem:item];
+    NSMutableArray *styleClasses = [self styleClassesForItem:item];
     [styleClasses removeObject:styleClass];
 }
 
