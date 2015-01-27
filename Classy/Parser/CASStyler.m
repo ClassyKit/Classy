@@ -93,7 +93,8 @@ NSArray *ClassGetSubclasses(Class parentClass) {
     [possibleStyleNodes addObjectsFromArray:[self.objectClassIndex valueForKey:NSStringFromClass(class)]];
     
     NSArray *styleClasses = [item.cas_styleClass componentsSeparatedByString:CASStyleClassSeparator];
-    for (NSString *styleClass in styleClasses.reverseObjectEnumerator) {
+    
+    for (NSString *styleClass in styleClasses) {
         [possibleStyleNodes addObjectsFromArray:[self.styleClassIndex valueForKey:styleClass]];
     }
     
