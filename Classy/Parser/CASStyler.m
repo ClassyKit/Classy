@@ -287,6 +287,11 @@ NSArray *ClassGetSubclasses(Class parentClass) {
                 [invocation setArgument:&value atIndex:argIndex];
                 break;
             }
+            case CASPrimitiveTypeFloat: {
+                float value = [[styleProperty valueOfTokenType:CASTokenTypeUnit] floatValue];
+                [invocation setArgument:&value atIndex:argIndex];
+                break;
+            }
             case CASPrimitiveTypeCGSize: {
                 CGSize size;
                 [styleProperty transformValuesToCGSize:&size];
