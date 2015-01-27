@@ -82,7 +82,7 @@
     
     // Add alpha
     if (hex && includeAlpha) {
-        hex = [hex stringByAppendingFormat:@"%02x", (NSUInteger)(CGColorGetAlpha(self.CGColor) * 255.0f)];
+        hex = [hex stringByAppendingFormat:@"%02lx", (unsigned long)(CGColorGetAlpha(self.CGColor) * 255.0f)];
     }
     
     // Unsupported color space
