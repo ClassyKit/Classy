@@ -52,8 +52,7 @@ SpecBegin(UIView_CASAdditions)
     expect(view.setNeedsUpdateStylingCount).to.equal(2);
 
     // Run the loop
-    [[NSRunLoop currentRunLoop] runMode:NSDefaultRunLoopMode
-                                 beforeDate:[NSDate dateWithTimeIntervalSinceNow:0.1]];
+    [[NSRunLoop mainRunLoop] runUntilDate:[NSDate dateWithTimeIntervalSinceNow:1]];
 
     expect(view.updateStylingCount).to.equal(2);
     expect(view.setNeedsUpdateStylingCount).to.equal(2);
