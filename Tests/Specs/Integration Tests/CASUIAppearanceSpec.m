@@ -251,7 +251,7 @@ SpecBegin(CASUIAppearance)
     
     // In iOS8, layoutMargins affects our separatorInset
     if ([view respondsToSelector:@selector(layoutMargins)]) {
-        [view setLayoutMargins:UIEdgeInsetsZero];
+        [view setValue:[NSValue valueWithUIEdgeInsets:UIEdgeInsetsZero] forKey:@"layoutMargins"];
     }
     [CASStyler.defaultStyler styleItem:view];
 
