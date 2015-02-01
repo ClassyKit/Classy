@@ -30,8 +30,12 @@ SpecBegin(CASArgumentDescriptor)
 
 - (void)testReturnDouble {
     expect([CASArgumentDescriptor argWithObjCType:@encode(double)].primitiveType).to.equal(CASPrimitiveTypeDouble);
-    expect([CASArgumentDescriptor argWithObjCType:@encode(float)].primitiveType).to.equal(CASPrimitiveTypeDouble);
-    expect([CASArgumentDescriptor argWithObjCType:@encode(CGFloat)].primitiveType).to.equal(CASPrimitiveTypeDouble);
+    expect([CASArgumentDescriptor argWithObjCType:@encode(float)].primitiveType).to.equal(CASPrimitiveTypeFloat);
+    if (sizeof(void*) == 4) {
+        expect([CASArgumentDescriptor argWithObjCType:@encode(CGFloat)].primitiveType).to.equal(CASPrimitiveTypeFloat);
+    } else if (sizeof(void*) == 8) {
+        expect([CASArgumentDescriptor argWithObjCType:@encode(CGFloat)].primitiveType).to.equal(CASPrimitiveTypeDouble);
+    }
 }
 
 - (void)testReturnCGSize {

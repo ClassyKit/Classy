@@ -72,11 +72,12 @@
     if (isInteger) return CASPrimitiveTypeInteger;
 
     // check for double
-    BOOL isDouble = self.type.length == 1 && (
-           [self.type isEqualToString:@"f"]   // A float
-        || [self.type isEqualToString:@"d"]); // A double
-    if (isDouble) return CASPrimitiveTypeDouble;
-
+    if ([self.type isEqualToString:@"f"]) {
+        return CASPrimitiveTypeFloat;
+    } else if ([self.type isEqualToString:@"d"]) {
+        return CASPrimitiveTypeDouble;
+    }
+    
     // check for structs
     if ([self.type hasPrefix:@"{CGSize"]) {
         return CASPrimitiveTypeCGSize;

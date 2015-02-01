@@ -15,6 +15,7 @@ typedef NS_ENUM(NSUInteger, CASPrimitiveType) {
     CASPrimitiveTypeNone,
     CASPrimitiveTypeUnsupported,
     CASPrimitiveTypeBOOL,
+    CASPrimitiveTypeFloat,
     CASPrimitiveTypeDouble,
     CASPrimitiveTypeInteger,
     CASPrimitiveTypeCGPoint,

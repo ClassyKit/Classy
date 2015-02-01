@@ -248,6 +248,11 @@ SpecBegin(CASUIAppearance)
 
 - (void)testUITableViewCellAppearance {
     UITableViewCell *view = UITableViewCell.new;
+    
+    // In iOS8, layoutMargins affects our separatorInset
+    if ([view respondsToSelector:@selector(layoutMargins)]) {
+        [view setValue:[NSValue valueWithUIEdgeInsets:UIEdgeInsetsZero] forKey:@"layoutMargins"];
+    }
     [CASStyler.defaultStyler styleItem:view];
 
     //top and bottom are ignored

@@ -8,3 +8,11 @@ UITableView UILabel {
 ^UIViewController > UIView {
   background-color: blue;
 }
+
+UIView.shadow-view {
+    layer @
+        shadow-radius 10
+        shadow-opacity 1
+        shadow-color black
+        shadow-offset 0,0
+}
