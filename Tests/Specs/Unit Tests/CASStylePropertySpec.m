@@ -312,4 +312,27 @@ SpecBegin(CASStyleProperty)
     expect(image).toNot.beNil();
 }
 
+- (void)testFont {
+    NSArray *valueTokens = CASTokensFromString(@"\"Palatino\" 24");
+    
+    CASStyleProperty *prop = [[CASStyleProperty alloc]initWithNameToken:nil valueTokens:valueTokens];
+    __block UIFont *font = nil;
+    expect([prop transformValuesToUIFont:&font]).to.beTruthy();
+    expect(font.familyName).to.equal(@"Palatino");
+    expect(font.pointSize).to.equal(24.0f);
+}
+
+- (void)testPreferredFontForTextStyle {
+    NSArray *valueTokens = CASTokensFromString(@"body");
+    
+    CASStyleProperty *prop = [[CASStyleProperty alloc]initWithNameToken:nil valueTokens:valueTokens];
+    __block UIFont *font = nil;
+    if ([UIFont respondsToSelector:@selector(preferredFontForTextStyle:)]) {
+        expect([prop transformValuesToUIFont:&font]).to.beTruthy();
+        expect(font).to.equal([UIFont preferredFontForTextStyle:@"UICTFontTextStyleBody"]);
+    } else {
+        expect([prop transformValuesToUIFont:&font]).to.beFalsy();
+    }
+}
+
 SpecEnd
