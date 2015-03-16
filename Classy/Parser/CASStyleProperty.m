@@ -273,11 +273,37 @@
         return NO;
     }
 
-    CGFloat fontSizeValue = [fontSize floatValue] ?: [UIFont systemFontSize];
-    if (fontName) {
-        *font = [UIFont fontWithName:fontName size:fontSizeValue];
+    static NSDictionary *textStyleLookupMap = nil;
+    if (!textStyleLookupMap) {
+        // Classy is available also on iOS6, so instead of using UIKit consts for text styles that are available
+        // only on iOS7+ let the strings be hardcoded. This avoids the need for weak-linking UIKit.
+        textStyleLookupMap = @{
+                @"body" : @"UICTFontTextStyleBody",
+                @"caption1" : @"UICTFontTextStyleCaption1",
+                @"caption2" : @"UICTFontTextStyleCaption2",
+                @"footnote" : @"UICTFontTextStyleFootnote",
+                @"headline" : @"UICTFontTextStyleHeadline",
+                @"subheadline" : @"UICTFontTextStyleSubhead",
+        };
+    }
+
+    NSString *textStyle = textStyleLookupMap[fontName];
+    if (textStyle && !fontSize) {
+#pragma clang diagnostic push
+#pragma ide diagnostic ignored "UnavailableInDeploymentTarget"
+        if ([UIFont respondsToSelector:@selector(preferredFontForTextStyle:)]) {
+            *font = [UIFont preferredFontForTextStyle:textStyle];
+        } else {
+            return NO;
+        }
+#pragma clang diagnostic pop
     } else {
-        *font = [UIFont systemFontOfSize:fontSizeValue];
+        CGFloat fontSizeValue = [fontSize floatValue] ?: [UIFont systemFontSize];
+        if (fontName) {
+            *font = [UIFont fontWithName:fontName size:fontSizeValue];
+        } else {
+            *font = [UIFont systemFontOfSize:fontSizeValue];
+        }
     }
     return YES;
 }
