@@ -12,6 +12,7 @@
 @interface UIView (CASAdditions) <CASStyleableItem>
 
 @property (nonatomic, weak, readwrite) id<CASStyleableItem> cas_alternativeParent;
+@property (nonatomic, copy) IBInspectable NSString *cas_styleClass;
 
 - (void)cas_setNeedsUpdateStylingForSubviews;
 
