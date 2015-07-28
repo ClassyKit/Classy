@@ -16,6 +16,7 @@
 //
 
 #import <objc/runtime.h>
+#import <Foundation/Foundation.h>
 
 /**
  * Describes the memory management policy of a property.
