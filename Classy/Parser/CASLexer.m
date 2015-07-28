@@ -112,7 +112,7 @@ NSString * const CASParseFailingStringErrorKey = @"CASParseFailingStringErrorKey
 }
 
 - (CASToken *)lookaheadByCount:(NSUInteger)count {
-    NSAssert(count > 0, @"Invalid lookahead. Count `%lu` must be >= 1", count);
+    NSAssert(count > 0, @"Invalid lookahead. Count `%lu` must be >= 1", (unsigned long)count);
     NSInteger fetch = count - self.stash.count;
     while (fetch > 0) {
         CASToken *token = self.advanceToken;
