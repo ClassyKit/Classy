@@ -12,8 +12,12 @@
 #import "NSString+CASAdditions.h"
 #import "CASStyleClassUtilities.h"
 #import "NSObject+CASSwizzle.h"
+#import "CASAssociatedObjectsWeakWrapper.h"
 
 @implementation UIBarItem (CASAdditions)
+
+CASSynthesize(weak, id<CASStyleableItem>, cas_parent, setCas_parent);
+
 
 + (void)load {
     [self cas_swizzleInstanceSelector:@selector(init)
@@ -49,14 +53,6 @@
 
 - (BOOL)cas_hasStyleClass:(NSString *)styleClass {
     return [CASStyleClassUtilities item:self hasStyleClass:styleClass];
-}
-
-- (id<CASStyleableItem>)cas_parent {
-    return objc_getAssociatedObject(self, @selector(cas_parent));
-}
-
-- (void)setCas_parent:(id<CASStyleableItem>)parent {
-    objc_setAssociatedObject(self, @selector(cas_parent), parent, OBJC_ASSOCIATION_ASSIGN);
 }
 
 - (id<CASStyleableItem>)cas_alternativeParent {
