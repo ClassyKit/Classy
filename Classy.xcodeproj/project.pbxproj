@@ -37,7 +37,7 @@
 		1EC719C81B67AF9C00700A14 /* UIView+CASAdditions.m in Sources */ = {isa = PBXBuildFile; fileRef = 1EC7197C1B67AF9C00700A14 /* UIView+CASAdditions.m */; };
 		1EC719C91B67AF9C00700A14 /* UIViewController+CASAdditions.h in Headers */ = {isa = PBXBuildFile; fileRef = 1EC7197D1B67AF9C00700A14 /* UIViewController+CASAdditions.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		1EC719CA1B67AF9C00700A14 /* UIViewController+CASAdditions.m in Sources */ = {isa = PBXBuildFile; fileRef = 1EC7197E1B67AF9C00700A14 /* UIViewController+CASAdditions.m */; };
-		1EC719CB1B67AF9C00700A14 /* Classy.h in Headers */ = {isa = PBXBuildFile; fileRef = 1EC7197F1B67AF9C00700A14 /* Classy.h */; };
+		1EC719CB1B67AF9C00700A14 /* Classy.h in Headers */ = {isa = PBXBuildFile; fileRef = 1EC7197F1B67AF9C00700A14 /* Classy.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		1EC719CC1B67AF9C00700A14 /* CASDeviceOSVersionItem.h in Headers */ = {isa = PBXBuildFile; fileRef = 1EC719811B67AF9C00700A14 /* CASDeviceOSVersionItem.h */; };
 		1EC719CD1B67AF9C00700A14 /* CASDeviceOSVersionItem.m in Sources */ = {isa = PBXBuildFile; fileRef = 1EC719821B67AF9C00700A14 /* CASDeviceOSVersionItem.m */; };
 		1EC719CE1B67AF9C00700A14 /* CASDeviceScreenSizeItem.h in Headers */ = {isa = PBXBuildFile; fileRef = 1EC719831B67AF9C00700A14 /* CASDeviceScreenSizeItem.h */; };
@@ -314,6 +314,7 @@
 			isa = PBXHeadersBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				1EC719CB1B67AF9C00700A14 /* Classy.h in Headers */,
 				1EC719B91B67AF9C00700A14 /* UIColor+CASAdditions.h in Headers */,
 				1EC719F31B67AF9C00700A14 /* CASPropertyDescriptor.h in Headers */,
 				1EC719ED1B67AF9C00700A14 /* CASArgumentDescriptor.h in Headers */,
@@ -343,7 +344,6 @@
 				1EC719B51B67AF9C00700A14 /* NSString+CASAdditions.h in Headers */,
 				1EC719E71B67AF9C00700A14 /* CASToken.h in Headers */,
 				1EC719DD1B67AF9C00700A14 /* CASStyleNode.h in Headers */,
-				1EC719CB1B67AF9C00700A14 /* Classy.h in Headers */,
 				1EC719DF1B67AF9C00700A14 /* CASStyleProperty.h in Headers */,
 				1EC719E11B67AF9C00700A14 /* CASStyleSelector.h in Headers */,
 				1EC719D01B67AF9C00700A14 /* CASDeviceSelector.h in Headers */,
