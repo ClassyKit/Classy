@@ -366,6 +366,7 @@
 				1EC7193F1B67AE9D00700A14 /* Frameworks */,
 				1EC719401B67AE9D00700A14 /* Headers */,
 				1EC719411B67AE9D00700A14 /* Resources */,
+				1EC71A031B68C8F900700A14 /* Copy Artifacts */,
 			);
 			buildRules = (
 			);
@@ -416,6 +417,23 @@
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXResourcesBuildPhase section */
+
+/* Begin PBXShellScriptBuildPhase section */
+		1EC71A031B68C8F900700A14 /* Copy Artifacts */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "Copy Artifacts";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "ARTIFACTS=\"Artifacts\"\nBASE_DIR=$SRCROOT/$ARTIFACTS\nif [ -d \"${BASE_DIR}\" ];\nthen\nrm -rf $BASE_DIR\nfi\nmkdir -p $BASE_DIR\ncp -R $DWARF_DSYM_FOLDER_PATH/* $BASE_DIR";
+		};
+/* End PBXShellScriptBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
 		1EC7193E1B67AE9D00700A14 /* Sources */ = {
