@@ -780,7 +780,7 @@ NSInteger const CASParseErrorFileContents = 2;
 
 - (Class)swiftClassFromString:(NSString *)className {
 	NSString *appName = [[NSBundle mainBundle] objectForInfoDictionaryKey:@"CFBundleName"];
-	NSString *classStringName = [NSString stringWithFormat:@"_TtC%d%@%d%@", appName.length, appName, className.length, className];
+	NSString *classStringName = [NSString stringWithFormat:@"_TtC%lu%@%lu%@", (unsigned long)appName.length, appName, (unsigned long)className.length, className];
 	return NSClassFromString(classStringName);
 }
 

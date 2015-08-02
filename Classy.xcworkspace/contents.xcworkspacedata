@@ -228,6 +228,9 @@
       </Group>
    </Group>
    <FileRef
+      location = "group:Classy.xcodeproj">
+   </FileRef>
+   <FileRef
       location = "group:Example/ClassyExample.xcodeproj">
    </FileRef>
    <FileRef

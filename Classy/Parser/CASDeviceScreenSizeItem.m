@@ -25,7 +25,7 @@
         case CASRelationLessThanOrEqual:
             return sizeInDimension <= self.value;
         case CASRelationEqual:
-            return fabsf(self.value - sizeInDimension) < 0.001;
+            return fabs(self.value - sizeInDimension) < 0.001;
         case CASRelationGreaterThanOrEqual:
             return sizeInDimension >= self.value;
         case CASRelationGreaterThan:

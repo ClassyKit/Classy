@@ -7,6 +7,7 @@
 //
 
 #import "CASUtilities.h"
+#import <UIKit/UIKit.h>
 
 NSString *_CASAbsoluteFilePath(const char *currentFilePath, NSString *relativeFilePath) {
     NSString *currentDirectory = [[NSString stringWithUTF8String:currentFilePath] stringByDeletingLastPathComponent];

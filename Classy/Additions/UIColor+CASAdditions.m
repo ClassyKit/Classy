@@ -15,7 +15,7 @@
 @implementation NSString (CASPrivateAdditions)
 - (NSUInteger)cas_hexValue {
     NSUInteger result = 0;
-    sscanf([self UTF8String], "%x", &result);
+    sscanf([self UTF8String], "%lx", &result);
     return result;
 }
 @end

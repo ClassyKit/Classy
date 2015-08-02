@@ -13,10 +13,13 @@
 #import "CASStyler.h"
 #import "NSString+CASAdditions.h"
 #import "CASStyleClassUtilities.h"
+#import "CASAssociatedObjectsWeakWrapper.h"
 
 static void *CASStyleHasBeenUpdatedKey = &CASStyleHasBeenUpdatedKey;
 
 @implementation UIView (CASAdditions)
+
+CASSynthesize(weak, id<CASStyleableItem>, cas_alternativeParent, setCas_alternativeParent);
 
 + (void)load {
     [self cas_swizzleInstanceSelector:@selector(didMoveToWindow)
@@ -62,14 +65,6 @@ static void *CASStyleHasBeenUpdatedKey = &CASStyleHasBeenUpdatedKey;
 
 - (id<CASStyleableItem>)cas_parent {
     return self.superview;
-}
-
-- (id<CASStyleableItem>)cas_alternativeParent {
-    return objc_getAssociatedObject(self, @selector(cas_alternativeParent));
-}
-
-- (void)setCas_alternativeParent:(id<CASStyleableItem>)parent {
-    objc_setAssociatedObject(self, @selector(cas_alternativeParent), parent, OBJC_ASSOCIATION_ASSIGN);
 }
 
 - (void)cas_updateStylingIfNeeded {

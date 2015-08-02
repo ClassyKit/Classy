@@ -19,3 +19,6 @@ profile
 /Podfile.lock
 
 /Classy.xcworkspace/xcshareddata/Classy.xccheckout
+Classy.xcodeproj/project.xcworkspace
+Classy.xcworkspace/contents.xcworkspacedata
+Artifacts

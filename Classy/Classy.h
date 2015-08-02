@@ -21,4 +21,4 @@
 #import "UIBarItem+CASAdditions.h"
 #import "UINavigationBar+CASAdditions.h"
 #import "UITabBar+CASAdditions.h"
-#import "UIToolBar+CASAdditions.h"
+#import "UIToolbar+CASAdditions.h"
