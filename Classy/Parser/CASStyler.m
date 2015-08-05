@@ -114,11 +114,12 @@ NSArray *ClassGetSubclasses(Class parentClass) {
     if (!self.filePath) return;
 
     // if stylesheet has already been loaded. reload stylesheet
+    NSString *filePath = _filePath;
     _filePath = nil;
-    self.filePath = _filePath;
+    self.filePath = filePath;
 
     // reapply styles
-    for (UIWindow *window in UIApplication.sharedApplication.windows) {
+    for (UIWindow *window in self.updatedWindows) {
         [self styleSubviewsOfView:window];
     }
 }
@@ -706,6 +707,18 @@ NSArray *ClassGetSubclasses(Class parentClass) {
     return objectClassDescriptor;
 }
 
+- (NSArray *)updatedWindows
+{
+    NSMutableArray *windows = [NSMutableArray new];
+    if (UIApplication.sharedApplication.windows != nil) {
+        [windows addObjectsFromArray:UIApplication.sharedApplication.windows];
+    }
+    if (self.targetWindows) {
+        [windows addObjectsFromArray:self.targetWindows];
+    }
+    return windows;
+}
+
 #pragma mark - sceduling
 
 - (void)updateScheduledItems {
@@ -753,7 +766,7 @@ NSArray *ClassGetSubclasses(Class parentClass) {
             self.filePath = _watchFilePath;
 
             // reapply styles
-            for (UIWindow *window in UIApplication.sharedApplication.windows) {
+            for (UIWindow *window in self.updatedWindows) {
                 [self styleSubviewsOfView:window];
             }
         });

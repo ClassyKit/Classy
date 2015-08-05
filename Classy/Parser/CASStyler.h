@@ -31,6 +31,12 @@
 @property (nonatomic, copy) NSString *watchFilePath;
 
 /**
+ *  Windows to update views. 
+ *  Needed for live updates when UIApplication is not available (e.g. in Application Extensions)
+ */
+@property (nonatomic, strong) NSArray *targetWindows;
+
+/**
  *  Set file path location of styling data and report any errors
  *
  *  @param filePath The location of the style data
