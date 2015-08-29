@@ -643,7 +643,7 @@ NSInteger const CASParseErrorFileContents = 2;
                 styleSelector.styleClass = [tokenValue substringFromIndex:1];
             } else {
                 styleSelector.objectClass = NSClassFromString(tokenValue);
-				if (!styleSelector.objectClass) {
+                if (!styleSelector.objectClass) {
                      // Maybe it's a custom Swift class
                     styleSelector.objectClass = [self swiftClassFromString:tokenValue];
                 }
@@ -779,9 +779,10 @@ NSInteger const CASParseErrorFileContents = 2;
 }
 
 - (Class)swiftClassFromString:(NSString *)className {
-	NSString *appName = [[NSBundle mainBundle] objectForInfoDictionaryKey:@"CFBundleName"];
-	NSString *classStringName = [NSString stringWithFormat:@"_TtC%lu%@%lu%@", (unsigned long)appName.length, appName, (unsigned long)className.length, className];
-	return NSClassFromString(classStringName);
+    NSString *appName = [[NSBundle mainBundle] objectForInfoDictionaryKey:@"CFBundleName"];
+    NSString *sanitizedAppName = [appName stringByReplacingOccurrencesOfString:@" " withString:@"_"];
+    NSString *classStringName = [NSString stringWithFormat:@"_TtC%lu%@%lu%@", (unsigned long)sanitizedAppName.length, sanitizedAppName, (unsigned long)className.length, className];
+    return NSClassFromString(classStringName);
 }
 
 
