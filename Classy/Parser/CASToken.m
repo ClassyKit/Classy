@@ -139,4 +139,35 @@
     return self.type == CASTokenTypeLeftCurlyBrace || self.type == CASTokenTypeIndent;
 }
 
+- (BOOL)isEqual:(id)object
+{
+    if ([object isKindOfClass:[CASToken class]]) {
+        CASToken *other = object;
+        
+        return other.type == self.type && ([other.value isEqual:self.value] || other.value == self.value) && other.lineNumber == self.lineNumber;
+    }
+    else {
+        return NO;
+    }
+}
+
+#pragma mark - NSCoding
+
+- (id)initWithCoder:(NSCoder *)aDecoder {
+    self = [self init];
+    if (self != nil) {
+        self.type       = [aDecoder decodeIntegerForKey:NSStringFromSelector(@selector(type))];
+        self.value      = [aDecoder decodeObjectForKey:NSStringFromSelector(@selector(value))];
+        self.lineNumber = [aDecoder decodeIntegerForKey:NSStringFromSelector(@selector(lineNumber))];
+    }
+    
+    return self;
+}
+
+- (void)encodeWithCoder:(NSCoder *)aCoder {
+    [aCoder encodeInteger:self.type forKey:NSStringFromSelector(@selector(type))];
+    [aCoder encodeObject:self.value forKey:NSStringFromSelector(@selector(value))];
+    [aCoder encodeInteger:self.lineNumber forKey:NSStringFromSelector(@selector(lineNumber))];
+}
+
 @end

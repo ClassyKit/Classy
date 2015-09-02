@@ -154,8 +154,18 @@ NSArray *ClassGetSubclasses(Class parentClass) {
     self.styleClassIndex = [NSMutableDictionary new];
     self.objectClassIndex = [NSMutableDictionary new];
     
-    CASParser *parser = [CASParser parserFromFilePath:filePath variables:self.variables error:error];
-    NSArray *styleNodes = parser.styleNodes;
+    NSArray *styleNodes = nil;
+    NSSet *importedFileNames = nil;
+    
+    if ([[filePath pathExtension] isEqualToString:@"bcas"]) {
+        styleNodes = [NSKeyedUnarchiver unarchiveObjectWithFile:filePath];
+        importedFileNames = [NSSet set];
+    }
+    else {
+        CASParser *parser = [CASParser parserFromFilePath:filePath variables:self.variables error:error];
+        styleNodes = parser.styleNodes;
+        importedFileNames = parser.importedFileNames;
+    }
     
     if (self.watchFilePath) {
         for (dispatch_source_t source in self.fileWatchers) {
@@ -164,7 +174,7 @@ NSArray *ClassGetSubclasses(Class parentClass) {
         [self.fileWatchers removeAllObjects];
         [self reloadOnChangesToFilePath:self.watchFilePath];
         NSString *directoryPath = [self.watchFilePath stringByDeletingLastPathComponent];
-        for (NSString *fileName in parser.importedFileNames) {
+        for (NSString *fileName in importedFileNames) {
             NSString *resolvedPath = [directoryPath stringByAppendingPathComponent:fileName];
             [self reloadOnChangesToFilePath:resolvedPath];
         }

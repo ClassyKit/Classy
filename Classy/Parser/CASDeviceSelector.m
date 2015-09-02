@@ -135,4 +135,18 @@
     }
 }
 
+#pragma mark - NSCoding
+
+- (id)initWithCoder:(NSCoder *)aDecoder {
+    self = [self init];
+    if (nil != self) {
+        _items = [aDecoder decodeObjectForKey:NSStringFromSelector(@selector(items))];
+    }
+    return self;
+}
+
+- (void)encodeWithCoder:(NSCoder *)aCoder {
+    [aCoder encodeObject:self.items forKey:NSStringFromSelector(@selector(items))];
+}
+
 @end

@@ -10,7 +10,7 @@
 #import <UIKit/UIKit.h>
 #import "CASToken.h"
 
-@interface CASStyleProperty : NSObject
+@interface CASStyleProperty : NSObject <NSCoding>
 
 /**
  *  Name of the receiver
