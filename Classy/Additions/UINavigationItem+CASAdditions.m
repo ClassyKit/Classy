@@ -13,7 +13,7 @@
 
 @implementation UINavigationItem (CASAdditions)
 
-+ (void)load {
++ (void)bootstrapClassy {
     [self cas_swizzleInstanceSelector:@selector(setRightBarButtonItem:animated:) withNewSelector:@selector(cas_setRightBarButtonItem:animated:)];
     [self cas_swizzleInstanceSelector:@selector(setLeftBarButtonItem:animated:) withNewSelector:@selector(cas_setLeftBarButtonItem:animated:)];
     

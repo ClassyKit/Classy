@@ -1,3 +1,4 @@
+
 //
 //  CASStyler.m
 //  Classy
@@ -16,6 +17,12 @@
 #import "NSString+CASAdditions.h"
 #import "CASTextAttributes.h"
 #import "CASInvocation.h"
+
+#import "UIBarItem+CASAdditions.h"
+#import "UINavigationItem+CASAdditions.h"
+#import "UITextField+CASAdditions.h"
+#import "UIView+CASAdditions.h"
+#import "UIViewController+CASAdditions.h"
 #import <objc/runtime.h>
 
 // http://www.cocoawithlove.com/2010/01/getting-subclasses-of-objective-c-class.html
@@ -67,6 +74,14 @@ NSArray *ClassGetSubclasses(Class parentClass) {
     return _defaultStyler;
 }
 
++ (void)bootstrapClassy {
+    [UIBarItem bootstrapClassy];
+    [UINavigationItem bootstrapClassy];
+    [UITextField bootstrapClassy];
+    [UIView bootstrapClassy];
+    [UIViewController bootstrapClassy];
+}
+
 - (id)init {
     self = [super init];
     if (!self) return nil;
@@ -114,11 +129,12 @@ NSArray *ClassGetSubclasses(Class parentClass) {
     if (!self.filePath) return;
 
     // if stylesheet has already been loaded. reload stylesheet
+    NSString *filePath = _filePath;
     _filePath = nil;
-    self.filePath = _filePath;
+    self.filePath = filePath;
 
     // reapply styles
-    for (UIWindow *window in UIApplication.sharedApplication.windows) {
+    for (UIWindow *window in self.updatedWindows) {
         [self styleSubviewsOfView:window];
     }
 }
@@ -706,6 +722,18 @@ NSArray *ClassGetSubclasses(Class parentClass) {
     return objectClassDescriptor;
 }
 
+- (NSArray *)updatedWindows
+{
+    NSMutableArray *windows = [NSMutableArray new];
+    if (UIApplication.sharedApplication.windows != nil) {
+        [windows addObjectsFromArray:UIApplication.sharedApplication.windows];
+    }
+    if (self.targetWindows) {
+        [windows addObjectsFromArray:self.targetWindows];
+    }
+    return windows;
+}
+
 #pragma mark - sceduling
 
 - (void)updateScheduledItems {
@@ -753,7 +781,7 @@ NSArray *ClassGetSubclasses(Class parentClass) {
             self.filePath = _watchFilePath;
 
             // reapply styles
-            for (UIWindow *window in UIApplication.sharedApplication.windows) {
+            for (UIWindow *window in self.updatedWindows) {
                 [self styleSubviewsOfView:window];
             }
         });

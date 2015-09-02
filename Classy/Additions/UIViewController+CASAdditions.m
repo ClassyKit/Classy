@@ -19,7 +19,7 @@ static void *CASStyleHasBeenUpdatedKey = &CASStyleHasBeenUpdatedKey;
 
 @implementation UIViewController (CASAdditions)
 
-+ (void)load {
++ (void)bootstrapClassy {
     [self cas_swizzleInstanceSelector:@selector(setView:)
                       withNewSelector:@selector(cas_setView:)];
 }

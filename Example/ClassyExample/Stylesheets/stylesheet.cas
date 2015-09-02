@@ -16,3 +16,8 @@ UIView.shadow-view {
         shadow-color black
         shadow-offset 0,0
 }
+
+UILabel.text-label {
+    font: System-Medium 30;
+    backgroundColor: white;
+}

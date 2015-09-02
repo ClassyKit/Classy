@@ -9,5 +9,5 @@
 #import <UIKit/UIKit.h>
 
 @interface UINavigationItem (CASAdditions)
-
++ (void)bootstrapClassy;
 @end

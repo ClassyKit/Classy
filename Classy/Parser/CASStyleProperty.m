@@ -300,7 +300,26 @@
     } else {
         CGFloat fontSizeValue = [fontSize floatValue] ?: [UIFont systemFontSize];
         if (fontName) {
-            *font = [UIFont fontWithName:fontName size:fontSizeValue];
+            if ([fontName hasPrefix:@"System"]) {
+                
+                NSString *weightString = @"Regular";
+                NSArray *nameComponents = [fontName componentsSeparatedByString:@"-"];
+                if (nameComponents.count == 2) {
+                    weightString = nameComponents[1];
+                }
+                
+                if ([weightString isEqualToString:@"Regular"]) {
+                    *font = [UIFont systemFontOfSize:fontSizeValue];
+                }
+                else {
+                    UIFont *systemFont = [UIFont systemFontOfSize:fontSizeValue];
+                    UIFontDescriptor *descriptor = [UIFontDescriptor fontDescriptorWithFontAttributes:@{UIFontDescriptorFaceAttribute: weightString, UIFontDescriptorFamilyAttribute: systemFont.familyName}];
+                    *font = [UIFont fontWithDescriptor:descriptor size:fontSizeValue];
+                }
+            }
+            else {
+                *font = [UIFont fontWithName:fontName size:fontSizeValue];
+            }
         } else {
             *font = [UIFont systemFontOfSize:fontSizeValue];
         }

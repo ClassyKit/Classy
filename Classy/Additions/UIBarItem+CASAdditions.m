@@ -19,7 +19,7 @@
 CASSynthesize(weak, id<CASStyleableItem>, cas_parent, setCas_parent);
 
 
-+ (void)load {
++ (void)bootstrapClassy {
     [self cas_swizzleInstanceSelector:@selector(init)
                       withNewSelector:@selector(cas_init)];
 }

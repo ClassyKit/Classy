@@ -21,7 +21,7 @@ static void *CASStyleHasBeenUpdatedKey = &CASStyleHasBeenUpdatedKey;
 
 CASSynthesize(weak, id<CASStyleableItem>, cas_alternativeParent, setCas_alternativeParent);
 
-+ (void)load {
++ (void)bootstrapClassy {
     [self cas_swizzleInstanceSelector:@selector(didMoveToWindow)
                       withNewSelector:@selector(cas_didMoveToWindow)];
 }
