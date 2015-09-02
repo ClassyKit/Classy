@@ -12,6 +12,8 @@
 
 @interface CASStyler : NSObject
 
++ (void)bootstrapClassy;
+
 /**
  *  Singleton instance
  */

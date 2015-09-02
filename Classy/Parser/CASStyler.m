@@ -1,3 +1,4 @@
+
 //
 //  CASStyler.m
 //  Classy
@@ -16,6 +17,12 @@
 #import "NSString+CASAdditions.h"
 #import "CASTextAttributes.h"
 #import "CASInvocation.h"
+
+#import "UIBarItem+CASAdditions.h"
+#import "UINavigationItem+CASAdditions.h"
+#import "UITextField+CASAdditions.h"
+#import "UIView+CASAdditions.h"
+#import "UIViewController+CASAdditions.h"
 #import <objc/runtime.h>
 
 // http://www.cocoawithlove.com/2010/01/getting-subclasses-of-objective-c-class.html
@@ -65,6 +72,14 @@ NSArray *ClassGetSubclasses(Class parentClass) {
     });
     
     return _defaultStyler;
+}
+
++ (void)bootstrapClassy {
+    [UIBarItem bootstrapClassy];
+    [UINavigationItem bootstrapClassy];
+    [UITextField bootstrapClassy];
+    [UIView bootstrapClassy];
+    [UIViewController bootstrapClassy];
 }
 
 - (id)init {

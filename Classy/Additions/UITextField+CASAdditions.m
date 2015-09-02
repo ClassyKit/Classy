@@ -12,7 +12,7 @@
 
 @implementation UITextField (CASAdditions)
 
-+ (void)load {
++ (void)bootstrapClassy {
     [self cas_swizzleInstanceSelector:@selector(textRectForBounds:)
                       withNewSelector:@selector(cas_textRectForBounds:)];
 

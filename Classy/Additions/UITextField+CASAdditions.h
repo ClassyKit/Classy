@@ -9,7 +9,7 @@
 #import <UIKit/UIKit.h>
 
 @interface UITextField (CASAdditions)
-
++ (void)bootstrapClassy;
 @property (nonatomic, assign) UIEdgeInsets cas_textEdgeInsets;
 
 @end

@@ -10,7 +10,7 @@
 #import "CASStyleableItem.h"
 
 @interface UIBarItem (CASAdditions) <CASStyleableItem>
-
++ (void)bootstrapClassy;
 @property (nonatomic, weak, readwrite) id<CASStyleableItem> cas_parent;
 
 @end
