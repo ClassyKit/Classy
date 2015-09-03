@@ -186,11 +186,12 @@ NSArray *ClassGetSubclasses(Class parentClass) {
     
     NSArray* cachePathArray = NSSearchPathForDirectoriesInDomains(NSCachesDirectory, NSUserDomainMask, YES);
     NSString* cachePath = [cachePathArray lastObject];
-    NSString *bcasPath = [cachePath stringByAppendingPathComponent:[NSString stringWithFormat:@"%@-%@.bcas", [filePath stringByDeletingPathExtension], casHash]];
+    NSString *bcasPath = [cachePath stringByAppendingPathComponent:[NSString stringWithFormat:@"%@-%@.bcas", [[filePath lastPathComponent] stringByDeletingPathExtension], casHash]];
     
+    NSError *fileSystemError = nil;
     
-    NSDictionary *fileAttributes = [[NSFileManager defaultManager] attributesOfItemAtPath:bcasPath error:error];
-
+    NSDictionary *fileAttributes = [[NSFileManager defaultManager] attributesOfItemAtPath:bcasPath error:nil];
+ 
     if ([[NSFileManager defaultManager] fileExistsAtPath:bcasPath] && [fileAttributes[NSFileSize] integerValue] != 0) {
         styleNodes = [NSKeyedUnarchiver unarchiveObjectWithFile:bcasPath];
         importedFileNames = [NSSet set];
@@ -201,14 +202,15 @@ NSArray *ClassGetSubclasses(Class parentClass) {
         importedFileNames = parser.importedFileNames;
         
         NSData *data = [NSKeyedArchiver archivedDataWithRootObject:parser.styleNodes];
-        error = nil;
+
         [[NSFileManager defaultManager] createDirectoryAtPath:[bcasPath stringByDeletingLastPathComponent]
                                   withIntermediateDirectories:YES
                                                    attributes:nil
-                                                        error:error];
+                                                        error:&fileSystemError];
         
-        if (error != nil) {
+        if (fileSystemError != nil) {
             NSLog(@"Error: cannot create folder %@", [bcasPath stringByDeletingLastPathComponent]);
+            fileSystemError = nil;
         }
         [data writeToFile:bcasPath atomically:YES];
     }
