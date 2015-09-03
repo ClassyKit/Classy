@@ -24,6 +24,7 @@
 #import "UIView+CASAdditions.h"
 #import "UIViewController+CASAdditions.h"
 #import <objc/runtime.h>
+#import <CommonCrypto/CommonCrypto.h>
 
 // http://www.cocoawithlove.com/2010/01/getting-subclasses-of-objective-c-class.html
 NSArray *ClassGetSubclasses(Class parentClass) {
@@ -48,6 +49,27 @@ NSArray *ClassGetSubclasses(Class parentClass) {
     free(classes);
     return result;
 }
+
+@interface NSData(MD5)
+
+- (NSString *)generateMD5Hash;
+
+@end
+
+@implementation NSData(MD5)
+
+- (NSString *)generateMD5Hash
+{
+    unsigned char md5Buffer[CC_MD5_DIGEST_LENGTH];
+    CC_MD5(self.bytes, (CC_LONG)self.length, md5Buffer);
+    NSMutableString *output = [NSMutableString stringWithCapacity:CC_MD5_DIGEST_LENGTH * 2];
+    for(int i = 0; i < CC_MD5_DIGEST_LENGTH; i++)
+        [output appendFormat:@"%02x",md5Buffer[i]];
+    
+    return output;
+}
+
+@end
 
 @interface CASStyler ()
 
@@ -157,14 +179,38 @@ NSArray *ClassGetSubclasses(Class parentClass) {
     NSArray *styleNodes = nil;
     NSSet *importedFileNames = nil;
     
-    if ([[filePath pathExtension] isEqualToString:@"bcas"]) {
-        styleNodes = [NSKeyedUnarchiver unarchiveObjectWithFile:filePath];
+    NSMutableData *fileData = [NSMutableData dataWithContentsOfFile:filePath];
+    [fileData appendData:[NSKeyedArchiver archivedDataWithRootObject:self.variables]];
+    
+    NSString *casHash = [fileData generateMD5Hash];
+    
+    NSArray* cachePathArray = NSSearchPathForDirectoriesInDomains(NSCachesDirectory, NSUserDomainMask, YES);
+    NSString* cachePath = [cachePathArray lastObject];
+    NSString *bcasPath = [cachePath stringByAppendingPathComponent:[NSString stringWithFormat:@"%@-%@.bcas", [filePath stringByDeletingPathExtension], casHash]];
+    
+    
+    NSDictionary *fileAttributes = [[NSFileManager defaultManager] attributesOfItemAtPath:bcasPath error:error];
+
+    if ([[NSFileManager defaultManager] fileExistsAtPath:bcasPath] && [fileAttributes[NSFileSize] integerValue] != 0) {
+        styleNodes = [NSKeyedUnarchiver unarchiveObjectWithFile:bcasPath];
         importedFileNames = [NSSet set];
     }
     else {
         CASParser *parser = [CASParser parserFromFilePath:filePath variables:self.variables error:error];
         styleNodes = parser.styleNodes;
         importedFileNames = parser.importedFileNames;
+        
+        NSData *data = [NSKeyedArchiver archivedDataWithRootObject:parser.styleNodes];
+        error = nil;
+        [[NSFileManager defaultManager] createDirectoryAtPath:[bcasPath stringByDeletingLastPathComponent]
+                                  withIntermediateDirectories:YES
+                                                   attributes:nil
+                                                        error:error];
+        
+        if (error != nil) {
+            NSLog(@"Error: cannot create folder %@", [bcasPath stringByDeletingLastPathComponent]);
+        }
+        [data writeToFile:bcasPath atomically:YES];
     }
     
     if (self.watchFilePath) {

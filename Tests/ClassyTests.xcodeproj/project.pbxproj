@@ -74,10 +74,12 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		079339911EDA90D0E7C07ECD /* Pods-ClassyTestsLoader.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-ClassyTestsLoader.release.xcconfig"; path = "../Pods/Target Support Files/Pods-ClassyTestsLoader/Pods-ClassyTestsLoader.release.xcconfig"; sourceTree = "<group>"; };
 		13B648C088D7485783343464 /* libPods-ClassyTestsLoader.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-ClassyTestsLoader.a"; sourceTree = BUILT_PRODUCTS_DIR; };
-		34BACA8D71A54943A4505935 /* Pods-ClassyTestsLoader.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-ClassyTestsLoader.xcconfig"; path = "../Pods/Pods-ClassyTestsLoader.xcconfig"; sourceTree = "<group>"; };
 		4ED0F9A1198B465600C9FE2C /* UIKit-MultipleClasses.cas */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = "UIKit-MultipleClasses.cas"; sourceTree = "<group>"; };
-		5548B765C39C4F0FA776C911 /* Pods-ClassyTests.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-ClassyTests.xcconfig"; path = "../Pods/Pods-ClassyTests.xcconfig"; sourceTree = "<group>"; };
+		6974873D3DC5638F91AF7A18 /* Pods-ClassyTestsLoader.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-ClassyTestsLoader.debug.xcconfig"; path = "../Pods/Target Support Files/Pods-ClassyTestsLoader/Pods-ClassyTestsLoader.debug.xcconfig"; sourceTree = "<group>"; };
+		B70022280A544A8418F356ED /* Pods-ClassyTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-ClassyTests.debug.xcconfig"; path = "../Pods/Target Support Files/Pods-ClassyTests/Pods-ClassyTests.debug.xcconfig"; sourceTree = "<group>"; };
+		BAA4DBC31A8D4B53D68A49E5 /* Pods-ClassyTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-ClassyTests.release.xcconfig"; path = "../Pods/Target Support Files/Pods-ClassyTests/Pods-ClassyTests.release.xcconfig"; sourceTree = "<group>"; };
 		C594C855E67D4ABAAB9D8034 /* libPods-ClassyTests.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-ClassyTests.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		DD10AD2E1819FA6800A5B71D /* CustomView-Basic.cas */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = "CustomView-Basic.cas"; sourceTree = "<group>"; };
 		DD10AD2F1819FA6800A5B71D /* Properties-Basic.cas */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = "Properties-Basic.cas"; sourceTree = "<group>"; };
@@ -170,6 +172,17 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		CB3DB70017F85796C2A240ED /* Pods */ = {
+			isa = PBXGroup;
+			children = (
+				B70022280A544A8418F356ED /* Pods-ClassyTests.debug.xcconfig */,
+				BAA4DBC31A8D4B53D68A49E5 /* Pods-ClassyTests.release.xcconfig */,
+				6974873D3DC5638F91AF7A18 /* Pods-ClassyTestsLoader.debug.xcconfig */,
+				079339911EDA90D0E7C07ECD /* Pods-ClassyTestsLoader.release.xcconfig */,
+			);
+			name = Pods;
+			sourceTree = "<group>";
+		};
 		DD10AD3E181A16EA00A5B71D /* Integration Tests */ = {
 			isa = PBXGroup;
 			children = (
@@ -262,8 +275,7 @@
 				DDBF585A18113C850059B8D3 /* Supporting Files */,
 				DDD3D48B1810D6DA00E378A2 /* Frameworks */,
 				DDD3D48A1810D6DA00E378A2 /* Products */,
-				5548B765C39C4F0FA776C911 /* Pods-ClassyTests.xcconfig */,
-				34BACA8D71A54943A4505935 /* Pods-ClassyTestsLoader.xcconfig */,
+				CB3DB70017F85796C2A240ED /* Pods */,
 			);
 			sourceTree = "<group>";
 		};
@@ -443,7 +455,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "\"${SRCROOT}/../Pods/Pods-ClassyTestsLoader-resources.sh\"\n";
+			shellScript = "\"${SRCROOT}/../Pods/Target Support Files/Pods-ClassyTestsLoader/Pods-ClassyTestsLoader-resources.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
 		85CB2FDD53654D26A4128DD4 /* Check Pods Manifest.lock */ = {
@@ -488,7 +500,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "\"${SRCROOT}/../Pods/Pods-ClassyTests-resources.sh\"\n";
+			shellScript = "\"${SRCROOT}/../Pods/Target Support Files/Pods-ClassyTests/Pods-ClassyTests-resources.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
 /* End PBXShellScriptBuildPhase section */
@@ -539,7 +551,7 @@
 /* Begin XCBuildConfiguration section */
 		DDBF584318113BC10059B8D3 /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 5548B765C39C4F0FA776C911 /* Pods-ClassyTests.xcconfig */;
+			baseConfigurationReference = B70022280A544A8418F356ED /* Pods-ClassyTests.debug.xcconfig */;
 			buildSettings = {
 				ARCHS = "$(ARCHS_STANDARD_INCLUDING_64_BIT)";
 				BUNDLE_LOADER = "$(BUILT_PRODUCTS_DIR)/ClassyTestsLoader.app/ClassyTestsLoader";
@@ -563,7 +575,7 @@
 		};
 		DDBF584418113BC10059B8D3 /* Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 5548B765C39C4F0FA776C911 /* Pods-ClassyTests.xcconfig */;
+			baseConfigurationReference = BAA4DBC31A8D4B53D68A49E5 /* Pods-ClassyTests.release.xcconfig */;
 			buildSettings = {
 				ARCHS = "$(ARCHS_STANDARD_INCLUDING_64_BIT)";
 				BUNDLE_LOADER = "$(BUILT_PRODUCTS_DIR)/ClassyTestsLoader.app/ClassyTestsLoader";
@@ -657,7 +669,7 @@
 		};
 		DDD3D4B61810D6DA00E378A2 /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 34BACA8D71A54943A4505935 /* Pods-ClassyTestsLoader.xcconfig */;
+			baseConfigurationReference = 6974873D3DC5638F91AF7A18 /* Pods-ClassyTestsLoader.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
@@ -674,7 +686,7 @@
 		};
 		DDD3D4B71810D6DA00E378A2 /* Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 34BACA8D71A54943A4505935 /* Pods-ClassyTestsLoader.xcconfig */;
+			baseConfigurationReference = 079339911EDA90D0E7C07ECD /* Pods-ClassyTestsLoader.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;

@@ -13,7 +13,9 @@
 @implementation CASAppDelegate
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
-
+    [CASStyler bootstrapClassy];
+    
+    [[CASStyler defaultStyler] setVariables:@{@"$accent": @"#ff0000"}];
 
 #if TARGET_IPHONE_SIMULATOR
     // get absolute file path of stylesheet, using relative path

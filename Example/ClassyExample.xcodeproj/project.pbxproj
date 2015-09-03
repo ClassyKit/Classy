@@ -24,8 +24,9 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
-		136384E66419452BA007511C /* Pods-ClassyExample.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-ClassyExample.xcconfig"; path = "../Pods/Pods-ClassyExample.xcconfig"; sourceTree = "<group>"; };
 		4E506421190EF2F8003A03B0 /* Ball.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Ball.png; sourceTree = "<group>"; };
+		A3C8221728799761B99AE9BD /* Pods-ClassyExample.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-ClassyExample.debug.xcconfig"; path = "../Pods/Target Support Files/Pods-ClassyExample/Pods-ClassyExample.debug.xcconfig"; sourceTree = "<group>"; };
+		BB716E9DB58A99D4756CD771 /* Pods-ClassyExample.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-ClassyExample.release.xcconfig"; path = "../Pods/Target Support Files/Pods-ClassyExample/Pods-ClassyExample.release.xcconfig"; sourceTree = "<group>"; };
 		DD355BDA183E9CD30071E543 /* variables.cas */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = variables.cas; sourceTree = "<group>"; };
 		DD61F4431816370F004A8777 /* stylesheet.cas */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = stylesheet.cas; sourceTree = "<group>"; };
 		DDAB25671814BBBB00F3DAAE /* ClassyExample.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = ClassyExample.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -72,6 +73,15 @@
 			name = Images;
 			sourceTree = "<group>";
 		};
+		B100602FAA9CDE99D59C2194 /* Pods */ = {
+			isa = PBXGroup;
+			children = (
+				A3C8221728799761B99AE9BD /* Pods-ClassyExample.debug.xcconfig */,
+				BB716E9DB58A99D4756CD771 /* Pods-ClassyExample.release.xcconfig */,
+			);
+			name = Pods;
+			sourceTree = "<group>";
+		};
 		DD61F4421816370F004A8777 /* Stylesheets */ = {
 			isa = PBXGroup;
 			children = (
@@ -87,7 +97,7 @@
 				DDAB25701814BBBB00F3DAAE /* ClassyExample */,
 				DDAB25691814BBBB00F3DAAE /* Frameworks */,
 				DDAB25681814BBBB00F3DAAE /* Products */,
-				136384E66419452BA007511C /* Pods-ClassyExample.xcconfig */,
+				B100602FAA9CDE99D59C2194 /* Pods */,
 			);
 			sourceTree = "<group>";
 		};
@@ -218,7 +228,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "\"${SRCROOT}/../Pods/Pods-ClassyExample-resources.sh\"\n";
+			shellScript = "\"${SRCROOT}/../Pods/Target Support Files/Pods-ClassyExample/Pods-ClassyExample-resources.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
 		501B6904610449669F2F8026 /* Check Pods Manifest.lock */ = {
@@ -341,7 +351,7 @@
 		};
 		DDAB25941814BBBB00F3DAAE /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 136384E66419452BA007511C /* Pods-ClassyExample.xcconfig */;
+			baseConfigurationReference = A3C8221728799761B99AE9BD /* Pods-ClassyExample.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
@@ -356,7 +366,7 @@
 		};
 		DDAB25951814BBBB00F3DAAE /* Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 136384E66419452BA007511C /* Pods-ClassyExample.xcconfig */;
+			baseConfigurationReference = BB716E9DB58A99D4756CD771 /* Pods-ClassyExample.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;

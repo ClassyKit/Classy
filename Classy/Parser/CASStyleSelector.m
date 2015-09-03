@@ -157,7 +157,7 @@
     
     if (nil != self) {
         self.objectClass = NSClassFromString([aDecoder decodeObjectForKey:NSStringFromSelector(@selector(objectClass))]);
-        self.styleClass = [aDecoder decodeObjectForKey:NSStringFromSelector(@selector(objectClass))];
+        self.styleClass = [aDecoder decodeObjectForKey:NSStringFromSelector(@selector(styleClass))];
         self.shouldSelectSubclasses = [aDecoder decodeBoolForKey:NSStringFromSelector(@selector(shouldSelectSubclasses))];
         self.shouldSelectIndirectSuperview = [aDecoder decodeBoolForKey:NSStringFromSelector(@selector(shouldSelectIndirectSuperview))];
         self.parent = [aDecoder decodeBoolForKey:NSStringFromSelector(@selector(isParent))];
