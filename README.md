@@ -1,5 +1,7 @@
 #Classy [![Build Status](https://travis-ci.org/cloudkite/Classy.svg?branch=master)](https://travis-ci.org/cloudkite/Classy) [![Coverage Status](https://img.shields.io/coveralls/cloudkite/Classy.svg)](https://coveralls.io/r/cloudkite/Classy?branch=master)
 
+**NOTICE: Classy is no longer actively maintained see: [Looking for contributors](https://github.com/cloudkite/Classy/issues/108)**
+
 Not CSS. Instead of trying to force UIKit to fit CSS syntax, properties, conventions and constructs. Classy is a stylesheet system built from the ground up to work in harmony with UIKit. It borrows the best ideas from CSS and introduces new syntax, conventions and constructs where appropriate.
 
 Plays nice with Interface Builder and views created in code.
