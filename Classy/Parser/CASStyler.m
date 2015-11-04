@@ -433,10 +433,10 @@ NSArray *ClassGetSubclasses(Class parentClass) {
     };
 
     NSDictionary *barMetricsMap = @{
-        @"default"                : @(UIBarMetricsDefault),
-        @"landscapePhone"        : @(UIBarMetricsLandscapePhone),
-        @"defaultPrompt"         : @(UIBarMetricsDefaultPrompt),
-        @"landscapePhonePrompt" : @(UIBarMetricsLandscapePhonePrompt),
+        @"default"          : @(UIBarMetricsDefault),
+        @"compact"          : @(UIBarMetricsCompact),
+        @"defaultPrompt"    : @(UIBarMetricsDefaultPrompt),
+        @"compactPrompt"    : @(UIBarMetricsCompactPrompt),
     };
 
     NSDictionary *searchBarIconMap = @{
