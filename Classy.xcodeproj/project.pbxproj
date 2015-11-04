@@ -383,7 +383,7 @@
 		1EC7193A1B67AE9D00700A14 /* Project object */ = {
 			isa = PBXProject;
 			attributes = {
-				LastUpgradeCheck = 0640;
+				LastUpgradeCheck = 0710;
 				ORGANIZATIONNAME = "Zeta Project Berlin Gmbh";
 				TargetAttributes = {
 					1EC719421B67AE9D00700A14 = {
@@ -504,6 +504,7 @@
 				CURRENT_PROJECT_VERSION = 1;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_TESTABILITY = YES;
 				GCC_C_LANGUAGE_STANDARD = gnu99;
 				GCC_DYNAMIC_NO_PIC = NO;
 				GCC_NO_COMMON_BLOCKS = YES;
@@ -581,6 +582,7 @@
 				INFOPLIST_FILE = "Classy/Supporting Files/Info.plist";
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = "wearezeta.$(PRODUCT_NAME:rfc1034identifier)";
 				PRODUCT_NAME = Classy;
 				SKIP_INSTALL = NO;
 			};
@@ -597,6 +599,7 @@
 				INFOPLIST_FILE = "Classy/Supporting Files/Info.plist";
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = "wearezeta.$(PRODUCT_NAME:rfc1034identifier)";
 				PRODUCT_NAME = Classy;
 				SKIP_INSTALL = NO;
 			};
