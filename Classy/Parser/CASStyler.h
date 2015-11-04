@@ -12,7 +12,7 @@
 
 @interface CASStyler : NSObject
 
-+ (void)bootstrapClassy;
++ (void)bootstrapClassyWithTargetWindows:(NSArray *)targetWindows;
 
 /**
  *  Singleton instance
