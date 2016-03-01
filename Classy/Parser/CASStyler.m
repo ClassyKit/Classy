@@ -96,12 +96,14 @@ NSArray *ClassGetSubclasses(Class parentClass) {
     return _defaultStyler;
 }
 
-+ (void)bootstrapClassy {
++ (void)bootstrapClassyWithTargetWindows:(NSArray *)targetWindows {
     [UIBarItem bootstrapClassy];
     [UINavigationItem bootstrapClassy];
     [UITextField bootstrapClassy];
     [UIView bootstrapClassy];
     [UIViewController bootstrapClassy];
+    
+    [[self defaultStyler] setTargetWindows:targetWindows];
 }
 
 - (id)init {
@@ -156,7 +158,7 @@ NSArray *ClassGetSubclasses(Class parentClass) {
     self.filePath = filePath;
 
     // reapply styles
-    for (UIWindow *window in self.updatedWindows) {
+    for (UIWindow *window in self.targetWindows) {
         [self styleSubviewsOfView:window];
     }
 }
@@ -489,10 +491,10 @@ NSArray *ClassGetSubclasses(Class parentClass) {
     };
 
     NSDictionary *barMetricsMap = @{
-        @"default"                : @(UIBarMetricsDefault),
-        @"landscapePhone"        : @(UIBarMetricsLandscapePhone),
-        @"defaultPrompt"         : @(UIBarMetricsDefaultPrompt),
-        @"landscapePhonePrompt" : @(UIBarMetricsLandscapePhonePrompt),
+        @"default"          : @(UIBarMetricsDefault),
+        @"compact"          : @(UIBarMetricsCompact),
+        @"defaultPrompt"    : @(UIBarMetricsDefaultPrompt),
+        @"compactPrompt"    : @(UIBarMetricsCompactPrompt),
     };
 
     NSDictionary *searchBarIconMap = @{
@@ -780,18 +782,6 @@ NSArray *ClassGetSubclasses(Class parentClass) {
     return objectClassDescriptor;
 }
 
-- (NSArray *)updatedWindows
-{
-    NSMutableArray *windows = [NSMutableArray new];
-    if (UIApplication.sharedApplication.windows != nil) {
-        [windows addObjectsFromArray:UIApplication.sharedApplication.windows];
-    }
-    if (self.targetWindows) {
-        [windows addObjectsFromArray:self.targetWindows];
-    }
-    return windows;
-}
-
 #pragma mark - sceduling
 
 - (void)updateScheduledItems {
@@ -839,7 +829,7 @@ NSArray *ClassGetSubclasses(Class parentClass) {
             self.filePath = _watchFilePath;
 
             // reapply styles
-            for (UIWindow *window in self.updatedWindows) {
+            for (UIWindow *window in self.targetWindows) {
                 [self styleSubviewsOfView:window];
             }
         });
