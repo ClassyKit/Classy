@@ -17,6 +17,7 @@
 #import "NSString+CASAdditions.h"
 #import "CASTextAttributes.h"
 #import "CASInvocation.h"
+#import "NSDictionary+KeyValues.h"
 
 #import "UIBarItem+CASAdditions.h"
 #import "UINavigationItem+CASAdditions.h"
@@ -182,23 +183,47 @@ NSArray *ClassGetSubclasses(Class parentClass) {
     NSSet *importedFileNames = nil;
     
     NSMutableData *fileData = [NSMutableData dataWithContentsOfFile:filePath];
-    [fileData appendData:[NSKeyedArchiver archivedDataWithRootObject:self.variables]];
     
-    NSString *casHash = [fileData generateMD5Hash];
+    NSError *jsonWriteError = nil;
+    NSArray *preprocessedVariables = self.variables.cas_sortedKeyValues;
+    NSData *variablesJSON = [NSJSONSerialization dataWithJSONObject:preprocessedVariables
+                                                            options:NSJSONWritingPrettyPrinted
+                                                              error:&jsonWriteError];
     
-    NSArray* cachePathArray = NSSearchPathForDirectoriesInDomains(NSCachesDirectory, NSUserDomainMask, YES);
-    NSString* cachePath = [cachePathArray lastObject];
-    NSString *bcasPath = [cachePath stringByAppendingPathComponent:[NSString stringWithFormat:@"%@-%@.bcas", [[filePath lastPathComponent] stringByDeletingPathExtension], casHash]];
+    BOOL bcasCanBeLoaded = NO;
+    NSString *bcasPath = nil;
     
-    NSError *fileSystemError = nil;
-    
-    NSDictionary *fileAttributes = [[NSFileManager defaultManager] attributesOfItemAtPath:bcasPath error:nil];
- 
-    if ([[NSFileManager defaultManager] fileExistsAtPath:bcasPath] && [fileAttributes[NSFileSize] integerValue] != 0) {
+    if (jsonWriteError == nil && variablesJSON != nil) {
+        [fileData appendData:variablesJSON];
+        NSString *casHash = [fileData generateMD5Hash];
+        
+        NSArray* cachePathArray = NSSearchPathForDirectoriesInDomains(NSCachesDirectory, NSUserDomainMask, YES);
+        NSString* cachePath = [cachePathArray lastObject];
+        bcasPath = [cachePath stringByAppendingPathComponent:[NSString stringWithFormat:@"%@-%@.bcas", [[filePath lastPathComponent] stringByDeletingPathExtension], casHash]];
+        
+        NSDictionary *fileAttributes = [[NSFileManager defaultManager] attributesOfItemAtPath:bcasPath error:nil];
+        
+        if ([[NSFileManager defaultManager] fileExistsAtPath:bcasPath] && [fileAttributes[NSFileSize] integerValue] != 0) {
+            bcasCanBeLoaded = YES;
+            CASLog(@"Loading bcas file");
+        }
+        else {
+            bcasCanBeLoaded = NO;
+            CASLog(@"bcas file not found");
+        }
+    }
+    else {
+        bcasCanBeLoaded = NO;
+        CASLog(@"Cannot create json from variables: %@", jsonWriteError);
+    }
+
+    if (bcasCanBeLoaded) {
         styleNodes = [NSKeyedUnarchiver unarchiveObjectWithFile:bcasPath];
         importedFileNames = [NSSet set];
     }
     else {
+        NSError *fileSystemError = nil;
+
         CASParser *parser = [CASParser parserFromFilePath:filePath variables:self.variables error:error];
         styleNodes = parser.styleNodes;
         importedFileNames = parser.importedFileNames;
@@ -211,10 +236,11 @@ NSArray *ClassGetSubclasses(Class parentClass) {
                                                         error:&fileSystemError];
         
         if (fileSystemError != nil) {
-            NSLog(@"Error: cannot create folder %@", [bcasPath stringByDeletingLastPathComponent]);
+            CASLog(@"Error: cannot create folder %@", [bcasPath stringByDeletingLastPathComponent]);
             fileSystemError = nil;
         }
         [data writeToFile:bcasPath atomically:YES];
+        CASLog(@"Caching to bcas: %@ (%u)", bcasPath, (unsigned int)data.length);
     }
     
     if (self.watchFilePath) {
