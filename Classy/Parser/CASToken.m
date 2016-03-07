@@ -144,7 +144,7 @@
     if ([object isKindOfClass:[CASToken class]]) {
         CASToken *other = object;
         
-        return other.type == self.type && ([other.value isEqual:self.value] || other.value == self.value) && other.lineNumber == self.lineNumber;
+        return other.type == self.type && ([other.value isEqual:self.value] || other.value == self.value);
     }
     else {
         return NO;

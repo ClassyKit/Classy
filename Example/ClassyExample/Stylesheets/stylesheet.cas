@@ -6,7 +6,7 @@ UITableView UILabel {
 }
 
 ^UIViewController > UIView {
-  background-color: $accent;
+  background-color: blue;
 }
 
 UIView.shadow-view {
