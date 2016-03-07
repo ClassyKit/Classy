@@ -158,7 +158,6 @@
     if (self != nil) {
         self.type       = [aDecoder decodeIntegerForKey:NSStringFromSelector(@selector(type))];
         self.value      = [aDecoder decodeObjectForKey:NSStringFromSelector(@selector(value))];
-        self.lineNumber = [aDecoder decodeIntegerForKey:NSStringFromSelector(@selector(lineNumber))];
     }
     
     return self;
@@ -167,7 +166,6 @@
 - (void)encodeWithCoder:(NSCoder *)aCoder {
     [aCoder encodeInteger:self.type forKey:NSStringFromSelector(@selector(type))];
     [aCoder encodeObject:self.value forKey:NSStringFromSelector(@selector(value))];
-    [aCoder encodeInteger:self.lineNumber forKey:NSStringFromSelector(@selector(lineNumber))];
 }
 
 @end

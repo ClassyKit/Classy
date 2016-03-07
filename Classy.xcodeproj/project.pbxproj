@@ -81,8 +81,6 @@
 		1EC719F41B67AF9C00700A14 /* CASPropertyDescriptor.m in Sources */ = {isa = PBXBuildFile; fileRef = 1EC719AA1B67AF9C00700A14 /* CASPropertyDescriptor.m */; };
 		1EC719F51B67AF9C00700A14 /* CASRuntimeExtensions.h in Headers */ = {isa = PBXBuildFile; fileRef = 1EC719AB1B67AF9C00700A14 /* CASRuntimeExtensions.h */; };
 		1EC719F61B67AF9C00700A14 /* CASRuntimeExtensions.m in Sources */ = {isa = PBXBuildFile; fileRef = 1EC719AC1B67AF9C00700A14 /* CASRuntimeExtensions.m */; };
-		87CD2EF61C8722020096516D /* NSDictionary+KeyValues.h in Headers */ = {isa = PBXBuildFile; fileRef = 87CD2EF41C8722020096516D /* NSDictionary+KeyValues.h */; };
-		87CD2EF71C8722020096516D /* NSDictionary+KeyValues.m in Sources */ = {isa = PBXBuildFile; fileRef = 87CD2EF51C8722020096516D /* NSDictionary+KeyValues.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -162,8 +160,6 @@
 		1EC719AA1B67AF9C00700A14 /* CASPropertyDescriptor.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CASPropertyDescriptor.m; sourceTree = "<group>"; };
 		1EC719AB1B67AF9C00700A14 /* CASRuntimeExtensions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CASRuntimeExtensions.h; sourceTree = "<group>"; };
 		1EC719AC1B67AF9C00700A14 /* CASRuntimeExtensions.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CASRuntimeExtensions.m; sourceTree = "<group>"; };
-		87CD2EF41C8722020096516D /* NSDictionary+KeyValues.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSDictionary+KeyValues.h"; sourceTree = "<group>"; };
-		87CD2EF51C8722020096516D /* NSDictionary+KeyValues.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSDictionary+KeyValues.m"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -247,8 +243,6 @@
 				1EC7197C1B67AF9C00700A14 /* UIView+CASAdditions.m */,
 				1EC7197D1B67AF9C00700A14 /* UIViewController+CASAdditions.h */,
 				1EC7197E1B67AF9C00700A14 /* UIViewController+CASAdditions.m */,
-				87CD2EF41C8722020096516D /* NSDictionary+KeyValues.h */,
-				87CD2EF51C8722020096516D /* NSDictionary+KeyValues.m */,
 			);
 			name = Additions;
 			path = Classy/Additions;
@@ -323,7 +317,6 @@
 				1EC719CB1B67AF9C00700A14 /* Classy.h in Headers */,
 				1EC719B91B67AF9C00700A14 /* UIColor+CASAdditions.h in Headers */,
 				1EC719F31B67AF9C00700A14 /* CASPropertyDescriptor.h in Headers */,
-				87CD2EF61C8722020096516D /* NSDictionary+KeyValues.h in Headers */,
 				1EC719ED1B67AF9C00700A14 /* CASArgumentDescriptor.h in Headers */,
 				1EC719F11B67AF9C00700A14 /* CASObjectClassDescriptor.h in Headers */,
 				1EC719EB1B67AF9C00700A14 /* CASUtilities.h in Headers */,
@@ -470,7 +463,6 @@
 				1EC719BE1B67AF9C00700A14 /* UINavigationItem+CASAdditions.m in Sources */,
 				1EC719D81B67AF9C00700A14 /* CASInvocation.m in Sources */,
 				1EC719E61B67AF9C00700A14 /* CASTextAttributes.m in Sources */,
-				87CD2EF71C8722020096516D /* NSDictionary+KeyValues.m in Sources */,
 				1EC719C41B67AF9C00700A14 /* UITextField+CASAdditions.m in Sources */,
 				1EC719B61B67AF9C00700A14 /* NSString+CASAdditions.m in Sources */,
 				1EC719F41B67AF9C00700A14 /* CASPropertyDescriptor.m in Sources */,

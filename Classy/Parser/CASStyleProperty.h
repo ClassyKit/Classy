@@ -44,7 +44,7 @@
 @property (nonatomic, strong) NSDictionary *arguments;
 
 /**
- *  Creates property with raw data in the form of CATokens
+ *  Creates property with raw data in the form of CASTokens
  */
 - (id)initWithNameToken:(CASToken *)nameToken valueTokens:(NSArray *)valueTokens;
 

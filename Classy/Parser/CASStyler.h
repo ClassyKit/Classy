@@ -10,6 +10,13 @@
 #import "CASObjectClassDescriptor.h"
 #import "CASStyleableItem.h"
 
+@protocol CASStylerCacheDelegate <NSObject>
+@optional
+- (NSArray *)cachedStyleNodesFromPath:(NSString *)path withVariables:(NSDictionary *)variables;
+- (void)cacheStyleNodes:(NSArray *)styleNodes fromPath:(NSString *)path variables:(NSDictionary *)variables;
+@end
+
+
 @interface CASStyler : NSObject
 
 + (void)bootstrapClassyWithTargetWindows:(NSArray *)targetWindows;
@@ -18,6 +25,8 @@
  *  Singleton instance
  */
 + (instancetype)defaultStyler;
+
+@property (nonatomic, weak) id<CASStylerCacheDelegate> cacheDelegate;
 
 @property (nonatomic, copy) NSDictionary *variables;
 

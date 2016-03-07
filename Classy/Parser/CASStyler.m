@@ -17,7 +17,6 @@
 #import "NSString+CASAdditions.h"
 #import "CASTextAttributes.h"
 #import "CASInvocation.h"
-#import "NSDictionary+KeyValues.h"
 
 #import "UIBarItem+CASAdditions.h"
 #import "UINavigationItem+CASAdditions.h"
@@ -25,7 +24,6 @@
 #import "UIView+CASAdditions.h"
 #import "UIViewController+CASAdditions.h"
 #import <objc/runtime.h>
-#import <CommonCrypto/CommonCrypto.h>
 
 // http://www.cocoawithlove.com/2010/01/getting-subclasses-of-objective-c-class.html
 NSArray *ClassGetSubclasses(Class parentClass) {
@@ -51,26 +49,6 @@ NSArray *ClassGetSubclasses(Class parentClass) {
     return result;
 }
 
-@interface NSData(MD5)
-
-- (NSString *)generateMD5Hash;
-
-@end
-
-@implementation NSData(MD5)
-
-- (NSString *)generateMD5Hash
-{
-    unsigned char md5Buffer[CC_MD5_DIGEST_LENGTH];
-    CC_MD5(self.bytes, (CC_LONG)self.length, md5Buffer);
-    NSMutableString *output = [NSMutableString stringWithCapacity:CC_MD5_DIGEST_LENGTH * 2];
-    for(int i = 0; i < CC_MD5_DIGEST_LENGTH; i++)
-        [output appendFormat:@"%02x",md5Buffer[i]];
-    
-    return output;
-}
-
-@end
 
 @interface CASStyler ()
 
@@ -182,67 +160,40 @@ NSArray *ClassGetSubclasses(Class parentClass) {
     NSArray *styleNodes = nil;
     NSSet *importedFileNames = nil;
     
-    NSMutableData *fileData = [NSMutableData dataWithContentsOfFile:filePath];
-    
-    NSError *jsonWriteError = nil;
-    NSArray *preprocessedVariables = self.variables.cas_sortedKeyValues;
-    NSData *variablesJSON = [NSJSONSerialization dataWithJSONObject:preprocessedVariables
-                                                            options:NSJSONWritingPrettyPrinted
-                                                              error:&jsonWriteError];
-    
-    BOOL bcasCanBeLoaded = NO;
-    NSString *bcasPath = nil;
-    
-    if (jsonWriteError == nil && variablesJSON != nil) {
-        [fileData appendData:variablesJSON];
-        NSString *casHash = [fileData generateMD5Hash];
-        
-        NSArray* cachePathArray = NSSearchPathForDirectoriesInDomains(NSCachesDirectory, NSUserDomainMask, YES);
-        NSString* cachePath = [cachePathArray lastObject];
-        bcasPath = [cachePath stringByAppendingPathComponent:[NSString stringWithFormat:@"%@-%@.bcas", [[filePath lastPathComponent] stringByDeletingPathExtension], casHash]];
-        
-        NSDictionary *fileAttributes = [[NSFileManager defaultManager] attributesOfItemAtPath:bcasPath error:nil];
-        
-        if ([[NSFileManager defaultManager] fileExistsAtPath:bcasPath] && [fileAttributes[NSFileSize] integerValue] != 0) {
-            bcasCanBeLoaded = YES;
-            CASLog(@"Loading bcas file");
-        }
-        else {
-            bcasCanBeLoaded = NO;
-            CASLog(@"bcas file not found");
-        }
+    if ([self.cacheDelegate respondsToSelector:@selector(cachedStyleNodesFromPath:withVariables:)]) {
+        styleNodes = [self.cacheDelegate cachedStyleNodesFromPath:filePath withVariables:self.variables];
     }
-    else {
-        bcasCanBeLoaded = NO;
-        CASLog(@"Cannot create json from variables: %@", jsonWriteError);
-    }
-
-    if (bcasCanBeLoaded) {
-        styleNodes = [NSKeyedUnarchiver unarchiveObjectWithFile:bcasPath];
+    
+    if (styleNodes != nil) {
         importedFileNames = [NSSet set];
+        self.styleNodes = [NSMutableArray arrayWithArray:styleNodes];
     }
     else {
-        NSError *fileSystemError = nil;
-
         CASParser *parser = [CASParser parserFromFilePath:filePath variables:self.variables error:error];
         styleNodes = parser.styleNodes;
         importedFileNames = parser.importedFileNames;
         
-        NSData *data = [NSKeyedArchiver archivedDataWithRootObject:parser.styleNodes];
-
-        [[NSFileManager defaultManager] createDirectoryAtPath:[bcasPath stringByDeletingLastPathComponent]
-                                  withIntermediateDirectories:YES
-                                                   attributes:nil
-                                                        error:&fileSystemError];
+        self.styleNodes = [self validNodes:styleNodes];
         
-        if (fileSystemError != nil) {
-            CASLog(@"Error: cannot create folder %@", [bcasPath stringByDeletingLastPathComponent]);
-            fileSystemError = nil;
+        // order ascending by precedence
+        [self.styleNodes sortWithOptions:NSSortStable usingComparator:^NSComparisonResult(CASStyleNode *n1, CASStyleNode *n2) {
+            NSInteger precedence1 = [n1.styleSelector precedence];
+            NSInteger precedence2 = [n2.styleSelector precedence];
+            if (precedence2 > precedence1) {
+                return NSOrderedAscending;
+            } else if (precedence2 < precedence1) {
+                return NSOrderedDescending;
+            }
+            return NSOrderedSame;
+        }];
+
+        
+        if ([self.cacheDelegate respondsToSelector:@selector(cacheStyleNodes:fromPath:variables:)]) {
+            [self.cacheDelegate cacheStyleNodes:styleNodes fromPath:filePath variables:self.variables];
         }
-        [data writeToFile:bcasPath atomically:YES];
-        CASLog(@"Caching to bcas: %@ (%u)", bcasPath, (unsigned int)data.length);
+        styleNodes = [self.cacheDelegate cachedStyleNodesFromPath:filePath withVariables:self.variables];
     }
-    
+
     if (self.watchFilePath) {
         for (dispatch_source_t source in self.fileWatchers) {
             dispatch_source_cancel(source);
@@ -256,24 +207,9 @@ NSArray *ClassGetSubclasses(Class parentClass) {
         }
     }
     
-    
     if (!styleNodes.count) {
         return;
     }
-    
-    self.styleNodes = [self validNodes:styleNodes];
-    
-    // order ascending by precedence
-    [self.styleNodes sortWithOptions:NSSortStable usingComparator:^NSComparisonResult(CASStyleNode *n1, CASStyleNode *n2) {
-        NSInteger precedence1 = [n1.styleSelector precedence];
-        NSInteger precedence2 = [n2.styleSelector precedence];
-        if (precedence2 > precedence1) {
-            return NSOrderedAscending;
-        } else if (precedence2 < precedence1) {
-            return NSOrderedDescending;
-        }
-        return NSOrderedSame;
-    }];
     
     [self populateStyleLookupTables:self.styleNodes];
     
