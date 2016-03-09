@@ -160,8 +160,8 @@ NSArray *ClassGetSubclasses(Class parentClass) {
     NSArray *styleNodes = nil;
     NSSet *importedFileNames = nil;
     
-    if ([self.cacheDelegate respondsToSelector:@selector(cachedStyleNodesFromPath:withVariables:)]) {
-        styleNodes = [self.cacheDelegate cachedStyleNodesFromPath:filePath withVariables:self.variables];
+    if ([self.cache respondsToSelector:@selector(cachedStyleNodesFromCASPath:withVariables:)]) {
+        styleNodes = [self.cache cachedStyleNodesFromCASPath:filePath withVariables:self.variables];
     }
     
     if (styleNodes != nil) {
@@ -186,12 +186,10 @@ NSArray *ClassGetSubclasses(Class parentClass) {
             }
             return NSOrderedSame;
         }];
-
         
-        if ([self.cacheDelegate respondsToSelector:@selector(cacheStyleNodes:fromPath:variables:)]) {
-            [self.cacheDelegate cacheStyleNodes:styleNodes fromPath:filePath variables:self.variables];
+        if ([self.cache respondsToSelector:@selector(cacheStyleNodes:fromPath:variables:)]) {
+            [self.cache cacheStyleNodes:styleNodes fromPath:filePath variables:self.variables];
         }
-        styleNodes = [self.cacheDelegate cachedStyleNodesFromPath:filePath withVariables:self.variables];
     }
 
     if (self.watchFilePath) {
