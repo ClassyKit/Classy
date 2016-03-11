@@ -27,4 +27,23 @@
     [_styleProperties addObject:styleProperty];
 }
 
+#pragma mark - NSCoding
+
+- (id)initWithCoder:(NSCoder *)aDecoder {
+    self = [self init];
+    if (nil != self) {
+        self.invocations = nil;
+        _styleProperties = [aDecoder decodeObjectForKey:NSStringFromSelector(@selector(styleProperties))];
+        self.styleSelector = [aDecoder decodeObjectForKey:NSStringFromSelector(@selector(styleSelector))];
+        self.deviceSelector = [aDecoder decodeObjectForKey:NSStringFromSelector(@selector(deviceSelector))];
+    }
+    return self;
+}
+
+- (void)encodeWithCoder:(NSCoder *)aCoder {
+    [aCoder encodeObject:self.styleProperties forKey:NSStringFromSelector(@selector(styleProperties))];
+    [aCoder encodeObject:self.styleSelector forKey:NSStringFromSelector(@selector(styleSelector))];
+    [aCoder encodeObject:self.deviceSelector forKey:NSStringFromSelector(@selector(deviceSelector))];
+}
+
 @end

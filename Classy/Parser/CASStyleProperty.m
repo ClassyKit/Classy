@@ -350,4 +350,28 @@
     [_childStyleProperties addObject:styleProperty];
 }
 
+#pragma mark - NSCoding
+
+- (id)initWithCoder:(NSCoder *)aDecoder {
+    self = [self init];
+    if (nil != self) {
+        self.name = [aDecoder decodeObjectForKey:NSStringFromSelector(@selector(name))];
+        self.values = [aDecoder decodeObjectForKey:NSStringFromSelector(@selector(values))];
+        self.nameToken = [aDecoder decodeObjectForKey:NSStringFromSelector(@selector(nameToken))];
+        self.valueTokens = [aDecoder decodeObjectForKey:NSStringFromSelector(@selector(valueTokens))];
+        _childStyleProperties = [aDecoder decodeObjectForKey:NSStringFromSelector(@selector(childStyleProperties))];
+        self.arguments = [aDecoder decodeObjectForKey:NSStringFromSelector(@selector(arguments))];
+    }
+    return self;
+}
+
+- (void)encodeWithCoder:(NSCoder *)aCoder {
+    [aCoder encodeObject:self.name forKey:NSStringFromSelector(@selector(name))];
+    [aCoder encodeObject:self.values forKey:NSStringFromSelector(@selector(values))];
+    [aCoder encodeObject:self.nameToken forKey:NSStringFromSelector(@selector(nameToken))];
+    [aCoder encodeObject:self.valueTokens forKey:NSStringFromSelector(@selector(valueTokens))];
+    [aCoder encodeObject:_childStyleProperties forKey:NSStringFromSelector(@selector(childStyleProperties))];
+    [aCoder encodeObject:self.arguments forKey:NSStringFromSelector(@selector(arguments))];
+}
+
 @end

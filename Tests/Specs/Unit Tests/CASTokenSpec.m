@@ -48,4 +48,20 @@ SpecBegin(CASToken)
     expect([token description]).to.equal(@"color");
 }
 
+- (void)testCodingAndDecoding {
+    CASToken *tokenNewline = [CASToken tokenOfType:CASTokenTypeNewline];
+    CASToken *tokenColor = [CASToken tokenOfType:CASTokenTypeColor];
+    tokenColor.value = [UIColor colorWithWhite:0.5f alpha:0.5f];
+    CASToken *tokenString = [CASToken tokenOfType:CASTokenTypeString];
+    tokenString.value = @"A string";
+    
+    NSArray *tokensArray = @[tokenColor, tokenNewline, tokenString];
+    
+    NSData *serizlizedTokensArray = [NSKeyedArchiver archivedDataWithRootObject:tokensArray];
+    
+    NSArray *tokensArrayDeserialized = [NSKeyedUnarchiver unarchiveObjectWithData:serizlizedTokensArray];
+    
+    expect(tokensArray).to.equal(tokensArrayDeserialized);
+}
+
 SpecEnd

@@ -10,6 +10,26 @@
 #import "CASObjectClassDescriptor.h"
 #import "CASStyleableItem.h"
 
+@class CASStyleNode;
+
+/**
+ * Protocol caching the @c CASStyleNode's. Adds the possibility to cache the in-memory representation of Classy's CAS 
+ * file, since parsing the file is slower than loading cached version.
+ */
+@protocol CASCacheProtocol <NSObject>
+@optional
+/**
+ *  Loads cached version of stylesheet located at @c path with @c variables
+ */
+- (NSArray <CASStyleNode *> *)cachedStyleNodesFromCASPath:(NSString *)path withVariables:(NSDictionary *)variables;
+
+/**
+ * Stores the stylesheet in-memory representation loaded from @c path with @c variables
+ */
+- (void)cacheStyleNodes:(NSArray <CASStyleNode *> *)styleNodes fromPath:(NSString *)path variables:(NSDictionary *)variables;
+@end
+
+
 @interface CASStyler : NSObject
 
 + (void)bootstrapClassyWithTargetWindows:(NSArray *)targetWindows;
@@ -18,6 +38,8 @@
  *  Singleton instance
  */
 + (instancetype)defaultStyler;
+
+@property (nonatomic, weak) id<CASCacheProtocol> cache;
 
 @property (nonatomic, copy) NSDictionary *variables;
 

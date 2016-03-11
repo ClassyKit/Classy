@@ -25,4 +25,18 @@
     return @"pad";
 }
 
+#pragma mark - NSCoding
+
+- (id)initWithCoder:(NSCoder *)aDecoder {
+    self = [self init];
+    if (nil != self) {
+        self.deviceType = [aDecoder decodeIntegerForKey:NSStringFromSelector(@selector(deviceType))];
+    }
+    return self;
+}
+
+- (void)encodeWithCoder:(NSCoder *)aCoder {
+    [aCoder encodeInteger:self.deviceType forKey:NSStringFromSelector(@selector(deviceType))];
+}
+
 @end

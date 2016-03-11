@@ -9,7 +9,7 @@
 #import <UIKit/UIKit.h>
 #import "CASStyleableItem.h"
 
-@interface CASStyleSelector : NSObject <NSCopying>
+@interface CASStyleSelector : NSObject <NSCopying, NSCoding>
 
 /**
  *  Class of View to match

@@ -150,4 +150,34 @@
     return YES;
 }
 
+#pragma mark - NSCoding
+
+- (id)initWithCoder:(NSCoder *)aDecoder {
+    self = [self init];
+    
+    if (nil != self) {
+        self.objectClass = NSClassFromString([aDecoder decodeObjectForKey:NSStringFromSelector(@selector(objectClass))]);
+        self.styleClass = [aDecoder decodeObjectForKey:NSStringFromSelector(@selector(styleClass))];
+        self.shouldSelectSubclasses = [aDecoder decodeBoolForKey:NSStringFromSelector(@selector(shouldSelectSubclasses))];
+        self.shouldSelectIndirectSuperview = [aDecoder decodeBoolForKey:NSStringFromSelector(@selector(shouldSelectIndirectSuperview))];
+        self.parent = [aDecoder decodeBoolForKey:NSStringFromSelector(@selector(isParent))];
+        self.shouldConcatToParent = [aDecoder decodeBoolForKey:NSStringFromSelector(@selector(shouldConcatToParent))];
+        self.arguments = [aDecoder decodeObjectForKey:NSStringFromSelector(@selector(arguments))];
+        self.parentSelector = [aDecoder decodeObjectForKey:NSStringFromSelector(@selector(parentSelector))];
+    }
+    
+    return self;
+}
+
+- (void)encodeWithCoder:(NSCoder *)aCoder {
+    [aCoder encodeObject:NSStringFromClass(self.objectClass) forKey:NSStringFromSelector(@selector(objectClass))];
+    [aCoder encodeObject:self.styleClass forKey:NSStringFromSelector(@selector(styleClass))];
+    [aCoder encodeBool:self.shouldSelectSubclasses forKey:NSStringFromSelector(@selector(shouldSelectSubclasses))];
+    [aCoder encodeBool:self.shouldSelectIndirectSuperview forKey:NSStringFromSelector(@selector(shouldSelectIndirectSuperview))];
+    [aCoder encodeBool:self.parent forKey:NSStringFromSelector(@selector(isParent))];
+    [aCoder encodeBool:self.shouldConcatToParent forKey:NSStringFromSelector(@selector(shouldConcatToParent))];
+    [aCoder encodeObject:self.arguments forKey:NSStringFromSelector(@selector(arguments))];
+    [aCoder encodeObject:self.parentSelector forKey:NSStringFromSelector(@selector(parentSelector))];
+}
+
 @end
