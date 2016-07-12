@@ -34,4 +34,20 @@
     return [NSString stringWithFormat:@"(version:%@%@)", [CASDeviceSelector stringFromRelation:self.relation], self.version];
 }
 
+#pragma mark - NSCoding
+
+- (id)initWithCoder:(NSCoder *)aDecoder {
+    self = [self init];
+    if (nil != self) {
+        self.relation = [aDecoder decodeIntegerForKey:NSStringFromSelector(@selector(relation))];
+        self.version = [aDecoder decodeObjectForKey:NSStringFromSelector(@selector(version))];
+    }
+    return self;
+}
+
+- (void)encodeWithCoder:(NSCoder *)aCoder {
+    [aCoder encodeInteger:self.relation forKey:NSStringFromSelector(@selector(relation))];
+    [aCoder encodeObject:self.version forKey:NSStringFromSelector(@selector(version))];
+}
+
 @end

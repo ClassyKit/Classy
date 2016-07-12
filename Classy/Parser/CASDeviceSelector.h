@@ -15,7 +15,7 @@ typedef NS_ENUM(NSUInteger, CASDeviceSelectorScreenDimension) {
     CASDeviceSelectorScreenDimensionHeight,
 };
 
-@interface CASDeviceSelector : NSObject
+@interface CASDeviceSelector : NSObject <NSCoding>
 
 @property (nonatomic, strong, readonly) NSArray *items;
 

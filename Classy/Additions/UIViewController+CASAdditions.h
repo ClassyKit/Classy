@@ -10,5 +10,5 @@
 #import "CASStyleableItem.h"
 
 @interface UIViewController (CASAdditions) <CASStyleableItem>
-
++ (void)bootstrapClassy;
 @end

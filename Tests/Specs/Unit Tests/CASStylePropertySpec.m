@@ -322,6 +322,26 @@ SpecBegin(CASStyleProperty)
     expect(font.pointSize).to.equal(24.0f);
 }
 
+- (void)testSystemFont {
+    NSArray *valueTokens = CASTokensFromString(@"System 12");
+    
+    CASStyleProperty *prop = [[CASStyleProperty alloc]initWithNameToken:nil valueTokens:valueTokens];
+    __block UIFont *font = nil;
+    expect([prop transformValuesToUIFont:&font]).to.beTruthy();
+    expect(font.familyName).to.equal([UIFont systemFontOfSize:12].familyName);
+    expect(font.pointSize).to.equal(12);
+}
+
+- (void)testSystemFontWeight {
+    NSArray *valueTokens = CASTokensFromString(@"System-Medium 18");
+    
+    CASStyleProperty *prop = [[CASStyleProperty alloc]initWithNameToken:nil valueTokens:valueTokens];
+    __block UIFont *font = nil;
+    expect([prop transformValuesToUIFont:&font]).to.beTruthy();
+    expect([font.fontDescriptor.fontAttributes[UIFontDescriptorNameAttribute] rangeOfString:@"Medium"].location != NSNotFound).to.beTruthy();
+    expect(font.pointSize).to.equal(18);
+}
+
 - (void)testPreferredFontForTextStyle {
     NSArray *valueTokens = CASTokensFromString(@"body");
     

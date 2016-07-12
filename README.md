@@ -1,4 +1,4 @@
-#Classy [![Build Status](https://travis-ci.org/cloudkite/Classy.svg?branch=master)](https://travis-ci.org/cloudkite/Classy) [![Coverage Status](https://img.shields.io/coveralls/cloudkite/Classy.svg)](https://coveralls.io/r/cloudkite/Classy?branch=master)
+#Classy [![Build Status](https://travis-ci.org/cloudkite/Classy.svg?branch=master)](https://travis-ci.org/cloudkite/Classy) [![Coverage Status](https://img.shields.io/coveralls/cloudkite/Classy.svg)](https://coveralls.io/r/cloudkite/Classy?branch=master) [![Carthage compatible](https://img.shields.io/badge/Carthage-compatible-4BC51D.svg?style=flat)](https://github.com/Carthage/Carthage)
 
 **NOTICE: Classy is no longer actively maintained see: [Looking for contributors](https://github.com/cloudkite/Classy/issues/108)**
 

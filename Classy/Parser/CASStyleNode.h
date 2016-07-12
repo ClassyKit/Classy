@@ -11,7 +11,7 @@
 #import "CASStyleSelector.h"
 #import "CASDeviceSelector.h"
 
-@interface CASStyleNode : NSObject
+@interface CASStyleNode : NSObject <NSCoding>
 
 /**
  *  NSInvocations to apply to appropriate view

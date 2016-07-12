@@ -300,7 +300,26 @@
     } else {
         CGFloat fontSizeValue = [fontSize floatValue] ?: [UIFont systemFontSize];
         if (fontName) {
-            *font = [UIFont fontWithName:fontName size:fontSizeValue];
+            if ([fontName hasPrefix:@"System"]) {
+                
+                NSString *weightString = @"Regular";
+                NSArray *nameComponents = [fontName componentsSeparatedByString:@"-"];
+                if (nameComponents.count == 2) {
+                    weightString = nameComponents[1];
+                }
+                
+                if ([weightString isEqualToString:@"Regular"]) {
+                    *font = [UIFont systemFontOfSize:fontSizeValue];
+                }
+                else {
+                    UIFont *systemFont = [UIFont systemFontOfSize:fontSizeValue];
+                    UIFontDescriptor *descriptor = [UIFontDescriptor fontDescriptorWithFontAttributes:@{UIFontDescriptorFaceAttribute: weightString, UIFontDescriptorFamilyAttribute: systemFont.familyName}];
+                    *font = [UIFont fontWithDescriptor:descriptor size:fontSizeValue];
+                }
+            }
+            else {
+                *font = [UIFont fontWithName:fontName size:fontSizeValue];
+            }
         } else {
             *font = [UIFont systemFontOfSize:fontSizeValue];
         }
@@ -329,6 +348,30 @@
         _childStyleProperties = NSMutableArray.new;
     }
     [_childStyleProperties addObject:styleProperty];
+}
+
+#pragma mark - NSCoding
+
+- (id)initWithCoder:(NSCoder *)aDecoder {
+    self = [self init];
+    if (nil != self) {
+        self.name = [aDecoder decodeObjectForKey:NSStringFromSelector(@selector(name))];
+        self.values = [aDecoder decodeObjectForKey:NSStringFromSelector(@selector(values))];
+        self.nameToken = [aDecoder decodeObjectForKey:NSStringFromSelector(@selector(nameToken))];
+        self.valueTokens = [aDecoder decodeObjectForKey:NSStringFromSelector(@selector(valueTokens))];
+        _childStyleProperties = [aDecoder decodeObjectForKey:NSStringFromSelector(@selector(childStyleProperties))];
+        self.arguments = [aDecoder decodeObjectForKey:NSStringFromSelector(@selector(arguments))];
+    }
+    return self;
+}
+
+- (void)encodeWithCoder:(NSCoder *)aCoder {
+    [aCoder encodeObject:self.name forKey:NSStringFromSelector(@selector(name))];
+    [aCoder encodeObject:self.values forKey:NSStringFromSelector(@selector(values))];
+    [aCoder encodeObject:self.nameToken forKey:NSStringFromSelector(@selector(nameToken))];
+    [aCoder encodeObject:self.valueTokens forKey:NSStringFromSelector(@selector(valueTokens))];
+    [aCoder encodeObject:_childStyleProperties forKey:NSStringFromSelector(@selector(childStyleProperties))];
+    [aCoder encodeObject:self.arguments forKey:NSStringFromSelector(@selector(arguments))];
 }
 
 @end

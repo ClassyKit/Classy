@@ -10,6 +10,7 @@
 #import "CASStyleableItem.h"
 
 @interface UIView (CASAdditions) <CASStyleableItem>
++ (void)bootstrapClassy;
 
 @property (nonatomic, weak, readwrite) id<CASStyleableItem> cas_alternativeParent;
 @property (nonatomic, copy) IBInspectable NSString *cas_styleClass;

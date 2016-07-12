@@ -1,3 +1,4 @@
+
 //
 //  CASStyler.m
 //  Classy
@@ -16,6 +17,12 @@
 #import "NSString+CASAdditions.h"
 #import "CASTextAttributes.h"
 #import "CASInvocation.h"
+
+#import "UIBarItem+CASAdditions.h"
+#import "UINavigationItem+CASAdditions.h"
+#import "UITextField+CASAdditions.h"
+#import "UIView+CASAdditions.h"
+#import "UIViewController+CASAdditions.h"
 #import <objc/runtime.h>
 
 // http://www.cocoawithlove.com/2010/01/getting-subclasses-of-objective-c-class.html
@@ -42,6 +49,7 @@ NSArray *ClassGetSubclasses(Class parentClass) {
     return result;
 }
 
+
 @interface CASStyler ()
 
 @property (nonatomic, strong) NSMutableArray *styleNodes;
@@ -65,6 +73,16 @@ NSArray *ClassGetSubclasses(Class parentClass) {
     });
     
     return _defaultStyler;
+}
+
++ (void)bootstrapClassyWithTargetWindows:(NSArray *)targetWindows {
+    [UIBarItem bootstrapClassy];
+    [UINavigationItem bootstrapClassy];
+    [UITextField bootstrapClassy];
+    [UIView bootstrapClassy];
+    [UIViewController bootstrapClassy];
+    
+    [[self defaultStyler] setTargetWindows:targetWindows];
 }
 
 - (id)init {
@@ -114,11 +132,12 @@ NSArray *ClassGetSubclasses(Class parentClass) {
     if (!self.filePath) return;
 
     // if stylesheet has already been loaded. reload stylesheet
+    NSString *filePath = _filePath;
     _filePath = nil;
-    self.filePath = _filePath;
+    self.filePath = filePath;
 
     // reapply styles
-    for (UIWindow *window in UIApplication.sharedApplication.windows) {
+    for (UIWindow *window in self.targetWindows) {
         [self styleSubviewsOfView:window];
     }
 }
@@ -138,9 +157,41 @@ NSArray *ClassGetSubclasses(Class parentClass) {
     self.styleClassIndex = [NSMutableDictionary new];
     self.objectClassIndex = [NSMutableDictionary new];
     
-    CASParser *parser = [CASParser parserFromFilePath:filePath variables:self.variables error:error];
-    NSArray *styleNodes = parser.styleNodes;
+    NSArray *styleNodes = nil;
+    NSSet *importedFileNames = nil;
     
+    if ([self.cache respondsToSelector:@selector(cachedStyleNodesFromCASPath:withVariables:)]) {
+        styleNodes = [self.cache cachedStyleNodesFromCASPath:filePath withVariables:self.variables];
+    }
+    
+    if (styleNodes != nil) {
+        importedFileNames = [NSSet set];
+        self.styleNodes = [NSMutableArray arrayWithArray:styleNodes];
+    }
+    else {
+        CASParser *parser = [CASParser parserFromFilePath:filePath variables:self.variables error:error];
+        styleNodes = parser.styleNodes;
+        importedFileNames = parser.importedFileNames;
+        
+        self.styleNodes = [self validNodes:styleNodes];
+        
+        // order ascending by precedence
+        [self.styleNodes sortWithOptions:NSSortStable usingComparator:^NSComparisonResult(CASStyleNode *n1, CASStyleNode *n2) {
+            NSInteger precedence1 = [n1.styleSelector precedence];
+            NSInteger precedence2 = [n2.styleSelector precedence];
+            if (precedence2 > precedence1) {
+                return NSOrderedAscending;
+            } else if (precedence2 < precedence1) {
+                return NSOrderedDescending;
+            }
+            return NSOrderedSame;
+        }];
+        
+        if ([self.cache respondsToSelector:@selector(cacheStyleNodes:fromPath:variables:)]) {
+            [self.cache cacheStyleNodes:styleNodes fromPath:filePath variables:self.variables];
+        }
+    }
+
     if (self.watchFilePath) {
         for (dispatch_source_t source in self.fileWatchers) {
             dispatch_source_cancel(source);
@@ -148,30 +199,15 @@ NSArray *ClassGetSubclasses(Class parentClass) {
         [self.fileWatchers removeAllObjects];
         [self reloadOnChangesToFilePath:self.watchFilePath];
         NSString *directoryPath = [self.watchFilePath stringByDeletingLastPathComponent];
-        for (NSString *fileName in parser.importedFileNames) {
+        for (NSString *fileName in importedFileNames) {
             NSString *resolvedPath = [directoryPath stringByAppendingPathComponent:fileName];
             [self reloadOnChangesToFilePath:resolvedPath];
         }
     }
     
-    
     if (!styleNodes.count) {
         return;
     }
-    
-    self.styleNodes = [self validNodes:styleNodes];
-    
-    // order ascending by precedence
-    [self.styleNodes sortWithOptions:NSSortStable usingComparator:^NSComparisonResult(CASStyleNode *n1, CASStyleNode *n2) {
-        NSInteger precedence1 = [n1.styleSelector precedence];
-        NSInteger precedence2 = [n2.styleSelector precedence];
-        if (precedence2 > precedence1) {
-            return NSOrderedAscending;
-        } else if (precedence2 < precedence1) {
-            return NSOrderedDescending;
-        }
-        return NSOrderedSame;
-    }];
     
     [self populateStyleLookupTables:self.styleNodes];
     
@@ -415,10 +451,10 @@ NSArray *ClassGetSubclasses(Class parentClass) {
     };
 
     NSDictionary *barMetricsMap = @{
-        @"default"                : @(UIBarMetricsDefault),
-        @"landscapePhone"        : @(UIBarMetricsLandscapePhone),
-        @"defaultPrompt"         : @(UIBarMetricsDefaultPrompt),
-        @"landscapePhonePrompt" : @(UIBarMetricsLandscapePhonePrompt),
+        @"default"          : @(UIBarMetricsDefault),
+        @"compact"          : @(UIBarMetricsCompact),
+        @"defaultPrompt"    : @(UIBarMetricsDefaultPrompt),
+        @"compactPrompt"    : @(UIBarMetricsCompactPrompt),
     };
 
     NSDictionary *searchBarIconMap = @{
@@ -753,7 +789,7 @@ NSArray *ClassGetSubclasses(Class parentClass) {
             self.filePath = _watchFilePath;
 
             // reapply styles
-            for (UIWindow *window in UIApplication.sharedApplication.windows) {
+            for (UIWindow *window in self.targetWindows) {
                 [self styleSubviewsOfView:window];
             }
         });

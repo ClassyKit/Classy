@@ -611,4 +611,21 @@ SpecBegin(CASParser) {
     expect(node.deviceSelector.stringValue).to.beNil();
 }
 
+- (void)testNSCoding {
+    NSError *error = nil;
+    NSString *filePath = [[NSBundle bundleForClass:self.class] pathForResource:@"Properties-Nested.cas" ofType:nil];
+    NSArray *styles = [CASParser parserFromFilePath:filePath variables:nil error:&error].styleNodes;
+    expect(error).to.beNil();
+    
+    expect(styles).to.haveCountOf(3);
+
+    NSData *serializedStyles = [NSKeyedArchiver archivedDataWithRootObject:styles];
+    expect(serializedStyles).notTo.beNil();
+    
+    NSArray *deserializedStyles = [NSKeyedUnarchiver unarchiveObjectWithData:serializedStyles];
+    expect(deserializedStyles).notTo.beNil();
+    
+    expect(styles.count).to.equal(deserializedStyles.count);
+}
+
 SpecEnd

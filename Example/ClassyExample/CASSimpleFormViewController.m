@@ -31,6 +31,12 @@
     v.backgroundColor = [UIColor redColor];
     v.cas_styleClass = @"shadow-view";
     [self.view addSubview:v];
+    
+    UILabel *textLabel = [[UILabel alloc] initWithFrame:CGRectMake(50, 300, self.view.bounds.size.width - 100, 300)];
+    textLabel.text = @"Quick lazy Swift jumps over the lazy iOS/OS X developer's leg.";
+    textLabel.numberOfLines = 0;
+    textLabel.cas_styleClass = @"text-label";
+    [self.view addSubview:textLabel];
 }
 
 @end

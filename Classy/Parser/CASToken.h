@@ -32,7 +32,7 @@ typedef NS_ENUM(NSInteger, CASTokenType) {
     CASTokenTypeSelector,
 };
 
-@interface CASToken : NSObject
+@interface CASToken : NSObject <NSCoding>
 
 /**
  *  The type of the token, may not represent the true type which is determined in context of other tokens
