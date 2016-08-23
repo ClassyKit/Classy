@@ -312,8 +312,41 @@
                     *font = [UIFont systemFontOfSize:fontSizeValue];
                 }
                 else {
-                    UIFont *systemFont = [UIFont systemFontOfSize:fontSizeValue];
-                    UIFontDescriptor *descriptor = [UIFontDescriptor fontDescriptorWithFontAttributes:@{UIFontDescriptorFaceAttribute: weightString, UIFontDescriptorFamilyAttribute: systemFont.familyName}];
+                    static NSDictionary *weightNameToFloatMapping = nil;
+                    static dispatch_once_t onceToken;
+                    dispatch_once(&onceToken, ^{
+                        weightNameToFloatMapping = @{@"black":       @(UIFontWeightBlack),
+                                                     @"heavy":       @(UIFontWeightHeavy),
+                                                     @"bold":        @(UIFontWeightBold),
+                                                     @"semibold":    @(UIFontWeightSemibold),
+                                                     @"medium":      @(UIFontWeightMedium),
+                                                     @"regular":     @(UIFontWeightRegular),
+                                                     @"thin":        @(UIFontWeightThin),
+                                                     @"light":       @(UIFontWeightLight),
+                                                     @"ultralight":  @(UIFontWeightUltraLight)};
+                    });
+                    
+                    
+                    UIFont *systemFont = nil;
+                    UIFontDescriptor *descriptor = nil;
+                    
+                    if ([[UIFont class] respondsToSelector:@selector(systemFontOfSize:weight:)]) {
+                        CGFloat weight = UIFontWeightRegular;
+                        
+                        NSNumber *weightNumber = weightNameToFloatMapping[[weightString lowercaseString]];
+                        if (weightNumber != nil) {
+                            weight = [weightNumber floatValue];
+                        }
+                        
+                        systemFont = [UIFont systemFontOfSize:fontSizeValue weight:weight];
+                        descriptor = [UIFontDescriptor fontDescriptorWithFontAttributes:@{UIFontDescriptorNameAttribute: systemFont.fontName}];
+                    }
+                    else {
+                        systemFont = [UIFont systemFontOfSize:fontSizeValue];
+                        descriptor = [UIFontDescriptor fontDescriptorWithFontAttributes:@{UIFontDescriptorFaceAttribute: weightString,
+                                                                                          UIFontDescriptorFamilyAttribute: systemFont.familyName}];
+                    }
+                    
                     *font = [UIFont fontWithDescriptor:descriptor size:fontSizeValue];
                 }
             }
