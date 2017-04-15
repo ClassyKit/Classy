@@ -22,6 +22,27 @@
 
 @implementation UIColor (CASAdditions)
 
++ (UIColor *)cas_colorWithRGB:(NSString *)rgb {
+    // Invalid don't start with rgb(
+    if(![rgb hasPrefix:@"rgb("] && ![rgb hasPrefix:@"rgba("]) {
+        return nil;
+    }
+    
+    NSString *colorString = [[rgb stringByReplacingOccurrencesOfString:([rgb hasPrefix:@"rgba("] ? @"rgba(" : @"rgb(") withString:@""] stringByReplacingOccurrencesOfString:@")" withString:@""];
+    NSArray *colors = [colorString componentsSeparatedByString:@","];
+    
+    CGFloat alpha = 1.f;
+    
+    // invalid if you don't have 3 colors
+    if(colors.count < 3) {
+        return nil;
+    } else if(colors.count == 4){
+        alpha = [colors[3] floatValue];
+    }
+    
+    return [UIColor colorWithRed:[colors[0] floatValue]/255.f green:[colors[1] floatValue]/255.f blue:[colors[2] floatValue]/255.f alpha:alpha];
+}
+
 + (UIColor *)cas_colorWithHex:(NSString *)hex {
     // Remove `#` and `0x`
     if ([hex hasPrefix:@"#"]) {

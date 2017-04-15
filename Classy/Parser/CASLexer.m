@@ -66,7 +66,8 @@ NSString * const CASParseFailingStringErrorKey = @"CASParseFailingStringErrorKey
         // #rrggbbaa | #rrggbb | #rgb
         @(CASTokenTypeColor)     : @[ CASRegex(@"^#([a-fA-F0-9]{8})[ \\t]*"),
                                       CASRegex(@"^#([a-fA-F0-9]{6})[ \\t]*"),
-                                      CASRegex(@"^#([a-fA-F0-9]{3})[ \\t]*") ],
+                                      CASRegex(@"^#([a-fA-F0-9]{3})[ \\t]*"),
+                                      CASRegex(@"^rgba?\\((\\d+),\\s*(\\d+),\\s*(\\d+)(?:,\\s*(\\d?(?:\\.\\d+)?))?\\){1}") ],
 
         // string enclosed in single or double quotes
         @(CASTokenTypeString)    : @[ CASRegex(@"^(\"[^\"]*\"|'[^']*')[ \\t]*") ],
@@ -339,6 +340,12 @@ NSString * const CASParseFailingStringErrorKey = @"CASParseFailingStringErrorKey
 
 - (CASToken *)color {
     return [self testForTokenType:CASTokenTypeColor transformValueBlock:^id(NSString *value, NSTextCheckingResult *match) {
+        
+        if( [value hasPrefix:@"rgb("] || [value hasPrefix:@"rgba("])
+        {
+            return [UIColor cas_colorWithRGB:[value cas_stringByTrimmingWhitespace]];
+        }
+        
         return [UIColor cas_colorWithHex:[value cas_stringByTrimmingWhitespace]];
     }];
 }
