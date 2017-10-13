@@ -1,3 +1,11 @@
+v0.2.5
+======
+
+* Styling per window
+* Caching to binary plist
+* Load on demand
+* System font support
+
 v0.2.4
 ======
 
