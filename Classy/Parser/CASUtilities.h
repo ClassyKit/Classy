@@ -25,7 +25,7 @@ _CASAbsoluteFilePath(__FILE__, relativePath)
 NSString *_CASAbsoluteFilePath(const char *currentFilePath, NSString *relativeFilePath);
 
 // Device versions
-NSUInteger CASKeyDeviceSystemMajorVersion();
+NSUInteger CASKeyDeviceSystemMajorVersion(void);
 
 BOOL CASDeviceSystemVersionIsEqualTo(NSString *systemVersion);
 

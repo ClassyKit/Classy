@@ -79,7 +79,7 @@
 /**
  *  Attempts to extract a CGPoint from the valueTokens
  *
- *  @param size CGPoint pointer
+ *  @param point CGPoint pointer
  *
  *  @return whether the extraction succeeded
  */
@@ -88,7 +88,7 @@
 /**
  *  Attempts to extract a CGRect from the valueTokens
  *
- *  @param size CGRect pointer
+ *  @param rect CGRect pointer
  *
  *  @return whether the extraction succeeded
  */
@@ -106,7 +106,7 @@
 /**
  *  Attempts to extract a UIEdgeInsets from the valueTokens
  *
- *  @param size UIEdgeInsets pointer
+ *  @param insets UIEdgeInsets pointer
  *
  *  @return whether the extraction succeeded
  */

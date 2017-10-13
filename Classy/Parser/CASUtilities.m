@@ -14,7 +14,7 @@ NSString *_CASAbsoluteFilePath(const char *currentFilePath, NSString *relativeFi
     return [currentDirectory stringByAppendingPathComponent:relativeFilePath];
 }
 
-NSUInteger CASKeyDeviceSystemMajorVersion() {
+NSUInteger CASKeyDeviceSystemMajorVersion(void) {
     static NSUInteger _deviceSystemMajorVersion = -1;
     static dispatch_once_t onceToken;
     dispatch_once(&onceToken, ^{
