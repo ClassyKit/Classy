@@ -82,11 +82,11 @@ typedef NS_ENUM(NSInteger, CASTokenType) {
 - (BOOL)isWhitespace;
 
 /**
- *  Returns whether receiver's value is equal to the given value
+ * Returns whether receiver's value is equal to the given value
  *
- *  @param string the value for comparison
+ * @param value the value for comparison
  *
- *  @return `YES` if receiver is equal to the given value
+ * @return `YES` if receiver is equal to the given value
  */
 - (BOOL)valueIsEqualTo:(id)value;
 
