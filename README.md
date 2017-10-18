@@ -1,4 +1,4 @@
-# Classy [![Build Status](https://travis-ci.org/cloudkite/Classy.svg?branch=master)](https://travis-ci.org/cloudkite/Classy) [![Coverage Status](https://img.shields.io/coveralls/cloudkite/Classy.svg)](https://coveralls.io/r/cloudkite/Classy?branch=master) [![Carthage compatible](https://img.shields.io/badge/Carthage-compatible-4BC51D.svg?style=flat)](https://github.com/Carthage/Carthage) [![(https://img.shields.io/badge/iOS-9%2B-brightgreen.svg?style=flat)]()
+# Classy [![Build Status](https://travis-ci.org/cloudkite/Classy.svg?branch=master)](https://travis-ci.org/cloudkite/Classy) [![Coverage Status](https://img.shields.io/coveralls/cloudkite/Classy.svg)](https://coveralls.io/r/cloudkite/Classy?branch=master) [![Carthage compatible](https://img.shields.io/badge/Carthage-compatible-4BC51D.svg?style=flat)](https://github.com/Carthage/Carthage) [![iOS Level](https://img.shields.io/badge/iOS-9%2B-brightgreen.svg?style=flat)](https://developer.apple.com)
 
 ** Classy is [looking for contributors](https://github.com/cloudkite/Classy/issues/108) **
 
