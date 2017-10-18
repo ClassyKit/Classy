@@ -6,7 +6,7 @@ Not CSS. Instead of trying to force UIKit to fit CSS syntax, properties, convent
 
 Plays nice with Interface Builder and views created in code.
 
-For detailed usage see the [docs](http://classykit.github.io/Classy/).
+For detailed usage see the [docs](http://classykit.github.io/Classy/) or the [wiki](https://github.com/ClassyKit/Classy/wiki).
 
 ## Supports UIAppearance
 Classy supports all [UIAppearance properties and methods](https://github.com/cloudkite/Classy/blob/master/Tests/UIAppearance-setters.md) and much more. But instead of being limited to `+appearanceWhenContainedIn:` and `+appearance`,
