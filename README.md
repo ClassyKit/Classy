@@ -67,7 +67,7 @@ MYCustomView
 ## Live Reload
 Live reload can dramatically speed up your development time, with live reload enabled you can instantaneously see your stylesheet changes. Without having to rebuild and navigate back to the same spot within your app.
 
-For more details about these features and more visit the  [docs](http://classykit.github.io/Classy/).
+For more details about these features and more visit the  [docs](http://classykit.github.io/Classy/) or the [wiki](https://github.com/ClassyKit/Classy/wiki).
 
 ## Inspiration
 - Syntax inspired by [stylus](http://learnboost.github.io/stylus/)
