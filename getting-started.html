@@ -91,7 +91,7 @@ base_url: "../"
 - (BOOL)application:didFinishLaunchingWithOptions:</code> before you create your main UIWindow.</p>
     
       <p>Add the following:</p>
-      {% highlight objective-c %}[Classy bootstrapClassy]{% endhighlight %}
+      {% highlight objective-c %}[Classy bootstrapClassy];{% endhighlight %}
     </div>
   </div>
   
@@ -117,6 +117,7 @@ NSString filePath = [[NSBundle mainBundle] pathForResource:@"myStyles.cas" ofTyp
       <p>Otherwise you can set the filePath in your <b>AppDelegate.m</b> in <code>
 - (BOOL)application:didFinishLaunchingWithOptions:</code> before you create your main UIWindow.</p>
     
+      <p>Note that these routines should be performed after Classy is bootstrapped. See the bootstrapping section above.</p>
     </div>
   </div>
   
