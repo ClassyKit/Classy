@@ -77,6 +77,24 @@ base_url: "../"
     </div>
   </div>
   
+<!-- Bootstrapping Classy
+  ================================================== -->
+  <div class="bs-docs-section">
+    <div class="page-header">
+      <h1 id="install">Bootstrapping Classy</h1>
+    </div>
+    <p class="lead">Beginning with release v0.2.5, Classy must be manually bootstrapped.</p>
+    <div>
+      <p>If your main UIWindow is loaded from a XIB or storyboard you should bootstrap Classy in your <b>main.m</b> file inside the <code>int main(int argc, char * argv[])</code> method. This ensures your stylesheet is loaded before any windows are created.</p>
+      
+      <p>Otherwise you can bootstrap it in your <b>AppDelegate.m</b> in <code>
+- (BOOL)application:didFinishLaunchingWithOptions:</code> before you create your main UIWindow.</p>
+    
+      <p>Add the following:</p>
+      {% highlight objective-c %}[Classy bootstrapClassy]{% endhighlight %}
+    </div>
+  </div>
+  
 <!-- Default Stylesheet
   ================================================== -->
   <div class="bs-docs-section">
