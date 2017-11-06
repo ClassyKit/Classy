@@ -1,3 +1,7 @@
+v1.0.0
+======
+* Promoted v0.2.6 to v1.0.0 as basic functionaltiy is complete and functional.
+
 v0.2.6
 ======
 
